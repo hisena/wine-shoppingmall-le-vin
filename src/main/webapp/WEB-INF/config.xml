@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+	<!-- scan할 패키지-->
+	<scan-package name="kr.or.kosta.levin"/>
+	
+	<!-- SqlSessionFactory 관련 설정 -->
+	<sql-session-factory-configs>
+		<sql-session-factory-config  name="configLocation" value="mybatis-config.xml"/>
+		<sql-session-factory-config name="environment" value="development"/>
+	</sql-session-factory-configs>
+</configs>
+	
