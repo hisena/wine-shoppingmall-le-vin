@@ -20,6 +20,11 @@ import kr.or.kosta.levin.user.domain.Address;
 import kr.or.kosta.levin.user.domain.User;
 import kr.or.kosta.levin.user.service.UserService;
 
+/**
+ * 로그인 기능을 위한 세부 컨트롤러
+ * @author 박소연
+ *
+ */
 @Bean(type = BeanType.Controller)
 @RequestMapping(value = "/user/join")
 public class JoinController implements Controller {
@@ -39,11 +44,13 @@ public class JoinController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
+		// 회원가입 결과 변수 선언
 		boolean joinResult;
+		// frontController로 값을 보내기 위한 map 선언
 		Map<String, String> map = new HashMap<>();
+		// 화면에서 받은 파라미터값 처리
 		User user = new User();
 		Address address = new Address();
-
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 		user.setMobile(request.getParameter("mobile"));
@@ -54,15 +61,19 @@ public class JoinController implements Controller {
 		address.setZipCode(request.getParameter("zipCode"));
 
 		try {
+			// 파라미터값 null 유효성 검사
 			if (user.checkNull(user) && address.checkNull(address)) {
 				joinResult = userService.join(user, address);
+				// 회원 가입 성공시
 				if (joinResult) {
 					map.put("joinResult", "true");
 				} else {
+				// 실패시
 					map.put("joinResult", "false");
 				}
 				return map;
 			}else {
+				// 파라미터 값이 null값일 때 예외처리
 				throw new RequestBadRequestException();
 			}
 
