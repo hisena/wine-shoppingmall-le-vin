@@ -18,7 +18,7 @@
 	<!-- Listener 초기 파라메터 설정 -->
 	<context-param>
 		<param-name>configLocation</param-name>
-		<param-value>C:/KOSTA187/workspace/le-vin/src/main/webapp/WEB-INF/config.xml</param-value>
+		<param-value>C:/Users/znzn9/Desktop/BigDeep/Jsp_Source/le-vin/src/main/webapp/WEB-INF/config.xml</param-value>
 	</context-param>
 	
 	<!-- 필터 설정 -->

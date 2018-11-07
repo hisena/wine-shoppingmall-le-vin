@@ -1,0 +1,90 @@
+<meta charset="utf-8">
+<!-- 커스텀 css -->
+<link rel="stylesheet" href="css/custom/login_register.css">
+
+<!-- 로그인, 회원가입 -->
+<div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url(images/bg/5.jpg) no-repeat scroll center center / cover ;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <ul class="login__register__menu" role="tablist">
+          <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">로그인</a></li>
+          <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">회원가입</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="htc__login__register__wrap">
+          <!-- 로그인 -->
+          <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+            <form class="login">
+              <input type="email" name="email" placeholder="이메일">
+              <input type="password" name="password" placeholder="비밀번호">
+              <div class="tabs__checkbox">
+                <input type="checkbox" id="checkbox"><span>아이디 저장하기 </span>
+                <span class="forget"><a href="#find-pw" role="tab" data-toggle="tab">비밀번호 찾기</a></span>
+              </div>
+              <input type="submit" value="로그인" id="loginButton">
+            </form>
+          </div>                               
+          <!-- 회원가입 -->
+          <div id="register" role="tabpanel" class="single__tabs__panel tab-pane fade">
+            <form class="login">
+              <input type="email" id="email" name="email" placeholder="이메일">
+              <input type="button" onclick="#" id="emailConfirm" value="이메일 중복확인"><br>
+              <input type="password" name="password" placeholder="비밀번호">
+              <input type="password" placeholder="비밀번호 확인">
+              <input type="text" name="user_name" placeholder="이름">
+              <input type="text" name="mobile" placeholder="핸드폰 번호">
+              <input type="text" placeholder="주민등록 번호">
+              <input type="text" id="postcode" placeholder="우편번호">
+              <input type="button" onclick="execDaumPostcode()" id="postFinder" value="우편번호 찾기"><br>
+              <input type="text" id="address" placeholder="주소">
+              <input type="text" id="address2" placeholder="상세주소">
+              <input type="submit" value="회원가입" id="registButton">
+            </form>
+          </div>
+          <!-- 비밀번호 찾기-->
+          <div id="find-pw" role="tabpanel" class="single__tabs__panel tab-pane fade">
+            <form class="login">
+              <input type="email" name="email" placeholder="이메일">
+    		  <input type="text" placeholder="인증번호">
+    		  <div class="tabs__checkbox">
+                <span class="countTimeMinute"></span>분 
+                <span class="countTimeSecond"></span>초
+    			<span class="forget"><a href="#login" role="tab" data-toggle="tab">로그인</a></span>
+              </div>
+    		  <input type="button" value="비밀번호 찾기" id="findPwButton">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS 파일 -->
+<!-- Daum Api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/custom/daumApi.js"></script>
+<!-- Timer.js -->
+<script src="js/custom/timer.js"></script>
+<!-- 로그인 Ajax -->
+<script type="text/javascript">
+$(function() {
+	$("form:first").submit(function() {
+		var data = $(this).serialize();
+		
+		$.ajax("test.jsp", {
+			data: data,
+			dataType: "text",
+			success: function(data) {
+				alert(data);
+			}
+		});
+		
+		return false;
+	});
+});
+</script>
