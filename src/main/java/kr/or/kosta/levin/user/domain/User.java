@@ -1,11 +1,8 @@
 package kr.or.kosta.levin.user.domain;
 
 /**
-<<<<<<< HEAD
  * User기본 정보 관리를 위한 도메인 객체
-=======
  * User 기본 정보 관리를 위한 도메인 객체
->>>>>>> branch 'server_join' of https://github.com/leeseungeun/wine-shoppingmall-le-vin.git
  * @author 박소연
  *
  */
