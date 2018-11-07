@@ -8,56 +8,18 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <ul class="login__register__menu" role="tablist">
-          <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">로그인</a></li>
-          <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">회원가입</a></li>
+          <li role="presentation" class="login active"><a href="components/user/login.html" role="tab">로그인</a></li>
+          <li role="presentation" class="register"><a href="components/user/regist.html" role="tab">회원가입</a></li>
         </ul>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="htc__login__register__wrap">
-          <!-- 로그인 -->
-          <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-            <form class="login" name="login">
-              <input type="email" name="email" placeholder="이메일">
-              <input type="password" name="password" placeholder="비밀번호">
-              <div class="tabs__checkbox">
-                <input type="checkbox" id="checkbox"><span>아이디 저장하기 </span>
-                <span class="forget"><a href="#find-pw" role="tab" data-toggle="tab">비밀번호 찾기</a></span>
-              </div>
-              <input type="submit" value="로그인" id="loginButton">
-            </form>
+          <div role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+            <!-- 동적으로 내용이 바뀌는 부분 -->
+            <form class="login"></form>
           </div>                               
-          <!-- 회원가입 -->
-          <div id="register" role="tabpanel" class="single__tabs__panel tab-pane fade">
-            <form class="login">
-              <input type="email" id="email" name="email" placeholder="이메일">
-              <input type="button" onclick="#" id="emailConfirm" value="이메일 중복확인"><br>
-              <input type="password" name="password" placeholder="비밀번호">
-              <input type="password" placeholder="비밀번호 확인">
-              <input type="text" name="user_name" placeholder="이름">
-              <input type="text" name="mobile" placeholder="핸드폰 번호">
-              <input type="text" placeholder="주민등록 번호">
-              <input type="text" id="postcode" placeholder="우편번호">
-              <input type="button" onclick="execDaumPostcode()" id="postFinder" value="우편번호 찾기"><br>
-              <input type="text" id="address" placeholder="주소">
-              <input type="text" id="address2" placeholder="상세주소">
-              <input type="submit" value="회원가입" id="registButton">
-            </form>
-          </div>
-          <!-- 비밀번호 찾기-->
-          <div id="find-pw" role="tabpanel" class="single__tabs__panel tab-pane fade">
-            <form class="login">
-              <input type="email" name="email" placeholder="이메일">
-    		  <input type="text" placeholder="인증번호">
-    		  <div class="tabs__checkbox">
-                <span class="countTimeMinute"></span>분 
-                <span class="countTimeSecond"></span>초
-    			<span class="forget"><a href="#login" role="tab" data-toggle="tab">로그인</a></span>
-              </div>
-    		  <input type="button" value="비밀번호 찾기" id="findPwButton">
-            </form>
-          </div>
         </div>
       </div>
     </div>
@@ -75,7 +37,30 @@
 <script type="text/javascript" src="js/common/Validation.js"></script>
 <!-- 로그인 Ajax -->
 <script type="text/javascript">
+var baseUrl = 'http://localhost:8080/';
+function toggleTabClass() {
+	$('li.login').toggleClass('active');
+	$('li.register').toggleClass('active');
+}
 $(function() {
+	// 처음 실행 시에는 로그인 화면을 보여줌
+	$('form.login').load('components/user/login.html');
+	
+	// 탭의 CSS를 이벤트에 알맞게 바꿔줌
+	$(document).on("click", "li.login, li.register", function () {
+		toggleTabClass();
+    });
+	
+	// 화면을 탭에 따라 전환해주는 이벤트 등록
+	$(document).on('click', 'a[role="tab"]', function(event){
+		
+		// 기본 이벤트 실행을 방지
+		event.preventDefault();
+		
+		var fileToLoad = $(this).attr('href');
+		$('form.login').load(fileToLoad);
+	
+	});
 	
 	/**
 	 * 로그인 양식의 유효성 검사를 하는 자바 스크립트 파일
@@ -85,7 +70,7 @@ $(function() {
 		Validation.isValidPassword,
 	];
 	
-	$("form[name='login']").submit(function(event) {
+	$("#login form").submit(function(event) {
 		event.preventDefault();
 		
 		var validationResult = Validation.validAllInputs(loginFormRequiredValidations);
@@ -96,21 +81,42 @@ $(function() {
 		
 		var data = $(this).serialize();
 		
-		$.ajax("http://localhost:8080/le-vin/user/login.mall", {
+		$.ajax(baseUrl + "le-vin/user/login.mall", {
 			data: data,
 			dataType: "json",
 			success: function(data) {
-				alert(data);
-				$.each(data, function(index, login) {
-					setCookie(email, login.email, 0);
-				})
+				setCookie('email', data.email, 1);
 			},
 			error: function(data) {
+				console.log(data);
 				alert('에러발생');
 			}
 		});
 		
 		return false;
+	});
+	
+	$('#emailConfirm').click(function(){
+		
+		var emailElement = $('input[name="email"]')
+		
+		var validationResult = Validation.validAllInputs([Validation.isValidEmail]);
+		
+		if(!validationResult) {
+			return;
+		}
+		
+		$.ajax(baseUrl + "levin/user/email-duplicate-check.mall", {
+			data: 'email=' + (email.val()),
+			success: function(data) {
+				email.val(data.dupleResult);
+			},
+			error: function(data) {
+				console.log(data);
+				alert('에러발생');
+			}
+		});
+		
 	});
 });
 
