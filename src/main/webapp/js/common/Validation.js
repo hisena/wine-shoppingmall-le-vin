@@ -7,18 +7,18 @@ var Validation = {
 	// 유효성 검사에 관련된 정보를 저장하는 객체
 	metaData : {
 		'isValidEmail' : {
-			'selector' : 'input[name=email]',
+			'selector' : 'input[name="email"]',
 			'message' : '올바른 이메일 형식이 아닙니다.'
 		},
 		'isValidPassword' : {
-			'selector' : 'input[name=password]',
+			'selector' : 'input[name="password"]',
 			'message' : '올바른 비밀번호 형식이 아닙니다.'
 		},
 	},
 	// 선택자 정보를 이용해 검사 대상이 되는 input 태그를 가져오는 함수
 	getTargetInput : function(validationFunction) {
 		var metaDatum = Validation.metaData[validationFunction.name];
-		var selector = metaInfo['selector'];
+		var selector = metaDatum['selector'];
 
 		return $(selector);
 	},
@@ -40,9 +40,9 @@ Validation.isValidEmail = function isValidEmail() {
 
 // 비밀번호의 유효성을 검증하는 함수 
 // (영문 대소문자 8-16자)
-Validation.isValidPasswd = function isValidPasswd(){
+Validation.isValidPassword = function isValidPassword(){
 	
-	var passwd = Validation.getTargetValue(Validation.isValidPasswd);
+	var passwd = Validation.getTargetValue(Validation.isValidPassword);
 	var pattern = /[0-9a-zA-Z]{8,16}/;
 	
 	return pattern.test(passwd);
@@ -53,19 +53,18 @@ Validation.validAllInputs = function validAllInputs(validationFunctions) {
 	var isAllValid = true;
 
 	// 우선 메시지 초기화
-	Utils.deleteAllMessage(validationFunctions);
+	Utils.deleteAllMessagesUsingValidationFunction(validationFunctions);
 	
 	// 검증 관련 순회
 	for (var i = 0; i < validationFunctions.length; i++) {
 
 		// 관련 정보를 변수로 저장
 		var validation = validationFunctions[i];
-		
 		// 순회한 입력값에 대한 결과를 저장
 		var isValid = validation();
 		// 유효하지 않을 경우 메시지 표시
 		if (!isValid) {
-			Utils.showWarningMessage(validation);
+			Utils.createMessageUsingValidationFunction(validation);
 		}
 		
 		// 현재 유효성 검사값은 전체 유효성 검사 결과에 반영

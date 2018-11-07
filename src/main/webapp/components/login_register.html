@@ -18,7 +18,7 @@
         <div class="htc__login__register__wrap">
           <!-- 로그인 -->
           <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-            <form class="login">
+            <form class="login" name="login">
               <input type="email" name="email" placeholder="이메일">
               <input type="password" name="password" placeholder="비밀번호">
               <div class="tabs__checkbox">
@@ -70,10 +70,30 @@
 <script src="js/custom/daumApi.js"></script>
 <!-- Timer.js -->
 <script src="js/custom/timer.js"></script>
+<!-- 공통 함수 -->
+<script type="text/javascript" src="js/common/Utils.js"></script>
+<script type="text/javascript" src="js/common/Validation.js"></script>
 <!-- 로그인 Ajax -->
 <script type="text/javascript">
 $(function() {
-	$("form:first").submit(function() {
+	
+	/**
+	 * 로그인 양식의 유효성 검사를 하는 자바 스크립트 파일
+	 */
+	var loginFormRequiredValidations = [
+		Validation.isValidEmail,
+		Validation.isValidPassword,
+	];
+	
+	$("form[name='login']").submit(function(event) {
+		event.preventDefault();
+		
+		var validationResult = Validation.validAllInputs(loginFormRequiredValidations);
+		
+		if(!validationResult) {
+			return false;
+		}
+		
 		var data = $(this).serialize();
 		
 		$.ajax("http://localhost:8080/le-vin/user/login.mall", {

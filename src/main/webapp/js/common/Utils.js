@@ -13,7 +13,7 @@ var Utils = {
 			text: message,
 		})
 		.addClass('message')
-		.insertAfter(elemnt);
+		.insertAfter(element);
 	},
 	/**
 	 * message를 담은 p 태그를 삭제하는 함수
@@ -26,4 +26,31 @@ var Utils = {
 		}
 	}
 };
+// 유효성 검색 함수를 이용해 메시지를 추가하는 함수
+Utils.createMessageUsingValidationFunction = function createMessageUsingValidationFunction(validationFunction){
+	
+	var inputElement = Validation.getTargetInput(validationFunction);
+	
+	var metaDatum = Validation.metaData[validationFunction.name];
+	var message = metaDatum['message'];
+	
+	Utils.createMessage(message, inputElement);
+};
 
+// 유효성 검사 함수를 이용해 메시지를 삭제하는 함수
+Utils.deleteMessageUsingValidationFunction = function deleteMessageUsingValidationFunction(validationFunction) {
+	var inputElement = Validation.getTargetInput(validationFunction);
+	Utils.deleteMessage(inputElement);
+};
+
+// 유효성 검사 함수들을 이용해 모든 메시지를 삭제하는 함수
+Utils.deleteAllMessagesUsingValidationFunction = function deleteAllMessagesUsingValidationFunction(validationFunctions) {
+	
+	for (var i = 0; i < validationFunctions.length; i++) {
+
+		var inputElement = Validation.getTargetInput(validationFunctions[i]);
+		Utils.deleteMessage(inputElement);
+		
+	}
+	
+};
