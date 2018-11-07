@@ -43,11 +43,6 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public User search(String id) throws Exception {
-		return userDao.read(id);
-	}
-
-	@Override
 	public List<User> list() throws Exception {
 		return userDao.listAll();
 	}
@@ -78,6 +73,12 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return flag;
+	}
+
+	@Override
+	public User search(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
