@@ -39,20 +39,17 @@ public class DuplController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 		
-		Map<String, String> emailAvailable = null;
+		String email = request.getParameter("email");
+		Map<String, String> emailAvailable;
 		try {
+		if(email !=null && email.trim().length() != 0) {
 			emailAvailable = userService.emailDuplicate("abcde1234@naver.com");
-			if(emailAvailable == null) {
-				throw new RequestUnauthorizedException();
-			}else {
-				return emailAvailable;
-			}
+			return emailAvailable;
+	      }else {
+	    	  throw new RequestUnauthorizedException();
+	      }
 		} catch (Exception e) {
-			throw new ServletException("UserService.login() 예외 발생", e);
+			throw new ServletException("UserService.emailDuplicate() 예외 발생", e);
 		}
-		
-		
-
 	}
-
 }

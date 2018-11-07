@@ -9,6 +9,12 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.user.dao.UserDao;
 import kr.or.kosta.levin.user.domain.User;
 
+/**
+ * 비즈니스 메소드 구현
+ * @author 류세은, 박소연
+ *
+ */
+
 @Bean(type=BeanType.Service)
 public class UserServiceImpl implements UserService {
 	

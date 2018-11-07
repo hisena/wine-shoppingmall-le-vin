@@ -63,15 +63,20 @@ public class MybatisUserDao implements UserDao {
 		return list;
 	}
 
+	/**
+	 * 이메일 중복확인
+	 */
 	@Override
 	public Map<String, String> certifyEmail(String email) throws Exception {
 		Map<String, String> emailAvailable;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		emailAvailable = sqlSession.selectOne(NAMESPACE + "emailCertify", email);
+		emailAvailable = sqlSession.selectOne(NAMESPACE + "certifyEmail", email);
 		sqlSession.close();
 		return emailAvailable;
 	}
-
+	/**
+	 * 회원 로그인
+	 */
 	@Override
 	public Map<String, String> certify(String email, String passwd) throws Exception {
 		User user = new User();

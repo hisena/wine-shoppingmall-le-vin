@@ -26,7 +26,7 @@
 	<!-- 회원가입 이메일 중복확인 -->
 	<select id="certifyEmail" parameterType="String" resultType="map" >
 		SELECT email 
-		FROM     levin_users 
+		FROM   levin_users 
 		WHERE  email = #{email} 
 	</select>
 </mapper>
