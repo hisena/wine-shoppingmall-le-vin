@@ -66,10 +66,9 @@ public class User {
 	
 	public boolean checkNull(User user) {
 		
-		if(user.getEmail().trim().length() == 0 || user.getEmail() == null
-				|| user.getPassword().trim().length() == 0 || user.getPassword() == null
-				|| user.getMobile().trim().length() == 0 || user.getMobile() == null
-				|| user.getUserName().trim().length() == 0 || user.getUserName() == null) {
+		if(user.getEmail() == null || user.getPassword() == null || user.getMobile() == null || user.getUserName() == null
+				|| user.getEmail().trim().length() == 0 || user.getPassword().trim().length() == 0 
+				|| user.getMobile().trim().length() == 0 || user.getUserName().trim().length() == 0 ) {
 			return false;
 		}
 		return true;

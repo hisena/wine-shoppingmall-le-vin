@@ -44,49 +44,27 @@ public class JoinController implements Controller {
 		User user = new User();
 		Address address = new Address();
 
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String userName = request.getParameter("UserName");
-		String mobile = request.getParameter("mobile");
-		String addre = request.getParameter("address");
-		String detailedAdd = request.getParameter("detailedAddress");
-		String zipCode = request.getParameter("zipCode");
-		//String email = null;
-
-		if (email != null && password != null && userName != null
-				&& mobile != null && addre != null && detailedAdd != null && zipCode != null && email.trim().length() != 0 && password.trim().length() != 0 && userName.trim().length() != 0
-				&& mobile.trim().length() != 0 && addre.trim().length() != 0 && detailedAdd.trim().length() != 0
-				&& zipCode.trim().length() != 0) {
-
-			user.setEmail(email);
-			user.setPassword(password);
-			user.setMobile(mobile);
-			user.setUserName(userName);
-			address.setEmail(email);
-			address.setAddress(addre);
-			address.setDetailedAddress(detailedAdd);
-			address.setZipCode(zipCode);
-		} else {
-			throw new RequestBadRequestException();
-		}
-
-		/*
-		 * user.setEmail("test0003@naver.com"); user.setPassword("test0003");
-		 * user.setUserName("서버테"); user.setMobile("010-3333-3333");
-		 * address.setAddress("서울시 테삼구 테삼동 333-33");
-		 * address.setEmail("test0003@naver.com");
-		 * address.setDetailedAddress("이노플렉스 303호"); address.setZipCode("33-333");
-		 */
+		user.setEmail(request.getParameter("email"));
+		user.setPassword(request.getParameter("password"));
+		user.setMobile(request.getParameter("mobile"));
+		user.setUserName(request.getParameter("UserName"));
+		address.setEmail(request.getParameter("email"));
+		address.setAddress(request.getParameter("address"));
+		address.setDetailedAddress(request.getParameter("detailedAddress"));
+		address.setZipCode(request.getParameter("zipCode"));
 
 		try {
-
-			joinResult = userService.join(user, address);
-			if (joinResult) {
-				map.put("joinResult", "true");
-			} else {
-				map.put("joinResult", "false");
+			if (user.checkNull(user) && address.checkNull(address)) {
+				joinResult = userService.join(user, address);
+				if (joinResult) {
+					map.put("joinResult", "true");
+				} else {
+					map.put("joinResult", "false");
+				}
+				return map;
+			}else {
+				throw new RequestBadRequestException();
 			}
-			return map;
 
 		} catch (Exception e) {
 			throw new ServletException("UserService.join() 예외 발생", e);

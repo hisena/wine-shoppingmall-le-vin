@@ -83,12 +83,12 @@ public class Address {
 	}
 	
 	/** 도메인 객체 값의 null을 체크하기 위한 함수*/
-	public boolean checkNull() {
+	public boolean checkNull(Address address) {
 		
-		if(email.trim().length() == 0 || email == null
-				|| address.trim().length() == 0 || address == null
-				|| detailedAddress.trim().length() == 0 || detailedAddress == null
-				|| zipCode.trim().length() == 0 || zipCode == null) {
+		if(address.getEmail() == null || address.getAddress() == null || address.getZipCode() == null || address.getDetailedAddress() == null
+				|| address.getEmail().trim().length() == 0 || address.getAddress().trim().length() == 0 
+				|| address.getDetailedAddress().trim().length() == 0 
+				|| address.getZipCode().trim().length() == 0 ) {
 			return false;
 		}
 		return true;
