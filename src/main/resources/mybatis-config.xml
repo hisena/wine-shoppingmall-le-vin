@@ -50,6 +50,7 @@
 	<mappers>
 		<!-- 클래스패스에 위치한 XML 매퍼 파일 지정 -->
 		<mapper resource="mappers/UserMapper.xml"  />
+		<mapper resource="mappers/AddressMapper.xml"  />
 				
 		<!-- URL을 사용한 XML 매퍼 파일 지정 -->
 		<!-- <mapper url="file:///c:/someProject/mapper/SomeMapper.xml" />	 -->

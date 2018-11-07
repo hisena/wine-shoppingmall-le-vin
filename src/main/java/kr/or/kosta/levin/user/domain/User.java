@@ -64,6 +64,17 @@ public class User {
 				+ ", regdate=" + regdate + "]";
 	}
 	
+	public boolean checkNull(User user) {
+		
+		if(user.getEmail().trim().length() == 0 || user.getEmail() == null
+				|| user.getPassword().trim().length() == 0 || user.getPassword() == null
+				|| user.getMobile().trim().length() == 0 || user.getMobile() == null
+				|| user.getUserName().trim().length() == 0 || user.getUserName() == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	
 	
 }

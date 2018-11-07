@@ -31,7 +31,12 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public void create(User user) throws Exception {
+	public boolean create(User user) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.insert(NAMESPACE + "createUser", user);
+		sqlSession.commit();
+		sqlSession.close();
+		return result == 1;
 	}
 
 	@Override

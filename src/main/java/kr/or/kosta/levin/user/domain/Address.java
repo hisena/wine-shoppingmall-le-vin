@@ -82,4 +82,16 @@ public class Address {
 				+ ", detailedAddress=" + detailedAddress + ", regdate=" + regdate + ", delyn=" + delyn + "]";
 	}
 	
+	/** 도메인 객체 값의 null을 체크하기 위한 함수*/
+	public boolean checkNull() {
+		
+		if(email.trim().length() == 0 || email == null
+				|| address.trim().length() == 0 || address == null
+				|| detailedAddress.trim().length() == 0 || detailedAddress == null
+				|| zipCode.trim().length() == 0 || zipCode == null) {
+			return false;
+		}
+		return true;
+	}
+	
 }

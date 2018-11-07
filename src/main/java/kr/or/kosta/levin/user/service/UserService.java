@@ -3,6 +3,7 @@ package kr.or.kosta.levin.user.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.levin.user.domain.Address;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
@@ -19,6 +20,9 @@ public interface UserService {
 	public List<User> list() throws Exception;
 	
 	/** 로그인 */
-	public Map<String, String> login(String email, String passwd) throws Exception; 
+	public Map<String, String> login(String email, String passwd) throws Exception;
+	
+	/** 회원가입 */
+	public boolean join(User user, Address address) throws Exception;
 
 }

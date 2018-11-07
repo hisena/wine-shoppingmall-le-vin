@@ -13,7 +13,7 @@ import kr.or.kosta.levin.user.domain.User;
  */
 public interface UserDao {
 	
-	public void create(User user) throws Exception;
+	public boolean create(User user) throws Exception;
 	
 	public User read(String id) throws Exception;
 	
