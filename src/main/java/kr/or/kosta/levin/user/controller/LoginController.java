@@ -40,7 +40,6 @@ public class LoginController implements Controller {
 			if(loginInfo == null) {
 				throw new RequestUnauthorizedException();
 			}else {
-				System.out.println(loginInfo.toString());
 				return loginInfo;
 			}
 		} catch (Exception e) {
