@@ -1,6 +1,7 @@
 package kr.or.kosta.levin.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
@@ -30,6 +31,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> list() throws Exception {
 		return userDao.listAll();
+	}
+
+	@Override
+	public Map<String, String> login(String id, String passwd) throws Exception {
+		
+		return userDao.certify(id, passwd);
 	}
 
 }

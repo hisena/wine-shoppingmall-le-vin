@@ -1,49 +1,56 @@
 package kr.or.kosta.levin.user.domain;
 
+/**
+ * User기본 정보 관리를 위한 도메인 객체
+ * @author 박소연
+ *
+ */
 public class User {
 	
-	private String id;
-	private String name;
-	private String passwd;
-	private String email;
+	private String email;                                    
+	private String password;                                  
+	private String userName;                                 
+	private String mobile;                                 
 	private String regdate;
 	
+	// 기본생성자
 	public User() {
 		super();
 	}
 	
-	public User(String id, String name, String passwd, String email, String regdate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.passwd = passwd;
+	// 매개변수 있는 생성자
+	public User(String email, String password, String userName, String mobile, String regdate) {
 		this.email = email;
+		this.password = password;
+		this.userName = userName;
+		this.mobile = mobile;
 		this.regdate = regdate;
 	}
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
+	// getter/setter
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public String getRegdate() {
 		return regdate;
@@ -53,7 +60,10 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", passwd=" + passwd + ", email=" + email + ", regdate=" + regdate
-				+ "]";
+		return "User [email=" + email + ", password=" + password + ", userName=" + userName + ", mobile=" + mobile
+				+ ", regdate=" + regdate + "]";
 	}
+	
+	
+	
 }

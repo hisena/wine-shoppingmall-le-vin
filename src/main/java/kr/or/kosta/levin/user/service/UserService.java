@@ -1,6 +1,7 @@
 package kr.or.kosta.levin.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.levin.user.domain.User;
 
@@ -16,5 +17,8 @@ public interface UserService {
 	
 	/** 회원 목록 */
 	public List<User> list() throws Exception;
+	
+	/** 로그인 */
+	public Map<String, String> login(String email, String passwd) throws Exception; 
 
 }

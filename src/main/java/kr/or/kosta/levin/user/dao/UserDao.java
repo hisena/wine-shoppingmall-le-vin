@@ -23,7 +23,7 @@ public interface UserDao {
 	
 	public List<User> listAll() throws Exception;
 	
-	public User certify(String id, String passwd) throws Exception;
+	public Map<String, String> certify(String email, String passwd) throws Exception;
 	
 	public List<Map<String, String>> employeeList() throws Exception;
 	

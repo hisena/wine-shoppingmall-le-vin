@@ -3,7 +3,7 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
                         
 <!-- 네임스페이스(사용영역) 설정 -->
-<mapper namespace="kr.or.kosta.shoppingmall.user">
+<mapper namespace="kr.or.kosta.levin.user">
 	
 	<!-- 전체회원 조회 -->
 	<select id="listAll" resultType="User" >
@@ -13,6 +13,14 @@
 		       email                                     "email", 
 		       TO_CHAR(regdate, 'YYYY/MM/DD HH24:MI:SS') "regdate"
 		FROM   users 
+	</select>
+	
+	<!-- 전체회원 조회 -->
+	<select id="certifyUser" parameterType="User" resultType="map" >
+		SELECT email 
+		FROM   levin_users 
+		WHERE  email = #{email}
+       	AND password = #{password}
 	</select>
 		
 </mapper>

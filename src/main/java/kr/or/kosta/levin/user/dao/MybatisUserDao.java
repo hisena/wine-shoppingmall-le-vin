@@ -17,7 +17,7 @@ import kr.or.kosta.levin.user.domain.User;
 @Bean(type=BeanType.Repository)
 public class MybatisUserDao implements UserDao {
 	
-	private static final String NAMESPACE = "kr.or.kosta.shoppingmall.user.";
+	private static final String NAMESPACE = "kr.or.kosta.levin.user.";
 	
 	@Inject
 	private SqlSessionFactory sqlSessionFactory;
@@ -60,17 +60,20 @@ public class MybatisUserDao implements UserDao {
 	
 
 	@Override
-	public User certify(String id, String passwd) throws Exception {
-		return null;
+	public Map<String, String> certify(String email, String passwd) throws Exception {
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(passwd);
+		Map<String, String> loginInfo = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		loginInfo = sqlSession.selectOne(NAMESPACE + "certifyUser", user);
+		sqlSession.close();
+		return loginInfo;
 	}
 	
 	private User createUser(ResultSet rs) throws SQLException{
 		User user = new User();
-		user.setId(rs.getString("id"));
-		user.setName(rs.getString("name"));
-		user.setPasswd(rs.getString("passwd"));
-		user.setEmail(rs.getString("email"));
-		user.setRegdate(rs.getString("regdate"));
+		
 		return user;
 	}
 	
