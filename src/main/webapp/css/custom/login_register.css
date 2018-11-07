@@ -1,0 +1,59 @@
+.tabs__checkbox span.forget a {
+	font-size: 14px;
+}
+
+.login input, .login input + input  {
+	margin-bottom: 30px;
+    margin-top: 0;
+}
+
+.login input:last-child {
+	margin-top: 0;
+}
+
+#checkbox {
+	width: 14px;
+	height: 14px;
+}
+
+#loginButton, #registButton, #findPwButton {
+	border: 1px solid #d5d5d5;
+    display: block;
+    margin: auto;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    transition: all 0.5s ease 0s;
+    width: 150px;
+    color: #4b4b4b;
+    text-transform: uppercase;
+}
+
+#email, #postcode {
+	display: inline;
+	width: 60%;
+}
+
+#emailConfirm, #postFinder {
+	display: inline;
+	width: 30%;
+	float: right;
+	border: 1px solid #d5d5d5;
+    display: inline-block;
+    font-size: 13px;
+    height: 42px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    transition: all 0.5s ease 0s;
+    color: #4b4b4b;
+    text-transform: uppercase;
+}
+
+#emailConfirm:hover, #postFinder:hover, #loginButton:hover, #registButton:hover, #findPwButton:hover {
+	background: #ff4136;
+    color: #fff;
+    text-shadow: none;
+}

@@ -15,11 +15,11 @@ import kr.or.kosta.levin.common.web.Params;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
- * UserDao 인터페이스 기능 구현
+ * User 정보와 DB를 연동하기 위한 구현 클래스
  * @author 류세은, 박소연
  *
  */
-@Bean(type = BeanType.Repository)
+@Bean(type=BeanType.Repository)
 public class MybatisUserDao implements UserDao {
 
 	private static final String NAMESPACE = "kr.or.kosta.levin.user.";
@@ -36,7 +36,23 @@ public class MybatisUserDao implements UserDao {
 	}
 
 	@Override
-	public void create(User user) throws Exception {
+	public boolean create(User user) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int result = sqlSession.insert(NAMESPACE + "createUser", user);
+		boolean flag = false;
+		// insert에 성공했으면
+		if(result == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			flag = true;
+		}else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return flag;
+		
 	}
 
 	@Override

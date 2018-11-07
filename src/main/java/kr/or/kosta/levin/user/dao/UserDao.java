@@ -7,13 +7,18 @@ import kr.or.kosta.levin.common.web.Params;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
+<<<<<<< HEAD
  * Dao 패턴 적용을 위한 인터페이스 선언
+=======
+ * Address 정보와 DB연동을 위한 인터페이스
+>>>>>>> branch 'develop' of https://github.com/leeseungeun/wine-shoppingmall-le-vin.git
  * @author 류세은, 박소연
  *
  */
 public interface UserDao {
 	
-	public void create(User user) throws Exception;
+	/** 회원 가입시 회원 기본 정보 등록*/
+	public boolean create(User user) throws Exception;
 	
 	public User read(String id) throws Exception;
 	
@@ -25,6 +30,7 @@ public interface UserDao {
 	
 	public Map<String, String> certifyEmail(String email) throws Exception;
 	
+	/** 로그인 */
 	public Map<String, String> certify(String email, String passwd) throws Exception;
 	
 	public List<Map<String, String>> employeeList() throws Exception;
