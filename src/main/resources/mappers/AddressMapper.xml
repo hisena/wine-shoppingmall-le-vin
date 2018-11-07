@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 회원 기능 중, Address table에 접근하는 sql -->                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.user">
+	
+	<!-- 주소 정보 등록 -->
+	<insert  id="createAddress" parameterType="Address">
+		INSERT INTO levin_address
+		(
+					address_id,
+					email,
+					address,
+					zip_code,
+					detailed_address,
+          			regdate
+		)VALUES(
+					address_id_seq.nextval,
+          			#{email},
+					#{address},
+					#{zipCode},
+					#{detailedAddress},
+					sysdate
+		)
+	</insert>
+		
+</mapper>

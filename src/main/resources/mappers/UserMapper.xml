@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-                        
+<!-- User table에 접근하는 sql -->                        
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.levin.user">
 	
@@ -15,12 +15,30 @@
 		FROM   users 
 	</select>
 	
-	<!-- 전체회원 조회 -->
+	<!-- 로그인 -->
 	<select id="certifyUser" parameterType="User" resultType="map" >
 		SELECT email 
 		FROM   levin_users 
 		WHERE  email = #{email}
        	AND password = #{password}
 	</select>
+	
+	<!-- 회원 기본 정보 등록 -->
+	<insert  id="createUser" parameterType="User">
+		INSERT INTO levin_users
+		(
+					email,
+					password,
+					user_name,
+					mobile,
+					regdate
+		)VALUES(
+					#{email},
+					#{password},
+					#{userName},
+					#{mobile},
+					sysdate
+		)
+	</insert>
 		
 </mapper>
