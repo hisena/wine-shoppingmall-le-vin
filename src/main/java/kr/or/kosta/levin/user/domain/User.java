@@ -2,6 +2,7 @@ package kr.or.kosta.levin.user.domain;
 
 /**
  * User기본 정보 관리를 위한 도메인 객체
+ * User 기본 정보 관리를 위한 도메인 객체
  * @author 박소연
  *
  */
@@ -13,7 +14,7 @@ public class User {
 	private String mobile;                                 
 	private String regdate;
 	
-	// 기본생성자
+	// 기본 생성자
 	public User() {
 		super();
 	}
@@ -64,6 +65,14 @@ public class User {
 				+ ", regdate=" + regdate + "]";
 	}
 	
-	
+	public boolean checkNull(User user) {
+		
+		if(user.getEmail() == null || user.getPassword() == null || user.getMobile() == null || user.getUserName() == null
+				|| user.getEmail().trim().length() == 0 || user.getPassword().trim().length() == 0 
+				|| user.getMobile().trim().length() == 0 || user.getUserName().trim().length() == 0 ) {
+			return false;
+		}
+		return true;
+	}
 	
 }
