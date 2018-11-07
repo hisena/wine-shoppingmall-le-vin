@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.listAll();
 	}
 
+	
+	@Override
+	public Map<String, String> emailDuplicate(String email) throws Exception {
+		return userDao.certifyEmail(email);
+	}
 	@Override
 	public Map<String, String> login(String id, String passwd) throws Exception {
 		

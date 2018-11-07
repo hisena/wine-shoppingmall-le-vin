@@ -8,7 +8,7 @@ import kr.or.kosta.levin.user.domain.User;
 /**
  * 고객의 요구사항을 반영한 도메인(개발하고자 하는 업무영역)별 비즈니스 메소드 선언
  * 복잡한 트랜잭션 처리, 예외처리 등
- * @author 김기정
+ * @author 류세은, 박소연
  */
 public interface UserService {
 	
@@ -21,4 +21,6 @@ public interface UserService {
 	/** 로그인 */
 	public Map<String, String> login(String email, String passwd) throws Exception; 
 
+	/** 이메일 중복확인 */
+	public Map<String, String> emailDuplicate(String email) throws Exception;
 }

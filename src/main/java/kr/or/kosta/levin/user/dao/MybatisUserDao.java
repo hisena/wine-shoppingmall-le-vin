@@ -14,11 +14,16 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.web.Params;
 import kr.or.kosta.levin.user.domain.User;
 
-@Bean(type=BeanType.Repository)
+/**
+ * UserDao 인터페이스 기능 구현
+ * @author 류세은, 박소연
+ *
+ */
+@Bean(type = BeanType.Repository)
 public class MybatisUserDao implements UserDao {
-	
+
 	private static final String NAMESPACE = "kr.or.kosta.levin.user.";
-	
+
 	@Inject
 	private SqlSessionFactory sqlSessionFactory;
 
@@ -57,7 +62,15 @@ public class MybatisUserDao implements UserDao {
 		sqlSession.close();
 		return list;
 	}
-	
+
+	@Override
+	public Map<String, String> certifyEmail(String email) throws Exception {
+		Map<String, String> emailAvailable;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		emailAvailable = sqlSession.selectOne(NAMESPACE + "emailCertify", email);
+		sqlSession.close();
+		return emailAvailable;
+	}
 
 	@Override
 	public Map<String, String> certify(String email, String passwd) throws Exception {
@@ -70,14 +83,13 @@ public class MybatisUserDao implements UserDao {
 		sqlSession.close();
 		return loginInfo;
 	}
-	
-	private User createUser(ResultSet rs) throws SQLException{
+
+	private User createUser(ResultSet rs) throws SQLException {
 		User user = new User();
-		
+
 		return user;
 	}
-	
-	
+
 	@Override
 	public List<Map<String, String>> employeeList() throws Exception {
 		return null;
@@ -113,13 +125,3 @@ public class MybatisUserDao implements UserDao {
 		return 0;
 	}
 }
-
-
-
-
-
-
-
-
-
-

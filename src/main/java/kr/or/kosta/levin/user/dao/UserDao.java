@@ -8,7 +8,7 @@ import kr.or.kosta.levin.user.domain.User;
 
 /**
  * Dao 패턴 적용을 위한 인터페이스 선언
- * @author 김기정
+ * @author 류세은, 박소연
  *
  */
 public interface UserDao {
@@ -22,6 +22,8 @@ public interface UserDao {
 	public void delete(String id) throws Exception;
 	
 	public List<User> listAll() throws Exception;
+	
+	public Map<String, String> certifyEmail(String email) throws Exception;
 	
 	public Map<String, String> certify(String email, String passwd) throws Exception;
 	
