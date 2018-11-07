@@ -14,6 +14,10 @@ var Validation = {
 			'selector' : 'input[name="password"]',
 			'message' : '올바른 비밀번호 형식이 아닙니다.'
 		},
+		'isEmailDuplicationChecked' : {
+			'selector' : 'input[name="emailDuplicationCheck"]',
+			'message' : '중복 검사를 통과하지 못했습니다.'
+		},
 	},
 	// 선택자 정보를 이용해 검사 대상이 되는 input 태그를 가져오는 함수
 	getTargetInput : function(validationFunction) {
@@ -34,9 +38,13 @@ Validation.isValidEmail = function isValidEmail() {
 	
 	var email = Validation.getTargetValue(Validation.isValidEmail);
 	var pattern = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[\w]+)+$/;
-	
 	return pattern.test(email);
 };
+
+// 이메일 중복 검사 여부를 확인하는 함수
+Validation.isEmailDuplicationChecked = function isEmailDuplicationChecked() {
+	return Validation.getTargetValue(Validation.isEmailDuplicationChecked) === 'true';
+}
 
 // 비밀번호의 유효성을 검증하는 함수 
 // (영문 대소문자 8-16자)
@@ -62,6 +70,7 @@ Validation.validAllInputs = function validAllInputs(validationFunctions) {
 		var validation = validationFunctions[i];
 		// 순회한 입력값에 대한 결과를 저장
 		var isValid = validation();
+		
 		// 유효하지 않을 경우 메시지 표시
 		if (!isValid) {
 			Utils.createMessageUsingValidationFunction(validation);
