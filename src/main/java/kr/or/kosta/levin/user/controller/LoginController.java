@@ -34,9 +34,12 @@ public class LoginController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
 		Map<String, String> loginInfo = null;
 		try {
-			loginInfo = userService.login("abcde1234@naver.com","abcde1234");
+			loginInfo = userService.login(email,password);
 			if(loginInfo == null) {
 				throw new RequestUnauthorizedException();
 			}else {
@@ -45,9 +48,5 @@ public class LoginController implements Controller {
 		} catch (Exception e) {
 			throw new ServletException("UserService.login() 예외 발생", e);
 		}
-		
-		
-
 	}
-
 }
