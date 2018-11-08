@@ -322,19 +322,6 @@
 <!-- 쿠키를 설정하는 자바스크립트 파일 -->
 <script src="js/common/cookie.js"></script>
 
-<!-- 로그인 확인 -->
-<script>
-$(function(){
-	var email = getCookie("email");
-	var user = email.split("@");
-	if (email != "") {
-		$('#user').html(user[0] + "님 로그인 중...")
-		$('#user').css("display", "block");
-		$('#login_register').attr("id", "item");
-	}
-});
-</script>
-
 <!-- 로그아웃 -->
 <script>
 $(function() {

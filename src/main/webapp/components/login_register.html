@@ -41,7 +41,6 @@
 <script type="text/javascript" src="js/common/Validation.js"></script>
 <!-- 동적으로 내용 전환 -->
 <script>
-<!-- 로그인 Ajax -->
 var baseUrl = 'http://localhost:80/le-vin/';
 function toggleTabClass() {
 	$('li.login').toggleClass('active');
@@ -74,6 +73,7 @@ $(function() {
 		Validation.isValidPassword,
 	];
 	
+	// 로그인 Ajax
 	$("#login form").submit(function(event) {
 		event.preventDefault();
 		
