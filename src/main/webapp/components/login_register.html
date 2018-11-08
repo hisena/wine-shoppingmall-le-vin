@@ -37,8 +37,8 @@
 <!-- 스낵바 -->
 <script src="js/common/snackbar.js"></script>
 <!-- 공통 함수 -->
-<script type="text/javascript" src="js/common/Utils.js"></script>
-<script type="text/javascript" src="js/common/Validation.js"></script>
+<script src="js/common/Utils.js"></script>
+<script src="js/common/Validation.js"></script>
 <!-- 동적으로 내용 전환 -->
 <script>
 var baseUrl = 'http://localhost:80/le-vin/';
@@ -64,41 +64,5 @@ $(function() {
 		var fileToLoad = $(this).attr('href');
 		$('form.login').load(fileToLoad);
 	});	
-	
-	/**
-	 * 로그인 양식의 유효성 검사를 하는 자바 스크립트 파일
-	 */
-	var loginFormRequiredValidations = [
-		Validation.isValidEmail,
-		Validation.isValidPassword,
-	];
-	
-	// 로그인 Ajax
-	$("#login form").submit(function(event) {
-		event.preventDefault();
-		
-		var validationResult = Validation.validAllInputs(loginFormRequiredValidations);
-		
-		if(!validationResult) {
-			return false;
-		}
-		
-		var data = $(this).serialize();
-		
-		$.ajax(baseUrl + "le-vin/user/login.mall", {
-			data: data,
-			dataType: "json",
-			success: function(data) {
-				setCookie('email', data.email, 1);
-			},
-			error: function(data) {
-				console.log(data);
-				alert('에러발생');
-			}
-		});
-		
-		return false;
-	});
-	
 });
 </script>
