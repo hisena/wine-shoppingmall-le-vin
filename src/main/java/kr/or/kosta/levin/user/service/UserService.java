@@ -26,4 +26,8 @@ public interface UserService {
 
 	/** 이메일 중복확인 */
 	public Map<String, String> emailDuplicate(String email) throws Exception;
+	
+	/** 회원정보 수정 */
+	public boolean changeInfo(User user) throws Exception;
+	
 }

@@ -78,7 +78,23 @@ public class UserServiceImpl implements UserService {
 		}
 		return flag;
 	}
-
+	
+	/** 회원정보 수정 */
+	@Override
+	public boolean changeInfo(User user) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+	
+		//회원정보 수정 성공여부 확인
+		result = userDao.updateInfo(user);
+		if(result) { //회원정보 수정에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
+	
+	
+	
 	@Override
 	public User search(String id) throws Exception {
 		// TODO Auto-generated method stub

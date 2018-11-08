@@ -49,5 +49,15 @@
 					sysdate
 		)
 	</insert>
-		
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateInfo" parameterType="User">
+		UPDATE levin_users
+		<set>
+	        <if test="password != null">password = #{password},</if>
+	        <if test="mobile != null">mobile = #{mobile}</if>
+	    </set>
+	    WHERE email = #{email}
+	</update>
+	 
 </mapper>

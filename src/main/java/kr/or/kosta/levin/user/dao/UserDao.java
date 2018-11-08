@@ -33,6 +33,9 @@ public interface UserDao {
 	/** 로그인 */
 	public Map<String, String> certify(String email, String passwd) throws Exception;
 	
+	/** 회원정보 수정 */
+	public boolean updateInfo(User user) throws Exception;
+	
 	public List<Map<String, String>> employeeList() throws Exception;
 	
 	/** 선택페이지에 따른 사용자 목록 반환 */	
