@@ -15,6 +15,7 @@
 <input type="text" id="address" name="address" placeholder="주소" readonly>
 <input type="text" id="address2" name="detailedAddress" placeholder="상세주소">
 <input type="submit" value="회원가입" id="registButton">
+<div id="snackbar"></div>
 
 <script type="text/javascript">
 	$(function() {
@@ -67,8 +68,10 @@
 			Validation.isZipCodeAndAddressEntered,
 			Validation.isDetailedAddressEntered,
 		];
+		// 회원가입 서버 통신
 		$('form.login').submit(function(event){
 			
+			// 유효성 검사
 			event.preventDefault();
 			
 			var validationResult = Validation.validAllInputs(registerFormRequiredValidations);
@@ -76,6 +79,39 @@
 			if(!validationResult) {
 				return false;
 			}
+			
+			// 데이터 직렬화 & 통신 
+			var data = $(this).serialize();
+			
+			$.ajax(baseUrl + "le-vin/user/join.mall", {
+				data: data,
+				dataType: "JSON",
+				method: "POST",
+				success: function(data) {
+					var result = data.joinResult === 'true';
+					var message;
+					
+					if (result) {
+						
+						$('form.login').load('components/user/login.html');
+						toggleTabClass();
+						message = '회원 가입에 성공하셨습니다. 로그인해 서비스를 이용해주세요.'
+						
+					} else {
+						message = '회원 가입에 실패하셨습니다. 다시 한 번 시도해주세요.';
+					}
+						snackbar(message);
+				},
+				error: function(error) {
+					var message; 
+					if (error.status === 400) {
+						message = '입력 값을 확인해주세요.';
+					} else {
+						message = '알 수 없는 오류가 발생했습니다. 잠시 후 시도해주세요.';
+					}
+					snackbar(message);
+				}
+			});
 			
 		});		
 	});

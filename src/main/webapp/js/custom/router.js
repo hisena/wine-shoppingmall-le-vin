@@ -12,6 +12,11 @@ $(function(){
 });
 
 // Router 생성
+function defaultRoute(fileLocation) {
+	$('.fixed__footer').empty();
+	$('.fixed__footer').load(fileLocation, getScript);
+}
+
 function route(event, id) {
 	event.preventDefault();
 	var page;
@@ -20,8 +25,7 @@ function route(event, id) {
 	} else {
 		page = $(id).attr('href');
 	}
-	$('.fixed__footer').empty();
-	$('.fixed__footer').load(page, getScript);
+	defaultRoute(page);
 }
 
 // 스크립트파일 동적 추가

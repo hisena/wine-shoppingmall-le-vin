@@ -54,7 +54,7 @@ public class JoinController implements Controller {
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 		user.setMobile(request.getParameter("mobile"));
-		user.setUserName(request.getParameter("UserName"));
+		user.setUserName(request.getParameter("userName"));
 		address.setEmail(request.getParameter("email"));
 		address.setAddress(request.getParameter("address"));
 		address.setDetailedAddress(request.getParameter("detailedAddress"));
