@@ -24,23 +24,37 @@ var Utils = {
 		if (nextElement.hasClass('message')) {
 			nextElement.remove();
 		}
-	}
+	},
+	/**
+	 * 문자열의 바이트 길이를 계산하는 함수
+	 */
+	stringByteLength : function(s,b,i,c){
+	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+	    return b
+	},
+	
 };
 // 유효성 검색 함수를 이용해 메시지를 추가하는 함수
 Utils.createMessageUsingValidationFunction = function createMessageUsingValidationFunction(validationFunction){
 	
-	var inputElement = Validation.getTargetInput(validationFunction);
+	var target = Validation.getTargetInput(validationFunction);
 	
 	var metaDatum = Validation.metaData[validationFunction.name];
 	var message = metaDatum['message'];
 	
-	Utils.createMessage(message, inputElement);
+	var messageTarget = metaDatum['messageTargetSelector'];
+	if (messageTarget !== undefined) {
+		target = $(messageTarget);
+	}
+	
+	Utils.createMessage(message, target);
 };
 
 // 유효성 검사 함수를 이용해 메시지를 삭제하는 함수
 Utils.deleteMessageUsingValidationFunction = function deleteMessageUsingValidationFunction(validationFunction) {
-	var inputElement = Validation.getTargetInput(validationFunction);
-	Utils.deleteMessage(inputElement);
+	
+	var target = Validation.getTargetInput(validationFunction);
+	Utils.deleteMessage(target);
 };
 
 // 유효성 검사 함수들을 이용해 모든 메시지를 삭제하는 함수
@@ -48,8 +62,15 @@ Utils.deleteAllMessagesUsingValidationFunction = function deleteAllMessagesUsing
 	
 	for (var i = 0; i < validationFunctions.length; i++) {
 
-		var inputElement = Validation.getTargetInput(validationFunctions[i]);
-		Utils.deleteMessage(inputElement);
+		var target = Validation.getTargetInput(validationFunctions[i]);
+		
+		var metaDatum = Validation.metaData[validationFunctions[i].name];
+		var messageTarget = metaDatum['messageTargetSelector'];
+		if (messageTarget !== undefined) {
+			target = $(messageTarget);
+		}
+		
+		Utils.deleteMessage(target);
 		
 	}
 	

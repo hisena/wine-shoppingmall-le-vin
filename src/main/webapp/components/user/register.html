@@ -4,14 +4,115 @@
 <input type="button" id="emailConfirm" value="이메일 중복확인">
 <br>
 <input type="password" name="password" placeholder="비밀번호">
-<input type="password" placeholder="비밀번호 확인">
-<input type="text" name="user_name" placeholder="이름">
+<input type="password" id="passwordConfirm" placeholder="비밀번호 확인">
+<input type="text" name="userName" placeholder="이름">
 <input type="text" name="mobile" placeholder="핸드폰 번호">
-<input type="text" placeholder="주민등록 번호">
-<input type="text" id="postcode" placeholder="우편번호">
+<input type="text" id="ssn" placeholder="주민등록 번호">
+<input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
 <input type="button" onclick="execDaumPostcode()" id="postFinder"
   value="우편번호 찾기">
 <br>
-<input type="text" id="address" placeholder="주소">
-<input type="text" id="address2" placeholder="상세주소">
+<input type="text" id="address" name="address" placeholder="주소" readonly>
+<input type="text" id="address2" name="detailedAddress" placeholder="상세주소">
 <input type="submit" value="회원가입" id="registButton">
+<div id="snackbar"></div>
+
+<script type="text/javascript">
+	$(function() {
+		// 중복 검사
+		$('#emailConfirm').click(function() {
+
+			var emailElement = $('input[name="email"]')
+			var button = emailElement.next().next();
+			
+			// 유효성 검사
+			var validationResult = Validation.validAllInputs([ Validation.isValidEmail ]);
+
+			if (!validationResult) {
+				return;
+			}
+
+			$.ajax(baseUrl + "le-vin/user/email-duplicate-check.mall", {
+				method : 'POST',
+				data : 'email=' + (emailElement.val()),
+				success : function(data) {
+					// 중복 확인 결과를 저장 (서버에서 중복되어 있을 때 true, 중복되지 않았을 때 false로 오므로 바꿔줌)
+					var result = data.dupleResult === 'false';
+					// 서버에 전송 전 중복 확인 결과를 저장하기 위해 input[type='hidden']에 값을 넣어줌
+					$('input[name="emailDuplicationCheck"]').val(result);
+					// 사용자에게 중복 확인 결과를 알려줌
+					var message = result? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.';
+					Utils.deleteMessage(button);
+					Utils.createMessage(message, button);
+				},
+				error : function(error) {
+					// 이메일이 요청 정보에 포함되지 않았을 때 처리
+					if (error.status === 400) {
+    					Utils.deleteMessage(button);
+    					Utils.createMessage('이메일 입력을 확인해주세요.', button);
+					}
+				}
+			});
+
+		});
+		// 회원가입
+		// 유효성 검사 목록
+		var registerFormRequiredValidations = [
+			Validation.isValidEmail,
+			Validation.isValidPassword,
+			Validation.isEmailDuplicationChecked,
+			Validation.isPasswordChecked,
+			Validation.isValidUserName,
+			Validation.isValidMobile,
+			Validation.isValidSSN,
+			Validation.isZipCodeAndAddressEntered,
+			Validation.isDetailedAddressEntered,
+		];
+		// 회원가입 서버 통신
+		$('form.login').submit(function(event){
+			
+			// 유효성 검사
+			event.preventDefault();
+			
+			var validationResult = Validation.validAllInputs(registerFormRequiredValidations);
+			
+			if(!validationResult) {
+				return false;
+			}
+			
+			// 데이터 직렬화 & 통신 
+			var data = $(this).serialize();
+			
+			$.ajax(baseUrl + "le-vin/user/join.mall", {
+				data: data,
+				dataType: "JSON",
+				method: "POST",
+				success: function(data) {
+					var result = data.joinResult === 'true';
+					var message;
+					
+					if (result) {
+						
+						$('form.login').load('components/user/login.html');
+						toggleTabClass();
+						message = '회원 가입에 성공하셨습니다. 로그인해 서비스를 이용해주세요.'
+						
+					} else {
+						message = '회원 가입에 실패하셨습니다. 다시 한 번 시도해주세요.';
+					}
+						snackbar(message);
+				},
+				error: function(error) {
+					var message; 
+					if (error.status === 400) {
+						message = '입력 값을 확인해주세요.';
+					} else {
+						message = '알 수 없는 오류가 발생했습니다. 잠시 후 시도해주세요.';
+					}
+					snackbar(message);
+				}
+			});
+			
+		});		
+	});
+</script>

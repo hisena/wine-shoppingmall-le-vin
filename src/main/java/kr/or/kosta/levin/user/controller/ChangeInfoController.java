@@ -6,7 +6,8 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
+
+import org.apache.ibatis.javassist.tools.web.BadHttpRequest;
 
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
@@ -16,18 +17,18 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
-import kr.or.kosta.levin.user.domain.Address;
 import kr.or.kosta.levin.user.domain.User;
 import kr.or.kosta.levin.user.service.UserService;
 
 /**
- * 로그인 기능을 위한 세부 컨트롤러
- * @author 박소연
- *
+ * 회원정보 수정 기능을 위한 세부 컨트롤러
+ * 
+ * @author 류세은
  */
+
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/user/join")
-public class JoinController implements Controller {
+@RequestMapping(value = "/user/info-change")
+public class ChangeInfoController implements Controller {
 
 	@Inject
 	private UserService userService;
@@ -44,42 +45,39 @@ public class JoinController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-		// 회원가입 결과 변수 선언
-		boolean joinResult;
-		// frontController로 값을 보내기 위한 map 선언
-		Map<String, String> map = new HashMap<>();
-		// 화면에서 받은 파라미터값 처리
+		// 클라이언트로부터 받는 회원정보
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		String mobile = request.getParameter("mobile");
+
 		User user = new User();
-		Address address = new Address();
-		user.setEmail(request.getParameter("email"));
-		user.setPassword(request.getParameter("password"));
-		user.setMobile(request.getParameter("mobile"));
-		user.setUserName(request.getParameter("userName"));
-		address.setEmail(request.getParameter("email"));
-		address.setAddress(request.getParameter("address"));
-		address.setDetailedAddress(request.getParameter("detailedAddress"));
-		address.setZipCode(request.getParameter("zipCode"));
+		Map<String, String> map = new HashMap<String, String>();
+		boolean changeResult;
+
+		// user 객체에 클라이언트로부터 받은 정보 입력
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setUserName(userName);
+		user.setMobile(mobile);
 
 		try {
 			// 파라미터값 null 유효성 검사
-			if (user.checkNull(user) && address.checkNull(address)) {
-				joinResult = userService.join(user, address);
-				// 회원 가입 성공시
-				if (joinResult) {
-					map.put("joinResult", "true");
+			if (user.checkNull(user)) { // user 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
+				changeResult = userService.changeInfo(user);
+				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
+					map.put("changeResult", "true");
 				} else {
-				// 실패시
-					map.put("joinResult", "false");
+					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
+					map.put("changeResult", "false");
 				}
 				return map;
-			}else {
-				// 파라미터 값이 null값일 때 예외처리
+			} else {
+				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
 			}
-
 		} catch (Exception e) {
-			throw new ServletException("UserService.join() 예외 발생", e);
+			throw new ServletException("userService.changeResult() 예외 발생", e);
 		}
 	}
-
 }

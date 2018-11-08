@@ -8,6 +8,7 @@ var Validation = {
 	metaData : {
 		'isValidEmail' : {
 			'selector' : 'input[name="email"]',
+			'messageTargetSelector' : '#emailConfirm',
 			'message' : '올바른 이메일 형식이 아닙니다.'
 		},
 		'isValidPassword' : {
@@ -16,8 +17,39 @@ var Validation = {
 		},
 		'isEmailDuplicationChecked' : {
 			'selector' : 'input[name="emailDuplicationCheck"]',
+			'messageTargetSelector' : '#emailConfirm',
 			'message' : '중복 검사를 통과하지 못했습니다.'
 		},
+		'isPasswordChecked' : {
+			'selector' : '#passwordConfirm',
+			'message' : '입력하신 비밀번호와 일치하지 않습니다.'
+		},
+		'isValidUserName' : {
+			'selector' : 'input[name="userName"]',
+			'message' : '이름은 필수 입력 사항이며, 10 바이트를 넘을 수 없습니다.'
+		},
+		'isValidMobile' : {
+			'selector' : 'input[name="mobile"]',
+			'message' : '휴대전화 번호는 필수 입력 사항이며, "010-0000-0000" 형식으로 입력해야 합니다.',
+		},
+		'isValidSSN' : {
+			'selector' : '#ssn',
+			'message' : '주민등록번호를 확인해주세요. 성인이 아니시라면 가입하실 수 없습니다.'
+		},
+		'isZipCodeEntered' : {
+			'selector' : 'input[name="zipCode"]',
+		},
+		'isAddressEntered' : {
+			'selector' : 'input[name="address"]',
+		},
+		'isZipCodeAndAddressEntered' : {
+			'selector' : 'input[name="address"]',
+			'message' : '우편번호 검색을 통해 우편번호와 주소를 입력해주세요.'
+		},
+		'isDetailedAddressEntered' : {
+			'selector' : 'input[name="detailedAddress"]',
+			'message' : '상세주소를 입력해주세요.'
+		}
 	},
 	// 선택자 정보를 이용해 검사 대상이 되는 input 태그를 가져오는 함수
 	getTargetInput : function(validationFunction) {
@@ -26,6 +58,8 @@ var Validation = {
 
 		return $(selector);
 	},
+	isZipCodeEntered : function(){},
+	isAddressEntered : function(){},
 };
 // 검사 대상이 되는 input 태그의 값을 가져오는 함수
 Validation.getTargetValue = function getTargetValue(validationFunction) {
@@ -43,6 +77,11 @@ Validation.isValidEmail = function isValidEmail() {
 
 // 이메일 중복 검사 여부를 확인하는 함수
 Validation.isEmailDuplicationChecked = function isEmailDuplicationChecked() {
+	
+	if (!Validation.isValidEmail()) {
+		return true;
+	}
+	
 	return Validation.getTargetValue(Validation.isEmailDuplicationChecked) === 'true';
 }
 
@@ -56,6 +95,58 @@ Validation.isValidPassword = function isValidPassword(){
 	return pattern.test(passwd);
 };
 
+// 비밀번호와 비밀번호 확인 일치 여부를 확인하는 함수
+Validation.isPasswordChecked = function isPasswordChecked() {
+	
+	var passwordValue = Validation.getTargetValue(Validation.isValidPassword);
+	var passwordCheckValue = Validation.getTargetValue(Validation.isPasswordChecked);
+
+	return passwordValue === passwordCheckValue;
+};
+
+// 이름 값이 들어왔는지, 데이터베이스 상 최대 길이를 초과하지 않는지 확인하는 함수
+Validation.isValidUserName = function isValidUserName() {
+	var userName = Validation.getTargetValue(Validation.isValidUserName).trim();
+	
+	return userName.length > 0
+		&& Utils.stringByteLength(userName) <= 10;
+};
+
+// 입력한 휴대전화 번호가 유효한지 확인하는 함수
+Validation.isValidMobile = function isValidMobile() {
+	var mobile = Validation.getTargetValue(Validation.isValidMobile);
+	var pattern = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+	
+	return pattern.test(mobile);
+
+};
+
+// 입력한 주민번호가 유효한지, 성인인지 확인하는 함수
+Validation.isValidSSN = function isValidSSN() {
+	var ssn = Validation.getTargetValue(Validation.isValidSSN);
+	var pattern = /^[0-9]{2}(0[1-9]|1[012])(0[1-9]|1[0-9]|2[0-9]|3[01])-[012349]$/;
+	
+	var centryIndex = ssn.substr(ssn.indexOf('-') + 1, 1);
+	
+	return pattern.test(ssn) && (centryIndex === '1' || centryIndex === '2');
+};
+
+// 우편 번호 검색 여부를 확인하는 함수
+Validation.isZipCodeAndAddressEntered = function isZipCodeAndAddressEntered() {
+	var zipCode = Validation.getTargetValue(Validation.isZipCodeEntered).trim();
+	var address = Validation.getTargetValue(Validation.isAddressEntered).trim();
+	
+	return zipCode.length > 0 && address.length > 0;
+}
+
+// 상세 주소 입력 여부를 확인하는 함수
+Validation.isDetailedAddressEntered = function isDetailedAddressEntered(){
+	var detailedAddress = Validation.getTargetValue(Validation.isDetailedAddressEntered).trim();
+	
+	return detailedAddress.length > 0;
+}
+
+// 전체 유효성 검사 함수를 실행하는 함수
 Validation.validAllInputs = function validAllInputs(validationFunctions) {
 	// 전체 입력 값의 검증 결과를 저장하기 위한 변수
 	var isAllValid = true;
