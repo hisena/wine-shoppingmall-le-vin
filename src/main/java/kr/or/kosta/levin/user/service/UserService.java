@@ -30,5 +30,8 @@ public interface UserService {
 
 	/** 회원정보 수정 */
 	public boolean changeInfo(User user) throws Exception;
-
+	
+	/** 회원 기본정보 목록 */
+	public User listBasicInfo(String email) throws Exception;
+	
 }

@@ -7,11 +7,7 @@ import kr.or.kosta.levin.common.web.Params;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
-<<<<<<< HEAD
- * Dao 패턴 적용을 위한 인터페이스 선언
-=======
- * Address 정보와 DB연동을 위한 인터페이스
->>>>>>> branch 'develop' of https://github.com/leeseungeun/wine-shoppingmall-le-vin.git
+ * User 정보와 DB연동을 위한 인터페이스
  * @author 류세은, 박소연
  *
  */

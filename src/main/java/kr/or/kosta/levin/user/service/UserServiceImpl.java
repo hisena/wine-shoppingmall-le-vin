@@ -80,7 +80,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return flag;
 	}
+	
+	/** 회원 기본정보 목록 */
+	@Override
+	public User listBasicInfo(String email) throws Exception {
 
+		return null;
+	}
+	
 	/** 회원정보 수정 */
 	@Override
 	public boolean changeInfo(User user) throws Exception {
