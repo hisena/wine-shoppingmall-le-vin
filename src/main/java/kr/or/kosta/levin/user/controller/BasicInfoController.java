@@ -27,7 +27,7 @@ import kr.or.kosta.levin.user.service.UserService;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/user/info-change")
+@RequestMapping(value = "/user/basic-info-list")
 public class BasicInfoController implements Controller {
 
 	@Inject
@@ -45,39 +45,24 @@ public class BasicInfoController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-		// 클라이언트로부터 받는 회원정보
+		// 클라이언트로부터 받는 이메일
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String userName = request.getParameter("userName");
-		String mobile = request.getParameter("mobile");
-
-		User user = new User();
-		Map<String, String> map = new HashMap<String, String>();
-		boolean changeResult;
-
-		// user 객체에 클라이언트로부터 받은 정보 입력
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setUserName(userName);
-		user.setMobile(mobile);
-
+		User user = null;
 		try {
 			// 파라미터값 null 유효성 검사
-			if (user.checkNull(user)) { // user 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
-				changeResult = userService.changeInfo(user);
-				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
-					map.put("changeResult", "true");
-				} else {
-					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
-					map.put("changeResult", "false");
+			if (email != null && email.trim().length() != 0) { // email이 null이 아닐 경우 - 서비스 메소드 실행
+				 user = userService.listBasicInfo(email);
+				if (user != null) { // 회원정보에 등록된 email값이 정상적으로 들어왔을 때 - return user
+					return user;
+				} else { // 회원정보에 등록되어 있지 않은 email값이 들어왔을 때 - 401 에러 발생
+					throw new RequestUnauthorizedException();
 				}
-				return map;
 			} else {
-				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+				// email이 null이거나 공백값일 때 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("userService.changeResult() 예외 발생", e);
+			throw new ServletException("userService.listBasicInfo() 예외 발생", e);
 		}
 	}
 }
