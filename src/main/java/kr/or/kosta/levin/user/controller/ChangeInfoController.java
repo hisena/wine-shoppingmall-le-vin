@@ -22,6 +22,7 @@ import kr.or.kosta.levin.user.service.UserService;
 
 /**
  * 회원정보 수정 기능을 위한 세부 컨트롤러
+ * 
  * @author 류세은
  */
 
@@ -39,12 +40,12 @@ public class ChangeInfoController implements Controller {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
-		
-		//클라이언트로부터 받는 회원정보
+
+		// 클라이언트로부터 받는 회원정보
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
@@ -53,27 +54,27 @@ public class ChangeInfoController implements Controller {
 		User user = new User();
 		Map<String, String> map = new HashMap<String, String>();
 		boolean changeResult;
-		
-		//user 객체에 클라이언트로부터 받은 정보 입력
+
+		// user 객체에 클라이언트로부터 받은 정보 입력
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setUserName(userName);
 		user.setMobile(mobile);
-		
+
 		try {
 			// 파라미터값 null 유효성 검사
-			if (user.checkNull(user)) { //user 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
+			if (user.checkNull(user)) { // user 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
 				changeResult = userService.changeInfo(user);
-				if (changeResult) {  //회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
+				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
 					map.put("changeResult", "true");
 				} else {
-				// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
+					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
 					map.put("changeResult", "false");
 				}
 				return map;
 			} else {
-			//user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
-			throw new RequestBadRequestException();
+				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
 			throw new ServletException("userService.changeResult() 예외 발생", e);

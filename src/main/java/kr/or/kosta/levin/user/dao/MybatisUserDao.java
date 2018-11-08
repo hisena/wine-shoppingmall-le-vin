@@ -16,10 +16,11 @@ import kr.or.kosta.levin.user.domain.User;
 
 /**
  * User 정보와 DB를 연동하기 위한 구현 클래스
+ * 
  * @author 류세은, 박소연
  *
  */
-@Bean(type=BeanType.Repository)
+@Bean(type = BeanType.Repository)
 public class MybatisUserDao implements UserDao {
 
 	private static final String NAMESPACE = "kr.or.kosta.levin.user.";
@@ -42,19 +43,19 @@ public class MybatisUserDao implements UserDao {
 		int result = sqlSession.insert(NAMESPACE + "createUser", user);
 		boolean flag = false;
 		// insert에 성공했으면
-		if(result == 1) {
+		if (result == 1) {
 			// 커밋해주기
 			sqlSession.commit();
 			flag = true;
-		}else {
+		} else {
 			// 실패했으면 rollback해주기
 			sqlSession.rollback();
 		}
 		sqlSession.close();
 		return flag;
-		
+
 	}
-	
+
 	/** 회원정보 수정 */
 	@Override
 	public boolean updateInfo(User user) throws Exception {
@@ -62,11 +63,11 @@ public class MybatisUserDao implements UserDao {
 		int result = sqlSession.update(NAMESPACE + "updateInfo", user);
 		boolean flag = false;
 		// update에 성공한 경우
-		if(result == 1) {
+		if (result == 1) {
 			// 커밋
 			sqlSession.commit();
 			flag = true;
-		}else {
+		} else {
 			// 실패한 경우 rollback
 			sqlSession.rollback();
 		}
@@ -109,6 +110,7 @@ public class MybatisUserDao implements UserDao {
 		sqlSession.close();
 		return emailAvailable;
 	}
+
 	/**
 	 * 회원 로그인
 	 */

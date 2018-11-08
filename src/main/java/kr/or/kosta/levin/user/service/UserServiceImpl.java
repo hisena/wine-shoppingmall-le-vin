@@ -13,18 +13,19 @@ import kr.or.kosta.levin.user.domain.User;
 
 /**
  * User와 관련된 비즈니스 로직 수행을 위한 Service 객체
+ * 
  * @author 류세은, 박소연
  *
  */
-@Bean(type=BeanType.Service)
+@Bean(type = BeanType.Service)
 public class UserServiceImpl implements UserService {
-	
+
 	// dao 선언
 	@Inject
 	private UserDao userDao;
 	@Inject
 	private AddressDao addressDao;
-	
+
 	public UserDao getUserDao() {
 		return userDao;
 	}
@@ -33,6 +34,7 @@ public class UserServiceImpl implements UserService {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 	public AddressDao getAddressDao() {
 		return addressDao;
 	}
@@ -40,8 +42,7 @@ public class UserServiceImpl implements UserService {
 	public void setAddressDao(AddressDao addressDao) {
 		this.addressDao = addressDao;
 	}
-	
-	
+
 	@Override
 	public List<User> list() throws Exception {
 		return userDao.listAll();
@@ -51,14 +52,15 @@ public class UserServiceImpl implements UserService {
 	public Map<String, String> emailDuplicate(String email) throws Exception {
 		return userDao.certifyEmail(email);
 	}
-	/** 로그인*/
+
+	/** 로그인 */
 	@Override
 	public Map<String, String> login(String id, String passwd) throws Exception {
-		
+
 		return userDao.certify(id, passwd);
 	}
 
-	/** 회원 가입*/
+	/** 회원 가입 */
 	@Override
 	public boolean join(User user, Address address) throws Exception {
 		// Mybatis 실행 결과를 받기 위한 변수
@@ -68,33 +70,31 @@ public class UserServiceImpl implements UserService {
 		// user기본 정보 등록
 		userResult = userDao.create(user);
 		// 정보등록에 성공하면
-		if(userResult) {
+		if (userResult) {
 			// 주소 정보 등록
 			addressResult = addressDao.create(address);
-			if(addressResult) {
+			if (addressResult) {
 				// 기본 정보와 주소 정보 등록에 모두 성공할시
 				flag = true;
 			}
 		}
 		return flag;
 	}
-	
+
 	/** 회원정보 수정 */
 	@Override
 	public boolean changeInfo(User user) throws Exception {
 		boolean result = false;
 		boolean flag = false;
-	
-		//회원정보 수정 성공여부 확인
+
+		// 회원정보 수정 성공여부 확인
 		result = userDao.updateInfo(user);
-		if(result) { //회원정보 수정에 성공했을 경우
+		if (result) { // 회원정보 수정에 성공했을 경우
 			flag = true;
 		}
 		return flag;
 	}
-	
-	
-	
+
 	@Override
 	public User search(String id) throws Exception {
 		// TODO Auto-generated method stub
@@ -102,8 +102,3 @@ public class UserServiceImpl implements UserService {
 	}
 
 }
-
-
-
-
-
