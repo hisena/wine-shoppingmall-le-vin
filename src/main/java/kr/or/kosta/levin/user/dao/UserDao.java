@@ -29,6 +29,9 @@ public interface UserDao {
 	/** 로그인 */
 	public Map<String, String> certify(String email, String passwd) throws Exception;
 	
+	/** 회원 기본정보 목록 */
+	public User readBasicInfo(String email) throws Exception;
+	
 	/** 회원정보 수정 */
 	public boolean updateInfo(User user) throws Exception;
 	

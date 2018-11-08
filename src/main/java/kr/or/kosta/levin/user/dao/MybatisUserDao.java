@@ -55,7 +55,16 @@ public class MybatisUserDao implements UserDao {
 		return flag;
 
 	}
-
+	/** 회원기본정보 목록 */
+	@Override
+	public User readBasicInfo(String email) throws Exception {
+		User user = new User();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		user = sqlSession.selectOne(NAMESPACE + "readBasicInfo", email);
+		sqlSession.close();
+		return user;
+	}
+	
 	/** 회원정보 수정 */
 	@Override
 	public boolean updateInfo(User user) throws Exception {

@@ -50,6 +50,17 @@
 		)
 	</insert>
 	
+	<!-- 회원 기본정보 목록-->
+	<select id="readBasicInfo" parameterType="String" resultType="User">
+		SELECT 	email, 
+	   		   	password, 
+       			user_name "userName", 
+       			mobile, 
+       			regdate 
+		FROM   levin_users 
+		WHERE  email = #{email} 
+	</select>
+	
 	<!-- 회원정보 수정 -->
 	<update id="updateInfo" parameterType="User">
 		UPDATE levin_users
