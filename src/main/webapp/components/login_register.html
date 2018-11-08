@@ -37,7 +37,7 @@
 <script type="text/javascript" src="js/common/Validation.js"></script>
 <!-- 로그인 Ajax -->
 <script type="text/javascript">
-var baseUrl = 'http://localhost:8080/';
+var baseUrl = 'http://localhost:80/';
 function toggleTabClass() {
 	$('li.login').toggleClass('active');
 	$('li.register').toggleClass('active');
@@ -96,28 +96,6 @@ $(function() {
 		return false;
 	});
 	
-	$('#emailConfirm').click(function(){
-		
-		var emailElement = $('input[name="email"]')
-		
-		var validationResult = Validation.validAllInputs([Validation.isValidEmail]);
-		
-		if(!validationResult) {
-			return;
-		}
-		
-		$.ajax(baseUrl + "levin/user/email-duplicate-check.mall", {
-			data: 'email=' + (email.val()),
-			success: function(data) {
-				email.val(data.dupleResult);
-			},
-			error: function(data) {
-				console.log(data);
-				alert('에러발생');
-			}
-		});
-		
-	});
 });
 
 // 쿠키 생성

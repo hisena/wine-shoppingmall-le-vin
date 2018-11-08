@@ -15,3 +15,49 @@
 <input type="text" id="address" placeholder="주소">
 <input type="text" id="address2" placeholder="상세주소">
 <input type="submit" value="회원가입" id="registButton">
+
+<script type="text/javascript">
+	$(function() {
+		$('#emailConfirm').click(function() {
+
+			var emailElement = $('input[name="email"]')
+			var button = emailElement.next().next();
+			
+			// 유효성 검사
+			var validationResult = Validation.validAllInputs([ Validation.isValidEmail ]);
+
+			if (!validationResult) {
+				return;
+			}
+
+			$.ajax(baseUrl + "le-vin/user/email-duplicate-check.mall", {
+				method : 'POST',
+				data : 'email=' + (emailElement.val()),
+				success : function(data) {
+					// 중복 확인 결과를 저장 (서버에서 중복되어 있을 때 true, 중복되지 않았을 때 false로 오므로 바꿔줌)
+					var result = data.dupleResult === 'false';
+					// 서버에 전송 전 중복 확인 결과를 저장하기 위해 input[type='hidden']에 값을 넣어줌
+					$('input[name="emailDuplicationCheck"]').val(result);
+					// 사용자에게 중복 확인 결과를 알려줌
+					var message = result? '사용 가능한 이메일입니다.' : '이미 사용 중인 이메일입니다.';
+					Utils.deleteMessage(button);
+					Utils.createMessage(message, button);
+				},
+				error : function(error) {
+					// 이메일이 요청 정보에 포함되지 않았을 때 처리
+					if (error.status === 400) {
+    					Utils.deleteMessage(button);
+    					Utils.createMessage('이메일 입력을 확인해주세요.', button);
+					}
+				}
+			});
+
+		});
+		$('form.login').submit(function(event){
+			
+			event.preventDefault();
+			
+			
+		});		
+	});
+</script>

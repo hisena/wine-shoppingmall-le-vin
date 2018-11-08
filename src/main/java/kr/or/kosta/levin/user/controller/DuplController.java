@@ -51,7 +51,6 @@ public class DuplController implements Controller {
 			//email의 null 혹은 공백값 체크
 			if (email != null && email.trim().length() != 0) {
 				isContained = userService.emailDuplicate(email);
-				System.out.println(isContained);
 				//email이 DB에 존재할 경우(중복인 경우) - depleResult가 true
 				if (isContained != null) {
 					result.put("dupleResult", "true");
