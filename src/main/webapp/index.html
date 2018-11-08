@@ -39,7 +39,7 @@
   <div id="sticky-header-with-topbar" class="mainmenu__area sticky__header">
     <div class="container">
       <div class="row">
-        <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
           <div class="logo">
             <a href="index.html">
               <!-- 로고 사진 -->
@@ -48,7 +48,7 @@
           </div>
         </div>
         <!-- 네비게이션 -->
-        <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
+        <div class="col-md-6 col-lg-6 col-sm-4 col-xs-4">
           <nav class="mainmenu__nav hidden-xs hidden-sm">
             <ul class="main__menu">
               <li class="drop"><a href="blog.html">1:1 문의</a></li>
@@ -80,8 +80,9 @@
           </div>                          
         </div>
         <!-- 네이게이션 아이콘(검색, 로그인, 장바구니) -->
-        <div class="col-md-2 col-sm-4 col-xs-3">  
+        <div class="col-md-4 col-sm-4 col-xs-4">  
           <ul class="menu-extra">
+          	<li id="user" class="drop" style="display: none"></li>
             <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
             <li><a href="components/login_register.html" id="login_register"><span class="ti-user"></span></a></li>
             <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
@@ -318,6 +319,31 @@
 <script src="js/waypoints.min.js"></script>
 <!-- 컴포넌트를 동적으로 추가하는 Router.js -->
 <script src="js/custom/router.js"></script>
+<!-- 쿠키를 설정하는 자바스크립트 파일 -->
+<script src="js/common/cookie.js"></script>
+
+<!-- 로그인 확인 -->
+<script>
+$(function(){
+	var email = getCookie("email");
+	var user = email.split("@");
+	if (email != "") {
+		$('#user').html(user[0] + "님 로그인 중...")
+		$('#user').css("display", "block");
+		$('#login_register').attr("id", "item");
+	}
+});
+</script>
+
+<!-- 로그아웃 -->
+<script>
+$(function() {
+	$(document).on('click', '#user', function(event) {
+		setCookie('email', '', -1);
+		location.reload();
+	})
+});
+</script>
 
 </body>
 </html>

@@ -15,16 +15,6 @@
 <input type="submit" value="로그인" id="loginButton">
 <div id="snackbar"></div>
 
-<!-- 스낵바 -->
-<script>
-function snackbar(text) {
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    x.innerHTML = text;
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-}
-</script>
-
 <!-- 로그인 Ajax -->
 <script>
 var baseUrl = 'http://localhost:80/le-vin/';
