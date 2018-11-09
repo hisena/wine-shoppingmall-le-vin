@@ -9,6 +9,11 @@ function setCookie(cname,cvalue,exdays) {
 function setInstanceCookie(cname,cvalue) {
     document.cookie = cname + "=" + cvalue + ";path=/";
 }
+// URI 인코딩 후 쿠키 생성
+function setInstanceEncodedCookie(cname, cvalue) {
+	cvalue = encodeURIComponent(cvalue);
+	document.cookie = cname + "=" + cvalue + ";path=/";
+}
 // 쿠키의 value값을 가져옴
 function getCookie(cname) {
     var name = cname + "=";

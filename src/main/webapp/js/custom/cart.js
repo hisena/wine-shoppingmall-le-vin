@@ -7,7 +7,7 @@ var cartIndexes = ['productId', 'productName', 'quantity', 'price', 'imagePath']
 // 장바구니에서 상품을 구분할 때 사용하는 구분자
 var cartItemDelimiter = '-';
 // 상품 정보를 구분할 때 사용하는 구분자
-var itemInfoDelimiter = '+';
+var itemInfoDelimiter = '~';
 // 태그 정보를 담고 있는 변수
 var cartSelectorData = {
 	'list' : {},
@@ -37,6 +37,27 @@ cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
 		'attr' : 'src'
 }
 
+// 모든 경우의 수를 고려해 수정
+function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
+	
+	if (needDelimiter === undefined) {
+		needDelimiter = false;
+	}
+	
+	// 수정해야 하는 상품의 위치가 1번째 이상일 때 처리
+	var replaceString = needDelimiter? cartItemDelimiter + stringToReplace : stringToReplace; 
+	value = value.replace(cartItemDelimiter + target, replaceString);
+	
+	// 수정해야 하는 상품의 위치가 0번째일 때 처리 
+	replaceString = needDelimiter? stringToReplace + cartItemDelimiter: stringToReplace; 
+	value = value.replace(target + cartItemDelimiter, replaceString);
+	
+	// 상품이 하나만 있을 때 처리
+	replaceString = stringToReplace; 
+	value = value.replace(target, replaceString);
+	
+	return value;
+}
 // html 태그로부터 필요한 정보를 추출하는 함수
 function createCartItemFromTags(targetProduct, type) {
 	
@@ -51,7 +72,8 @@ function createCartItemFromTags(targetProduct, type) {
 			var cartItemValue = $(targetProduct).find(cartSelectorDatum['selector']).attr(cartSelectorDatum['attr']);
 			cartItem.push(cartItemValue);
 		} else {
-			cartItem.push($(targetProduct).find(cartSelectorDatum).html());
+			var cartItemValue = $(targetProduct).find(cartSelectorDatum).html();
+			cartItem.push(cartItemValue);
 		}
 	}
 	// 수량 선택이 불가능한 경우 (목록에서 장바구니 추가할 경우)
@@ -106,17 +128,20 @@ function addItemToCart(cartItem) {
 		// 새로 추가하는 상품의 수량을 변경
 		var cartQuantityIndex = cartIndexes.indexOf('quantity');
 		cartItem[cartQuantityIndex] += parseInt(foundItem[cartQuantityIndex]);
-		// 기존의 상품을 삭제
-		value = removeItemFromCart(foundItem);
-	}
-	// 장바구니에 상품이 있을 경우 상품 구분자 추가
-	if (value.length > 0) {
-		value = value + cartItemDelimiter;
+		// 기존의 상품을 수정
+		value = replaceInAllCases(value, createItemString(foundItem), createItemString(cartItem), true);
+	
+	} else {
+		
+		// 장바구니에 상품이 있을 경우 상품 구분자 추가
+		if (value.length > 0) {
+			value = value + cartItemDelimiter;
+		}
+		
+		value += createItemString(cartItem); 
 	}
 	
-	var newItem = createItemString(cartItem);
-	
-	setInstanceCookie('cart', value + newItem);
+	setInstanceEncodedCookie('cart', value);
 	
 }
 // 장바구니에서 상품을 제거하는 함수
@@ -127,17 +152,12 @@ function removeItemFromCart(cartItem) {
 	// 지워야 하는 상품을 문자열 정보로 변환
 	var deleteItem = createItemString(cartItem);
 	
-	// 제거해야 하는 상품의 위치가 1번째 이상일 때 처리
-	value = value.replace(cartItemDelimiter + deleteItem, '');
-	// 제거해야 하는 상품의 위치가 0번째일 때 처리 
-	value = value.replace(deleteItem + cartItemDelimiter, '');
-	// 상품이 하나만 있을 때 처리
-	value = value.replace(deleteItem, '');
+	// 제거
+	replaceInAllCases(value, deleteItem, '');
 	
 	// 쿠키값 저장
-	setInstanceCookie('cart', value);
+	setInstanceEncodedCookie('cart', value);
 	
-	return value;
 }
 // 장바구니 정보를 이용해 화면에 출력해주는 함수
 function printCart() {
@@ -153,40 +173,39 @@ function printCart() {
 		for ( var index in cartItems) {
 			var item = convertStringToItem(cartItems[index]);
 			
-			var cartProductIdIndex = cartIndexes.indexOf('productId');
-			item = item.push(Utils.getImagePath(item[cartProductIdIndex]));
+			var quantity = parseInt(item[cartIndexes.indexOf('quantity')]);
+			var priceString = item[cartIndexes.indexOf('price')];
+			var price = parseInt(priceString.substr(0, priceString.length - 1).replace(',',''));
+			totalPrice += (quantity * price);
 			
-			totalPrice += (item[cartIndexes.indexOf('quantity')] * item[cartIndexes.indexOf('price')]);
+			// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
+			var itemToAppend = '<div class="shp__single__product">'
+				+  '	<div class="shp__pro__thumb">'
+				+  '		<a href="#">'
+				+  '		  <img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
+				+  '		</a>'
+				+  '	</div>'
+				+  '	<div class="shp__pro__details">'
+				+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
+				+  '		<span class="quantity">QTY: ###' + cartIndexes.indexOf('quantity') + '###</span>'
+				+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
+				+  '	</div>'
+				+  '	<div class="remove__btn">'
+				+  '		<a href="' + cartIndexes.indexOf('productId') + '" title="Remove this item"><i class="zmdi zmdi-close"></i></a>'
+				+  '	</div>'
+				+  '</div>';
 			
-			for (itemInfoIndex in item) {
-				
-				// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
-				var cartItemTemplate = '<div class="shp__single__product">'
-									+  '	<div class="shp__pro__thumb">'
-									+  '		<a href="#">'
-									+  '		  <img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
-									+  '		</a>'
-									+  '	</div>'
-									+  '	<div class="shp__pro__details">'
-									+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
-									+  '		<span class="quantity">QTY: ###' + cartIndexes.indexOf('quantity') + '###</span>'
-									+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
-									+  '	</div>'
-									+  '	<div class="remove__btn">'
-									+  '		<a href="' + cartIndexes.indexOf('productId') + '" title="Remove this item"><i class="zmdi zmdi-close"></i></a>'
-									+  '	</div>'
-									+  '</div>';
-				
+			for (var i = 0; i < item.length; i++) {
 				// 값을 변화시켜주기 위한 정규표현식
-				var regExp = new RegExp('###' + itemInfoIndex + '###', 'gm');
+				var regExp = new RegExp('###' + i + '###', 'gm');
 				
-				var itemToAppend = cartItemTemplate.replace(regExp, item[itemInfoIndex]);
+				itemToAppend = itemToAppend.replace(regExp, item[i]);
 				
-				$('div.shp__cart__wrap').append(itemToAppend);
 			}
+			$('div.shp__cart__wrap').append(itemToAppend);
+			
 		}
-		
-		$('.total__price').html(totalPrice);
+		$('.total__price').html(totalPrice.toLocaleString() + '원');
 	}
 }
 
