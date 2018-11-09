@@ -32,6 +32,10 @@ var Utils = {
 	    for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
 	    return b
 	},
+	/**
+	 * 프로젝트 기본 경로
+	 */
+	baseUrl : 'http://localhost:80/le-vin/',
 	
 };
 // 유효성 검색 함수를 이용해 메시지를 추가하는 함수
@@ -75,3 +79,10 @@ Utils.deleteAllMessagesUsingValidationFunction = function deleteAllMessagesUsing
 	}
 	
 };
+
+/**
+ * 상품 아이디를 이용해 사진 경로를 구하는 함수
+ */
+Utils.getImagePath = function getImagePath(productId) {
+	return Utils.baseUrl + 'images/product/wine' + productId + '.jpg'
+}
