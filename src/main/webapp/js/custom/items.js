@@ -1,8 +1,10 @@
 /**
- * 와인 상품을 동적으로 추가할 수 있게 만드는 함수
+ * 와인 상품을 동적으로 추가할 수 있게 만드는 자바 스크립트
  * 
  * @author 김홍기
  */
+
+
 $(function() {
 	var baseUrl = 'http://localhost:80/le-vin/';
 

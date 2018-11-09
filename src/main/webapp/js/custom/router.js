@@ -1,23 +1,38 @@
+/**
+ * 화면에 동적으로 html파일을 추가하는 기능
+ * 
+ * @author 김홍기
+ */
 // Router 등록
 $(function(){
 	$(document).on('ready', function(event) {
-		route(event, null);
+		route(event, null, '.fixed__footer');
 	});
 	$(document).on('click', '#login_register', function(event) {
-		route(event, '#login_register');
+		route(event, '#login_register', '.fixed__footer');
 	});
 	$(document).on('click', '#item', function(event) {
-		route(event, '#item');
+		route(event, '#item', '.fixed__footer');
+	});
+	$(document).on('click', '#productReview', function(event) {
+		route(event, '#productReview', '.product_details');
+		$('#productReview').attr("href", "components/item/details.html");
+		$('#productReview').attr("id", "productDetails");
+	});
+	$(document).on('click', '#productDetails', function(event) {
+		route(event, '#productDetails', '.product_details');
+		$('#productDetails').attr("href", "components/item/review.html");
+		$('#productDetails').attr("id", "productReview");
 	});
 });
 
 // Router 생성
-function defaultRoute(fileLocation) {
-	$('.fixed__footer').empty();
-	$('.fixed__footer').load(fileLocation, getScript);
+function defaultRoute(fileLocation, selector) {
+	$(selector).empty();
+	$(selector).load(fileLocation, getScript);
 }
 
-function route(event, id) {
+function route(event, id, selector) {
 	event.preventDefault();
 	var page;
 	if (id == null || id == undefined) {
@@ -25,7 +40,7 @@ function route(event, id) {
 	} else {
 		page = $(id).attr('href');
 	}
-	defaultRoute(page);
+	defaultRoute(page, selector);
 }
 
 // 스크립트파일 동적 추가
