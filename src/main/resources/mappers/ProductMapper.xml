@@ -8,7 +8,7 @@
 <mapper namespace="kr.or.kosta.levin.product">
 	
 	<!-- 전체상품 조회 -->
-	<select id="listByPage" parameterType="Pagination" resultType="Product" >
+	<select id="listByPage" parameterType="searchPagination" resultType="Product" >
 		SELECT productId, 
 			   productNameKor, 
 			   price, 

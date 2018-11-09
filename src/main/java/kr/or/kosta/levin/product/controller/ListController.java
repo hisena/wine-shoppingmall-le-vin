@@ -16,6 +16,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import kr.or.kosta.levin.product.domain.Pagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.SearchPagination;
 import kr.or.kosta.levin.product.service.ProductService;
@@ -46,9 +47,9 @@ public class ListController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받는 페이지 및 
-		if(request.getParameter("searchKeyword").equals("null")) {
-			
-		}
+//		if(request.getParameter("searchKeyword").equals("null")) {
+//			
+//		}
 		String searchKeyword = request.getParameter("searchKeyword");
 		//int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
@@ -63,16 +64,21 @@ public class ListController implements Controller {
 		//search.setCurrentPage(currentPage);
 		search.setSearchKeyword(searchKeyword);
 		search.setCurrentPage(1);
+		
+		System.out.println(search.getCurrentPage());
 
 		try {
 				list = productService.list(search);
+				for (Product product : list) {
+					System.out.println(product.toString());
+				}
 //				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
 //					map.put("changeResult", "true");
 //				} else {
 //					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
 //					map.put("changeResult", "false");
 //				}
-				return map;
+				return list;
 			
 		} catch (Exception e) {
 			throw new ServletException("userService.changeResult() 예외 발생", e);

@@ -22,7 +22,7 @@ public class SearchPagination extends Pagination {
 	
 	@Override
 	public String toString() {
-		return "SearchPagination [searchType=" + searchType + ", searchKeyword=" + searchKeyword + "]";
+		return "SearchPagination [searchType=" + searchType + ", searchKeyword=" + searchKeyword+ "]";
 	}
 	
 }

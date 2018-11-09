@@ -36,6 +36,7 @@ public class MybatisProductDao implements ProductDao {
 	@Override
 	public List<Product> listByPage(SearchPagination searchPagination) throws Exception {
 		List<Product> list =null;
+		System.out.println(searchPagination.getCurrentPage());
 		try(SqlSession sqlSession = sqlSessionFactory.openSession()){
 			list = sqlSession.selectList(NAMESPACE + "listByPage", searchPagination);	
 		}catch (Exception e) {
