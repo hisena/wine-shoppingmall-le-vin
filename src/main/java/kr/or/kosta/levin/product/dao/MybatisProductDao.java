@@ -12,9 +12,9 @@ import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
- * User 정보와 DB를 연동하기 위한 구현 클래스
+ * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
  * 
- * @author 류세은, 박소연
+ * @author 박소연
  *
  */
 @Bean(type = BeanType.Repository)
@@ -33,18 +33,17 @@ public class MybatisProductDao implements ProductDao {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
+	// 상품 목록 불러오기(페이징, 검색처리)
 	@Override
 	public List<Product> listByPage(SearchPagination searchPagination) throws Exception {
 		List<Product> list =null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		list = sqlSession.selectList(NAMESPACE + "listByPage", searchPagination);
-			for (Product product : list) {
-				System.out.println(product.toString());
-		}
 		sqlSession.close();	
 		return list;
 	}
-
+	
+	// 검색한 상품 목록 갯수
 	@Override
 	public int countBySearch(SearchPagination searchPagination) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -52,8 +51,5 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return count;
 	}
-
-	
-
 	
 }

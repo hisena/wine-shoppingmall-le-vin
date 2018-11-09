@@ -5,8 +5,8 @@ import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
- * User 정보와 DB연동을 위한 인터페이스
- * @author 류세은, 박소연
+ * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
+ * @author 박소연
  *
  */
 public interface ProductDao {

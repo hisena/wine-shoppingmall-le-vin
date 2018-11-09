@@ -1,5 +1,11 @@
 package kr.or.kosta.levin.product.domain;
 
+/**
+ * 검색관련 도메인
+ * 
+ * @author 박소연
+ *
+ */
 public class SearchPagination extends Pagination {
 
 	// 인스턴스 변수

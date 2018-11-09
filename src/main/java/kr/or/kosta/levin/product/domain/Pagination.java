@@ -1,5 +1,11 @@
 package kr.or.kosta.levin.product.domain;
 
+/**
+ * 페이징 처리를 위한 도메인
+ * 
+ * @author 박소연
+ *
+ */
 public class Pagination {
 	
 	// 인스턴스 변수

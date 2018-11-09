@@ -2,7 +2,7 @@ package kr.or.kosta.levin.product.domain;
 
 /**
  * Product의 데이터 전달을 위한 도메인 객체
- * @author 류세은, 박소연
+ * @author 박소연
  *
  */
 public class Product {

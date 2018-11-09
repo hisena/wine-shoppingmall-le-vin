@@ -15,7 +15,7 @@ import kr.or.kosta.levin.product.domain.SearchPagination;
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 Service 객체
  * 
- * @author 류세은, 박소연
+ * @author 박소연
  *
  */
 @Bean(type = BeanType.Service)

@@ -1,5 +1,11 @@
 package kr.or.kosta.levin.product.domain;
 
+/**
+ * 페이징 정보 처리를 위한 도메인
+ * 
+ * @author 박소연
+ *
+ */
 public class PaginationManager {
 
 	// 인스턴스 변수
@@ -72,6 +78,7 @@ public class PaginationManager {
 		return pagination;
 	}
 
+	// 시작페이지, 끝 페이지, 맨앞으로, 맨뒤로 기능을 위해 계산처리하는 메소드
 	private void calculateData() {
 		
 		endPage = (int) (Math.ceil(pagination.getCurrentPage() / (double) displayPageNum) * displayPageNum);

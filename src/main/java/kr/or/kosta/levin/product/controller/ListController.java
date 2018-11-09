@@ -17,9 +17,9 @@ import kr.or.kosta.levin.product.domain.SearchPagination;
 import kr.or.kosta.levin.product.service.ProductService;
 
 /**
- * 회원 기본정보 목록 확인을 위한 세부 컨트롤러
+ * 상품 목록을 불러오기 위한 세부 컨트롤러
  * 
- * @author 류세은
+ * @author 박소연
  */
 
 @Bean(type = BeanType.Controller)
@@ -50,18 +50,19 @@ public class ListController implements Controller {
 		// 보여줄 페이지 갯수 전달할시 추가
 		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
 
-
 		//SearchPagination도메인에 전달 받은 값 넣기
 		SearchPagination search = new SearchPagination();
 		search.setCurrentPage(Integer.parseInt(currentPage));
 		search.setSearchKeyword(searchKeyword);
+		
 		Map<String, Object> map;
-
 		try {
 			map = productService.list(search);
+			// 검색해온 상품목록이 null이 아니면
 			if(map.get("productList") != null) {
 				return map;
 			}else {
+			// null일 경우
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
