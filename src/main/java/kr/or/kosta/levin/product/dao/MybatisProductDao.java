@@ -51,5 +51,12 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return count;
 	}
+
+	// 상품 상세
+	@Override
+	public Product get(String id) throws Exception {
+		
+		return null;
+	}
 	
 }
