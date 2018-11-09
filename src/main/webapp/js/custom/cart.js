@@ -5,7 +5,7 @@
 // 장바구니 상품 (배열)의 각 인덱스의 의미
 var cartIndexes = ['productId', 'productName', 'quantity', 'price', 'imagePath'];
 // 장바구니에서 상품을 구분할 때 사용하는 구분자
-var cartItemDelimiter = '-';
+var cartItemDelimiter = '_';
 // 상품 정보를 구분할 때 사용하는 구분자
 var itemInfoDelimiter = '~';
 // 태그 정보를 담고 있는 변수
@@ -150,7 +150,6 @@ function addItemToCart(cartItem) {
 		
 		value += createItemString(cartItem); 
 	}
-	
 	setInstanceEncodedCookie('cart', value);
 	
 }
@@ -214,8 +213,8 @@ function printCart() {
 			$('div.shp__cart__wrap').append(itemToAppend);
 			
 		}
-		$('.total__price').html(totalPrice.toLocaleString() + '원');
 	}
+	$('.total__price').html(totalPrice.toLocaleString() + '원');
 }
 
 $(function(){
