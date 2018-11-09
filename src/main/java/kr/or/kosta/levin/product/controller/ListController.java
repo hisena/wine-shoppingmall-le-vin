@@ -22,8 +22,8 @@ import kr.or.kosta.levin.product.service.ProductService;
  * @author 박소연
  */
 
-@Bean(type = BeanType.Controller)
-@RequestMapping(value = "/product/list")
+@Bean(type=BeanType.Controller)
+@RequestMapping(value="/product/list")
 public class ListController implements Controller {
 
 	// 서비스 선언
@@ -41,13 +41,12 @@ public class ListController implements Controller {
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
-
+		
 		String searchKeyword = request.getParameter("searchKeyword");
 		String currentPage = request.getParameter("currentPage");
 		if(currentPage == null) {
 			currentPage = "0";
 		}
-		
 		// 보여줄 페이지 갯수 전달할시 추가
 		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
 
@@ -59,6 +58,7 @@ public class ListController implements Controller {
 		Map<String, Object> map;
 		try {
 			map = productService.list(search);
+			System.out.println(map);
 			// 검색해온 상품목록이 null이 아니면
 			if(map.get("productList") != null) {
 				return map;

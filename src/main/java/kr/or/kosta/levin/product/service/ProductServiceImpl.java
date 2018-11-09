@@ -49,10 +49,14 @@ public class ProductServiceImpl implements ProductService {
 		pm.setPagination(searchPagination);
 		pm.setTotalCount(count);
 		
+		
 		// controller로 넘겨 주기 위해 map에 담아주기
 		map.put("productList", list);
-		map.put("pageInfo", pm);
+		map.put("pageInfo", pm.pageInfo());
 		
+		if(searchPagination.getSearchKeyword() != null) {
+			map.put("searchPagination", searchPagination);
+		}
 		return map;
 	}
 

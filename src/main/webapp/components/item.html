@@ -196,3 +196,22 @@
 
 <!-- 와인 상품을 동적으로 추가 -->
 <script src="js/custom/items.js"></script>
+<!-- 상품목록 Ajax -->
+<script>
+$(function() {
+	$.ajax(Utils.baseUrl + "product/list.mall", {
+		method: "get",
+		dataType: "json",
+		success: function(data) {
+			console.log(data.pageInfo);
+			var productList = data.productList
+			$.each(productList, function(index, item) {
+				printItems(item.productId, item.productNameKor, item.price);
+			});
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+});
+</script>

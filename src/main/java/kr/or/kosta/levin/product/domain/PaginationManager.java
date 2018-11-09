@@ -1,5 +1,8 @@
 package kr.or.kosta.levin.product.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 페이징 정보 처리를 위한 도메인
  * 
@@ -94,6 +97,20 @@ public class PaginationManager {
 		prev = startPage == 1 ? false : true;
 		
 		next = endPage * pagination.getPerPageNum() >= totalCount ? false : true;
+	}
+	
+	// 페이징 정보를 map으로 담기 위한 메소드
+	public Map<String, Object> pageInfo(){
+		
+		Map<String, Object> pageInfo = new HashMap<>();
+		pageInfo.put("totalCount", this.totalCount);
+		pageInfo.put("startPage", this.startPage);
+		pageInfo.put("endPage", endPage);
+		pageInfo.put("prev", prev);
+		pageInfo.put("next", next);
+		pageInfo.put("currentPage", this.pagination.getCurrentPage());
+		return pageInfo;
+		
 	}
 
 	@Override
