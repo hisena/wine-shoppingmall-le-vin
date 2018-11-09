@@ -51,5 +51,14 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return count;
 	}
+
+	// 상품 상세
+	@Override
+	public Product getProduct(String productId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
+		sqlSession.close();
+		return product;
+	}
 	
 }

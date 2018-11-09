@@ -56,4 +56,10 @@ public class ProductServiceImpl implements ProductService {
 		return map;
 	}
 
+	// 상품 상세 보기
+	@Override
+	public Product detailProduct(String productId) throws Exception {
+		return productDao.getProduct(productId);
+	}
+
 }
