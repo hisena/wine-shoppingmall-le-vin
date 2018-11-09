@@ -25,7 +25,7 @@ public class ServletContextLoadListener implements ServletContextListener {
 		Initiator initiator = new Initiator(url, configLocation);
 		Map<String, Object> beans = initiator.getBeans();
 		RequestHandler requestHandler = initiator.getRequestHandler();
-
+		
 		servletContext.setAttribute("beans", beans);
 		servletContext.setAttribute("requestHandler", requestHandler);
 	}

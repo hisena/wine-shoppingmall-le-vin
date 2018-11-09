@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                       
+<!-- Product, Price table에 접근하는 sql -->  
+                      
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.product">
+	
+	<!-- 전체상품 조회 -->
+	<select id="listByPage" parameterType="SearchPagination" resultType="Product" >
+		SELECT productId, 
+			   productNameKor, 
+			   price, 
+			   kind 
+		FROM   (SELECT Ceil(ROWNUM / #{perPageNum}) request_page, 
+               		   productId, 
+               		   productNameKor, 
+               		   price, 
+               		   kind 
+        		FROM   (SELECT pro.product_id       productId, 
+                       		   pro.product_name_kor productNameKor, 
+                       		   pri.price            price, 
+                       		   pro.kind             kind 
+                		FROM   levin_products pro 
+                       	INNER JOIN levin_prices pri 
+                        ON pro.product_id = pri.product_id
+                        <if test="searchKeyword != null">
+							WHERE pro.kind = #{searchKeyword}
+						</if>
+                		ORDER  BY pro.product_id)) 
+		WHERE  request_page = #{currentPage}
+	</select>
+	
+	<!-- 검색해온 상품 갯수 조회 -->
+	<select id="countBySearch"  parameterType="SearchPagination" resultType="int">
+		SELECT COUNT(product_id) count 
+		FROM   levin_products
+		<if test="searchKeyword != null">
+				WHERE kind = #{searchKeyword}
+		</if>
+	</select>
+	
+	<select id="getProduct" parameterType="String" resultType="Product" >
+		SELECT pro.product_id       productId, 
+       		   pro.product_name_kor productNameKor, 
+       		   pro.product_name_eng productNameEng, 
+       		   pro.alcohol          alcohol, 
+       		   pro.kind             kind, 
+       		   pro.sugar_content    sugarContent, 
+       		   pro.body, 
+       		   pro.vintage, 
+       		   pro.grape_kind       grapeKind, 
+       		   pro.total_quantity   totalQuantity, 
+       		   pro.winery, 
+       		   pri.price, 
+       		   reg.region_id        regionId, 
+       		   reg.region_name      regionName 
+		FROM   levin_products pro 
+        inner join levin_prices pri 
+                ON pro.product_id = pri.product_id 
+       	inner join levin_regions reg 
+               ON pro.region_id = reg.region_id 
+		WHERE  pro.product_id = #{productId}
+	</select>
+	 
+</mapper>
