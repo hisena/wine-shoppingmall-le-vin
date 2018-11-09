@@ -26,6 +26,7 @@ import kr.or.kosta.levin.product.service.ProductService;
 @RequestMapping(value = "/product/list")
 public class ListController implements Controller {
 
+	// 서비스 선언
 	@Inject
 	private ProductService productService;
 
