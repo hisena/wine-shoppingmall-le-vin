@@ -162,6 +162,34 @@
                   <span class="new-price">$17.20</span>
                 </div>
               </div>
+              <div>
+              	<table class="table table-hover productReview">
+              	  <tr class="danger">
+              	  	<th>번호</th>
+              	  	<th>제목</th>
+              	  	<th>작성자</th>
+              	  	<th>작성일</th>
+              	  	<th>별점</th>
+              	  </tr>
+              	  <tr class="title">
+              	  	<td>1</td>
+              	  	<td>샘플데이터입니다.</td>
+              	  	<td>김샘플</td>
+              	  	<td>2018.11.08</td>
+              	  	<td>5점</td>
+              	  </tr>
+              	  <tr class="hide">
+              	  	<td>안녕하세요.</td>
+				  </tr>
+              	  <tr>
+              	  	<td>2</td>
+              	  	<td>샘플데이터입니다!</td>
+              	  	<td>이샘플</td>
+              	  	<td>2018.11.08</td>
+              	  	<td>4점</td>
+              	  </tr>
+				</table>
+              </div>
               <div class="quick-desc">
                 "가격 대비 최고의 보르도 와인"<br>
                 "부드럽고 우아하며 과일향 풍부"<br>
@@ -194,3 +222,32 @@
 
 <!-- 와인 상품을 동적으로 추가 -->
 <script src="js/custom/items.js"></script>
+
+<!-- 구매후기 -->
+<script type="text/javascript">  
+	$(function(){
+	    /*$(".productReview .title td").click(function() {  
+	        var content = $(this).parents().next("tr");  
+	        if($(content).hasClass('hide')) {  
+	            $(content).addClass('show').removeClass('hide');
+	           	$('.productReview .show').css("display", "table-row", "important");
+	            $(".productReview .show td").attr("colspan", 5);
+	        }
+	        else {
+	            $(content).addClass('hide').removeClass('show');  
+	        }  
+	    });*/
+	    $(".productReview .title").click(function() {  
+	        var content = $(this).next("tr");  
+	        if($(content).hasClass('hide')) {  
+	            $(content).addClass('show').removeClass('hide');
+	            $(content).attr('style', 'display: table-row !important');
+	            $(content).children('td:first').attr("colspan", 5);
+	        }
+	        else {
+	            $(content).addClass('hide').removeClass('show');  
+	            $(content).attr('style','');
+	        }  
+	    });
+	});
+</script>
