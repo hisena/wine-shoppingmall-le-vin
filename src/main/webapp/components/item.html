@@ -203,6 +203,7 @@ $(function() {
 		method: "get",
 		dataType: "json",
 		success: function(data) {
+			console.log(data.pageInfo);
 			var productList = data.productList
 			$.each(productList, function(index, item) {
 				printItems(item.productId, item.productNameKor, item.price);

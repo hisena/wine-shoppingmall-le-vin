@@ -24,7 +24,7 @@ function printItems(productId, productName, price) {
                + '    <div class="product__details">'
                + '      <h2><a href="product-details.html">' + productName + '</a></h2>'
                + '      <ul class="product__price">'
-               + '        <li class="new__price">' + price + '</li>'
+               + '        <li class="new__price">' + Number(price).toLocaleString('en') + '원' + '</li>'
                + '      </ul>'
                + '    </div>'
                + '  </div>'
