@@ -8,7 +8,59 @@ var cartIndexes = ['productId', 'productName', 'quantity', 'price', 'imagePath']
 var cartItemDelimiter = '-';
 // 상품 정보를 구분할 때 사용하는 구분자
 var itemInfoDelimiter = '+';
+// 태그 정보를 담고 있는 변수
+var cartSelectorData = {
+	'list' : {},
+	'detail' : {}
+};
+// 리스트에서 값을 가져올 때
+cartSelectorData.list[cartIndexes.indexOf('productId')] = {
+	'selector' : '.product__action a[data-toggle="modal"]',
+	'attr' : 'href'
+};
+cartSelectorData.list[cartIndexes.indexOf('productName')] = '.product__details h2 a';
+cartSelectorData.list[cartIndexes.indexOf('price')] = '.product__price .new__price';
+cartSelectorData.list[cartIndexes.indexOf('imagePath')] = {
+		'selector' : '.pro__thumb img',
+		'attr' : 'src'
+}
+// 상세보기에서 값을 가져올 때 
+cartSelectorData.detail[cartIndexes.indexOf('productId')] = {
+		'selector' : '.product-info input[type="hidden"]',
+		'attr' : 'value'
+};
+cartSelectorData.detail[cartIndexes.indexOf('productName')] = '.product-info h1';
+cartSelectorData.detail[cartIndexes.indexOf('quantity')] = 'select#quantity:selected';
+cartSelectorData.detail[cartIndexes.indexOf('price')] = '.new__price';
+cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
+		'selector' : '.product-images img',
+		'attr' : 'src'
+}
+
+// html 태그로부터 필요한 정보를 추출하는 함수
+function createCartItemFromTags(targetProduct, type) {
 	
+	var cartItem = [];
+	var typeCartSelector = cartSelectorData[type];
+	
+	for (var index in typeCartSelector) {
+		
+		var cartSelectorDatum = typeCartSelector[index];
+		// html()이 아닌 속성으로 값을 가져와야 하는 경우에 대한 처리
+		if (typeof cartSelectorDatum !== 'string') {
+			var cartItemValue = $(targetProduct).find(cartSelectorDatum['selector']).attr(cartSelectorDatum['attr']);
+			cartItem.push(cartItemValue);
+		} else {
+			cartItem.push($(targetProduct).find(cartSelectorDatum).html());
+		}
+	}
+	// 수량 선택이 불가능한 경우 (목록에서 장바구니 추가할 경우)
+	if (type === 'list') {
+		cartItem.splice(cartIndexes.indexOf('quantity'), 0, 1);
+	}
+	
+	return cartItem;
+}
 // 상품 정보를 문자열로 만들어주는 함수
 function createItemString(cartItem) {
 	
@@ -35,7 +87,7 @@ function getItemFromCookieString(cookieString, productId) {
 			var item = convertStringToItem(cartItems[index]);
 			
 			var cartProductIdIndex = cartIndexes.indexOf('productId');
-			if (cartItem[cartProductIdIndex] == item[cartProductIdIndex]) {
+			if (item[cartProductIdIndex] == productId) {
 				return item;
 			}
 		}
@@ -53,9 +105,9 @@ function addItemToCart(cartItem) {
 		
 		// 새로 추가하는 상품의 수량을 변경
 		var cartQuantityIndex = cartIndexes.indexOf('quantity');
-		cartItem[cartQuantityIndex] += foundItem[cartQuantityIndex];
+		cartItem[cartQuantityIndex] += parseInt(foundItem[cartQuantityIndex]);
 		// 기존의 상품을 삭제
-		removeItemFromCart(item);
+		value = removeItemFromCart(foundItem);
 	}
 	// 장바구니에 상품이 있을 경우 상품 구분자 추가
 	if (value.length > 0) {
@@ -79,14 +131,23 @@ function removeItemFromCart(cartItem) {
 	value = value.replace(cartItemDelimiter + deleteItem, '');
 	// 제거해야 하는 상품의 위치가 0번째일 때 처리 
 	value = value.replace(deleteItem + cartItemDelimiter, '');
+	// 상품이 하나만 있을 때 처리
+	value = value.replace(deleteItem, '');
 	
 	// 쿠키값 저장
 	setInstanceCookie('cart', value);
+	
+	return value;
 }
 // 장바구니 정보를 이용해 화면에 출력해주는 함수
 function printCart() {
+	// 장바구니 초기화
+	$('div.shp__cart__wrap').html('');
+	
 	// 쿠키로부터 장바구니 정보를 가져옴
 	var value = getCookie('cart');
+	var totalPrice = 0;
+	
 	if (value.length > 0) {
 		var cartItems = value.split(cartItemDelimiter);
 		for ( var index in cartItems) {
@@ -94,6 +155,8 @@ function printCart() {
 			
 			var cartProductIdIndex = cartIndexes.indexOf('productId');
 			item = item.push(Utils.getImagePath(item[cartProductIdIndex]));
+			
+			totalPrice += (item[cartIndexes.indexOf('quantity')] * item[cartIndexes.indexOf('price')]);
 			
 			for (itemInfoIndex in item) {
 				
@@ -122,5 +185,22 @@ function printCart() {
 				$('div.shp__cart__wrap').append(itemToAppend);
 			}
 		}
+		
+		$('.total__price').html(totalPrice);
 	}
 }
+
+$(function(){
+	// 장바구니 화면 출력 
+	printCart();
+	
+	// 목록에서 장바구니 추가 버튼 클릭 시
+	$(document).on('click', 'ul.product__action li:nth-child(3) a', function(event){
+		event.preventDefault();
+		
+		var targetProduct = $(this).parents('div.product');
+		var item = createCartItemFromTags(targetProduct, 'list');
+		addItemToCart(item);
+		printCart();
+	});
+})
