@@ -11,7 +11,8 @@ var itemInfoDelimiter = '~';
 // 태그 정보를 담고 있는 변수
 var cartSelectorData = {
 	'list' : {},
-	'detail' : {}
+	'detail' : {},
+	'cart' : {}
 };
 // 리스트에서 값을 가져올 때
 cartSelectorData.list[cartIndexes.indexOf('productId')] = {
@@ -36,13 +37,22 @@ cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-images img',
 		'attr' : 'src'
 }
+// 장바구니에서 값을 가져올 때
+cartSelectorData.cart[cartIndexes.indexOf('productId')] = {
+		'selector' : '#productId',
+		'attr' : 'value'
+};
+cartSelectorData.cart[cartIndexes.indexOf('productName')] = '.shp__pro__details h2 a';
+cartSelectorData.cart[cartIndexes.indexOf('quantity')] = '.quantity';
+cartSelectorData.cart[cartIndexes.indexOf('price')] = '.shp__price';
+cartSelectorData.cart[cartIndexes.indexOf('imagePath')] = {
+		'selector' : '.shp__pro__thumb img',
+		'attr' : 'src'
+}
+
 
 // 모든 경우의 수를 고려해 수정
 function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
-	
-	if (needDelimiter === undefined) {
-		needDelimiter = false;
-	}
 	
 	// 수정해야 하는 상품의 위치가 1번째 이상일 때 처리
 	var replaceString = needDelimiter? cartItemDelimiter + stringToReplace : stringToReplace; 
@@ -151,10 +161,8 @@ function removeItemFromCart(cartItem) {
 	var value = getCookie('cart');
 	// 지워야 하는 상품을 문자열 정보로 변환
 	var deleteItem = createItemString(cartItem);
-	
 	// 제거
-	replaceInAllCases(value, deleteItem, '');
-	
+	value = replaceInAllCases(value, deleteItem, '');
 	// 쿠키값 저장
 	setInstanceEncodedCookie('cart', value);
 	
@@ -180,6 +188,7 @@ function printCart() {
 			
 			// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
 			var itemToAppend = '<div class="shp__single__product">'
+				+  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') + '###">'
 				+  '	<div class="shp__pro__thumb">'
 				+  '		<a href="#">'
 				+  '		  <img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
@@ -187,7 +196,7 @@ function printCart() {
 				+  '	</div>'
 				+  '	<div class="shp__pro__details">'
 				+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
-				+  '		<span class="quantity">QTY: ###' + cartIndexes.indexOf('quantity') + '###</span>'
+				+  '		수량: <span class="quantity">###' + cartIndexes.indexOf('quantity') + '###</span>'
 				+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
 				+  '	</div>'
 				+  '	<div class="remove__btn">'
@@ -220,6 +229,15 @@ $(function(){
 		var targetProduct = $(this).parents('div.product');
 		var item = createCartItemFromTags(targetProduct, 'list');
 		addItemToCart(item);
+		printCart();
+	});
+	
+	$(document).on('click', '.remove__btn a', function(){
+		event.preventDefault();
+		
+		var targetProduct = $(this).parents('div.shp__single__product');
+		var item = createCartItemFromTags(targetProduct, 'cart');
+		removeItemFromCart(item);
 		printCart();
 	});
 })
