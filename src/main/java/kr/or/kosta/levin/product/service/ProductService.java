@@ -1,7 +1,7 @@
 package kr.or.kosta.levin.product.service;
 
-import java.util.List;
-import kr.or.kosta.levin.product.domain.Product;
+import java.util.Map;
+
 import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
@@ -13,6 +13,6 @@ public interface ProductService {
 
 
 	/** 상품 목록 */
-	public List<Product> list(SearchPagination searchPagination) throws Exception;
+	public Map<String, Object> list(SearchPagination searchPagination) throws Exception;
 	
 }

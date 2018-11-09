@@ -10,7 +10,7 @@ public class Pagination {
 	public Pagination() {
 		
 		this.currentPage = 1;
-		this.perPageNum = 10;
+		this.perPageNum = 8;
 	}
 
 	// getter/setter 메소드

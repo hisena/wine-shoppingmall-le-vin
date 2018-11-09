@@ -8,7 +8,7 @@
 <mapper namespace="kr.or.kosta.levin.product">
 	
 	<!-- 전체상품 조회 -->
-	<select id="listByPage" parameterType="searchPagination" resultType="Product" >
+	<select id="listByPage" parameterType="SearchPagination" resultType="Product" >
 		SELECT productId, 
 			   productNameKor, 
 			   price, 
@@ -25,11 +25,20 @@
                 		FROM   levin_products pro 
                        	INNER JOIN levin_prices pri 
                         ON pro.product_id = pri.product_id
-                        <if test="searchKeword != null">
-							WHERE pro.kind = #{searchKeword}
+                        <if test="searchKeyword != null">
+							WHERE pro.kind = #{searchKeyword}
 						</if>
                 		ORDER  BY pro.product_id)) 
 		WHERE  request_page = #{currentPage}
+	</select>
+	
+	<!-- 검색해온 상품 갯수 조회 -->
+	<select id="countBySearch"  parameterType="SearchPagination" resultType="int">
+		SELECT COUNT(product_id) count 
+		FROM   levin_products
+		<if test="searchKeyword != null">
+				WHERE kind = #{searchKeyword}
+		</if>
 	</select>
 	 
 </mapper>

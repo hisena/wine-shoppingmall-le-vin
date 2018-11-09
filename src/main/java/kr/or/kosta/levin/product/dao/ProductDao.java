@@ -13,6 +13,7 @@ public interface ProductDao {
 	
 	/** 선택페이지, 조회 목록개수, 검색유형, 검색값에 따른 사용자 목록 반환 */	
 	public List<Product> listByPage(SearchPagination searchPagination) throws Exception;
+	public int countBySearch(SearchPagination searchPagination) throws Exception;
 	
 	
 }

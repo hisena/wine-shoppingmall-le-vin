@@ -1,8 +1,5 @@
 package kr.or.kosta.levin.product.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,8 +13,6 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.product.domain.Pagination;
-import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.SearchPagination;
 import kr.or.kosta.levin.product.service.ProductService;
 
@@ -46,42 +41,31 @@ public class ListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-		// 클라이언트로부터 받는 페이지 및 
-//		if(request.getParameter("searchKeyword").equals("null")) {
-//			
-//		}
 		String searchKeyword = request.getParameter("searchKeyword");
-		//int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String currentPage = request.getParameter("currentPage");
+		if(currentPage == null) {
+			currentPage = "0";
+		}
 		
 		// 보여줄 페이지 갯수 전달할시 추가
 		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
-		
-		Map<String, String> map = new HashMap<String, String>();
-		List<Product> list = new ArrayList<>(); 
+
 
 		//SearchPagination도메인에 전달 받은 값 넣기
 		SearchPagination search = new SearchPagination();
-		//search.setCurrentPage(currentPage);
+		search.setCurrentPage(Integer.parseInt(currentPage));
 		search.setSearchKeyword(searchKeyword);
-		search.setCurrentPage(1);
-		
-		System.out.println(search.getCurrentPage());
+		Map<String, Object> map;
 
 		try {
-				list = productService.list(search);
-				for (Product product : list) {
-					System.out.println(product.toString());
-				}
-//				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
-//					map.put("changeResult", "true");
-//				} else {
-//					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
-//					map.put("changeResult", "false");
-//				}
-				return list;
-			
+			map = productService.list(search);
+			if(map.get("productList") != null) {
+				return map;
+			}else {
+				throw new RequestBadRequestException();
+			}
 		} catch (Exception e) {
-			throw new ServletException("userService.changeResult() 예외 발생", e);
+			throw new ServletException("product/ListController 예외 ", e);
 		}
 	}
 }
