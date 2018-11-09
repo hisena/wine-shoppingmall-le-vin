@@ -43,32 +43,25 @@ public class DetailController implements Controller {
 			throws ServletException, RequestException {
 
 		String productId = request.getParameter("productId");
-		String searchKeyword = request.getParameter("searchKeyword");
-		String currentPage = request.getParameter("currentPage");
-		if(currentPage == null) {
-			currentPage = "0";
-		}
+		
 		
 		// 보여줄 페이지 갯수 전달할시 추가
 		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
 
-		//SearchPagination도메인에 전달 받은 값 넣기
-		SearchPagination search = new SearchPagination();
-		search.setCurrentPage(Integer.parseInt(currentPage));
-		search.setSearchKeyword(searchKeyword);
 		
 		Map<String, Object> map;
 		try {
-			map = productService.list(search);
-			// 검색해온 상품목록이 null이 아니면
-			if(map.get("productList") != null) {
-				return map;
-			}else {
-			// null일 경우
-				throw new RequestBadRequestException();
-			}
+//			map = productService.list();
+//			// 검색해온 상품목록이 null이 아니면
+//			if(map.get("productList") != null) {
+//				return map;
+//			}else {
+//			// null일 경우
+//				throw new RequestBadRequestException();
+//			}
 		} catch (Exception e) {
 			throw new ServletException("product/ListController 예외 ", e);
 		}
+		return null;
 	}
 }
