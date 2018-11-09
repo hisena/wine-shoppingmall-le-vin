@@ -8,3 +8,11 @@
 	margin-left: -5px;
 	color: black;
 }
+
+.table {
+	margin-top: 20px;
+}
+
+.hide {display:none;}
+
+.show {height:80px;}
