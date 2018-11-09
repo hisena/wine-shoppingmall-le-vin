@@ -41,7 +41,7 @@
 		</if>
 	</select>
 	
-	<select id="get" parameterType="String" resultType="Product" >
+	<select id="getProduct" parameterType="String" resultType="Product" >
 		SELECT pro.product_id       productId, 
        		   pro.product_name_kor productNameKor, 
        		   pro.product_name_eng productNameEng, 

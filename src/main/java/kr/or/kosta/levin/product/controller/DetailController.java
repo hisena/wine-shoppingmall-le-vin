@@ -13,6 +13,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.SearchPagination;
 import kr.or.kosta.levin.product.service.ProductService;
 
@@ -44,24 +45,17 @@ public class DetailController implements Controller {
 
 		String productId = request.getParameter("productId");
 		
-		
-		// 보여줄 페이지 갯수 전달할시 추가
-		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
-
-		
-		Map<String, Object> map;
 		try {
-//			map = productService.list();
-//			// 검색해온 상품목록이 null이 아니면
-//			if(map.get("productList") != null) {
-//				return map;
-//			}else {
-//			// null일 경우
-//				throw new RequestBadRequestException();
-//			}
+			Product product = productService.detailProduct("1");
+			// 검색해온 상품목록이 null이 아니면
+			if(product !=null) {
+				return product;
+			}else {
+			// null일 경우
+				throw new RequestBadRequestException();
+			}
 		} catch (Exception e) {
 			throw new ServletException("product/ListController 예외 ", e);
 		}
-		return null;
 	}
 }

@@ -9,7 +9,7 @@ public class Product {
 	
 	private String productId;
 	private String productNameKor;
-	private String productBameEng;
+	private String productNameEng;
 	private String alcohol;
 	private String kind;
 	private String sugarContent;
@@ -28,13 +28,13 @@ public class Product {
 	}
 	
 	// 매개변수 있는 생성자
-	public Product(String productId, String productNameKor, String productBameEng, String alcohol, String kind,
+	public Product(String productId, String productNameKor, String productNameEng, String alcohol, String kind,
 			String sugarContent, String body, String vintage, String grapeKind, String totalQuantity, String winery,
 			String regionId, String regionName, String price) {
 		super();
 		this.productId = productId;
 		this.productNameKor = productNameKor;
-		this.productBameEng = productBameEng;
+		this.productNameEng = productNameEng;
 		this.alcohol = alcohol;
 		this.kind = kind;
 		this.sugarContent = sugarContent;
@@ -61,11 +61,11 @@ public class Product {
 	public void setProductNameKor(String productNameKor) {
 		this.productNameKor = productNameKor;
 	}
-	public String getProductBameEng() {
-		return productBameEng;
+	public String getProductNameEng() {
+		return productNameEng;
 	}
-	public void setProductBameEng(String productBameEng) {
-		this.productBameEng = productBameEng;
+	public void setProductNameEng(String productNameEng) {
+		this.productNameEng = productNameEng;
 	}
 	public String getAlcohol() {
 		return alcohol;
@@ -135,8 +135,8 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productNameKor=" + productNameKor + ", productBameEng="
-				+ productBameEng + ", alcohol=" + alcohol + ", kind=" + kind + ", sugarContent=" + sugarContent
+		return "Product [productId=" + productId + ", productNameKor=" + productNameKor + ", productNameEng="
+				+ productNameEng + ", alcohol=" + alcohol + ", kind=" + kind + ", sugarContent=" + sugarContent
 				+ ", body=" + body + ", vintage=" + vintage + ", grapeKind=" + grapeKind + ", totalQuantity="
 				+ totalQuantity + ", winery=" + winery + ", regionId=" + regionId + ", regionName=" + regionName
 				+ ", price=" + price + "]";

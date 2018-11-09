@@ -17,6 +17,6 @@ public interface ProductService {
 	public Map<String, Object> list(SearchPagination searchPagination) throws Exception;
 	
 	/**상품 상세 정보*/
-	public Product detail(String productId) throws Exception;
+	public Product detailProduct(String productId) throws Exception;
 	
 }

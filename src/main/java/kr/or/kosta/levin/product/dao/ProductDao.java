@@ -16,6 +16,6 @@ public interface ProductDao {
 	/** 검색해온 상품 목록의 개수 반환*/
 	public int countBySearch(SearchPagination searchPagination) throws Exception;
 	/** 상품 상세*/
-	public Product get(String id) throws Exception;
+	public Product getProduct(String id) throws Exception;
 	
 }
