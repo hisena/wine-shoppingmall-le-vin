@@ -9,13 +9,13 @@
 	
 	<!-- 전체상품 조회 -->
 	<select id="listByPage" parameterType="Pagination" resultType="Product" >
-		SELECT productid, 
-			   productnamekor, 
+		SELECT productId, 
+			   productNameKor, 
 			   price, 
 			   kind 
-		FROM   (SELECT Ceil(ROWNUM / 10) request_page, 
-               		   productid, 
-               		   productnamekor, 
+		FROM   (SELECT Ceil(ROWNUM / #{perPageNum}) request_page, 
+               		   productId, 
+               		   productNameKor, 
                		   price, 
                		   kind 
         		FROM   (SELECT pro.product_id       productId, 
@@ -29,9 +29,7 @@
 							WHERE pro.kind = #{searchKeword}
 						</if>
                 		ORDER  BY pro.product_id)) 
-		WHERE  request_page = 1 
+		WHERE  request_page = #{currentPage}
 	</select>
-	
-	
 	 
 </mapper>

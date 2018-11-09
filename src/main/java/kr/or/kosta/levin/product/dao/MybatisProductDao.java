@@ -1,6 +1,8 @@
 package kr.or.kosta.levin.product.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import io.github.leeseungeun.webframework.annotations.Bean;
@@ -33,8 +35,13 @@ public class MybatisProductDao implements ProductDao {
 
 	@Override
 	public List<Product> listByPage(SearchPagination searchPagination) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list =null;
+		try(SqlSession sqlSession = sqlSessionFactory.openSession()){
+			list = sqlSession.selectList(NAMESPACE + "listByPage", searchPagination);	
+		}catch (Exception e) {
+			
+		}
+		return list;
 	}
 
 	
