@@ -8,13 +8,28 @@
 <mapper namespace="kr.or.kosta.levin.product">
 	
 	<!-- 전체상품 조회 -->
-	<select id="listByPage" resultType="Product" >
-		SELECT id                                        "id", 
-		       name                                      "name", 
-		       passwd                                    "passwd", 
-		       email                                     "email", 
-		       TO_CHAR(regdate, 'YYYY/MM/DD HH24:MI:SS') "regdate"
-		FROM   users 
+	<select id="listByPage" parameterType="Pagination" resultType="Product" >
+		SELECT productid, 
+			   productnamekor, 
+			   price, 
+			   kind 
+		FROM   (SELECT Ceil(ROWNUM / 10) request_page, 
+               		   productid, 
+               		   productnamekor, 
+               		   price, 
+               		   kind 
+        		FROM   (SELECT pro.product_id       productId, 
+                       		   pro.product_name_kor productNameKor, 
+                       		   pri.price            price, 
+                       		   pro.kind             kind 
+                		FROM   levin_products pro 
+                       	INNER JOIN levin_prices pri 
+                        ON pro.product_id = pri.product_id
+                        <if test="searchKeword != null">
+							WHERE pro.kind = #{searchKeword}
+						</if>
+                		ORDER  BY pro.product_id)) 
+		WHERE  request_page = 1 
 	</select>
 	
 	
