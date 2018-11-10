@@ -26,15 +26,15 @@
         <div class="col-md-12">
           <div class="filter__menu__container">
             <div class="product__menu">
-              <button data-filter="*" class="is-checked">모두 검색</button>
-              <button data-filter=".cat--1">레드와인</button>
-              <button data-filter=".cat--2">화이트와인</button>
-              <button data-filter=".cat--3">로제</button>
-              <button data-filter=".cat--4">디저트</button>
-              <button data-filter=".cat--5">샴페인</button>
+              <button class="is-checked">모두 검색</button>
+              <button value="Red">Red</button>
+              <button value="White">White</button>
+              <button value="Rose">Rose</button>
+              <button value="Sparkling">Sparkling</button>
+              <button value="Sweet">Sweet</button>
             </div>
             <div class="filter__box">
-              <a class="filter__menu" href="#">필터</a>
+              <a class="filter__menu" href="#">상세 검색</a>
             </div>
           </div>
         </div>
@@ -143,6 +143,8 @@
 <!-- Ajax통신 -->
 <script>
 $(function() {
+	// 검색키워드 선언
+	var searchKeyword;
 	// 처음 로딩시 Ajax
 	$.ajax(Utils.baseUrl + "product/list.mall", {
 		method: "get",
@@ -151,10 +153,12 @@ $(function() {
 			var productList = data.productList;
 			var pageInfo = data.pageInfo;
 			// 상품 리스트 출력
+			$('#product').empty();
 			$.each(productList, function(index, item) {
 				printItems(item.productId, item.productNameKor, item.price);
 			});
 			// 페이지네이션
+			$('.pagination-lg').empty();
 			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
 		},
 		error: function(data) {
@@ -168,7 +172,8 @@ $(function() {
 		$.ajax(Utils.baseUrl + "product/list.mall", {
 			method: "get",
 			data: {
-				"currentPage": $(this).attr("href")
+				"currentPage": $(this).attr("href"),
+				"searchKeyword": searchKeyword
 			},
 			dataType: "json",
 			success: function(data) {
@@ -217,6 +222,33 @@ $(function() {
 				details(data.productId, data.productNameKor, data.productNameEng, data.price, 
 						data.sugarContent, data.body, data.kind, data.regionName, data.winery, 
 						data.vintage, data.alcohol, data.grapeKind);
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
+	});
+	
+	// 와인 종류별 검색 Ajax
+	$(document).on ('click', '.product__menu button', function(event) {
+		searchKeyword = $(this).attr("value");
+		$.ajax(Utils.baseUrl + "product/list.mall", {
+			method: "get",
+			data: {
+				"searchKeyword": $(this).attr("value")
+			},
+			dataType: "json",
+			success: function(data) {
+				var productList = data.productList;
+				var pageInfo = data.pageInfo;
+				// 와인 종류별 검색
+				$('#product').empty();
+				$.each(productList, function(index, item) {
+					printItems(item.productId, item.productNameKor, item.price);
+				});
+				// 페이지네이션
+				$('.pagination-lg').empty();
+				page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
 			},
 			error: function(data) {
 				alert('에러발생');

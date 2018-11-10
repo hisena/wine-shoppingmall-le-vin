@@ -5,7 +5,7 @@
  */
 function printItems(productId, productName, price) {
 	// 추가할 상품
-	var String = '<div class="col-md-3  col-lg-3 col-sm-3 col-xs-12 cat--1 single__pro">'
+	var String = '<div class="col-md-3  col-lg-3 col-sm-3 col-xs-12 single__pro">'
 		       + '  <div class="product foo">'
                + '    <div class="product__inner">'
                + '      <div class="pro__thumb">'
