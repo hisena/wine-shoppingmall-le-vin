@@ -48,7 +48,7 @@ $("form#loginForm").submit(function(event) {
 			} else {
 				setInstanceCookie('email', data.EMAIL);
 			}
-			route(event, null);
+			route(event, null, '.fixed__footer');
 		},
 		error: function(data) {
 			// 로그인 5회 이상 실패 처리
