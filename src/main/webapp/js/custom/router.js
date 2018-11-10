@@ -27,33 +27,23 @@ $(function(){
 });
 
 // Router 생성
-function defaultRoute(fileLocation, selector, data) {
+function defaultRoute(fileLocation, selector, callback) {
 	$(selector).empty();
-	$(selector).load(fileLocation, data, getScript);
+	$(selector).load(fileLocation, getScript.bind(this, callback));
 }
 
-function route(event, id, selector, data) {
+function route(event, id, selector, callback) {
 	event.preventDefault();
 	var page;
-	if (id == null || id == undefined) {
+	if (!id) {
 		page = 'components/main.html';
 	} else {
 		page = $(id).attr('href');
 	}
-	defaultRoute(page, selector, data);
+	defaultRoute(page, selector, callback);
 }
 
 // 스크립트파일 동적 추가
-function getScript(){
-	$.getScript('js/main.js', function(){
-		var email = getCookie("email");
-		if (email !== null && email !== undefined) {
-			var user = email.split("@");
-			if (email != "") {
-				$('#user').html(user[0] + "님 로그인 중...")
-				$('#user').css("display", "block");
-				$('#login_register').attr("id", "item");
-			}
-		}
-	});
+function getScript(callback){
+	$.getScript('js/main.js', callback);
 }

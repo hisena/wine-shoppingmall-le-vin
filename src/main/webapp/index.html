@@ -310,10 +310,17 @@ $(function() {
 <script>
 $(function(){
 	
-	var cartItems;
-	
 	$('#goToPurchase').click(function(event){
-		route(event, '#' + $(this).attr('id'), '.fixed__footer', cartItems);
+  		var cartItems = [];
+  		
+  		var targetItems = $('.shp__single__product');
+		for (var i = 0; i < targetItems.length; i++) {
+			var targetItem = targetItems[i];
+			cartItems.push(createCartItemFromTags(targetItem, 'cart'));
+		}
+		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
+			console.log();
+		});
 	});
 	
 });
