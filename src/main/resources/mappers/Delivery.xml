@@ -7,16 +7,20 @@
 	
 	<!-- 주소 정보 등록 -->
 	<insert  id="createDelivery" parameterType="Delivery">
-		INSERT INTO levin_order_lists
+		INSERT INTO levin_deliverys
 		(
   					order_id,
-					product_id,
-					quantity
+					address_id,
+					receiver_name,
+					receiver_mobile,
+					delivery_comments
 		)VALUES(
   					order_id_seq.currval,
-  					#{productId},
-  					#{quantity}
-);
+  					#{addressId},
+  					#{receiverName},
+  					#{receiverMobile},
+  					#{deliveryComments}
+		);
 	</insert>
 		
 </mapper>

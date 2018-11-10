@@ -1,5 +1,7 @@
 package kr.or.kosta.levin.order.controller;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +44,20 @@ public class AddController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-		String productId = request.getParameter("productId");
+
+//*.productId
+//*.quantity
+//email
+//orderMoney
+//receiverName
+//receiverMobile
+//addressId
+//address
+//detailedAddress
+//zipCode
+//deliveryComm
+
+		List<String> productId = request.getParameter("Products");
 		try {
 			// 파라미터값 null 체크
 			if (productId != null) {
