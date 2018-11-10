@@ -1,169 +1,113 @@
-<!doctype html>
-<html>
-<head>
 <meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wine Template</title>
-    
-<!-- Place favicon.ico in the root directory -->
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<!-- css 파일 -->
-<!-- Bootstrap fremwork main css -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<!-- Owl Carousel main css -->
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<!-- This core.css file contents all plugings css file. -->
-<link rel="stylesheet" href="css/core.css">
-<!-- Theme shortcodes/elements style -->
-<link rel="stylesheet" href="css/shortcode/shortcodes.css">
-<!-- Theme main style -->
-<link rel="stylesheet" href="style.css">
-<!-- Responsive css -->
-<link rel="stylesheet" href="css/responsive.css">
-<!-- User style -->
-<link rel="stylesheet" href="css/custom.css">
-
-<!-- Modernizr JS -->
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
-
-</head>
-<body>
-<!-- Body main wrapper start -->
-<div class="wrapper fixed__footer">
-
-  <!-- 헤더 -->
-        
-  <!-- 메인사진 -->
-  <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
-    <div class="ht__bradcaump__wrap">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="bradcaump__inner text-center">
-              <h2 class="bradcaump-title">Cart</h2>
-              <nav class="bradcaump-inner">
-                <a class="breadcrumb-item" href="index.html">Home</a>
-                <span class="brd-separetor">/</span>
-                <span class="breadcrumb-item active">Cart</span>
-              </nav>
-            </div>
+<!-- 메인사진 -->
+<div class="ht__bradcaump__area"
+  style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center/cover;">
+  <div class="ht__bradcaump__wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="bradcaump__inner text-center">
+            <h2 class="bradcaump-title">Cart</h2>
+            <nav class="bradcaump-inner">
+              <a class="breadcrumb-item" href="index.html">Home</a> <span
+                class="brd-separetor">/</span> <span
+                class="breadcrumb-item active">Cart</span>
+            </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- 카트 리스트 -->
-  <div class="cart-main-area ptb--120 bg__white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <form action="#">               
-            <div class="table-content table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th class="product-thumbnail">사진</th>
-                    <th class="product-name">상품</th>
-                    <th class="product-price">가격</th>
-                    <th class="product-quantity">수량</th>
-                    <th class="product-subtotal">총 가격</th>
-                    <th class="product-remove">삭제</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
-                    <td class="product-name"><a href="#">Vestibulum suscipit</a></td>
-                    <td class="product-price"><span class="amount">£165.00</span></td>
-                    <td class="product-quantity"><input type="number" value="1" /></td>
-                    <td class="product-subtotal">£165.00</td>
-                    <td class="product-remove"><a href="#">X</a></td>
-                  </tr>
-                  <tr>
-                    <td class="product-thumbnail"><a href="#"><img src="images/product/3.png" alt="product img" /></a></td>
-                    <td class="product-name"><a href="#">Vestibulum dictum magna</a></td>
-                    <td class="product-price"><span class="amount">£50.00</span></td>
-                    <td class="product-quantity"><input type="number" value="1" /></td>
-                    <td class="product-subtotal">£50.00</td>
-                    <td class="product-remove"><a href="#">X</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="row">
-              <div class="col-md-8 col-sm-7 col-xs-12"></div>
-              <div class="col-md-4 col-sm-5 col-xs-12">
-                <div class="cart_totals">
-                  <h2>Cart Totals</h2>
-                  <table>
-                    <tbody>
-                      <tr class="cart-subtotal">
-                        <th>Subtotal</th>
-                        <td><span class="amount">£215.00</span></td>
-                      </tr>
-                      <tr class="shipping">
-                        <th>Shipping</th>
-                        <td>
-                          <ul id="shipping_method">
-                            <li>
-                              <input type="radio" /> 
-                              <label>
-                                  Flat Rate: <span class="amount">£7.00</span>
-                              </label>
-                            </li>
-                            <li>
-                              <input type="radio" /> 
-                              <label>
-                                  Free Shipping
-                              </label>
-                            </li>
-                          </ul>
-                          <p><a class="shipping-calculator-button" href="#">Calculate Shipping</a></p>
-                        </td>
-                      </tr>
-                      <tr class="order-total">
-                        <th>Total</th>
-                        <td>
-                          <strong><span class="amount">£215.00</span></strong>
-                        </td>
-                      </tr>                                           
-                    </tbody>
-                  </table>
-                  <div class="wc-proceed-to-checkout">
-                    <a href="checkout.html">결제하기</a>
-                  </div>
+</div>
+
+<!-- 카트 리스트 -->
+<div class="cart-main-area ptb--120 bg__white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <form action="#">
+          <div class="table-content table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th class="product-thumbnail">사진</th>
+                  <th class="product-name">상품</th>
+                  <th class="product-price">가격</th>
+                  <th class="product-quantity">수량</th>
+                  <th class="product-subtotal">총 가격</th>
+                  <th class="product-remove">삭제</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="product-thumbnail"><a href="#"><img
+                      src="images/product/4.png" alt="product img" /></a></td>
+                  <td class="product-name"><a href="#">Vestibulum
+                      suscipit</a></td>
+                  <td class="product-price"><span class="amount">£165.00</span></td>
+                  <td class="product-quantity"><input type="number"
+                    value="1" /></td>
+                  <td class="product-subtotal">£165.00</td>
+                  <td class="product-remove"><a href="#">X</a></td>
+                </tr>
+                <tr>
+                  <td class="product-thumbnail"><a href="#"><img
+                      src="images/product/3.png" alt="product img" /></a></td>
+                  <td class="product-name"><a href="#">Vestibulum
+                      dictum magna</a></td>
+                  <td class="product-price"><span class="amount">£50.00</span></td>
+                  <td class="product-quantity"><input type="number"
+                    value="1" /></td>
+                  <td class="product-subtotal">£50.00</td>
+                  <td class="product-remove"><a href="#">X</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col-md-8 col-sm-7 col-xs-12"></div>
+            <div class="col-md-4 col-sm-5 col-xs-12">
+              <div class="cart_totals">
+                <h2>Cart Totals</h2>
+                <table>
+                  <tbody>
+                    <tr class="cart-subtotal">
+                      <th>Subtotal</th>
+                      <td><span class="amount">£215.00</span></td>
+                    </tr>
+                    <tr class="shipping">
+                      <th>Shipping</th>
+                      <td>
+                        <ul id="shipping_method">
+                          <li><input type="radio" /> <label>
+                              Flat Rate: <span class="amount">£7.00</span>
+                          </label></li>
+                          <li><input type="radio" /> <label>
+                              Free Shipping </label></li>
+                        </ul>
+                        <p>
+                          <a class="shipping-calculator-button" href="#">Calculate
+                            Shipping</a>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr class="order-total">
+                      <th>Total</th>
+                      <td><strong><span class="amount">£215.00</span></strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="wc-proceed-to-checkout">
+                  <a href="checkout.html">결제하기</a>
                 </div>
               </div>
             </div>
-          </form> 
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-        
-  <!-- 푸터 -->
-        
 </div>
 
-<!-- JS 파일 -->
-<!-- jquery latest version -->
-<script src="js/vendor/jquery-1.12.0.min.js"></script>
-<!-- Bootstrap framework js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- All js plugins included in this file. -->
-<script src="js/plugins.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<!-- Waypoints.min.js. -->
-<script src="js/waypoints.min.js"></script>
-<!-- Main js file that contents all jQuery plugins activation. -->
-<script src="js/main.js"></script>
 
-</body>
-</html>

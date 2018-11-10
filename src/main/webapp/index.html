@@ -310,8 +310,10 @@ $(function() {
 <script>
 $(function(){
 	
-	$('#goToPurchase').click(function(){
-		
+	var cartItems;
+	
+	$('#goToPurchase').click(function(event){
+		route(event, '#' + $(this).attr('id'), '.fixed__footer', cartItems);
 	});
 	
 });
