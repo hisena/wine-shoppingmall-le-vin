@@ -16,5 +16,6 @@ public interface QnaDao {
 	public List<PrivateQna> listByPage(Map<String, String> parameter) throws Exception;
 	/** 검색해온 1:1문의 목록 개수 반환*/
 	public int countBySearch(Map<String, String> parameter) throws Exception;
-	
+	/** 1:1문의글 등록*/
+	public boolean createQna(PrivateQna privateQna) throws Exception;	
 }

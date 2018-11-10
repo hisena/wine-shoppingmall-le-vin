@@ -99,5 +99,17 @@ public class PrivateQna {
 	}
 	
 	
+	// privateQna 속성값 null 체크
+	public boolean checkNull(PrivateQna privateQna) {
+		
+		//속성값 중 하나라도 null이거나 공백값이라면 - false
+		if(privateQna.getEmail() == null || privateQna.getCategory() == null || privateQna.getTitle() == null || privateQna.getContent() == null
+				|| privateQna.getEmail().trim().length() == 0 || privateQna.getCategory().trim().length() == 0 
+				|| privateQna.getTitle().trim().length() == 0 || privateQna.getContent().trim().length() == 0 ) {
+			return false;
+		}
+		//속성값 모두 값이 존재하면- true
+		return true;
+	}
 	
 }
