@@ -14,6 +14,7 @@ public class Delivery {
 	private String deliveryComments;
 	private String completeDate;
 	private String startDate;
+	private String newTF;
 	
 	// 기본 생성자
 	public Delivery() {
@@ -31,6 +32,14 @@ public class Delivery {
 		this.deliveryComments = deliveryComments;
 		this.completeDate = completeDate;
 		this.startDate = startDate;
+	}
+
+	public String getNewTF() {
+		return newTF;
+	}
+
+	public void setNewTF(String newTF) {
+		this.newTF = newTF;
 	}
 
 	public String getOrderId() {

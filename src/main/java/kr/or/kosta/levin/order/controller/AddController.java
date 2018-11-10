@@ -23,6 +23,9 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
+import kr.or.kosta.levin.order.domain.Address;
+import kr.or.kosta.levin.order.domain.Delivery;
+import kr.or.kosta.levin.order.domain.Order;
 import kr.or.kosta.levin.order.domain.OrderList;
 import kr.or.kosta.levin.order.service.OrderService;
 import kr.or.kosta.levin.product.domain.Product;
@@ -55,23 +58,15 @@ public class AddController implements Controller {
 			throws ServletException, RequestException {
 
 
-//*.productId
-//*.quantity
-//email
-//orderMoney
-//receiverName
-//receiverMobile
-//addressId
-//address
-//detailedAddress
-//zipCode
-//deliveryComm
-
-
 		OrderList orderList = new OrderList();
+		Order order = new Order();
+		Address address = new Address();
+		Delivery delivery = new Delivery();
 		List<OrderList> productList = new ArrayList<>();
 		//String products = request.getParameter("Products");
-		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"sodus0131@naver.com\"}";
+		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
+				+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"null\", \"address\":\"서울시 종로구 종로동\", "
+				+ "\"detailedAddress\":\"123-56 행복빌딩 901호\", \"zipCode\":\"55-666\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
 				
 		JSONParser parser = new JSONParser();
 		JSONObject productsObject;
@@ -84,59 +79,42 @@ public class AddController implements Controller {
 				orderList.setQuantity((String)productOne.get("quantity"));
 				productList.add(orderList);
 			}
-			productsObject.get("email");
+			order.setEmail((String)productsObject.get("email"));
+			order.setOrderMoney((String)productsObject.get("orderMoney"));
+			delivery.setAddressId((String)productsObject.get("addressId"));
+			delivery.setReceiverName((String)productsObject.get("receiverName"));
+			delivery.setReceiverMobile((String)productsObject.get("receiverMobile"));
+			delivery.setDeliveryComments((String)productsObject.get("deliveryComm"));
+			address.setAddressId((String)productsObject.get("addressId"));
+			address.setAddress((String)productsObject.get("address"));
+			address.setDetailedAddress((String)productsObject.get("detailedAddress"));
+			address.setZipCode((String)productsObject.get("zipCode"));
+			address.setEmail((String)productsObject.get("email"));
+			
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 		}
-		
+		boolean addResult = false;
+		System.out.println(order.toString());
+		System.out.println(productList.toString());
+		System.out.println(delivery.toString());
+		System.out.println(address.toString());
 		try {
-			// 파라미터값 null 체크
-			if (productId != null) {
-				Product product = orderService.add(null, null, null, null);
+				addResult = orderService.add(order, delivery, address, productList);
 				// 검색해온 상품상세정보가 이 null이 아니면
-				if (product != null) {
-					// front controller에 넣기
-					return product;
+				if (addResult) {
+					// 주문한 정보 다시 갖고 오기
+					return addResult;
 				} else {
 					// null일 경우
 					throw new RequestUnauthorizedException();
 				}
-			// 파라미터 값이 null일 경우
-			} else {
-				throw new RequestBadRequestException();
-			}
+			
 		} catch (Exception e) {
 			throw new ServletException("order/AddController 예외 ", e);
 		}
-		
-		return null;
 	}
 	
-	public static void main(String[] args) {
-		OrderList orderList = new OrderList();
-		List<OrderList> productList = new ArrayList<>();
-		//String products = request.getParameter("Products");
-		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"sodus0131@naver.com\"}";
-				
-		JSONParser parser = new JSONParser();
-		JSONObject productsObject;
-		try {
-			productsObject = (JSONObject) parser.parse(products);			
-			JSONArray productsList = (JSONArray) productsObject.get("products");
-			for (Object object2 : productsList) {
-				JSONObject productOne = (JSONObject)object2;
-				System.out.println((String)productOne.get("productId"));
-				orderList.setProductId((String)productOne.get("productId"));
-				orderList.setQuantity((String)productOne.get("quantity"));
-				productList.add(orderList);	
-			}
-			for (int i = 0; i < productList.size(); i++) {
-				System.out.println(productList.get(i).get);
-			}
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
-	}
+	
 }

@@ -1,5 +1,7 @@
 package kr.or.kosta.levin.order.dao;
 
+import java.util.Map;
+
 import kr.or.kosta.levin.order.domain.OrderList;
 
 /**
@@ -10,5 +12,5 @@ import kr.or.kosta.levin.order.domain.OrderList;
 public interface OrderListDao {
 	
 	/** 주문하기*/
-	public boolean create(OrderList orderlist) throws Exception;
+	public boolean create(Map<String, String> productInfo) throws Exception;
 }

@@ -1,6 +1,7 @@
 package kr.or.kosta.levin.order.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,10 +37,10 @@ public class MybatisOrderListDao implements OrderListDao {
 	}
 
 	@Override
-	public boolean create(OrderList orderlist) throws Exception {
+	public boolean create(Map<String, String> productInfo) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// insert문 실행 후 반환값 저장
-		int result = sqlSession.insert(NAMESPACE + "createOrderList", orderlist);
+		int result = sqlSession.insert(NAMESPACE + "createOrderList",productInfo);
 		boolean flag = false;
 		// insert에 성공했으면
 		if (result == 1) {

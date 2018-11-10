@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean add(Order order, OrderList orderList, Delivery delivery, Address address) throws Exception {
+	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception {
 		// Mybatis 실행 결과를 받기 위한 변수
 		boolean orderResult = false;
 		boolean orderListResult = false;
@@ -110,20 +110,33 @@ public class OrderServiceImpl implements OrderService {
 		boolean flag = false;
 		// 주문 정보 등록
 		orderResult = orderDao.create(order);
+		System.out.println("주문등록 완료");
 		// 정보등록에 성공하면
 		if (orderResult) {
+			System.out.println("신규 배송지 등록 시작");
+			// 신규배송지일 경우
+			System.out.println(address.getAddressId());
+			if(address.getAddress() != null) {
+				addressResult = addressDao.create(address);
+				delivery.setNewTF("New");
+				System.out.println("신규배송지등록 완료");
+			}
+			
 			// 배송 정보 등록
 			deliveryResult = deliveryDao.create(delivery);
 			
-			// 신규배송지가 있을 경우 신규배송지 등록
-			if(address.getAddress() != null) {
-				addressResult = addressDao.create(address);
-			}
+			System.out.println("배송정보 등록완료");
+						
 			// 상품정보 등록
-			for (int i = 0; i < orderList.getProductId().size(); i++) {
-				orderListResult = orderlistDao.create(orderList);
+			for (int i = 0; i < productList.size(); i++) {
+				Map<String, String> productInfo = new HashMap<>();
+				productInfo.put("productId", productList.get(i).getProductId());
+				productInfo.put("quantity", productList.get(i).getQuantity());
+				orderListResult = orderlistDao.create(productInfo);
 				if(orderListResult == false) { break; }
 			}
+			
+			System.out.println("상품정보등록 완료");
 			
 			if (orderListResult && deliveryResult && addressResult ) {
 				flag = true;

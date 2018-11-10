@@ -6,7 +6,7 @@
 <mapper namespace="kr.or.kosta.levin.order">
 	
 	<!-- 주소 정보 등록 -->
-	<insert  id="createOrderList" parameterType="OrderList">
+	<insert  id="createOrderList" parameterType="map">
 		INSERT INTO levin_order_lists
 		(
   					order_id,

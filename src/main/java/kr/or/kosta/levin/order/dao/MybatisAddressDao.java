@@ -17,7 +17,7 @@ import kr.or.kosta.levin.order.domain.Address;
 @Bean(type = BeanType.Repository)
 public class MybatisAddressDao implements AddressDao {
 
-	private static final String NAMESPACE = "kr.or.kosta.levin.address.";
+	private static final String NAMESPACE = "kr.or.kosta.levin.user.";
 
 	@Inject
 	private SqlSessionFactory sqlSessionFactory;
