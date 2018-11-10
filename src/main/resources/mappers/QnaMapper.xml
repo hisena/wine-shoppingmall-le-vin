@@ -31,17 +31,24 @@
        						   content, 
        						   regdate, 
        						   delete_yn  			deleteYN 
-						FROM   levin_private_qnas 
-                		ORDER  BY article_id)) 
-		WHERE  email = #{email} and request_page = #{currentPage}
+						FROM   levin_private_qnas
+						WHERE  article_id NOT IN (SELECT child_id 
+                                           		  FROM   levin_private_qnas_comments) 
+                       	AND email = #{email} 	
+						<if test="searchType != null">
+							AND category = #{searchType} 
+						</if>
+                		ORDER  BY article_id DESC)) 
+		WHERE request_page = #{currentPage}
 	</select>
 	
 	<!-- 검색해온 문의 갯수 조회 -->
 	<select id="countBySearch"  parameterType="map" resultType="int">
 		SELECT COUNT(article_id) count 
 		FROM   levin_private_qnas
-		<if test="searchKeyword != null">
-				WHERE email =#{email} and kind = #{searchKeyword}
+		WHERE email = #{email}
+		<if test="searchType != null">
+				AND category = #{searchType}
 		</if>
 	</select>
 	 

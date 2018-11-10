@@ -1,5 +1,7 @@
 package kr.or.kosta.levin.privateqna.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,9 +15,9 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import kr.or.kosta.levin.privateqna.domain.Pagination;
 import kr.or.kosta.levin.privateqna.service.QnaService;
-import kr.or.kosta.levin.product.domain.SearchPagination;
-import kr.or.kosta.levin.product.service.ProductService;
+import oracle.net.aso.e;
 
 /**
  * 1:1문의 게시판 목록을 불러오기 위한 세부 컨트롤러
@@ -46,32 +48,42 @@ public class ListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-		String searchKeyword = request.getParameter("searchKeyword");
+		String searchType = request.getParameter("searchType");
 		String currentPage = request.getParameter("currentPage");
-		if(currentPage == null) {
-			currentPage = "0";
+		String email = request.getParameter("email");
+		
+		if(email == null || email.trim().length() == 0) {
+			throw new RequestBadRequestException();
 		}
 		
-		// 보여줄 페이지 갯수 전달할시 추가
-		// int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
-
-		//SearchPagination도메인에 전달 받은 값 넣기
-		SearchPagination search = new SearchPagination();
-		search.setCurrentPage(Integer.parseInt(currentPage));
-		search.setSearchKeyword(searchKeyword);
+		if(currentPage == null) {
+			currentPage = "1";
+		}
 		
+		//pagination에 담겨있는 perPageNum 기본값 받기
+		Pagination pagination = new Pagination();
+		int perPageNum = pagination.getPerPageNum();
+		
+		//전달받은 값 map 형태로 담기
+		Map<String, String> parameter = new HashMap<String, String>();
+		parameter.put("searchType", searchType);
+		parameter.put("currentPage", currentPage);
+		parameter.put("email", email);
+		parameter.put("perPageNum", String.valueOf(perPageNum));
 		Map<String, Object> map;
 		try {
-			map = QnaService.list(search);
-			// 검색해온 상품목록이 null이 아니면
-			if(map.get("productList") != null) {
-				return map;
-			}else {
-			// null일 경우
-				throw new RequestBadRequestException();
-			}
+				map = qnaService.list(parameter);	
+			
+			// 검색해온 문의리스트에 값이 있는 경우 - qnaList와 pageinfo가 담긴 map 반환
+			ArrayList<e> qnaList = (ArrayList)map.get("qnaList");
+				if(qnaList.size() != 0) {
+					return map;
+				}else {
+			// 검색해온 문의리스트에 값이 없을 경우 - 400 에러
+					throw new RequestBadRequestException();
+				}
 		} catch (Exception e) {
-			throw new ServletException("product/ListController 예외 ", e);
+			throw new ServletException("privateQna/ListController 예외 ", e);
 		}
 	}
 }
