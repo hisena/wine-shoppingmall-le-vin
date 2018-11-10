@@ -13,7 +13,7 @@ function printItems(productId, productName, price) {
                + '      </div>'
                + '      <div class="product__hover__info">'
                + '        <ul class="product__action">'
-               + '          <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="' + productId + '"><span class="ti-plus"></span></a></li>'
+               + '          <li><a data-toggle="modal" data-target="#productModal" title="상세보기" class="quick-view modal-view detail-link" href="' + productId + '"><span class="ti-plus"></span></a></li>'
                + '          <li><a title="구매하기" href="cart.html"><span class="ti-shopping-cart"></span></a></li>'
                + '          <li><a title="장바구니 추가" href=""><span class="ti-heart"></span></a></li>'
                + '        </ul>'
@@ -29,5 +29,4 @@ function printItems(productId, productName, price) {
                + '</div>';
 
 	$('#product').append(String);
-	
 }
