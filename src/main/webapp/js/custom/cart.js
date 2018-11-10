@@ -166,10 +166,14 @@ function removeItemFromCart(cartItem) {
 	setInstanceEncodedCookie('cart', value);
 	
 }
+// 가격 문자열을 숫자로 변환해주는 함수
+function priceStringToNumber(priceString) {
+	return parseInt(priceString.substr(0, priceString.length - 1).replace(',',''));
+}
 // 합계를 구해주는 함수 
 function getTotalPrice(quantity, price) {
 	var quantityValue = parseInt(quantity);
-	var priceValue = parseInt(price.substr(0, price.length - 1).replace(',',''));
+	var priceValue = priceStringToNumber(price);
 	
 	return quantityValue * priceValue;
 }

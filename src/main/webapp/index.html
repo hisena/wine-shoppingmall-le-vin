@@ -322,8 +322,12 @@ $(function(){
 		
       		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
+			var total = 0;
 			for ( var index in cartItems) {
 				var item = cartItems[index];
+				var subTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
+				total += subTotal;
+				item.push(subTotal.toLocaleString());
         		var itemToAppend = 
         			'<tr>' +
                   	  '<td class="product-thumbnail">' +
@@ -340,16 +344,18 @@ $(function(){
                   	  '<td class="product-quantity">' + 
                   	  	'<input type="number" value="###' + cartIndexes.indexOf('quantity') + '###" />' + 
                   	  '</td>' +
-                  	  '<td class="product-subtotal">###' + (cartIndexes.length - 1) + '###</td>' +
+                  	  '<td class="product-subtotal">###' + cartIndexes.length + '###원</td>' +
                   	  '<td class="product-remove"><a href="#">X</a></td>' +
               		'</tr>';
-              	  for (var i = 0; i < item.length; i++) {
+              	  for (var i = 0; i < item.length + 1; i++) {
               		  
       				var regExp = new RegExp('###' + i + '###', 'gm');
       				itemToAppend = itemToAppend.replace(regExp, item[i]);
               	  }
               	  $('.table-responsive tbody').append(itemToAppend);
 			}
+			
+			$('.order-total .amount').html(total.toLocaleString() + '원');
 		});
 	});
 	
