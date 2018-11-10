@@ -58,7 +58,6 @@ public class ListController implements Controller {
 		Map<String, Object> map;
 		try {
 			map = productService.list(search);
-			System.out.println(map);
 			// 검색해온 상품목록이 null이 아니면
 			if(map.get("productList") != null) {
 				return map;

@@ -109,16 +109,7 @@
       <div class="row mt--60">
         <div class="col-md-12">
           <ul class="pagination pagination-lg">
-    	      <li><a href="#"><span class="glyphicon glyphicon-backward"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-    	      <li><a href="#">1</a></li>
-    	      <li><a href="#">2</a></li>
-    	      <li><a href="#">3</a></li>
-    	      <li><a href="#">4</a></li>
-    	      <li><a href="#">5</a></li>
-    	      <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-forward"></span></a></li>
-    	    </ul>
+    	  </ul>
         </div>
       </div>
     </div>
@@ -196,6 +187,8 @@
 
 <!-- 와인 상품을 동적으로 추가 -->
 <script src="js/custom/items.js"></script>
+<!-- 페이지네이션 -->
+<script src="js/common/pagination.js"></script>
 <!-- 상품목록 Ajax -->
 <script>
 $(function() {
@@ -203,15 +196,47 @@ $(function() {
 		method: "get",
 		dataType: "json",
 		success: function(data) {
-			console.log(data.pageInfo);
-			var productList = data.productList
+			var productList = data.productList;
+			var pageInfo = data.pageInfo;
+			// 상품 리스트 출력
 			$.each(productList, function(index, item) {
 				printItems(item.productId, item.productNameKor, item.price);
 			});
+			// 페이지네이션
+			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
 		},
 		error: function(data) {
 			alert('에러발생');
 		}
 	});
+	
+	// 페이지네이션 Ajax
+	$(document).on ('click', '.pagination-lg a', function(event) {
+		event.preventDefault();
+		$.ajax(Utils.baseUrl + "product/list.mall", {
+			method: "get",
+			data: {
+				"currentPage": $(this).attr("href")
+			},
+			dataType: "json",
+			success: function(data) {
+				console.log(data.pageInfo);
+				var productList = data.productList;
+				var pageInfo = data.pageInfo;
+				// 상품 리스트 출력
+				$('#product').empty();
+				$.each(productList, function(index, item) {
+					printItems(item.productId, item.productNameKor, item.price);
+				});
+				// 페이지네이션
+				$('.pagination-lg').empty();
+				page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
+	});
 });
+
 </script>

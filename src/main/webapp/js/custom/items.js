@@ -10,7 +10,7 @@ function printItems(productId, productName, price) {
                + '    <div class="product__inner">'
                + '      <div class="pro__thumb">'
                + '        <a href="#">'
-               + '          <img src="' + Utils.getImagePath(productId) + '" alt="product images">'
+               + '          <img src="' + Utils.getImagePath(productId) + '" alt="product images" class="wineImage">'
                + '        </a>'
                + '      </div>'
                + '      <div class="product__hover__info">'
@@ -29,6 +29,8 @@ function printItems(productId, productName, price) {
                + '    </div>'
                + '  </div>'
                + '</div>';
-	
+
+	$('.wineImage').width('200px');
+	$('.wineImage').height('300px');
 	$('#product').append(String);
 }
