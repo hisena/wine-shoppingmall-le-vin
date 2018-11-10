@@ -1,0 +1,55 @@
+package kr.or.kosta.levin.privateqna.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import io.github.leeseungeun.webframework.annotations.Bean;
+import io.github.leeseungeun.webframework.annotations.Inject;
+import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+
+/**
+ * 1:1문의 관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
+ * 
+ * @author 류세은
+ *
+ */
+@Bean(type = BeanType.Repository)
+public class MybatisQnaDao implements QnaDao {
+
+	private static final String NAMESPACE = "kr.or.kosta.levin.privateqna.";
+
+	@Inject
+	private SqlSessionFactory sqlSessionFactory;
+
+	public SqlSessionFactory getSqlSessionFactory() {
+		return sqlSessionFactory;
+	}
+
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	// 1:1문의 리스트 불러오기(페이징, 검색처리)
+	@Override
+	public List<PrivateQna> listByPage(Map<String, String> parameter) throws Exception {
+		List<PrivateQna> list = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "listByPage", parameter);
+		sqlSession.close();	
+		return list;
+	}
+	
+	// 검색한 문의 목록 갯수
+	@Override
+	public int countBySearch(Map<String, String> parameter) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int count = sqlSession.selectOne(NAMESPACE+ "countBySearch", parameter);
+		sqlSession.close();
+		return count;
+	}
+	
+}

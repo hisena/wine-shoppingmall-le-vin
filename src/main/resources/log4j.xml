@@ -12,7 +12,7 @@
 
 
 	<!-- 패키지별 로그 설정 -->
-	<logger name="kr.or.kosta.shoppingmall">
+	<logger name="kr.or.kosta.levin">
 		<level value="debug" />
 	</logger>
 	
