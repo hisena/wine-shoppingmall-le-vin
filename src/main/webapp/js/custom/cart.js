@@ -12,7 +12,8 @@ var itemInfoDelimiter = '~';
 var cartSelectorData = {
 	'list' : {},
 	'detail' : {},
-	'cart' : {}
+	'cart' : {},
+	'cartDetail' : {}
 };
 // 리스트에서 값을 가져올 때
 cartSelectorData.list[cartIndexes.indexOf('productId')] = {
@@ -47,6 +48,21 @@ cartSelectorData.cart[cartIndexes.indexOf('quantity')] = '.quantity';
 cartSelectorData.cart[cartIndexes.indexOf('price')] = '.shp__price';
 cartSelectorData.cart[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.shp__pro__thumb img',
+		'attr' : 'src'
+}
+// 주문하기 전 장바구니 상세에서 값을 가져올 때
+cartSelectorData.cartDetail[cartIndexes.indexOf('productId')] = {
+		'selector' : '#productId',
+		'attr' : 'value'
+};
+cartSelectorData.cartDetail[cartIndexes.indexOf('productName')] = '.product-name';
+cartSelectorData.cartDetail[cartIndexes.indexOf('quantity')] = {
+		'selector' : '.product-quantity input',
+		'attr' : 'value'
+}
+cartSelectorData.cartDetail[cartIndexes.indexOf('price')] = '.product-price .amount';
+cartSelectorData.cartDetail[cartIndexes.indexOf('imagePath')] = {
+		'selector' : '.product-thumbnail img',
 		'attr' : 'src'
 }
 
@@ -197,9 +213,7 @@ function printCart() {
 			var itemToAppend = '<div class="shp__single__product">'
 				+  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') + '###">'
 				+  '	<div class="shp__pro__thumb">'
-				+  '		<a href="#">'
-				+  '		  <img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
-				+  '		</a>'
+				+  '		<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
 				+  '	</div>'
 				+  '	<div class="shp__pro__details">'
 				+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
@@ -229,7 +243,6 @@ function printCartTotal() {
 	var total = 0;
 	var subTotals = $('td.product-subtotal');
 	
-	console.log(subTotals);
 	for (var i = 0; i < subTotals.length; i++) {
 		total += priceStringToNumber(subTotals.eq(i).html());
 	}

@@ -72,7 +72,13 @@
 	$(document).on('click', '.product-remove a', function(event){
 		event.preventDefault();
 		
+		// 장바구니 상세 페이지에서 삭제
 		$(this).parents('tr').remove();
 		printCartTotal();
+		// 사이드 장바구니 동기화
+		var targetProduct = $(this).parents('tr.product');
+		var item = createCartItemFromTags(targetProduct, 'cartDetail');
+		removeItemFromCart(item);
+		printCart();
 	});
 </script>

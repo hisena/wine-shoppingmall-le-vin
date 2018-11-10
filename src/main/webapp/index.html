@@ -324,17 +324,17 @@ $(function(){
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
 			for ( var index in cartItems) {
 				var item = cartItems[index];
+				console.log(item);
 				var subTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
 				item.push(subTotal.toLocaleString());
         		var itemToAppend = 
-        			'<tr>' +
+        			'<tr class="product">' +
+        			  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') +'###" >' +
                   	  '<td class="product-thumbnail">' +
-        				'<a href="#">' +
-        				  '<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product img" />' + 
-        				 '</a>' + 
+	      				'<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product img" />' + 
         			  '</td>' + 
                   	  '<td class="product-name">' + 
-                  	  	'<a href="#">###' + cartIndexes.indexOf('productName') + '###</a>' + 
+                  	  	'###' + cartIndexes.indexOf('productName') + '###' + 
                   	  '</td>' +
                   	  '<td class="product-price">' + 
                   	  	'<span class="amount">###' + cartIndexes.indexOf('price') + '###</span>' + 
