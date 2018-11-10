@@ -67,7 +67,6 @@ public class AddQnaController implements Controller {
 		// 카테고리 체크
 		String category = request.getParameter("category");
 		boolean categoryCheck = (category != "주문/결제" && category != "배송" && category != "취소/반품" && category != "회원정보" && category != "기타");
-		System.out.println("categoryCheck : " + categoryCheck);
 		if(categoryCheck == true) {
 			throw new RequestBadRequestException();
 		}
