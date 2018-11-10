@@ -85,16 +85,23 @@
 	// 장바구니 상세에서의 수량 변화 이벤트 처리
 	$(document).on('change','.product-quantity input', function(){
 		
+		var value = getCookie('cart');
+		
 		var targetProduct = $(this).parents('tr.product');
 		var item = createCartItemFromTags(targetProduct, 'cartDetail');
+		var originalItem = getItemFromCookieString(value, item[cartIndexes.indexOf('productId')]);
+		// 변경된 바로 수량 바꿔줌
+		item[cartIndexes.indexOf('quantity')] = parseInt($(this).val());
+		// 사이드 장바구니에 반영
+		value = replaceInAllCases(value, createItemString(originalItem), createItemString(item), true);
+		setInstanceEncodedCookie('cart', value);
+		printCart();
 		
 		// 상품별 합계와 장바구니 합계 출력
 		var newSubTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
-		$('.product-subtotal').html(newSubTotal.toLocaleString() + '원');
+		targetProduct.find('.product-subtotal').html(newSubTotal.toLocaleString() + '원');
 		printCartTotal();
 		
-		// 사이드 장바구니에 반영
-		addItemToCart(item);
 		
 	});
 </script>

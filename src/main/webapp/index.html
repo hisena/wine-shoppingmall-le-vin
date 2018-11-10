@@ -87,7 +87,7 @@
           	<li id="user" class="drop" style="display: none"></li>
             <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
             <li><a href="components/login_register.html" id="login_register"><span class="ti-user"></span></a></li>
-            <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+            <li class="cart__menu"><span class="ti-heart"></span></li>
             <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
           </ul>
         </div>
@@ -324,7 +324,6 @@ $(function(){
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
 			for ( var index in cartItems) {
 				var item = cartItems[index];
-				console.log(item);
 				var subTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
 				item.push(subTotal.toLocaleString());
         		var itemToAppend = 
