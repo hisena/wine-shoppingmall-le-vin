@@ -194,9 +194,15 @@ function getTotalPrice(quantity, price) {
 	return quantityValue * priceValue;
 }
 // 장바구니 정보를 이용해 화면에 출력해주는 함수
-function printCart() {
+function printCart(printToOtherLocation) {
+	
+	var targetSelector = 'div.shp__cart__wrap';
+	if (printToOtherLocation) {
+		targetSelector = printToOtherLocation;
+	}
+	
 	// 장바구니 초기화
-	$('div.shp__cart__wrap').html('');
+	$(targetSelector).html('');
 	
 	// 쿠키로부터 장바구니 정보를 가져옴
 	var value = getCookie('cart');

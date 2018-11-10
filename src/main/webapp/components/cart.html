@@ -58,7 +58,7 @@
                   </tbody>
                 </table>
                 <div class="wc-proceed-to-checkout" style="clear: right;">
-                  <a href="checkout.html">주문하기</a>
+                  <a href="components/payment.html" id="goToOrderPage">주문하기</a>
                 </div>
               </div>
             </div>
@@ -103,5 +103,12 @@
 		printCartTotal();
 		
 		
+	});
+	
+	// 결제 화면으로 넘어가는 이벤트 
+	$('.wc-proceed-to-checkout a').click(function(event){
+		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(){
+			console.log('hello');
+		});
 	});
 </script>
