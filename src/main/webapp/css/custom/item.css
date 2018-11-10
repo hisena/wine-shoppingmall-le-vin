@@ -16,3 +16,15 @@
 .hide {display:none;}
 
 .show {height:80px;}
+
+.wineImage {
+	max-width: 200px;
+	max-height: 300px;
+}
+.product {
+	text-align: center;
+}
+.new-line {
+	clear:left;
+	float:left;
+}

@@ -5,13 +5,11 @@
  */
 function printItems(productId, productName, price) {
 	// 추가할 상품
-	var String = '<div class="col-md-3  col-lg-3 col-sm-4 col-xs-12 cat--1 single__pro">'
+	var String = '<div class="col-md-3  col-lg-3 col-sm-3 col-xs-12 cat--1 single__pro">'
 		       + '  <div class="product foo">'
                + '    <div class="product__inner">'
                + '      <div class="pro__thumb">'
-               + '        <a href="#">'
-               + '          <img src="' + Utils.getImagePath(productId) + '" alt="product images" class="wineImage">'
-               + '        </a>'
+               + '        <img src="' + Utils.getImagePath(productId) + '" alt="product images" class="wineImage">'
                + '      </div>'
                + '      <div class="product__hover__info">'
                + '        <ul class="product__action">'
@@ -30,7 +28,6 @@ function printItems(productId, productName, price) {
                + '  </div>'
                + '</div>';
 
-	$('.wineImage').width('200px');
-	$('.wineImage').height('300px');
 	$('#product').append(String);
+	
 }

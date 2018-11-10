@@ -220,7 +220,6 @@ $(function() {
 			},
 			dataType: "json",
 			success: function(data) {
-				console.log(data.pageInfo);
 				var productList = data.productList;
 				var pageInfo = data.pageInfo;
 				// 상품 리스트 출력
@@ -228,6 +227,19 @@ $(function() {
 				$.each(productList, function(index, item) {
 					printItems(item.productId, item.productNameKor, item.price);
 				});
+				
+				var viewport = $(document).width();
+				var minWidth = 768;
+				
+				var nth;
+				
+				if (viewport > minWidth) {
+					nth = 5;
+				} else {
+					nth = 1;
+				}
+				$('.single__pro:nth-child(' + nth + ')').addClass('new-line');
+				
 				// 페이지네이션
 				$('.pagination-lg').empty();
 				page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
