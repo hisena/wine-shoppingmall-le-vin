@@ -69,6 +69,7 @@
   </div>
 </div>
 <script>
+	// 장바구니 상세에서의 삭제 이벤트 처리
 	$(document).on('click', '.product-remove a', function(event){
 		event.preventDefault();
 		
@@ -80,5 +81,20 @@
 		var item = createCartItemFromTags(targetProduct, 'cartDetail');
 		removeItemFromCart(item);
 		printCart();
+	});
+	// 장바구니 상세에서의 수량 변화 이벤트 처리
+	$(document).on('change','.product-quantity input', function(){
+		
+		var targetProduct = $(this).parents('tr.product');
+		var item = createCartItemFromTags(targetProduct, 'cartDetail');
+		
+		// 상품별 합계와 장바구니 합계 출력
+		var newSubTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
+		$('.product-subtotal').html(newSubTotal.toLocaleString() + '원');
+		printCartTotal();
+		
+		// 사이드 장바구니에 반영
+		addItemToCart(item);
+		
 	});
 </script>
