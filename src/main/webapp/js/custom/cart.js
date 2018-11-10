@@ -166,6 +166,13 @@ function removeItemFromCart(cartItem) {
 	setInstanceEncodedCookie('cart', value);
 	
 }
+// 합계를 구해주는 함수 
+function getTotalPrice(quantity, price) {
+	var quantityValue = parseInt(quantity);
+	var priceValue = parseInt(price.substr(0, price.length - 1).replace(',',''));
+	
+	return quantityValue * priceValue;
+}
 // 장바구니 정보를 이용해 화면에 출력해주는 함수
 function printCart() {
 	// 장바구니 초기화
@@ -180,10 +187,7 @@ function printCart() {
 		for ( var index in cartItems) {
 			var item = convertStringToItem(cartItems[index]);
 			
-			var quantity = parseInt(item[cartIndexes.indexOf('quantity')]);
-			var priceString = item[cartIndexes.indexOf('price')];
-			var price = parseInt(priceString.substr(0, priceString.length - 1).replace(',',''));
-			totalPrice += (quantity * price);
+			totalPrice += getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
 			
 			// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
 			var itemToAppend = '<div class="shp__single__product">'
