@@ -24,5 +24,25 @@
 					sysdate
 		)
 	</insert>
+	
+	<!-- 신규 배송지 추가 -->
+	<insert  id="createNewAddress" parameterType="OrderAddress">
+		INSERT INTO levin_address
+		(
+					address_id,
+					email,
+					address,
+					zip_code,
+					detailed_address,
+          			regdate
+		)VALUES(
+					address_id_seq.nextval,
+          			#{email},
+					#{address},
+					#{zipCode},
+					#{detailedAddress},
+					sysdate
+		)
+	</insert>
 		
 </mapper>
