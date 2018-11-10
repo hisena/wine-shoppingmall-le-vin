@@ -27,12 +27,12 @@ cartSelectorData.list[cartIndexes.indexOf('imagePath')] = {
 }
 // 상세보기에서 값을 가져올 때 
 cartSelectorData.detail[cartIndexes.indexOf('productId')] = {
-		'selector' : '.product-info input[type="hidden"]',
+		'selector' : '#productId',
 		'attr' : 'value'
 };
 cartSelectorData.detail[cartIndexes.indexOf('productName')] = '.product-info h1';
-cartSelectorData.detail[cartIndexes.indexOf('quantity')] = 'select#quantity:selected';
-cartSelectorData.detail[cartIndexes.indexOf('price')] = '.new__price';
+cartSelectorData.detail[cartIndexes.indexOf('quantity')] = 'select#quantity option:selected';
+cartSelectorData.detail[cartIndexes.indexOf('price')] = '.new-price';
 cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-images img',
 		'attr' : 'src'
@@ -137,7 +137,7 @@ function addItemToCart(cartItem) {
 		
 		// 새로 추가하는 상품의 수량을 변경
 		var cartQuantityIndex = cartIndexes.indexOf('quantity');
-		cartItem[cartQuantityIndex] += parseInt(foundItem[cartQuantityIndex]);
+		cartItem[cartQuantityIndex] = parseInt(cartItem[cartQuantityIndex]) + parseInt(foundItem[cartQuantityIndex]);
 		// 기존의 상품을 수정
 		value = replaceInAllCases(value, createItemString(foundItem), createItemString(cartItem), true);
 	
@@ -231,12 +231,23 @@ $(function(){
 		printCart();
 	});
 	
+	// 장바구니 삭제 이벤트 처리
 	$(document).on('click', '.remove__btn a', function(){
 		event.preventDefault();
 		
 		var targetProduct = $(this).parents('div.shp__single__product');
 		var item = createCartItemFromTags(targetProduct, 'cart');
 		removeItemFromCart(item);
+		printCart();
+	});
+	
+	// 상세 보기에서 장바구니 추가 버튼 클릭 시
+	$(document).on('click', '.addtocart-btn a:nth-child(2)', function(){
+		event.preventDefault();
+		
+		var targetProduct = $(this).parents('.modal-product');
+		var item = createCartItemFromTags(targetProduct, 'detail');
+		addItemToCart(item);
 		printCart();
 	});
 })
