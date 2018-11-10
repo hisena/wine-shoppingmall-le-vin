@@ -56,5 +56,19 @@ public class QnaServiceImpl implements QnaService {
 		map.put("pageInfo", pm);
 		return map;
 	}
-
+	
+	//1:1문의글 등록
+	@Override
+	public boolean addQna(PrivateQna privateQna) throws Exception {
+		// Mybatis 실행 결과를 받기 위한 변수
+				boolean addResult = false;
+				boolean flag = false;
+				// 1:1문의글 등록
+				addResult = qnaDao.createQna(privateQna);
+				// 등록에 성공하면
+				if (addResult) {
+						flag = true;
+				}
+				return flag;
+	}
 }
