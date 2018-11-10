@@ -57,11 +57,12 @@ public class AddController implements Controller {
 //zipCode
 //deliveryComm
 
+		
 		List<String> productId = request.getParameter("Products");
 		try {
 			// 파라미터값 null 체크
 			if (productId != null) {
-				Product product = productService.detailProduct(productId);
+				Product product = orderService.add(null, null, null, null);
 				// 검색해온 상품상세정보가 이 null이 아니면
 				if (product != null) {
 					// front controller에 넣기
@@ -75,7 +76,7 @@ public class AddController implements Controller {
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("product/DetailController 예외 ", e);
+			throw new ServletException("order/AddController 예외 ", e);
 		}
 	}
 }
