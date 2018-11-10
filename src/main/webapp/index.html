@@ -309,17 +309,47 @@ $(function() {
 <!-- 장바구니에서 구매로 이동하는 처리 -->
 <script>
 $(function(){
-	
+
 	$('#goToPurchase').click(function(event){
   		var cartItems = [];
   		
+  		// 장바구니 내 모든 아이템을 javascript 처리 가능한 객체로 변환
   		var targetItems = $('.shp__single__product');
 		for (var i = 0; i < targetItems.length; i++) {
 			var targetItem = targetItems[i];
 			cartItems.push(createCartItemFromTags(targetItem, 'cart'));
 		}
+		
+      		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
-			console.log();
+			for ( var index in cartItems) {
+				var item = cartItems[index];
+        		var itemToAppend = 
+        			'<tr>' +
+                  	  '<td class="product-thumbnail">' +
+        				'<a href="#">' +
+        				  '<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product img" />' + 
+        				 '</a>' + 
+        			  '</td>' + 
+                  	  '<td class="product-name">' + 
+                  	  	'<a href="#">###' + cartIndexes.indexOf('productName') + '###</a>' + 
+                  	  '</td>' +
+                  	  '<td class="product-price">' + 
+                  	  	'<span class="amount">###' + cartIndexes.indexOf('price') + '###</span>' + 
+                  	  '</td>' + 
+                  	  '<td class="product-quantity">' + 
+                  	  	'<input type="number" value="###' + cartIndexes.indexOf('quantity') + '###" />' + 
+                  	  '</td>' +
+                  	  '<td class="product-subtotal">£165.00</td>' +
+                  	  '<td class="product-remove"><a href="#">X</a></td>' +
+              		'</tr>';
+              	  for (var i = 0; i < item.length; i++) {
+              		  
+      				var regExp = new RegExp('###' + i + '###', 'gm');
+      				itemToAppend = itemToAppend.replace(regExp, item[i]);
+              	  }
+              	  $('.table-responsive tbody').append(itemToAppend);
+			}
 		});
 	});
 	
