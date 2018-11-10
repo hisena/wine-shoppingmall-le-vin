@@ -1,20 +1,22 @@
 <meta charset="utf-8">
-<input type="email" id="email" name="email" placeholder="이메일">
-<input type="hidden" name="emailDuplicationCheck" value="false">
-<input type="button" id="emailConfirm" value="이메일 중복확인">
-<br>
-<input type="password" name="password" placeholder="비밀번호">
-<input type="password" id="passwordConfirm" placeholder="비밀번호 확인">
-<input type="text" name="userName" placeholder="이름">
-<input type="text" name="mobile" placeholder="핸드폰 번호">
-<input type="text" id="ssn" placeholder="주민등록 번호">
-<input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
-<input type="button" onclick="execDaumPostcode()" id="postFinder"
-  value="우편번호 찾기">
-<br>
-<input type="text" id="address" name="address" placeholder="주소" readonly>
-<input type="text" id="address2" name="detailedAddress" placeholder="상세주소">
-<input type="submit" value="회원가입" id="registButton">
+<form class="login" id="registerForm">
+  <input type="email" id="email" name="email" placeholder="이메일">
+  <input type="hidden" name="emailDuplicationCheck" value="false">
+  <input type="button" id="emailConfirm" value="이메일 중복확인">
+  <br>
+  <input type="password" name="password" placeholder="비밀번호">
+  <input type="password" id="passwordConfirm" placeholder="비밀번호 확인">
+  <input type="text" name="userName" placeholder="이름">
+  <input type="text" name="mobile" placeholder="핸드폰 번호">
+  <input type="text" id="ssn" placeholder="주민등록 번호">
+  <input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
+  <input type="button" onclick="execDaumPostcode()" id="postFinder"
+    value="우편번호 찾기">
+  <br>
+  <input type="text" id="address" name="address" placeholder="주소" readonly>
+  <input type="text" id="address2" name="detailedAddress" placeholder="상세주소">
+  <input type="submit" value="회원가입" id="registButton">
+</form>
 <div id="snackbar"></div>
 
 <script type="text/javascript">
@@ -32,7 +34,7 @@
 				return;
 			}
 
-			$.ajax(baseUrl + "le-vin/user/email-duplicate-check.mall", {
+			$.ajax(Utils.baseUrl + "user/email-duplicate-check.mall", {
 				method : 'POST',
 				data : 'email=' + (emailElement.val()),
 				success : function(data) {
@@ -69,7 +71,7 @@
 			Validation.isDetailedAddressEntered,
 		];
 		// 회원가입 서버 통신
-		$('form.login').submit(function(event){
+		$('form#registerForm').submit(function(event){
 			
 			// 유효성 검사
 			event.preventDefault();
@@ -83,7 +85,7 @@
 			// 데이터 직렬화 & 통신 
 			var data = $(this).serialize();
 			
-			$.ajax(baseUrl + "le-vin/user/join.mall", {
+			$.ajax(Utils.baseUrl + "user/join.mall", {
 				data: data,
 				dataType: "JSON",
 				method: "POST",

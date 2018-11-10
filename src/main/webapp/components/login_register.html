@@ -16,9 +16,8 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="htc__login__register__wrap">
+          <!-- 동적으로 내용이 바뀌는 부분 -->
           <div role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-            <!-- 동적으로 내용이 바뀌는 부분 -->
-            <form class="login"></form>
           </div>                               
         </div>
       </div>
@@ -40,14 +39,13 @@
 <script src="js/common/Validation.js"></script>
 <!-- 동적으로 내용 전환 -->
 <script>
-var baseUrl = 'http://localhost:80/le-vin/';
 function toggleTabClass() {
 	$('li.login').toggleClass('active');
 	$('li.register').toggleClass('active');
 }
 $(function() {
 	// 처음 실행 시에는 로그인 화면을 보여줌
-	$('form.login').load('components/user/login.html');
+	$('div[role="tabpanel"]').load('components/user/login.html');
 	
 	// 탭의 CSS를 이벤트에 알맞게 바꿔줌
 	$(document).on("click", "li.login, li.register", function () {
@@ -61,7 +59,7 @@ $(function() {
 		event.preventDefault();
 		
 		var fileToLoad = $(this).attr('href');
-		$('form.login').load(fileToLoad);
+		$('div[role="tabpanel"]').load(fileToLoad);
 	});	
 });
 </script>

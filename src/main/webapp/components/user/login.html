@@ -1,23 +1,24 @@
 <meta charset="utf-8">
-<input type="email" name="email" placeholder="이메일">
-<input type="password" name="password" placeholder="비밀번호">
-<div class="tabs__checkbox">
-  <input type="checkbox" id="checkbox"><span>아이디 저장하기 </span>
-  <div id="clock" style="display: inline-block; display: none;">
-  	<input id="start" type="hidden">
-  	<span class="countTimeMinute"></span>분 <span class="countTimeSecond"></span>초
+<form id="loginForm" class="login">
+  <input type="email" name="email" placeholder="이메일">
+  <input type="password" name="password" placeholder="비밀번호">
+  <div class="tabs__checkbox">
+    <input type="checkbox" id="checkbox"><span>아이디 저장하기 </span>
+    <div id="clock" style="display: inline-block; display: none;">
+    	<input id="start" type="hidden">
+    	<span class="countTimeMinute"></span>분 <span class="countTimeSecond"></span>초
+    </div>
+    <span class="forget"><a href="components/user/find_password.html" role="tab">비밀번호 찾기</a></span>
   </div>
-  <span class="forget"><a href="components/user/find_password.html" role="tab">비밀번호 찾기</a></span>
-</div>
-<div class="tabs__checkbox">
-  
-</div>
-<input type="submit" value="로그인" id="loginButton">
+  <div class="tabs__checkbox">
+    
+  </div>
+  <input type="submit" value="로그인" id="loginButton">
+</form>
 <div id="snackbar"></div>
 
 <!-- 로그인 Ajax -->
 <script>
-var baseUrl = 'http://localhost:80/le-vin/';
 /**
  * 로그인 양식의 유효성 검사를 하는 자바 스크립트 파일
  */
@@ -26,7 +27,7 @@ var loginFormRequiredValidations = [
 	Validation.isValidPassword,
 ];
 
-$("form.login").submit(function(event) {
+$("form#loginForm").submit(function(event) {
 	event.preventDefault();
 	
 	var validationResult = Validation.validAllInputs(loginFormRequiredValidations);
@@ -37,7 +38,7 @@ $("form.login").submit(function(event) {
 	
 	var data = $(this).serialize();
 	
-	$.ajax(baseUrl + "user/login.mall", {
+	$.ajax(Utils.baseUrl + "user/login.mall", {
 		method: "post",
 		data: data,
 		dataType: "json",
