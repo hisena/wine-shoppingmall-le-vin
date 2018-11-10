@@ -10,14 +10,14 @@ import java.util.List;
 public class OrderList {
 	
 	private String orderId;
-	private List<String> productId;
-	private List<String> quantity;
+	private String productId;
+	private String quantity;
 	// 기본 생성자
 	public OrderList() {
 		super();
 		
 	}
-	public OrderList(String orderId, List<String> productId, List<String> quantity) {
+	public OrderList(String orderId, String productId, String quantity) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
@@ -29,25 +29,22 @@ public class OrderList {
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	public List<String> getProductId() {
+	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(List<String> productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public List<String> getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(List<String> quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
 	@Override
 	public String toString() {
 		return "OrderList [orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity + "]";
 	}
-	
-	
-	
 	
 
 }
