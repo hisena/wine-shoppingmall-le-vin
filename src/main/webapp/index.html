@@ -322,11 +322,9 @@ $(function(){
 		
       		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
-			var total = 0;
 			for ( var index in cartItems) {
 				var item = cartItems[index];
 				var subTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
-				total += subTotal;
 				item.push(subTotal.toLocaleString());
         		var itemToAppend = 
         			'<tr>' +
@@ -354,8 +352,8 @@ $(function(){
               	  }
               	  $('.table-responsive tbody').append(itemToAppend);
 			}
+			printCartTotal();
 			
-			$('.order-total .amount').html(total.toLocaleString() + '원');
 		});
 	});
 	

@@ -225,6 +225,18 @@ function printCart() {
 	$('.total__price').html(totalPrice.toLocaleString() + '원');
 }
 
+function printCartTotal() {
+	var total = 0;
+	var subTotals = $('td.product-subtotal');
+	
+	console.log(subTotals);
+	for (var i = 0; i < subTotals.length; i++) {
+		total += priceStringToNumber(subTotals.eq(i).html());
+	}
+	
+	$('.order-total .amount').html(total.toLocaleString() + '원');
+}
+
 $(function(){
 	// 장바구니 화면 출력 
 	printCart();

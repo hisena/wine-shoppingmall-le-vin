@@ -68,5 +68,11 @@
     </div>
   </div>
 </div>
-
-
+<script>
+	$(document).on('click', '.product-remove a', function(event){
+		event.preventDefault();
+		
+		$(this).parents('tr').remove();
+		printCartTotal();
+	});
+</script>
