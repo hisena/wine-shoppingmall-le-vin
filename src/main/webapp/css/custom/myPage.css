@@ -1,0 +1,10 @@
+.single-checkout-box input[type="button"] {
+    border: 1px solid #c1c1c1;
+    border-radius: 0;
+    color: #767676;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    width: 10%;
+    margin-bottom: 40px;
+}
