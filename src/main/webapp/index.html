@@ -322,6 +322,9 @@ $(function(){
 		
       		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
+			console.log($('.table-responsive tbody').html());
+			$('.table-responsive tbody').html('');
+			
 			for ( var index in cartItems) {
 				var item = cartItems[index];
 				var subTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
@@ -339,7 +342,7 @@ $(function(){
                   	  	'<span class="amount">###' + cartIndexes.indexOf('price') + '###</span>' + 
                   	  '</td>' + 
                   	  '<td class="product-quantity">' + 
-                  	  	'<input type="number" value="###' + cartIndexes.indexOf('quantity') + '###" />' + 
+                  	  	'<input type="number" min="1" value="###' + cartIndexes.indexOf('quantity') + '###" />' + 
                   	  '</td>' +
                   	  '<td class="product-subtotal">###' + cartIndexes.length + '###원</td>' +
                   	  '<td class="product-remove"><a href="#">X</a></td>' +

@@ -84,6 +84,17 @@ function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
 	
 	return value;
 }
+// 선택자와 속성 정보로 값을 가져오는 함수
+function retrieveValueFromTarget(targetProduct, selector, attr) {
+	var cartItemValue;
+	var targetElement = $(targetProduct).find(selector);
+	if (attr === 'value') {
+		cartItemValue = targetElement.val();
+	} else {
+		cartItemValue = targetElement.attr(attr);
+	}
+	return cartItemValue;
+}
 // html 태그로부터 필요한 정보를 추출하는 함수
 function createCartItemFromTags(targetProduct, type) {
 	
@@ -95,7 +106,7 @@ function createCartItemFromTags(targetProduct, type) {
 		var cartSelectorDatum = typeCartSelector[index];
 		// html()이 아닌 속성으로 값을 가져와야 하는 경우에 대한 처리
 		if (typeof cartSelectorDatum !== 'string') {
-			var cartItemValue = $(targetProduct).find(cartSelectorDatum['selector']).attr(cartSelectorDatum['attr']);
+			var cartItemValue = retrieveValueFromTarget(targetProduct, cartSelectorDatum['selector'], cartSelectorDatum['attr']);
 			cartItem.push(cartItemValue);
 		} else {
 			var cartItemValue = $(targetProduct).find(cartSelectorDatum).html();
@@ -193,56 +204,67 @@ function getTotalPrice(quantity, price) {
 	
 	return quantityValue * priceValue;
 }
-// 장바구니 정보를 이용해 화면에 출력해주는 함수
-function printCart(printToOtherLocation) {
+// 전달 받은 상품 출력해주는 함수
+function printItemsCommon(targetSelector, items, needDeleteButton) {
 	
-	var targetSelector = 'div.shp__cart__wrap';
-	if (printToOtherLocation) {
-		targetSelector = printToOtherLocation;
-	}
-	
-	// 장바구니 초기화
 	$(targetSelector).html('');
+	
+	var totalPrice = 0;
+	
+	for ( var index in items) {
+		var item = items[index];
+		
+		totalPrice += getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
+		
+		// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
+		var itemToAppend = '<div class="shp__single__product">'
+			+  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') + '###">'
+			+  '	<div class="shp__pro__thumb">'
+			+  '		<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
+			+  '	</div>'
+			+  '	<div class="shp__pro__details">'
+			+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
+			+  '		수량: <span class="quantity">###' + cartIndexes.indexOf('quantity') + '###</span>'
+			+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
+			+  '	</div>';
+		if (needDeleteButton) {
+			itemToAppend 
+			+= ('	<div class="remove__btn">'
+			+  '		<a href="' + cartIndexes.indexOf('productId') + '" title="Remove this item"><i class="zmdi zmdi-close"></i></a>'
+			+  '	</div>');
+		}
+			
+			itemToAppend +=  '</div>';
+		
+		for (var i = 0; i < item.length; i++) {
+			// 값을 변화시켜주기 위한 정규표현식
+			var regExp = new RegExp('###' + i + '###', 'gm');
+			
+			itemToAppend = itemToAppend.replace(regExp, item[i]);
+			
+		}
+		$(targetSelector).append(itemToAppend);
+		
+	}
+	$(targetSelector).next().find('.total__price').html(totalPrice.toLocaleString() + '원');
+	
+}
+// 장바구니 정보를 이용해 화면에 출력해주는 함수
+function printCart() {
 	
 	// 쿠키로부터 장바구니 정보를 가져옴
 	var value = getCookie('cart');
-	var totalPrice = 0;
 	
 	if (value.length > 0) {
 		var cartItems = value.split(cartItemDelimiter);
+		var items = [];
 		for ( var index in cartItems) {
-			var item = convertStringToItem(cartItems[index]);
-			
-			totalPrice += getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
-			
-			// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
-			var itemToAppend = '<div class="shp__single__product">'
-				+  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') + '###">'
-				+  '	<div class="shp__pro__thumb">'
-				+  '		<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
-				+  '	</div>'
-				+  '	<div class="shp__pro__details">'
-				+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
-				+  '		수량: <span class="quantity">###' + cartIndexes.indexOf('quantity') + '###</span>'
-				+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
-				+  '	</div>'
-				+  '	<div class="remove__btn">'
-				+  '		<a href="' + cartIndexes.indexOf('productId') + '" title="Remove this item"><i class="zmdi zmdi-close"></i></a>'
-				+  '	</div>'
-				+  '</div>';
-			
-			for (var i = 0; i < item.length; i++) {
-				// 값을 변화시켜주기 위한 정규표현식
-				var regExp = new RegExp('###' + i + '###', 'gm');
-				
-				itemToAppend = itemToAppend.replace(regExp, item[i]);
-				
-			}
-			$('div.shp__cart__wrap').append(itemToAppend);
-			
+			items.push(convertStringToItem(cartItems[index]));
 		}
+		
+		printItemsCommon('div.shp__cart__wrap', items);
 	}
-	$('.total__price').html(totalPrice.toLocaleString() + '원');
+	
 }
 
 function printCartTotal() {
