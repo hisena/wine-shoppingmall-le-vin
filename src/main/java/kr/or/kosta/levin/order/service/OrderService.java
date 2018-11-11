@@ -19,14 +19,15 @@ public interface OrderService {
 
 
 	/** 주문 목록 및 페이징처리 */
-	public Map<String, Object> list(SearchPagination searchPagination) throws Exception;
+	public Map<String, Object> list(Map<String, String> param) throws Exception;
 	
 	/** 주문 상세 정보*/
-	public Product detailProduct(String productId) throws Exception;
+	public Map<String, String> detailProduct(String productId) throws Exception;
 
 	/** 주문 하기 */
 	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception;
 	
 	/** 배송지 목록 불러오기*/
 	public List<Address> addressList(String email) throws Exception;
+	
 }

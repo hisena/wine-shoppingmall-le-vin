@@ -91,4 +91,18 @@ public class QnaServiceImpl implements QnaService {
 		PrivateQna privateQna = qnaDao.readQna(articleId);
 		return privateQna;
 	}
+	
+	//1:1문의글 삭제
+	@Override
+	public boolean removeQna(int articleId) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 1:1문의글 삭제
+		result = qnaDao.deleteQna(articleId);
+		//1:1문의글 삭제 성공여부 확인
+		if (result) { // 회원정보 삭제에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
 }

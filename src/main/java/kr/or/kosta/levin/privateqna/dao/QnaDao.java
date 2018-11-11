@@ -22,5 +22,7 @@ public interface QnaDao {
 	public boolean updateQna(PrivateQna privateQna) throws Exception;
 	/** 1:1문의글 상세보기*/
 	public PrivateQna readQna(int articleId) throws Exception;
+	/** 1:1문의글 삭제*/
+	public boolean deleteQna(int articleId) throws Exception;
 	
 }
