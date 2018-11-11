@@ -1,6 +1,7 @@
 package kr.or.kosta.levin.order.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,30 +37,31 @@ public class MybatisOrderDao implements OrderDao {
 
 	// 주문 목록 불러오기(페이징, 검색처리)
 	@Override
-	public List<Product> listByPage(SearchPagination searchPagination) throws Exception {
-		List<Product> list =null;
+	public List<Map<String, String>> listByPage(Map<String, String> param) throws Exception {
+		List<Map<String, String>> list =null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		list = sqlSession.selectList(NAMESPACE + "listByPage", searchPagination);
+		list = sqlSession.selectList(NAMESPACE + "listByPage", param);
 		sqlSession.close();	
 		return list;
 	}
 	
 	// 검색한 주문 목록 갯수
 	@Override
-	public int countBySearch(SearchPagination searchPagination) throws Exception {
+	public int countByList(String email) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int count = sqlSession.selectOne(NAMESPACE+ "countBySearch", searchPagination);
+		int count = sqlSession.selectOne(NAMESPACE+ "countByList", email);
 		sqlSession.close();
 		return count;
 	}
 
 	// 주문 상세
 	@Override
-	public Product getOrder(String productId) throws Exception {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
-		sqlSession.close();
-		return product;
+	public Map<String, String> getOrder(String productId) throws Exception {
+//		SqlSession sqlSession = sqlSessionFactory.openSession();
+//		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
+//		sqlSession.close();
+//		return product;
+		return null;
 	}
 
 	// 주문하기
