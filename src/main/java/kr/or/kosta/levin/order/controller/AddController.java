@@ -59,7 +59,6 @@ public class AddController implements Controller {
 		// 주문 목록을 저장하기 위한 list collection
 		List<OrderList> productList = new ArrayList<>();
 		String products = request.getParameter("Products");
-		System.out.println("product info" + products);
 //		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
 //			+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"null\", \"address\":\"서울시 종로구 종로동\", "
 //				+ "\"detailedAddress\":\"123-56 행복빌딩 901호\", \"zipCode\":\"55-666\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
@@ -92,7 +91,6 @@ public class AddController implements Controller {
 			address.setDetailedAddress((String)productsObject.get("detailedAddress"));
 			address.setZipCode((String)productsObject.get("zipCode"));
 			address.setEmail((String)productsObject.get("email"));
-			
 		} catch (ParseException e) {
 			
 			e.printStackTrace();

@@ -111,9 +111,9 @@ public class OrderServiceImpl implements OrderService {
 		// 정보등록에 성공하면
 		if (orderResult) {
 			// 신규배송지일 경우
-			if(address.getAddress() != null && !address.getAddress().equals("null")) {
+			if(address.getAddress() != null && !(address.getAddress().equals("null"))) {
 				addressResult = addressDao.create(address);
-				delivery.setNewTF("New");
+				delivery.setNewTF(null);
 			}
 			
 			// 배송 정보 등록
