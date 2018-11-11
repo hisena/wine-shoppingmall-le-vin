@@ -29,6 +29,16 @@
         )
 	 </insert>
 	
+	<!-- 1:1문의글 수정-->
+	<update id="updateQna" parameterType="PrivateQna">
+		UPDATE levin_private_qnas 
+       	SET
+            	category = #{category}, 
+           		title = #{title}, 
+            	content = #{content}
+        WHERE email = #{email} and article_id = #{articleId}
+	</update>
+	 
 	<!-- 1:1문의 리스트 -->
 	<select id="listByPage" parameterType="map" resultType="PrivateQna" >
 		SELECT articleId, 

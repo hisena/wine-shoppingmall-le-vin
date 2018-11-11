@@ -18,4 +18,7 @@ public interface QnaDao {
 	public int countBySearch(Map<String, String> parameter) throws Exception;
 	/** 1:1문의글 등록*/
 	public boolean createQna(PrivateQna privateQna) throws Exception;	
+	/** 1:1문의글 수정*/
+	public boolean updateQna(PrivateQna privateQna) throws Exception;	
+	
 }

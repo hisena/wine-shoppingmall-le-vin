@@ -71,4 +71,17 @@ public class QnaServiceImpl implements QnaService {
 				}
 				return flag;
 	}
+	
+	@Override
+	public boolean editQna(PrivateQna privateQna) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 1:1문의글 수정
+		result = qnaDao.updateQna(privateQna);
+		//1:1문의글 수정 성공여부 확인
+		if (result) { // 회원정보 수정에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
 }
