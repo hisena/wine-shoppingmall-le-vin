@@ -223,7 +223,7 @@ function printItemsCommon(targetSelector, items, needDeleteButton) {
 			+  '		<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
 			+  '	</div>'
 			+  '	<div class="shp__pro__details">'
-			+  '		<h2><a href="product-details.html">###' + cartIndexes.indexOf('productName') + '###</a></h2>'
+			+  '		<h2><a>###' + cartIndexes.indexOf('productName') + '###</a></h2>'
 			+  '		수량: <span class="quantity">###' + cartIndexes.indexOf('quantity') + '###</span>'
 			+  '		<span class="shp__price">###' + cartIndexes.indexOf('price') + '###</span>'
 			+  '	</div>';
