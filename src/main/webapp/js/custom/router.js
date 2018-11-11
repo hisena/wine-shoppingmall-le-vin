@@ -6,21 +6,21 @@
 // Router 등록
 $(function(){
 	$(document).on('ready', function(event) {
-		route(event, null, '.fixed__footer');
+		route(event, null, '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#login_register', function(event) {
-		route(event, '#login_register', '.fixed__footer');
+		route(event, '#login_register', '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#item', function(event) {
-		route(event, '#item', '.fixed__footer');
+		route(event, '#item', '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#productReview', function(event) {
-		route(event, '#productReview', '.product_details');
+		route(event, '#productReview', '.product_details', getLoginInfo);
 		$('#productReview').attr("href", "components/item/details.html");
 		$('#productReview').attr("id", "productDetails");
 	});
 	$(document).on('click', '#productDetails', function(event) {
-		route(event, '#productDetails', '.product_details');
+		route(event, '#productDetails', '.product_details', getLoginInfo);
 		$('#productDetails').attr("href", "components/item/review.html");
 		$('#productDetails').attr("id", "productReview");
 	});

@@ -48,17 +48,7 @@ $("form#loginForm").submit(function(event) {
 			} else {
 				setInstanceCookie('email', data.EMAIL);
 			}
-			defaultRoute('components/main.html', '.fixed__footer', function(){
-				var email = getCookie("email");
-				if (email !== null && email !== undefined) {
-					var user = email.split("@");
-					if (email != "") {
-						$('#user').html(user[0] + "님 로그인 중...")
-						$('#user').css("display", "block");
-						$('#login_register').attr("id", "item");
-					}
-				}
-			});
+			defaultRoute('components/main.html', '.fixed__footer', getLoginInfo);
 		},
 		error: function(data) {
 			// 로그인 5회 이상 실패 처리

@@ -296,6 +296,20 @@
 <script src="js/common/cookie.js"></script>
 <!-- 장바구니 관련 자바스크립트 파일 -->
 <script src="js/custom/cart.js"></script>
+<!-- 로그인 -->
+<script>
+function getLoginInfo() {
+	var email = getCookie("email");
+	if (email !== null && email !== undefined) {
+		var user = email.split("@");
+		if (email != "") {
+			$('#user').html(user[0] + "님 로그인 중...")
+			$('#user').css("display", "block");
+			$('#login_register').attr("id", "item");
+		}
+	}
+}
+</script>
 <!-- 로그아웃 -->
 <script>
 $(function() {
