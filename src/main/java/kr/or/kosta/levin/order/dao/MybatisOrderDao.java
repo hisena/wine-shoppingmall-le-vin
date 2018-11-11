@@ -55,33 +55,34 @@ public class MybatisOrderDao implements OrderDao {
 
 	// 주문 상세
 	@Override
-	public Product getProduct(String productId) throws Exception {
+	public Product getOrder(String productId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
 		sqlSession.close();
 		return product;
 	}
 
+	// 주문하기
 	@Override
-	public int create(Order order) throws Exception {
+	public boolean create(Order order) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		// insert문 실행 후 반환값 저장
+		// insert문 실행 후 반환값 저장을 위한 변수
 		int result =0;
+		// service에 실행 결과를 반환해주기 위한 변수
+		boolean flag = false;
 		result= sqlSession.insert(NAMESPACE + "createOrder", order);
 		
 		// insert에 성공했으면
-		if (result != 0) {
+		if (result == 1) {
 			// 커밋해주기
 			sqlSession.commit();
-			sqlSession.close();
-			return result;
+			flag = true;
 		} else {
 			// 실패했으면 rollback해주기
 			sqlSession.rollback();
-			sqlSession.close();
-			return result;
 		}
-		
+		sqlSession.close();
+		return flag;
 	}
 	
 }

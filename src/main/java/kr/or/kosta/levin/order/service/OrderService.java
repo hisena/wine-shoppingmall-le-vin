@@ -24,6 +24,6 @@ public interface OrderService {
 	/** 주문 상세 정보*/
 	public Product detailProduct(String productId) throws Exception;
 
-	/** 주문 */
+	/** 주문 하기 */
 	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception;
 }

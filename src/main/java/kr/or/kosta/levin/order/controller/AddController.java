@@ -13,26 +13,20 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.xml.sax.HandlerBase;
-
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.annotations.RequestMapping;
 import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
-import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
 import kr.or.kosta.levin.order.domain.Address;
 import kr.or.kosta.levin.order.domain.Delivery;
 import kr.or.kosta.levin.order.domain.Order;
 import kr.or.kosta.levin.order.domain.OrderList;
 import kr.or.kosta.levin.order.service.OrderService;
-import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.service.ProductService;
 
 /**
- * 상품 상세보기를 위한 세부 컨트롤러
+ * 주문하기 기능을 위한 세부 컨트롤러
  * 
  * @author 박소연
  */
@@ -57,28 +51,28 @@ public class AddController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-
+		// 데이터 전달을 위한 도메인 객체 선언
 		OrderList orderList;
 		Order order = new Order();
 		Address address = new Address();
 		Delivery delivery = new Delivery();
+		// 주문 목록을 저장하기 위한 list collection
 		List<OrderList> productList = new ArrayList<>();
-		//String products = request.getParameter("Products");
+		String products = request.getParameter("Products");
 //		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
 //			+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"null\", \"address\":\"서울시 종로구 종로동\", "
 //				+ "\"detailedAddress\":\"123-56 행복빌딩 901호\", \"zipCode\":\"55-666\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
-		String products = "{\"products\" : [{\"productId\":\"4\", \"quantity\":\"2\"},{\"productId\":\"5\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
-				+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"1\", \"address\":\"null\", "
-				+ "\"detailedAddress\":\"null\", \"zipCode\":\"null\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
+//		String products = "{\"products\" : [{\"productId\":\"4\", \"quantity\":\"2\"},{\"productId\":\"5\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
+//				+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"1\", \"address\":\"null\", "
+//				+ "\"detailedAddress\":\"null\", \"zipCode\":\"null\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
 		
-		
+		// 클라이언트로부터 받은 JSON 데이터 파싱
 		JSONParser parser = new JSONParser();
 		JSONObject productsObject;
 		try {
 			productsObject = (JSONObject) parser.parse(products);
 			JSONArray productsList = (JSONArray) productsObject.get("products");
 			for (int i = 0; i < productsList.size(); i++) {
-				
 				JSONObject productOne = (JSONObject) productsList.get(i);
 				orderList = new OrderList();
 				orderList.setProductId((String)productOne.get("productId"));
@@ -102,29 +96,22 @@ public class AddController implements Controller {
 			
 			e.printStackTrace();
 		}
-		boolean addResult = false;
-		System.out.println(order.toString());
-		System.out.println(productList.toString());
-		System.out.println(delivery.toString());
-		System.out.println(address.toString());
 		
+		// Service 수행 결과를 알기 위한 변수
+		boolean addResult = false;
 		Map<String, String> map = new HashMap<>();
 		try {
 				addResult = orderService.add(order, delivery, address, productList);
-				// 검색해온 상품상세정보가 이 null이 아니면
+				// Service 수행 결과가 true일경우
 				if (addResult) {
-					// 주문한 정보 다시 갖고 오기
 					map.put("addResult", "true");
-					return map;
 				} else {
-					// null일 경우
-					throw new RequestUnauthorizedException();
+					map.put("addResult", "false");
 				}
+				return map;
 			
 		} catch (Exception e) {
 			throw new ServletException("order/AddController 예외 ", e);
 		}
 	}
-	
-	
 }

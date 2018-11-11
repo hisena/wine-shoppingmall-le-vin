@@ -1,6 +1,5 @@
 package kr.or.kosta.levin.order.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,10 +8,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
-import kr.or.kosta.levin.order.domain.Order;
-import kr.or.kosta.levin.order.domain.OrderList;
-import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
  * OrderList 관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
@@ -41,6 +36,7 @@ public class MybatisOrderListDao implements OrderListDao {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// insert문 실행 후 반환값 저장
 		int result = sqlSession.insert(NAMESPACE + "createOrderList",productInfo);
+		// service에 실행 결과를 반환해주기 위한 변수
 		boolean flag = false;
 		// insert에 성공했으면
 		if (result == 1) {

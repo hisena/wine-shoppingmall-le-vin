@@ -9,7 +9,7 @@ import kr.or.kosta.levin.order.domain.Delivery;
  */
 public interface DeliveryDao {
 	
-	/** 주문하기*/
+	/** 주문에 따른 배송 정보 등록하기*/
 	public boolean create(Delivery delivery) throws Exception;
 	
 }

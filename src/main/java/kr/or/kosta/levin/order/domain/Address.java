@@ -7,8 +7,6 @@ package kr.or.kosta.levin.order.domain;
  */
 public class Address {
 	
-	private int order_id;
-	private int address_id;
 	private String addressId;
 	private String email;
 	private String address;
@@ -20,7 +18,6 @@ public class Address {
 	// 기본 생성자
 	public Address() {
 		super();
-		
 	}
 	// 매개변수 있는 생성자
 	public Address(String addressId, String email, String address, String zipCode, String detailedAddress,
@@ -35,18 +32,6 @@ public class Address {
 		this.delyn = delyn;
 	}
 	
-	public int getAddress_id() {
-		return address_id;
-	}
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
-	}
-	public int getOrder_id() {
-		return order_id;
-	}
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
-	}
 	//getter/setter
 	public String getAddressId() {
 		return addressId;

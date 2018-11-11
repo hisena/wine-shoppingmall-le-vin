@@ -9,6 +9,6 @@ import kr.or.kosta.levin.order.domain.Address;
  */
 public interface AddressDao {
 	
-	/** 주문하기*/
-	public int create(Address address) throws Exception;
+	/** 신규 배송지 등록하기*/
+	public boolean create(Address address) throws Exception;
 }

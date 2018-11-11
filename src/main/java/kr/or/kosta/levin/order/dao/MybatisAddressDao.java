@@ -31,23 +31,24 @@ public class MybatisAddressDao implements AddressDao {
 	}
 
 	@Override
-	public int create(Address address) throws Exception {
+	public boolean create(Address address) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		// insert문 실행 후 반환값 저장
+		// insert문 실행 후 반환값 저장을 위한 변수
 		int result = 0;
+		boolean flag=false;
 		result = sqlSession.insert(NAMESPACE + "createNewAddress", address);
 		
 		// insert에 성공했으면
-		if (result != 0) {
+		if (result == 1) {
 			// 커밋해주기
 			sqlSession.commit();
-			return result;
+			flag = true;
 		} else {
 			// 실패했으면 rollback해주기
 			sqlSession.rollback();
 		}
 		sqlSession.close();
-		return result;
+		return flag;
 	}
 
 	

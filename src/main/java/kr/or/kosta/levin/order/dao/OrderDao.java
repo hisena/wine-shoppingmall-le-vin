@@ -18,9 +18,9 @@ public interface OrderDao {
 	/** 검색해온 주문 목록의 개수 반환*/
 	public int countBySearch(SearchPagination searchPagination) throws Exception;
 	/** 주문 상세*/
-	public Product getProduct(String id) throws Exception;
+	public Product getOrder(String id) throws Exception;
 	
 	/** 주문하기*/
-	public int create(Order order) throws Exception;
+	public boolean create(Order order) throws Exception;
 	
 }

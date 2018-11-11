@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 회원 기능 중, Address table에 접근하는 sql -->                        
+<!-- levin_address table에 접근하는 sql -->                        
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.levin.user">
 	
@@ -43,9 +43,6 @@
 					#{detailedAddress},
 					sysdate
 		)
-		<!-- <selectKey keyProperty="address_id" resultType="Integer" order="AFTER"> 
-        SELECT address_id_seq.currval as address_id FROM dual 
-        </selectKey> -->
 	</insert>
 		
 </mapper>

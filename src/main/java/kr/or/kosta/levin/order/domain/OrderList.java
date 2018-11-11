@@ -1,7 +1,5 @@
 package kr.or.kosta.levin.order.domain;
 
-import java.util.List;
-
 /**
  * OrderList(주문 목록)정보 관리를 위한 도메인 객체
  * @author 박소연
@@ -17,12 +15,14 @@ public class OrderList {
 		super();
 		
 	}
+	// 매개변수 있는 생성자
 	public OrderList(String orderId, String productId, String quantity) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
 		this.quantity = quantity;
 	}
+	// getter/setter
 	public String getOrderId() {
 		return orderId;
 	}
