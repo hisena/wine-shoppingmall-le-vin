@@ -17,4 +17,8 @@ public interface QnaService {
 	
 	/** 1:1문의글 등록 */
 	public boolean addQna(PrivateQna privateQna) throws Exception;
+	
+	/** 1:1문의글 수정 */
+	public boolean editQna(PrivateQna privateQna) throws Exception;
+	
 }
