@@ -1,5 +1,8 @@
 package kr.or.kosta.levin.order.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -7,6 +10,7 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.order.domain.Address;
+import kr.or.kosta.levin.user.domain.User;
 
 /**
  * Delivery 관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
@@ -49,6 +53,16 @@ public class MybatisAddressDao implements AddressDao {
 		}
 		sqlSession.close();
 		return flag;
+	}
+
+	// 배송지 목록 불러오기
+	@Override
+	public List<Address> list(String email) throws Exception {
+		List<Address> list = new ArrayList<>();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "list", email);
+		sqlSession.close();
+		return list;
 	}
 
 	

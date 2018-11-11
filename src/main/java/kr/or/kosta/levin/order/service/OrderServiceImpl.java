@@ -135,4 +135,12 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return flag;
 	}
+	
+	//배송지 목록 불러오기
+	@Override
+	public List<Address> addressList(String email) throws Exception {
+		
+		return addressDao.list(email);
+	}
+	
 }

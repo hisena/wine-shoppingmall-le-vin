@@ -44,5 +44,16 @@
 					sysdate
 		)
 	</insert>
+	
+	<!-- 배송지 목록 불러오기 -->
+	<select id="list" parameterType="String" resultType="Address" >
+		SELECT address_id       addressId, 
+       		   address, 
+       		   zip_code         zipCode, 
+       		   detailed_address detailedAddress 
+		FROM   levin_address 
+		WHERE  email = #{email} 
+		ORDER  BY regdate DESC 
+	</select>
 		
 </mapper>

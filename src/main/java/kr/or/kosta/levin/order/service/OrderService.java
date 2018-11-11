@@ -26,4 +26,7 @@ public interface OrderService {
 
 	/** 주문 하기 */
 	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception;
+	
+	/** 배송지 목록 불러오기*/
+	public List<Address> addressList(String email) throws Exception;
 }
