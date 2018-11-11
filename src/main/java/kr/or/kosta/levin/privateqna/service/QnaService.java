@@ -21,4 +21,6 @@ public interface QnaService {
 	/** 1:1문의글 수정 */
 	public boolean editQna(PrivateQna privateQna) throws Exception;
 	
+	/** 1:1문의글 상세보기 */
+	public PrivateQna detailQna(int articleId) throws Exception;
 }

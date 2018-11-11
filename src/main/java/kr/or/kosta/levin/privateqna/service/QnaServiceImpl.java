@@ -84,4 +84,11 @@ public class QnaServiceImpl implements QnaService {
 		}
 		return flag;
 	}
+	
+	//1:1문의글 상세보기
+	@Override
+	public PrivateQna detailQna(int articleId) throws Exception {
+		PrivateQna privateQna = qnaDao.readQna(articleId);
+		return privateQna;
+	}
 }

@@ -91,4 +91,14 @@ public class MybatisQnaDao implements QnaDao {
 		sqlSession.close();
 		return flag;
 	}
+	
+	//1:1문의글 상세보기
+	@Override
+	public PrivateQna readQna(int articleId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		PrivateQna privateQna = null;
+		privateQna = sqlSession.selectOne(NAMESPACE + "readQna", articleId);
+		sqlSession.close();	
+		return privateQna;
+	}
 }
