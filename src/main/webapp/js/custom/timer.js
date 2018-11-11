@@ -2,7 +2,7 @@
 var timer;
 $(function() {
 	$(document).on('click', '.forget > a', function(event) {
-		clock(1,0, function() {
+		clock(3,0, function() {
 			alert('시간 종료')
 		})
 	});
