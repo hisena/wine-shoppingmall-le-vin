@@ -8,9 +8,6 @@
 	<!-- 배송지 정보 등록 -->
 	
 	<insert  id="createDelivery" parameterType="Delivery">
-	<selectKey resultType="hashmap" keyProperty="orderId, addressId" order="BEFORE">
-        select order_id_seq.currval as orderId, address_id_seq.currval as addressId  FROM DUAL      
-    </selectKey>
 		INSERT INTO levin_deliverys
 		(
   					order_id,
@@ -19,11 +16,13 @@
 					receiver_mobile,
 					delivery_comments
 		)VALUES(
-  					#{orderId},
+  					#{order_id},
   		<if test="newTF != null">
-  					#{addressId},
+  					#{address_id},
   		</if>
-  		<if test="newTF == null">#{addressId}</if>		
+  		<if test="newTF == null">
+  					#{addressId},
+  		</if>		
   					#{receiverName},
   					#{receiverMobile},
   					#{deliveryComments}

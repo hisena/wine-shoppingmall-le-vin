@@ -63,22 +63,24 @@ public class MybatisOrderDao implements OrderDao {
 	}
 
 	@Override
-	public boolean create(Order order) throws Exception {
+	public int create(Order order) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// insert문 실행 후 반환값 저장
-		int result = sqlSession.insert(NAMESPACE + "createOrder", order);
-		boolean flag = false;
+		int result =0;
+		result= sqlSession.insert(NAMESPACE + "createOrder", order);
 		// insert에 성공했으면
-		if (result == 1) {
+		if (result != 0) {
 			// 커밋해주기
 			sqlSession.commit();
-			flag = true;
+			sqlSession.close();
+			return result;
 		} else {
 			// 실패했으면 rollback해주기
 			sqlSession.rollback();
+			sqlSession.close();
+			return result;
 		}
-		sqlSession.close();
-		return flag;
+		
 	}
 	
 }

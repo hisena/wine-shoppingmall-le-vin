@@ -13,10 +13,10 @@
 					product_id,
 					quantity
 		)VALUES(
-  					order_id_seq.currval,
+  					#{orderId},
   					#{productId},
   					#{quantity}
-);
+		)
 	</insert>
 		
 </mapper>

@@ -43,6 +43,9 @@
 					#{detailedAddress},
 					sysdate
 		)
+		<selectKey keyProperty="address_id" resultType="Integer" order="AFTER"> 
+        SELECT address_id_seq.currval as address_id FROM dual 
+        </selectKey>
 	</insert>
 		
 </mapper>

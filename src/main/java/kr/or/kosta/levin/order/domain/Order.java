@@ -6,6 +6,7 @@ package kr.or.kosta.levin.order.domain;
  *
  */
 public class Order {
+	private int order_id;
 	private String orderId;
 	private String email;
 	private String orderMoney;
@@ -13,6 +14,12 @@ public class Order {
 	private String cancelDate;
 	private String isPaid;
 	
+	public int getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
+	}
 	// 기본 생성자
 	public Order() {
 		super();

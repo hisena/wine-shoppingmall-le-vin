@@ -58,7 +58,7 @@ public class AddController implements Controller {
 			throws ServletException, RequestException {
 
 
-		OrderList orderList = new OrderList();
+		OrderList orderList;
 		Order order = new Order();
 		Address address = new Address();
 		Delivery delivery = new Delivery();
@@ -73,12 +73,15 @@ public class AddController implements Controller {
 		try {
 			productsObject = (JSONObject) parser.parse(products);
 			JSONArray productsList = (JSONArray) productsObject.get("products");
-			for (Object object2 : productsList) {
-				JSONObject productOne = (JSONObject)object2;
+			for (int i = 0; i < productsList.size(); i++) {
+				
+				JSONObject productOne = (JSONObject) productsList.get(i);
+				orderList = new OrderList();
 				orderList.setProductId((String)productOne.get("productId"));
 				orderList.setQuantity((String)productOne.get("quantity"));
-				productList.add(orderList);
+				productList.add(i, orderList);
 			}
+			
 			order.setEmail((String)productsObject.get("email"));
 			order.setOrderMoney((String)productsObject.get("orderMoney"));
 			delivery.setAddressId((String)productsObject.get("addressId"));
@@ -100,12 +103,15 @@ public class AddController implements Controller {
 		System.out.println(productList.toString());
 		System.out.println(delivery.toString());
 		System.out.println(address.toString());
+		
+		Map<String, String> map = new HashMap<>();
 		try {
 				addResult = orderService.add(order, delivery, address, productList);
 				// 검색해온 상품상세정보가 이 null이 아니면
 				if (addResult) {
 					// 주문한 정보 다시 갖고 오기
-					return addResult;
+					map.put("addResult", "true");
+					return map;
 				} else {
 					// null일 경우
 					throw new RequestUnauthorizedException();

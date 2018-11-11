@@ -20,7 +20,12 @@
             		#{orderMoney}, 
             		SYSDATE, 
             		'Y' 
-        ) 
+        )
+        <selectKey keyProperty="order_id" resultType="Integer" order="AFTER"> 
+        SELECT order_id_seq.currval as order_id FROM dual 
+        </selectKey> 
 	</insert>
+	
+
 		
 </mapper>

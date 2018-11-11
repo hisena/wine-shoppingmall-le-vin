@@ -21,6 +21,6 @@ public interface OrderDao {
 	public Product getProduct(String id) throws Exception;
 	
 	/** 주문하기*/
-	public boolean create(Order order) throws Exception;
+	public int create(Order order) throws Exception;
 	
 }
