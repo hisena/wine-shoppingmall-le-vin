@@ -65,13 +65,13 @@ public class OrderServiceImpl implements OrderService {
 		this.orderDao = orderDao;
 	}
 
-	// 상품 목록
+	// 주문 목록
 	@Override
 	public Map<String, Object> list(Map<String, String> param) throws Exception {
 		
 		Map<String, Object> result = new HashMap<>();
 		
-		//페이징, 검색 처리된 상품 목록
+		//페이징, 검색 처리된 주문 목록
 		List<Map<String, String>> list = orderDao.listByPage(param);
 		//검색해온 주문 목록 갯수
 		int count = orderDao.countByList(param.get("email"));
@@ -80,16 +80,12 @@ public class OrderServiceImpl implements OrderService {
 		Pagination pagination = new Pagination();
 		pagination.setPerPageNum(5);
 		pagination.setCurrentPage(Integer.parseInt(param.get("currentPage")));
-		
 		pm.setPagination(pagination);;
 		pm.setTotalCount(count);
 		
 		// controller로 넘겨 주기 위해 map에 담아주기
-		System.out.println(list.toString());
-		System.out.println(pm.pageInfo());
 		result.put("orderList", list);
 		result.put("pageInfo", pm.pageInfo());
-		
 		
 		return result;
 		

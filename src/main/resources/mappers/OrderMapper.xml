@@ -23,7 +23,7 @@
         )
          
 	</insert>
-	
+	<!-- 주문 목록(페이징 처리 완료) -->
 	<select id="listByPage" parameterType="map" resultType="map" >
 		SELECT  orderId, 
 				email, 
@@ -62,7 +62,7 @@
 		 WHERE  request_page = #{currentPage}
 	</select>
 	
-	<!-- 검색해온 상품 갯수 조회 -->
+	<!-- 검색해온 주문 목록 조회 -->
 	<select id="countByList"  parameterType="String" resultType="int">
 		SELECT COUNT(order_id) count 
 		FROM   levin_orders
