@@ -15,8 +15,9 @@ import kr.or.kosta.levin.order.domain.Address;
 import kr.or.kosta.levin.order.domain.Delivery;
 import kr.or.kosta.levin.order.domain.Order;
 import kr.or.kosta.levin.order.domain.OrderList;
-import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.domain.SearchPagination;
+import kr.or.kosta.levin.order.domain.PaginationManager;
+import kr.or.kosta.levin.order.domain.Pagination;
+
 
 /**
  * 주문와 관련된 비즈니스 로직 수행을 위한 Service 객체
@@ -66,34 +67,37 @@ public class OrderServiceImpl implements OrderService {
 
 	// 상품 목록
 	@Override
-	public Map<String, Object> list(SearchPagination searchPagination) throws Exception {
+	public Map<String, Object> list(Map<String, String> param) throws Exception {
 		
-//		Map<String, Object> map = new HashMap<>();
-//		
-//		//페이징, 검색 처리된 상품 목록
-//		List<Product> list = productDao.listByPage(searchPagination);
-//		//검색해온 상품 목록 갯수
-//		int count = productDao.countBySearch(searchPagination);
-//		//페이징 관련정보(시작, 끝 페이지 등) 처리 
-//		PaginationManager pm = new PaginationManager();
-//		pm.setPagination(searchPagination);
-//		pm.setTotalCount(count);
-//		
-//		
-//		// controller로 넘겨 주기 위해 map에 담아주기
-//		map.put("productList", list);
-//		map.put("pageInfo", pm.pageInfo());
-//		
-//		if(searchPagination.getSearchKeyword() != null) {
-//			map.put("searchPagination", searchPagination);
-//		}
-//		return map;
-		return null;
+		Map<String, Object> result = new HashMap<>();
+		
+		//페이징, 검색 처리된 상품 목록
+		List<Map<String, String>> list = orderDao.listByPage(param);
+		//검색해온 주문 목록 갯수
+		int count = orderDao.countByList(param.get("email"));
+		//페이징 관련정보(시작, 끝 페이지 등) 처리 
+		PaginationManager pm = new PaginationManager();
+		Pagination pagination = new Pagination();
+		pagination.setPerPageNum(5);
+		pagination.setCurrentPage(Integer.parseInt(param.get("currentPage")));
+		
+		pm.setPagination(pagination);;
+		pm.setTotalCount(count);
+		
+		// controller로 넘겨 주기 위해 map에 담아주기
+		System.out.println(list.toString());
+		System.out.println(pm.pageInfo());
+		result.put("orderList", list);
+		result.put("pageInfo", pm.pageInfo());
+		
+		
+		return result;
+		
 	}
 
-	// 상품 상세 보기
+	// 주문 상세 보기
 	@Override
-	public Product detailProduct(String productId) throws Exception {
+	public Map<String, String> detailProduct(String productId) throws Exception {
 		//return productDao.getProduct(productId);
 		return null;
 	}
