@@ -38,6 +38,7 @@ $("form#loginForm").submit(function(event) {
 	
 	var data = $(this).serialize();
 	
+	// 로그인 Ajax
 	$.ajax(Utils.baseUrl + "user/login.mall", {
 		method: "post",
 		data: data,
