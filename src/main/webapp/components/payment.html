@@ -35,23 +35,23 @@
               </div>
               <div class="single-checkout-box">
                 <select id="deliveryAddressType">
-                  <option value="usedDeliveryAddress" selected>과거배송지</option>
-                  <option value="newDeliveryAddress">신규배송지</option>
+                  <option value="newDeliveryAddress" selected>신규배송지</option>
+                  <option value="usedDeliveryAddress">과거배송지</option>
                 </select>
               </div>
               <div class="single-checkout-box">
-                <select id="usedDeliveryAddressSelect">
+                <select id="usedDeliveryAddressSelect" style="display: none;">
                   <!-- 배송지 정보 API 연결 후 동적으로 출력해줘야 하는 부분 -->  
                 </select>
               </div>
               <div class="single-checkout-box">
                 <input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
                 <input type="button" onclick="execDaumPostcode()" id="postFinder"
-                  value="우편번호 찾기" style="display: none;">
+                  value="우편번호 찾기">
               </div>
               <div class="single-checkout-box">
                 <input type="email" name="address" placeholder="주소" readonly>
-                <input type="text" name="detailedAddress" placeholder="상세주소" readonly>
+                <input type="text" name="detailedAddress" placeholder="상세주소">
               </div>
             </div>
           </div>
@@ -135,6 +135,7 @@
     </div>
   </div>
 </section>
+<div id="snackbar"></div>
 
 <link rel="stylesheet" type="text/css" href="css/custom/payment.css">
 <!-- Daum Api -->
@@ -159,8 +160,38 @@ $(function(){
 			$('input[name="detailedAddress"]').prop('readonly', true);
 			
 			// 데이터베이스에서 주소를 가져오기 위해서 ajax 통신 필요
-			
+			$.ajax(Utils.baseUrl + '/order/address.mall', {
+				method: 'post',
+				data: 'email=' + getCookie('email'),
+				dataType: 'json',
+				success: function(data) {
+					
+					// 선택할 주소 초기화
+					$('#usedDeliveryAddressSelect').empty();
+					
+					// 통신 결과 값을 선택 옵션으로 붙여줌
+					var addresses = data.AddressInfo;
+					for ( var index in addresses) {
+						var adddress = addresses[index];
+						
+						var option = $('<option>').val(address[address_id])
+            									.html(address.zipCode 
+            											+ '&nbsp;&nbsp;'
+            											+ address.address
+            											+ '&nbsp;&nbsp;'
+            											+ address.detailedAddress
+            											);
+						$('#usedDeliveryAddressSelect').append(option);
+					}
+				},
+				error: function(error) {
+					snackbar('배송지 정보를 불러올 수 없습니다. 잠시 후 시도해주세요');
+				}
+			});
 		}
-	});	
+	});
+	 
+	// 유효성 검사
+	// 주문 및 결제
 });
 </script>
