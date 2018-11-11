@@ -1,0 +1,43 @@
+@charset "utf-8";
+.single-checkout-box select, textarea {
+	display: inline-block;
+	margin-bottom: 40px;	
+}
+.shp__cart__wrap img {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+#postFinder {
+	display: inline;
+	float: right;
+	border: 1px solid #d5d5d5;
+    display: inline-block;
+    font-size: 13px;
+    height: 42px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    transition: all 0.5s ease 0s;
+    color: #4b4b4b;
+    text-transform: uppercase;
+}
+
+#postFinder:hover {
+	background: #ff4136;
+    color: #fff;
+    text-shadow: none;
+}
+
+@media (min-width: 1169px) {
+    #postFinder {
+        width: 47%;
+    }
+}
+@media (max-width: 1169px) {
+	#postFinder {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+}

@@ -48,6 +48,7 @@
             <div class="col-md-4 col-sm-5 col-xs-12">
               <div class="cart_totals">
                 <h2>장바구니 합계</h2>
+                <br/>
                 <table>
                   <tbody>
                     <tr class="order-total">
@@ -58,7 +59,7 @@
                   </tbody>
                 </table>
                 <div class="wc-proceed-to-checkout" style="clear: right;">
-                  <a href="checkout.html">주문하기</a>
+                  <a href="components/payment.html" id="goToOrderPage">주문하기</a>
                 </div>
               </div>
             </div>
@@ -90,8 +91,7 @@
 		var targetProduct = $(this).parents('tr.product');
 		var item = createCartItemFromTags(targetProduct, 'cartDetail');
 		var originalItem = getItemFromCookieString(value, item[cartIndexes.indexOf('productId')]);
-		// 변경된 바로 수량 바꿔줌
-		item[cartIndexes.indexOf('quantity')] = parseInt($(this).val());
+		
 		// 사이드 장바구니에 반영
 		value = replaceInAllCases(value, createItemString(originalItem), createItemString(item), true);
 		setInstanceEncodedCookie('cart', value);
@@ -103,5 +103,25 @@
 		printCartTotal();
 		
 		
+	});
+	
+	// 결제 화면으로 넘어가는 이벤트 
+	$('.wc-proceed-to-checkout a').click(function(event){
+		
+		var items = [];
+		var targetProducts = $('tr.product');
+		for (var i = 0; i < targetProducts.length; i++) {
+			var type = 'cartDetail';
+			var itemTarget = targetProducts.eq(i);
+			var item = createCartItemFromTags(itemTarget, type);
+			
+			items.push(item);
+			
+		}
+		
+		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(){
+			getLoginInfo();
+			printItemsCommon('.shp__cart__wrap', items);
+		});
 	});
 </script>

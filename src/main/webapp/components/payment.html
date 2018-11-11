@@ -1,0 +1,237 @@
+<meta charset="utf-8">
+<!-- 메인사진 -->
+<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
+  <div class="ht__bradcaump__wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="bradcaump__inner text-center">
+            <h2 class="bradcaump-title">주문하기</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- 결제하기 -->
+<section class="our-checkout-area ptb--120 bg__white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-8">
+        <div class="ckeckout-left-sidebar">
+          <!-- 주문자 정보 -->
+          <div class="checkout-form">
+            <h2 class="section-title-3">배송 정보 확인</h2>
+            <div class="checkout-form-inner">
+              <div class="single-checkout-box">
+                <input type="text" name="userName" id="receiverName" placeholder="수신인 이름">
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" name="mobile" id="receiverMobile" placeholder="수신인 전화번호">
+              </div>
+              <div class="single-checkout-box">
+                <textarea id="deliveryComments" placeholder="배송시 요청사항"></textarea>
+              </div>
+              <div class="single-checkout-box">
+                <select id="deliveryAddressType">
+                  <option value="newDeliveryAddress" selected>신규배송지</option>
+                  <option value="usedDeliveryAddress">과거배송지</option>
+                </select>
+              </div>
+              <div class="single-checkout-box">
+                <select id="usedDeliveryAddressSelect" style="display: none;">
+                  <!-- 배송지 정보 API 연결 후 동적으로 출력해줘야 하는 부분 -->  
+                </select>
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
+                <input type="button" onclick="execDaumPostcode()" id="postFinder"
+                  value="우편번호 찾기">
+              </div>
+              <div class="single-checkout-box">
+                <input type="email" name="address" placeholder="주소" readonly>
+                <input type="text" name="detailedAddress" placeholder="상세주소">
+              </div>
+            </div>
+          </div>
+          <!-- 결제방법 -->
+          <div class="payment-form">
+            <h2 class="section-title-3">카드 결제</h2>
+            <div class="payment-form-inner">
+              <div class="single-checkout-box">
+                <input type="text" name="userName" placeholder="카드 소유자 이름">
+                <input type="text" id="cardNumber" placeholder="카드 번호">
+              </div>
+              <div class="single-checkout-box select-option">
+                <select id="validityPeriod">
+                  <option value="" selected>유효 기간을 선택해주세요.</option>
+                  <option value="12/18">12/18</option>
+                  <option value="01/19">01/19</option>
+                  <option value="02/19">02/19</option>
+                  <option value="03/19">03/19</option>
+                  <option value="04/19">04/19</option>
+                  <option value="05/19">05/19</option>
+                  <option value="06/19">06/19</option>
+                  <option value="07/19">07/19</option>
+                  <option value="08/19">08/19</option>
+                  <option value="09/19">09/19</option>
+                  <option value="10/19">10/19</option>
+                  <option value="11/19">11/19</option>
+                  <option value="12/19">12/19</option>
+                  <option value="01/20">01/20</option>
+                  <option value="02/20">02/20</option>
+                  <option value="03/20">03/20</option>
+                  <option value="04/20">04/20</option>
+                  <option value="05/20">05/20</option>
+                  <option value="06/20">06/20</option>
+                  <option value="07/20">07/20</option>
+                  <option value="08/20">08/20</option>
+                  <option value="09/20">09/20</option>
+                  <option value="10/20">10/20</option>
+                  <option value="11/20">11/20</option>
+                  <option value="12/20">12/20</option>
+                </select>
+                <input type="text" id="cscNumber" placeholder="CSC 번호">
+              </div>
+            </div>
+          </div>
+          <!-- 카드 종류 -->
+          <div class="our-payment-sestem">
+            <h2 class="section-title-3">사용 가능 카드 :</h2>
+            <ul class="payment-menu">
+              <li><a href="#"><img src="images/payment/1.jpg" alt="payment-img"></a></li>
+              <li><a href="#"><img src="images/payment/2.jpg" alt="payment-img"></a></li>
+              <li><a href="#"><img src="images/payment/3.jpg" alt="payment-img"></a></li>
+              <li><a href="#"><img src="images/payment/4.jpg" alt="payment-img"></a></li>
+              <li><a href="#"><img src="images/payment/5.jpg" alt="payment-img"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4">
+        <div class="checkout-right-sidebar">
+          <div class="our-important-note">
+            <h2 class="section-title-3">주의사항 :</h2>
+            <p class="note-desc">
+                           환불/교환 요청은 배송 완료 시점으로부터 7일 이내에 가능합니다. <br/>
+              (단, 수령한 상품이 표기 광고의 내용과 다르거나 계약 내용과 다르게 이행된 경우에는 수령한 날로부터 3개월 이내, 그 사실을 알 수 있었던 날로부터 30일 이내에는 환불/교환 신청 가능합니다.)
+            </p>
+          </div>
+          <div class="puick-contact-area mt--60">
+            <div class="shopping__cart__inner">
+              <div class="shp__cart__wrap"><!-- 동적으로 추가되는 영역 --></div>
+              <ul class="shoping__total">
+                <li class="subtotal">총 금액:</li>
+                <li class="total__price"></li>
+              </ul>
+              <ul class="shopping__btn">
+                <li class="shp__checkout"><a id="orderButton">주문 및 결제하기</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="snackbar"></div>
+
+<!-- 현재 페이지만 사용하는 CSS -->
+<link rel="stylesheet" type="text/css" href="css/custom/payment.css">
+<!-- Daum Api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/custom/daumApi.js"></script>
+<!-- 유효성 검사 -->
+<script src="js/common/Validation.js"></script>
+<!-- 결제에서만 사용되는 자바스크립트 코드 -->
+<script>
+$(function(){
+	 // 배송지에 따른 화면 변화 이벤트
+	$('select#deliveryAddressType').on('change', function(){
+		var deliveryAddressType = $(this).val();
+		// 신규 배송지일 경우
+		// 우편번호 찾기와 상세주소 입력이 가능해야 함
+		if(deliveryAddressType === 'newDeliveryAddress') {
+			$('#postFinder').css('display', 'inline-block');
+			$('#usedDeliveryAddressSelect').parent().css('display', 'none');
+			$('input[name="detailedAddress"]').prop('readonly', false);
+		} else {
+			// 우편번호와 상세주소가 자동 입력되므로 입력을 막아야 함
+			$('#postFinder').css('display', 'none');
+			$('#usedDeliveryAddressSelect').parent().css('display', 'inline-block');
+			$('input[name="detailedAddress"]').prop('readonly', true);
+			
+			// 데이터베이스에서 주소를 가져오기 위해서 ajax 통신 필요
+			$.ajax(Utils.baseUrl + '/order/address.mall', {
+				method: 'post',
+				data: 'email=' + getCookie('email'),
+				dataType: 'json',
+				success: function(data) {
+					
+					// 선택할 주소 초기화
+					$('#usedDeliveryAddressSelect').empty();
+					
+					// 통신 결과 값을 선택 옵션으로 붙여줌
+					var addresses = data.AddressInfo;
+					for ( var index in addresses) {
+						var adddress = addresses[index];
+						
+						var option = $('<option>').val(address[address_id])
+            									.html(address.zipCode 
+            											+ '&nbsp;&nbsp;'
+            											+ address.address
+            											+ '&nbsp;&nbsp;'
+            											+ address.detailedAddress
+            											);
+						$('#usedDeliveryAddressSelect').append(option);
+					}
+				},
+				error: function(error) {
+					snackbar('배송지 정보를 불러올 수 없습니다. 잠시 후 시도해주세요');
+				}
+			});
+		}
+	});
+	 
+	// 유효성 검사 목록
+	var orderFormRequiredValidations = [
+		Validation.isValidUserName,
+		Validation.isValidMobile,
+		Validation.isZipCodeAndAddressEntered,
+		Validation.isDetailedAddressEntered,
+		Validation.isValidCardNumber,
+		Validation.isValidValidityPeriod,
+		Validation.isValidCscNumber,
+	];
+	
+	// 주문 및 결제
+	$('#orderButton').click(function(){
+		
+		// 유효성 검사
+		var validationResult = Validation.validAllInputs(orderFormRequiredValidations);
+
+		if (!validationResult) {
+			return;
+		}
+		
+		// 서버에 전송할 정보 직렬화
+		var rawData = {
+			
+		}
+		
+		// 비동기 통신
+		$.ajax(Utils.baseUrl + '/order/address.mall', {
+			method: 'post',
+			data: JSON.stringify(rawData),
+			dataType: 'json',
+			success: function(data) {
+				// 성공 시 마이페이지의 주문 확인에서 이를 확인할 수 있음
+			},
+			error: function(error) {
+				snackbar('주문 및 결제에 실패했습니다. 잠시 후 시도해주세요');
+			}
+		});
+	});
+});
+</script>
