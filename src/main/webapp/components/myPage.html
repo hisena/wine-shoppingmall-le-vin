@@ -1,0 +1,89 @@
+<meta charset="utf-8">
+<!-- 커스텀 css -->
+<link rel="stylesheet" href="css/custom/myPage.css">
+
+<!-- 메인사진 -->
+<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
+  <div class="ht__bradcaump__wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="bradcaump__inner text-center">
+            <h2 class="bradcaump-title">마이페이지</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- 회원정보 수정 -->
+<section class="our-checkout-area ptb--120 bg__white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <div class="ckeckout-left-sidebar">
+          <!-- 주문자 정보 -->
+          <div class="checkout-form">
+            <h2 class="section-title-3">회원 정보 수정</h2>
+            <div class="checkout-form-inner">
+              <div class="single-checkout-box">
+                <input type="text" placeholder="이름">
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" placeholder="새 비밀번호">
+                <input type="text" placeholder="새 비밀번호 확인">
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" placeholder="휴대폰 번호">
+              </div>
+              <div class="single-checkout-box">
+  				<input type="text" id="address" name="address" placeholder="주소" readonly>
+              	<input type="button" onclick="execDaumPostcode()" id="postFinder" value="우편번호 찾기"><br>
+  			  </div>
+  			  <div class="single-checkout-box">
+  			  	<input type="text" id="address2" name="detailedAddress" placeholder="상세주소">
+  			  </div>
+              <div class="wc-proceed-to-checkout" style="clear: right;">
+                <a href="checkout.html">회원 정보 수정하기</a>
+              </div>
+            </div>
+          </div>
+          <!-- 주문 목록 -->
+          <div class="payment-form">
+            <h2 class="section-title-3">주문 목록</h2>
+            <div class="checkout-form-inner">
+              <div class="table-content table-responsive">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="product-thumbnail">사진</th>
+                  	  <th class="product-name">상품</th>
+                  	  <th class="product-price">가격</th>
+                  	  <th class="product-quantity">수량</th>
+                  	  <th class="product-subtotal">총 가격</th>
+                  	  <th class="product-remove">주문상태(체크박스)</th>
+                  	</tr>
+                  </thead>
+                  <tbody>
+                    <!-- 동적으로 내용이 생성되는 영역 -->
+                  </tbody>
+                </table>
+	            <div class="wc-proceed-to-checkout" style="clear: right;">
+	              <a href="checkout.html">주문 상세보기</a>
+	              <a href="checkout.html">배송 조회하기</a>
+	              <a href="checkout.html">주문 취소하기</a>
+	              <a href="checkout.html">반품</a>
+	            </div>
+          	  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Daum Api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/custom/daumApi.js"></script>

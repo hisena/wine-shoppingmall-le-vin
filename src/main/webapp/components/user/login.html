@@ -56,7 +56,8 @@ $("form#loginForm").submit(function(event) {
 					if (email != "") {
 						$('#user').html(user[0] + "님 로그인 중...")
 						$('#user').css("display", "block");
-						$('#login_register').attr("id", "item");
+						$('#login_register').attr("href", "components/myPage.html");
+						$('#login_register').attr("id", "myPage");
 					}
 				}
 			});

@@ -11,6 +11,9 @@ $(function(){
 	$(document).on('click', '#login_register', function(event) {
 		route(event, '#login_register', '.fixed__footer');
 	});
+	$(document).on('click', '#myPage', function(event) {
+		route(event, '#myPage', '.fixed__footer');
+	});
 	$(document).on('click', '#item', function(event) {
 		route(event, '#item', '.fixed__footer');
 	});
