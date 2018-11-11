@@ -28,20 +28,30 @@
                 <input type="text" name="userName" id="receiverName" placeholder="수신인 이름">
               </div>
               <div class="single-checkout-box">
-                <input type="text" name="mobile" placeholder="수신인 전화번호">
+                <input type="text" name="mobile" id="receiverMobile" placeholder="수신인 전화번호">
               </div>
               <div class="single-checkout-box">
-                <textarea name="message" placeholder="배송시 요청사항"></textarea>
+                <textarea id="deliveryComments" placeholder="배송시 요청사항"></textarea>
               </div>
-              <div class="single-checkout-box select-option mt--40">
-                <select name="delivery">
+              <div class="single-checkout-box">
+                <select id="deliveryAddressType">
+                  <option value="usedDeliveryAddress" selected>과거배송지</option>
                   <option value="newDeliveryAddress">신규배송지</option>
-                  <option value="usedDeliveryAddress">과거배송지</option>
                 </select>
               </div>
               <div class="single-checkout-box">
-                <input type="email" name="address" placeholder="주소">
-                <input type="text" name="detailedAddress" placeholder="상세주소">
+                <select id="usedDeliveryAddressSelect">
+                  <!-- 배송지 정보 API 연결 후 동적으로 출력해줘야 하는 부분 -->  
+                </select>
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" id="postcode" name="zipCode" placeholder="우편번호" readonly>
+                <input type="button" onclick="execDaumPostcode()" id="postFinder"
+                  value="우편번호 찾기" style="display: none;">
+              </div>
+              <div class="single-checkout-box">
+                <input type="email" name="address" placeholder="주소" readonly>
+                <input type="text" name="detailedAddress" placeholder="상세주소" readonly>
               </div>
             </div>
           </div>
@@ -125,3 +135,32 @@
     </div>
   </div>
 </section>
+
+<link rel="stylesheet" type="text/css" href="css/custom/payment.css">
+<!-- Daum Api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="js/custom/daumApi.js"></script>
+<!-- 결제에서만 사용되는 자바스크립트 코드 -->
+<script>
+$(function(){
+	 // 배송지에 따른 화면 변화 이벤트
+	$('select#deliveryAddressType').on('change', function(){
+		var deliveryAddressType = $(this).val();
+		// 신규 배송지일 경우
+		// 우편번호 찾기와 상세주소 입력이 가능해야 함
+		if(deliveryAddressType === 'newDeliveryAddress') {
+			$('#postFinder').css('display', 'inline-block');
+			$('#usedDeliveryAddressSelect').parent().css('display', 'none');
+			$('input[name="detailedAddress"]').prop('readonly', false);
+		} else {
+			// 우편번호와 상세주소가 자동 입력되므로 입력을 막아야 함
+			$('#postFinder').css('display', 'none');
+			$('#usedDeliveryAddressSelect').parent().css('display', 'inline-block');
+			$('input[name="detailedAddress"]').prop('readonly', true);
+			
+			// 데이터베이스에서 주소를 가져오기 위해서 ajax 통신 필요
+			
+		}
+	});	
+});
+</script>

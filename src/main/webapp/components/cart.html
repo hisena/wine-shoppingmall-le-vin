@@ -48,6 +48,7 @@
             <div class="col-md-4 col-sm-5 col-xs-12">
               <div class="cart_totals">
                 <h2>장바구니 합계</h2>
+                <br/>
                 <table>
                   <tbody>
                     <tr class="order-total">
@@ -119,7 +120,8 @@
 		}
 		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(){
-			printItemsCommon('.shp__cart__wrap', items)
+			getLoginInfo();
+			printItemsCommon('.shp__cart__wrap', items);
 		});
 	});
 </script>
