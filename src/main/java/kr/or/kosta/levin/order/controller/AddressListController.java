@@ -45,19 +45,24 @@ public class AddressListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
+		// 클라이언트로부터 받은 값
 		String email = request.getParameter("email");
 		
 		List<Address> list;
 		Map<String, Object> map = new HashMap<>();
 		try {
+			// null값이 들어오지 않았을 경우
 			if(email != null) {
 				list = orderService.addressList(email);
+				// 데이터 목록이 잘 왔을 경우
 				if(list != null) {
 					map.put("AddressInfo", list);
 					return map;
 				}else {
+					// 데이터가 없을 경우
 					throw new RequestUnauthorizedException();				}
 			}else {
+				// null값 들어왔을 경우
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
