@@ -49,6 +49,18 @@ var Validation = {
 		'isDetailedAddressEntered' : {
 			'selector' : 'input[name="detailedAddress"]',
 			'message' : '상세주소를 입력해주세요.'
+		},
+		'isValidCardNumber' : {
+			'selector': '#cardNumber',
+			'message' : '결제를 위해 카드 번호를 입력해주세요.'
+		},
+		'isValidValidityPeriod' : {
+			'selector' : '#validityPeriod',
+			'message' : '유효기간을 선택해주시길 바랍니다.'
+		},
+		'isValidCscNumber' : {
+			'selector' : '#cscNumber',
+			'message' : '유효한 csc 번호가 아닙니다. 확인 부탁드립니다.'
 		}
 	},
 	// 선택자 정보를 이용해 검사 대상이 되는 input 태그를 가져오는 함수
@@ -144,6 +156,30 @@ Validation.isDetailedAddressEntered = function isDetailedAddressEntered(){
 	var detailedAddress = Validation.getTargetValue(Validation.isDetailedAddressEntered).trim();
 	
 	return detailedAddress.length > 0;
+}
+
+// 카드 번호 유효성을 확인하는 함수
+Validation.isValidCardNumber = function isValidCardNumber() {
+	var cardNumber = Validation.getTargetValue(Validation.isValidCardNumber).trim();
+	var pattern = /[0-9]{16}/;
+	
+	return cardNumber.match(pattern);
+}
+
+// 카드 유효 기간을 확인하는 함수
+Validation.isValidValidityPeriod = function isValidValidityPeriod() {
+	var validityPeriod = Validation.getTargetValue(Validation.isValidValidityPeriod);
+	var pattern = /[0-9]{2}=[0-9]{2}/;
+	
+	return validityPeriod.match(pattern);
+}
+
+// 카드 csc 번호를 확인하는 함수
+Validation.isValidCscNumber = function isValidCscNumber() {
+	var cscNumber = Validation.getTargetValue(Validation.isValidCscNumber);
+	var pattern = /[0-9]{3}/;
+	
+	return cscNumber.match(pattern);
 }
 
 // 전체 유효성 검사 함수를 실행하는 함수
