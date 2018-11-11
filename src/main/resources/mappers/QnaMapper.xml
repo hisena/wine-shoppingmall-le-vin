@@ -84,4 +84,15 @@
 		</if>
 	</select>
 	 
+	 <!-- 1:1문의글 상세보기 -->
+	 <select id="readQna" parameterType="int" resultType="PrivateQna">
+	 	SELECT article_id    	articleId, 
+       		   email, 
+       		   category, 
+       		   title, 
+       		   content, 
+       		   regdate 
+		FROM   levin_private_qnas 
+		WHERE  article_id = #{articleId}
+	 </select>
 </mapper>

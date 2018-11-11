@@ -19,6 +19,8 @@ public interface QnaDao {
 	/** 1:1문의글 등록*/
 	public boolean createQna(PrivateQna privateQna) throws Exception;	
 	/** 1:1문의글 수정*/
-	public boolean updateQna(PrivateQna privateQna) throws Exception;	
+	public boolean updateQna(PrivateQna privateQna) throws Exception;
+	/** 1:1문의글 상세보기*/
+	public PrivateQna readQna(int articleId) throws Exception;
 	
 }
