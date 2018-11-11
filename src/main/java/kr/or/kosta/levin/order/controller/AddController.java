@@ -67,7 +67,11 @@ public class AddController implements Controller {
 		String products = "{\"products\" : [{\"productId\":\"2\", \"quantity\":\"2\"},{\"productId\":\"3\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
 				+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"null\", \"address\":\"서울시 종로구 종로동\", "
 				+ "\"detailedAddress\":\"123-56 행복빌딩 901호\", \"zipCode\":\"55-666\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
-				
+//		String products = "{\"products\" : [{\"productId\":\"4\", \"quantity\":\"2\"},{\"productId\":\"5\", \"quantity\":\"1\"} ], \"email\":\"test0001@naver.com\","
+//				+ "\"orderMoney\":\"240000\", \"receiverName\":\"박소연\", \"receiverMobile\":\"010-1234-5678\", \"addressId\":\"1\", \"address\":\"null\", "
+//				+ "\"detailedAddress\":\"null\", \"zipCode\":\"null\", \"deliveryComm\":\"부재시 경비실에 부탁드립니다.\" }";
+		
+		
 		JSONParser parser = new JSONParser();
 		JSONObject productsObject;
 		try {

@@ -116,7 +116,9 @@ public class OrderServiceImpl implements OrderService {
 			delivery.setOrder_id(order_id);
 			address.setOrder_id(order_id);
 			
-			if(address.getAddress() != null) {
+			System.out.println(address.getAddress());
+
+			if(address.getAddress() != null && !address.getAddress().equals("null")) {
 				address_id = addressDao.create(address);
 				delivery.setNewTF("New");
 				delivery.setAddress_id(address_id);

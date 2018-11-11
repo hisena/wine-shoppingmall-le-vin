@@ -7,6 +7,9 @@
 	
 	<!-- 주소 정보 등록 -->
 	<insert  id="createOrder" parameterType="Order">
+	<selectKey resultType="Integer" keyProperty="orderId" order="BEFORE">
+        select order_id_seq.nextval as orderId FROM DUAL      
+    </selectKey>
 		INSERT INTO levin_orders 
         (
             		order_id, 
@@ -15,7 +18,7 @@
              		order_date, 
             		is_paid
         ) VALUES ( 
-        			order_id_seq.NEXTVAL, 
+        			#{orderId}, 
             		#{email}, 
             		#{orderMoney}, 
             		SYSDATE, 
