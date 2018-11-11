@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 주문하기 기능중 levin_order_lists table에 접근하는 sql -->                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.order">
+	
+	<!-- 주문목록 정보 등록 -->
+	<insert  id="createOrderList" parameterType="map">
+		INSERT INTO levin_order_lists
+		(
+  					order_id,
+					product_id,
+					quantity
+		)VALUES(
+  					(select max(order_id) from levin_orders),
+  					#{productId},
+  					#{quantity}
+		)
+	</insert>
+		
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- levin_orders table에 접근하는 sql -->                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.order">
+	
+	<!-- 주문 정보 등록 -->
+	<insert  id="createOrder" parameterType="Order" keyProperty="order_id">
+		INSERT INTO levin_orders 
+        (
+            		order_id, 
+             		email, 
+             		order_money, 
+             		order_date, 
+            		is_paid
+        ) VALUES ( 
+        			order_id_seq.nextval, 
+            		#{email}, 
+            		#{orderMoney}, 
+            		SYSDATE, 
+            		'Y' 
+        )
+         
+	</insert>
+	
+		
+</mapper>

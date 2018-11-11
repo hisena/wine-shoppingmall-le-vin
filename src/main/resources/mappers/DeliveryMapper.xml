@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 주문하기 중 levin_delivery table에 접근하는 sql -->                        
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.order">
+	
+	<!-- 배송관련 정보 등록 -->
+	<insert  id="createDelivery" parameterType="Delivery">
+		INSERT INTO levin_deliverys
+		(
+  					order_id,
+					address_id,
+					receiver_name,
+					receiver_mobile,
+					delivery_comments
+		)VALUES(
+  					(select max(order_id) from levin_orders),
+  		<if test="newTF != null">
+  					#{addressId},
+  		</if>
+  		<if test="newTF == null">
+  					(select max(address_id) from levin_address),
+  		</if>		
+  					#{receiverName},
+  					#{receiverMobile},
+  					#{deliveryComments}
+		)
+	</insert>
+		
+</mapper>
