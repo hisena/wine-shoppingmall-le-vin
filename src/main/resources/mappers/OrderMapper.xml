@@ -29,8 +29,7 @@
 				email, 
        			orderMoney, 
        			orderDate, 
-       			isPaid, 
-       			regdate, 
+       			isPaid,  
        			refundCompleteDate, 
        			startDate, 
        			deliveryCompleteDate 
@@ -40,7 +39,6 @@
                			orderMoney, 
                			orderDate, 
                			isPaid, 
-               			regdate, 
                			refundCompleteDate, 
                			startDate, 
                			deliveryCompleteDate 
@@ -48,8 +46,7 @@
                        			o.email, 
                        			o.order_money   orderMoney, 
                        			o.order_date    orderDate, 
-                       			o.is_paid       isPaid, 
-                       			r.regdate, 
+                       			o.is_paid       isPaid,
                        			r.complete_date refundCompleteDate, 
                        			d.start_date    startDate, 
                        			d.complete_date deliveryCompleteDate 
