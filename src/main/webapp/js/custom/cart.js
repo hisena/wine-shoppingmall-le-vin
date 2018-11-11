@@ -69,7 +69,6 @@ cartSelectorData.cartDetail[cartIndexes.indexOf('imagePath')] = {
 
 // 모든 경우의 수를 고려해 수정
 function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
-	
 	// 수정해야 하는 상품의 위치가 1번째 이상일 때 처리
 	var replaceString = needDelimiter? cartItemDelimiter + stringToReplace : stringToReplace; 
 	value = value.replace(cartItemDelimiter + target, replaceString);
@@ -254,16 +253,17 @@ function printCart() {
 	
 	// 쿠키로부터 장바구니 정보를 가져옴
 	var value = getCookie('cart');
+
+	var items = [];
 	
-	if (value.length > 0) {
+	if (value.length > 1) {
 		var cartItems = value.split(cartItemDelimiter);
-		var items = [];
 		for ( var index in cartItems) {
 			items.push(convertStringToItem(cartItems[index]));
 		}
-		
-		printItemsCommon('div.shp__cart__wrap', items);
 	}
+	
+	printItemsCommon('div.shp__cart__wrap', items, true);
 	
 }
 

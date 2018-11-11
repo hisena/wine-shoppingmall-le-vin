@@ -169,7 +169,7 @@ Validation.isValidCardNumber = function isValidCardNumber() {
 // 카드 유효 기간을 확인하는 함수
 Validation.isValidValidityPeriod = function isValidValidityPeriod() {
 	var validityPeriod = Validation.getTargetValue(Validation.isValidValidityPeriod);
-	var pattern = /[0-9]{2}=[0-9]{2}/;
+	var pattern = /[0-9]{2}\/[0-9]{2}/;
 	
 	return validityPeriod.match(pattern);
 }

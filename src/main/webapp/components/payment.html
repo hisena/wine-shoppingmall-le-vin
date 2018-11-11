@@ -175,8 +175,7 @@ $(function(){
 					var addresses = data.AddressInfo;
 					for ( var index in addresses) {
 						var address = addresses[index];
-						
-						var option = $('<option>').val(address['address_id'])
+						var option = $('<option>').val(address.addressId)
             									.html(address.zipCode 
             											+ '&nbsp;&nbsp;'
             											+ address.address
@@ -192,6 +191,16 @@ $(function(){
 			});
 		}
 	});
+	
+	 // 배송지 선택 시 이벤트 발생
+	 $('#usedDeliveryAddressSelect').on('change blur', function(){
+		 var fullAddress = $('#usedDeliveryAddressSelect option:selected').html();
+		 var addressArray = fullAddress.split('&nbsp;&nbsp;');
+		 $('input[name="zipCode"]').val(addressArray[0]);
+		 $('input[name="address"]').val(addressArray[1]);
+		 $('input[name="detailedAddress"]').val(addressArray[2]);
+		 
+	 })
 	 
 	// 유효성 검사 목록
 	var orderFormRequiredValidations = [
@@ -224,7 +233,7 @@ $(function(){
 			var targetProduct = targetProducts.eq(i);
 			
 			var cartSelectorDatum = cartSelectorData['cart'];
-			product['productId'] = targetProduct.find(cartSelectorDatum[cartIndexes.indexOf('productId')]).val();
+			product['productId'] = targetProduct.find(cartSelectorDatum[cartIndexes.indexOf('productId')]['selector']).val();
 			product['quantity'] = targetProduct.find(cartSelectorDatum[cartIndexes.indexOf('quantity')]).html();
 			products.push(product);
 		}
@@ -258,9 +267,9 @@ $(function(){
 		rawData['deliveryComm'] = $('#deliveryComments').val();
 		
 		// 비동기 통신
-		$.ajax(Utils.baseUrl + '/order/address.mall', {
+		$.ajax(Utils.baseUrl + 'order/add.mall', {
 			method: 'post',
-			data: JSON.stringify(rawData),
+			data: 'Products=' + JSON.stringify(rawData),
 			dataType: 'json',
 			success: function(data) {
 				// 성공 시 마이페이지의 주문 확인에서 이를 확인할 수 있음
