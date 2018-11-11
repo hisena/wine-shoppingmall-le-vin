@@ -23,4 +23,7 @@ public interface QnaService {
 	
 	/** 1:1문의글 상세보기 */
 	public PrivateQna detailQna(int articleId) throws Exception;
+	
+	/** 1:1문의글 삭제 */
+	public boolean removeQna(int articleId) throws Exception;
 }
