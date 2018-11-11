@@ -36,16 +36,16 @@
 					detailed_address,
           			regdate
 		)VALUES(
-					address_id_seq.nextval,
+					(select nvl(max(address_id) + 1, 1)  from levin_address),
           			#{email},
 					#{address},
 					#{zipCode},
 					#{detailedAddress},
 					sysdate
 		)
-		<selectKey keyProperty="address_id" resultType="Integer" order="AFTER"> 
+		<!-- <selectKey keyProperty="address_id" resultType="Integer" order="AFTER"> 
         SELECT address_id_seq.currval as address_id FROM dual 
-        </selectKey>
+        </selectKey> -->
 	</insert>
 		
 </mapper>

@@ -68,6 +68,7 @@ public class MybatisOrderDao implements OrderDao {
 		// insert문 실행 후 반환값 저장
 		int result =0;
 		result= sqlSession.insert(NAMESPACE + "createOrder", order);
+		
 		// insert에 성공했으면
 		if (result != 0) {
 			// 커밋해주기

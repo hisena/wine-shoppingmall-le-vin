@@ -6,10 +6,7 @@
 <mapper namespace="kr.or.kosta.levin.order">
 	
 	<!-- 주소 정보 등록 -->
-	<insert  id="createOrder" parameterType="Order">
-	<selectKey resultType="Integer" keyProperty="orderId" order="BEFORE">
-        select order_id_seq.nextval as orderId FROM DUAL      
-    </selectKey>
+	<insert  id="createOrder" parameterType="Order" keyProperty="order_id">
 		INSERT INTO levin_orders 
         (
             		order_id, 
@@ -18,16 +15,18 @@
              		order_date, 
             		is_paid
         ) VALUES ( 
-        			#{orderId}, 
+        			order_id_seq.nextval, 
             		#{email}, 
             		#{orderMoney}, 
             		SYSDATE, 
             		'Y' 
         )
-        <selectKey keyProperty="order_id" resultType="Integer" order="AFTER"> 
+        <!-- <selectKey keyProperty="order_id" resultType="Integer" order="AFTER"> 
         SELECT order_id_seq.currval as order_id FROM dual 
-        </selectKey> 
+        </selectKey> --> 
 	</insert>
+	
+	
 	
 
 		

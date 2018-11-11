@@ -113,8 +113,7 @@ public class OrderServiceImpl implements OrderService {
 		// 정보등록에 성공하면
 		if (order_id != 0) {
 			// 신규배송지일 경우
-			delivery.setOrder_id(order_id);
-			address.setOrder_id(order_id);
+			
 			
 			System.out.println(address.getAddress());
 
@@ -135,11 +134,8 @@ public class OrderServiceImpl implements OrderService {
 			System.out.println(productList.toString());
 			for (int i = 0; i < productList.size(); i++) {
 				Map<String, String> productInfo = new HashMap<>();
-				System.out.println();
-				productInfo.put("orderId", String.valueOf(order_id));
 				productInfo.put("productId", productList.get(i).getProductId());
 				productInfo.put("quantity", productList.get(i).getQuantity());
-				System.out.println(productInfo.toString());
 				orderListResult = orderlistDao.create(productInfo);
 				if(orderListResult == false) { break; }
 			}

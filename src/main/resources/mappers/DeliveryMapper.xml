@@ -16,12 +16,12 @@
 					receiver_mobile,
 					delivery_comments
 		)VALUES(
-  					#{order_id},
+  					(select max(order_id) from levin_orders),
   		<if test="newTF != null">
   					#{address_id},
   		</if>
   		<if test="newTF == null">
-  					#{addressId},
+  					(select max(address_id) from levin_address),
   		</if>		
   					#{receiverName},
   					#{receiverMobile},

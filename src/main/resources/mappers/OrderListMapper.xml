@@ -13,7 +13,7 @@
 					product_id,
 					quantity
 		)VALUES(
-  					#{orderId},
+  					(select max(order_id) from levin_orders),
   					#{productId},
   					#{quantity}
 		)
