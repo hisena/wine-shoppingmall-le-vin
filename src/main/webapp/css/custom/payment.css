@@ -8,6 +8,10 @@
 	margin-left: 20px;
 }
 
+#usedDeliveryAddressSelect {
+	width: 100%;
+}
+
 #postFinder {
 	display: inline;
 	float: right;

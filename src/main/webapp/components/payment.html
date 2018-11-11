@@ -154,16 +154,16 @@ $(function(){
 		// 우편번호 찾기와 상세주소 입력이 가능해야 함
 		if(deliveryAddressType === 'newDeliveryAddress') {
 			$('#postFinder').css('display', 'inline-block');
-			$('#usedDeliveryAddressSelect').parent().css('display', 'none');
+			$('#usedDeliveryAddressSelect').css('display', 'none');
 			$('input[name="detailedAddress"]').prop('readonly', false);
 		} else {
 			// 우편번호와 상세주소가 자동 입력되므로 입력을 막아야 함
 			$('#postFinder').css('display', 'none');
-			$('#usedDeliveryAddressSelect').parent().css('display', 'inline-block');
+			$('#usedDeliveryAddressSelect').css('display', 'inline-block');
 			$('input[name="detailedAddress"]').prop('readonly', true);
 			
 			// 데이터베이스에서 주소를 가져오기 위해서 ajax 통신 필요
-			$.ajax(Utils.baseUrl + '/order/address.mall', {
+			$.ajax(Utils.baseUrl + 'order/address.mall', {
 				method: 'post',
 				data: 'email=' + getCookie('email'),
 				dataType: 'json',
@@ -171,13 +171,12 @@ $(function(){
 					
 					// 선택할 주소 초기화
 					$('#usedDeliveryAddressSelect').empty();
-					
 					// 통신 결과 값을 선택 옵션으로 붙여줌
 					var addresses = data.AddressInfo;
 					for ( var index in addresses) {
-						var adddress = addresses[index];
+						var address = addresses[index];
 						
-						var option = $('<option>').val(address[address_id])
+						var option = $('<option>').val(address['address_id'])
             									.html(address.zipCode 
             											+ '&nbsp;&nbsp;'
             											+ address.address
