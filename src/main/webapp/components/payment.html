@@ -216,9 +216,47 @@ $(function(){
 		}
 		
 		// 서버에 전송할 정보 직렬화
-		var rawData = {
+		var rawData = {};
+		// 주문 상품
+		var products = [];
+		var targetProducts = $('.puick-contact-area').find('.shp__single__product');
+		for (var i = 0; i < targetProducts.length; i++) {
+			var product = {};
+			var targetProduct = targetProducts.eq(i);
 			
+			var cartSelectorDatum = cartSelectorData['cart'];
+			product['productId'] = targetProduct.find(cartSelectorDatum[cartIndexes.indexOf('productId')]).val();
+			product['quantity'] = targetProduct.find(cartSelectorDatum[cartIndexes.indexOf('quantity')]).html();
+			products.push(product);
 		}
+		rawData['products'] = products;
+		// 주문자 정보
+		rawData['email'] = getCookie('email');
+		// 주문 금액
+		rawData['orderMoney'] = priceStringToNumber($('.puick-contact-area .total__price').html());
+		// 수신인 정보
+		rawData['receiverName'] = $('#receiverName').val();
+		rawData['receiverMobile'] = $('#receiverMobile').val();
+		// 주소
+		var addressId = null;
+		var address = null;
+		var detailedAddress = null;
+		var zipCode = null;
+		var addressType = $('select#deliveryAddressType').val();
+		if (addressType === 'newDeliveryAddress') {
+			address = $('input[name="address"]').val();
+			detailedAddress = $('input[name="detailedAddress"]').val();
+			zipCode = $('input[name="zipCode"]').val();
+		} else {
+			addressId = $('#usedDeliveryAddressSelect').val();
+		}
+		rawData['addressId'] = addressId;
+		rawData['address'] = address;
+		rawData['detailedAddress'] = detailedAddress;
+		rawData['zipCode'] = zipCode;
+		
+		// 배송 시 요청 사항
+		rawData['deliveryComm'] = $('#deliveryComments').val();
 		
 		// 비동기 통신
 		$.ajax(Utils.baseUrl + '/order/address.mall', {
