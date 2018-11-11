@@ -25,23 +25,23 @@
             <h2 class="section-title-3">배송 정보 확인</h2>
             <div class="checkout-form-inner">
               <div class="single-checkout-box">
-                <input type="text" placeholder="수신인 이름">
+                <input type="text" name="userName" id="receiverName" placeholder="수신인 이름">
               </div>
               <div class="single-checkout-box">
-                <input type="text" placeholder="수신인 전화번호">
+                <input type="text" name="mobile" placeholder="수신인 전화번호">
               </div>
               <div class="single-checkout-box">
                 <textarea name="message" placeholder="배송시 요청사항"></textarea>
               </div>
               <div class="single-checkout-box select-option mt--40">
-                <select>
-                  <option>신규배송지</option>
-                  <option>과거배송지</option>
+                <select name="delivery">
+                  <option value="newDeliveryAddress">신규배송지</option>
+                  <option value="usedDeliveryAddress">과거배송지</option>
                 </select>
               </div>
               <div class="single-checkout-box">
-                <input type="email" placeholder="주소">
-                <input type="text" placeholder="상세주소">
+                <input type="email" name="address" placeholder="주소">
+                <input type="text" name="detailedAddress" placeholder="상세주소">
               </div>
             </div>
           </div>
@@ -50,18 +50,39 @@
             <h2 class="section-title-3">카드 결제</h2>
             <div class="payment-form-inner">
               <div class="single-checkout-box">
-                <input type="text" placeholder="카드 소유자 이름">
+                <input type="text" name="userName" placeholder="카드 소유자 이름">
                 <input type="text" placeholder="카드 번호">
               </div>
               <div class="single-checkout-box select-option">
-                <select>
-                  <option>Date*</option>
-                  <option>Date</option>
-                  <option>Date</option>
-                  <option>Date</option>
-                  <option>Date</option>
+                <select name="validityPeriod">
+                  <option value="" selected>유효 기간을 선택해주세요.</option>
+                  <option value="12/18">12/18</option>
+                  <option value="01/19">01/19</option>
+                  <option value="02/19">02/19</option>
+                  <option value="03/19">03/19</option>
+                  <option value="04/19">04/19</option>
+                  <option value="05/19">05/19</option>
+                  <option value="06/19">06/19</option>
+                  <option value="07/19">07/19</option>
+                  <option value="08/19">08/19</option>
+                  <option value="09/19">09/19</option>
+                  <option value="10/19">10/19</option>
+                  <option value="11/19">11/19</option>
+                  <option value="12/19">12/19</option>
+                  <option value="01/20">01/20</option>
+                  <option value="02/20">02/20</option>
+                  <option value="03/20">03/20</option>
+                  <option value="04/20">04/20</option>
+                  <option value="05/20">05/20</option>
+                  <option value="06/20">06/20</option>
+                  <option value="07/20">07/20</option>
+                  <option value="08/20">08/20</option>
+                  <option value="09/20">09/20</option>
+                  <option value="10/20">10/20</option>
+                  <option value="11/20">11/20</option>
+                  <option value="12/20">12/20</option>
                 </select>
-                <input type="text" placeholder="CSC 번호">
+                <input type="text" name="cscNumber" placeholder="CSC 번호">
               </div>
             </div>
           </div>
@@ -75,9 +96,6 @@
               <li><a href="#"><img src="images/payment/4.jpg" alt="payment-img"></a></li>
               <li><a href="#"><img src="images/payment/5.jpg" alt="payment-img"></a></li>
             </ul>
-            <div class="checkout-btn">
-              <a class="ts-btn btn-light btn-large hover-theme" href="#">결제하기</a>
-            </div>
           </div>
         </div>
       </div>
@@ -85,17 +103,20 @@
         <div class="checkout-right-sidebar">
           <div class="our-important-note">
             <h2 class="section-title-3">주의사항 :</h2>
-            <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
+            <p class="note-desc">
+                           환불/교환 요청은 배송 완료 시점으로부터 7일 이내에 가능합니다. <br/>
+              (단, 수령한 상품이 표기 광고의 내용과 다르거나 계약 내용과 다르게 이행된 경우에는 수령한 날로부터 3개월 이내, 그 사실을 알 수 있었던 날로부터 30일 이내에는 환불/교환 신청 가능합니다.)
+            </p>
           </div>
           <div class="puick-contact-area mt--60">
             <div class="shopping__cart__inner">
-              <div class="offsetmenu__close__btn">
-                <a href="#"><i class="zmdi zmdi-close"></i></a>
-              </div>
               <div class="shp__cart__wrap"><!-- 동적으로 추가되는 영역 --></div>
               <ul class="shoping__total">
                 <li class="subtotal">총 금액:</li>
                 <li class="total__price"></li>
+              </ul>
+              <ul class="shopping__btn">
+                <li class="shp__checkout"><a id="goToPurchase" href="components/cart.html">주문 및 결제하기</a></li>
               </ul>
             </div>
           </div>

@@ -314,7 +314,7 @@ $(function(){
   		var cartItems = [];
   		
   		// 장바구니 내 모든 아이템을 javascript 처리 가능한 객체로 변환
-  		var targetItems = $('.shp__single__product');
+  		var targetItems = $('.shopping__cart .shp__single__product');
 		for (var i = 0; i < targetItems.length; i++) {
 			var targetItem = targetItems[i];
 			cartItems.push(createCartItemFromTags(targetItem, 'cart'));
@@ -322,7 +322,6 @@ $(function(){
 		
       		
 		route(event, '#' + $(this).attr('id'), '.fixed__footer', function(data){
-			console.log($('.table-responsive tbody').html());
 			$('.table-responsive tbody').html('');
 			
 			for ( var index in cartItems) {
