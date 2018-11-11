@@ -7,9 +7,9 @@
 	margin-top: 20px;
 	margin-left: 20px;
 }
+
 #postFinder {
 	display: inline;
-	width: 47%;
 	float: right;
 	border: 1px solid #d5d5d5;
     display: inline-block;
@@ -28,4 +28,16 @@
 	background: #ff4136;
     color: #fff;
     text-shadow: none;
+}
+
+@media (min-width: 1169px) {
+    #postFinder {
+        width: 47%;
+    }
+}
+@media (max-width: 1169px) {
+	#postFinder {
+        width: 100%;
+        margin-bottom: 40px;
+    }
 }
