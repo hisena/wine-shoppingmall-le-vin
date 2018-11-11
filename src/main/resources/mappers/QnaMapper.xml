@@ -95,4 +95,11 @@
 		FROM   levin_private_qnas 
 		WHERE  article_id = #{articleId}
 	 </select>
+	 
+	 <!-- 1:1문의글 삭제-->
+	<update id="deleteQna" parameterType="int">
+		UPDATE levin_private_qnas 
+		SET    delete_yn = 'Y' 
+		WHERE  article_id = #{articleId} 
+	</update>
 </mapper>
