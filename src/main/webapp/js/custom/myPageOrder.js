@@ -126,7 +126,7 @@ function getOrderDetail(orderId){
             } else if (orderStatus === '배송 중') {
             	aTag = '<a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>';
             } else if (orderStatus === '배송 완료') {
-            	aTag = '<a>반품하기</a>';
+            	aTag = '<a onclick="refund(' + orderId + ')">반품하기</a>';
             }
             $('.button-wrapper').prepend(aTag);
 			
@@ -169,6 +169,22 @@ function cancelOrder(orderId) {
 		},
 		error: function(error) {
 			snackbar('주문을 취소하는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
+		}
+	});
+}
+
+// 반품을 위한 함수
+function refund(orderId) {
+	$.ajax(Utils.baseUrl + "order/refund.mall", {
+		method: "post",
+		data: 'orderId=' + orderId,
+		dataType: 'json',
+		success: function(data) {
+			getOrderDetail(orderId);
+			snackbar('성공적으로 반품 신청되었습니다.');
+		},
+		error: function(error) {
+			snackbar('반품을 신청하는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
 		}
 	});
 }
