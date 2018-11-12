@@ -42,6 +42,6 @@ public interface UserService {
 	public boolean deleteAddress(String addressId) throws Exception;
 	
 	/** 비밀번호 찾기 - 인증번호 보내주기 */
-	public boolean generateValiNum(String email) throws Exception;
+	public boolean generateValiNum(String email) throws Exception, RequestPreconditionFailedException;
 	
 }

@@ -155,27 +155,27 @@ public class UserServiceImpl implements UserService {
 
 	/** 비밀번호 찾기 - 인증번호 보내주기 */
 	@Override
-	public boolean generateValiNum(String email) throws Exception {
+	public boolean generateValiNum(String email) throws Exception, RequestPreconditionFailedException {
 		String valiNumber = RandomNumberGenerator.generateRandomNum();
-		if(userDao.certifyEmail(email) == null) {
-			
-		}
-		EmailVali emailVali = new EmailVali();
-		emailVali.setEmail(email);
-		emailVali.setValiNumber(valiNumber);
-		
+		// service 성공 여부를 controller에 보내주기 위한 변수
 		boolean generateValiNumResult = false;
 		// insert문 성공 여부를 판단하기 위한 변수
 		boolean generateResult = false;
-		// generateValiNum 메소드 호출
-		
-		
-		generateResult = userDao.generateValiNum(emailVali);
-		// dao의 insert문 성공했을 시 true값 리턴
-		if (generateResult) {
-			generateValiNumResult = true;
+		// 이메일 중복이 아닐 경우
+		EmailVali emailVali = new EmailVali();
+		if(userDao.certifyEmail(email) == null) {
+			emailVali.setEmail(email);
+			emailVali.setValiNumber(valiNumber);
+			// generateValiNum 메소드 호출
+			generateResult = userDao.generateValiNum(emailVali);
+			// dao의 insert문 성공했을 시 true값 리턴
+			if (generateResult) {
+				generateValiNumResult = true;
+			}
 		}
-		
+		else {
+			throw new RequestPreconditionFailedException();
+		}
 		return generateValiNumResult;
 		
 	}
