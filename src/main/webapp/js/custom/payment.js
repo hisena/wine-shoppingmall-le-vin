@@ -45,7 +45,7 @@ $(function(){
                   	  	'<span class="amount">###' + cartIndexes.indexOf('price') + '###</span>' + 
                   	  '</td>' + 
                   	  '<td class="product-quantity">' + 
-                  	  	'<input type="number" min="1" value="###' + cartIndexes.indexOf('quantity') + '###" />' + 
+                  	  	'<input type="number" min="1" value="###' + cartIndexes.indexOf('quantity') + '###" max="###' + cartIndexes.indexOf('maxQuantity') + '###"/>' + 
                   	  '</td>' +
                   	  '<td class="product-subtotal">###' + cartIndexes.length + '###원</td>' +
                   	  '<td class="product-remove"><a href="#">X</a></td>' +

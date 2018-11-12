@@ -674,15 +674,15 @@ $(function() {
 			$('#best').empty();
 			$('#sale').empty();
 			$.each(list, function(index, item) {
-				printMainItems(item.productId, item.productNameKor, item.price, 'latest');
+				printMainItems(item.productId, item.productNameKor, item.price, 'latest', item.totalQuantity);
 			});
 			list = shuffle(productList).slice(0,5);
 			$.each(list, function(index, item) {
-				printMainItems(item.productId, item.productNameKor, item.price, 'best');
+				printMainItems(item.productId, item.productNameKor, item.price, 'best', item.totalQuantity);
 			});
 			list = shuffle(productList).slice(0,5);
 			$.each(list, function(index, item) {
-				printMainItems(item.productId, item.productNameKor, item.price, 'sale');
+				printMainItems(item.productId, item.productNameKor, item.price, 'sale', item.totalQuantity);
 			});
 		},
 		error: function(data) {
@@ -704,7 +704,7 @@ $(function() {
 				$('.modal-product').empty();
 				details(data.productId, data.productNameKor, data.productNameEng, data.price, 
 						data.sugarContent, data.body, data.kind, data.regionName, data.winery, 
-						data.vintage, data.alcohol, data.grapeKind);
+						data.vintage, data.alcohol, data.grapeKind, data.totalQuantity);
 			},
 			error: function(data) {
 				alert('에러발생');

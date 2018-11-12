@@ -158,7 +158,8 @@ $(function() {
 			// 상품 리스트 출력
 			$('#product').empty();
 			$.each(productList, function(index, item) {
-				printItems(item.productId, item.productNameKor, item.price);
+				console.log(item);
+				printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
 			});
 			// 페이지네이션
 			$('.pagination-lg').empty();
@@ -185,7 +186,7 @@ $(function() {
 				// 상품 리스트 출력
 				$('#product').empty();
 				$.each(productList, function(index, item) {
-					printItems(item.productId, item.productNameKor, item.price);
+					printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
 				});
 				
 				// 화면 크기에 따른 상품리스트 정렬
@@ -247,7 +248,7 @@ $(function() {
 				// 와인 종류별 검색
 				$('#product').empty();
 				$.each(productList, function(index, item) {
-					printItems(item.productId, item.productNameKor, item.price);
+					printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
 				});
 				// 페이지네이션
 				$('.pagination-lg').empty();

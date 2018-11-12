@@ -115,6 +115,11 @@
 			var itemTarget = targetProducts.eq(i);
 			var item = createCartItemFromTags(itemTarget, type);
 			
+			if (parseInt(item[cartIndexes.indexOf('quantity')]) > parseInt(cartIndexes.indexOf('maxQuantitu'))) {
+				snackbar('재고가 부족합니다.');
+				return false;
+			}
+			
 			items.push(item);
 			
 		}
