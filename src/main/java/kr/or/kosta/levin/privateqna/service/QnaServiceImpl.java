@@ -13,7 +13,7 @@ import kr.or.kosta.levin.privateqna.domain.PaginationManager;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 
 /**
- * PrivateQna와 관련된 비즈니스 로직 수행을 위한 Service 객체
+ * 1:1 문의글 및 댓글과 관련된 비즈니스 로직 수행을 위한 Service 객체
  * 
  * @author 류세은
  *
@@ -101,6 +101,20 @@ public class QnaServiceImpl implements QnaService {
 		result = qnaDao.deleteQna(articleId);
 		//1:1문의글 삭제 성공여부 확인
 		if (result) { // 회원정보 삭제에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
+	
+	//1:1문의글 댓글 수정
+	@Override
+	public boolean editComment(Map<String, Object> parameter) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 1:1문의글  댓글 수정
+		result = qnaDao.updateComment(parameter);
+		//1:1문의글 댓글 수정 성공여부 확인
+		if (result) { // 수정에 성공했을 경우
 			flag = true;
 		}
 		return flag;

@@ -104,4 +104,11 @@
 		SET    delete_yn = 'Y' 
 		WHERE  article_id = #{articleId} 
 	</update>
+	 
+	 <!-- 1:1문의글 댓글 수정 -->
+	 <update id="updateComment" parameterType="map">
+		UPDATE levin_private_qnas 
+		SET    content = #{content}
+		WHERE  article_id = #{childId} 
+	</update>
 </mapper>
