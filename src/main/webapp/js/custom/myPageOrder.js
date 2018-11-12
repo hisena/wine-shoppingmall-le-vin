@@ -91,14 +91,81 @@ function getOrderList(currentPage){
 	});
 }
 
-// 주문 취소를 위한 함수
-function cancelOrder(orderId) {
-	$.ajax(Utils.baseUrl + "order/order-cancel.mall", {
+// 상세보기를 위한 함수 재사용을 위해 선언
+function getOrderDetail(orderId){
+	
+	var currentPage = $('.pagination-lg li.active a').attr('href');
+	
+	$.ajax(Utils.baseUrl + "order/detail.mall", {
 		method: "get",
 		data: 'orderId=' + orderId,
 		contentType: 'application/json; charset=utf-8',
 	    dataType: 'json',
 		success: function(data) {
+			var order = data.orderInfo;
+			order['paymentStatus'] = order.isPaid === 'Y'? '결제 완료' : '결제 대기';
+			var orderStatus = computeOrderState(order);
+			order['orderStatus'] = orderStatus;
+			order['deliveryComments'] = order['deliveryComments']? order['deliveryComments'] : '';
+			order['currentPage'] = currentPage;
+			// 주문 관련 정보
+			var itemToAppend = orderDetailTemplate.slice();
+			for ( var key in order) {
+				var regExp = new RegExp('###' + key + '###', 'gm');
+				var value =  order[key] ?  order[key] : '';
+				itemToAppend = itemToAppend.replace(regExp, value);
+			}
+			
+			$('.payment-form .section-title-3').html('주문 확인하기');
+			$('.order-wrapper').html(itemToAppend);
+			
+			// 상태에 따라 버튼 바꾸기
+            var aTag = '';
+            if (orderStatus === '상품 준비 중') {
+            	aTag = '<a onclick="cancelOrder(' + orderId + ')">주문 취소하기</a>'
+            } else if (orderStatus === '배송 중') {
+            	aTag = '<a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>';
+            } else if (orderStatus === '배송 완료') {
+            	aTag = '<a>반품하기</a>';
+            }
+            $('.button-wrapper').prepend(aTag);
+			
+			// 상품 정보
+			var items = [];
+			var products = data.productInfo;
+			for ( var index in products) {
+				var item = [];
+				var product = products[index];
+				
+				var productId = product.productId;
+				item[cartIndexes.indexOf('productId')] = productId;
+				item[cartIndexes.indexOf('productName')] = product.productNameKor;
+				item[cartIndexes.indexOf('quantity')] = product.quantity;
+				item[cartIndexes.indexOf('price')] = product.price.toLocaleString() + '원';
+				item[cartIndexes.indexOf('imagePath')] = Utils.getImagePath(productId);
+				items.push(item);
+			}
+			printItemsCommon('.shp__cart__wrap', items);
+			
+			// 페이지네이션 숨기기
+			$('.pagination-lg').css('display','none');
+		},
+		error: function(error) {
+			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
+		}
+	})
+}
+
+// 주문 취소를 위한 함수
+function cancelOrder(orderId) {
+	$.ajax(Utils.baseUrl + "order/cancel.mall", {
+		method: "get",
+		data: 'orderId=' + orderId,
+		contentType: 'application/json; charset=utf-8',
+	    dataType: 'json',
+		success: function(data) {
+			getOrderDetail(orderId);
+			snackbar('성공적으로 주문을 취소했습니다.');
 		},
 		error: function(error) {
 			snackbar('주문을 취소하는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
@@ -120,67 +187,10 @@ $(function(){
     });
     
     // 주문 상세 보기
-    $('.order-wrapper').on('click', 'tbody tr', function(){
+    $('.order-wrapper').on('click', 'tbody tr', function() {
     	
-    	var currentPage = $('.pagination-lg li.active a').attr('href');
     	var orderId = $(this).find('td:first-child').html();
-    	
-    	$.ajax(Utils.baseUrl + "order/detail.mall", {
-    		method: "get",
-    		data: 'orderId=' + orderId,
-    		contentType: 'application/json; charset=utf-8',
-    	    dataType: 'json',
-    		success: function(data) {
-    			var order = data.orderInfo;
-    			order['paymentStatus'] = order.isPaid === 'Y'? '결제 완료' : '결제 대기';
-    			var orderStatus = computeOrderState(order);
-    			order['orderStatus'] = orderStatus;
-    			order['deliveryComments'] = order['deliveryComments']? order['deliveryComments'] : '';
-    			order['currentPage'] = currentPage;
-    			// 주문 관련 정보
-				var itemToAppend = orderDetailTemplate.slice();
-    			for ( var key in order) {
-					var regExp = new RegExp('###' + key + '###', 'gm');
-					var value =  order[key] ?  order[key] : '';
-					itemToAppend = itemToAppend.replace(regExp, value);
-				}
-    			
-    			$('.payment-form .section-title-3').html('주문 확인하기');
-    			$('.order-wrapper').html(itemToAppend);
-    			
-    			// 상태에 따라 버튼 바꾸기
-                var a = $('<a>');
-                if (orderStatus === '상품 준비 중') {
-                	$('.button-wrapper').prepend(a.attr('id','cancelOrder').html('주문 취소하기'));
-                } else if (orderStatus === '배송 완료') {
-                	$('.button-wrapper').prepend(a.attr('id','refund').html('반품하기'));
-                }
-    			
-    			// 상품 정보
-  				var items = [];
-    			var products = data.productInfo;
-    			for ( var index in products) {
-    				var item = [];
-    				var product = products[index];
-    				
-    				var productId = product.productId;
-    				item[cartIndexes.indexOf('productId')] = productId;
-    				item[cartIndexes.indexOf('productName')] = product.productNameKor;
-    				item[cartIndexes.indexOf('quantity')] = product.quantity;
-    				item[cartIndexes.indexOf('price')] = product.price.toLocaleString() + '원';
-    				item[cartIndexes.indexOf('imagePath')] = Utils.getImagePath(productId);
-					items.push(item);
-				}
-    			printItemsCommon('.shp__cart__wrap', items);
-    			
-    			// 페이지네이션 숨기기
-    			$('.pagination-lg').css('display','none');
-    		},
-    		error: function(error) {
-    			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
-    		}
-    	});
-    	
+    	getOrderDetail(orderId);
     });
 });
 
@@ -206,6 +216,5 @@ var orderDetailTemplate = '	<div class="orderInfo">' +
 						  '	 </div>' +
 						  '</div>' +
 						  '<div class="wc-proceed-to-checkout button-wrapper" style="clear: right;">' +
-                          '  <a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>' +
                           '  <a onclick="getOrderList(###currentPage###)">목록으로 돌아가기</a>' +
 						  '</div>';
