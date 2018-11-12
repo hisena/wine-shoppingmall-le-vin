@@ -95,7 +95,6 @@ public class ProductServiceImpl implements ProductService {
 
 		return map;
 	}
-
 	// 상품 문의 댓글 목록
 	@Override
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception {
