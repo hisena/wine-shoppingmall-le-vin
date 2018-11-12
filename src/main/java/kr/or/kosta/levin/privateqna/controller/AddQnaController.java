@@ -24,7 +24,7 @@ import kr.or.kosta.levin.privateqna.service.QnaService;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value="/privateqna/qna-add.mall")
+@RequestMapping(value="/privateqna/qna-add")
 public class AddQnaController implements Controller {
 
 	// 서비스 선언
