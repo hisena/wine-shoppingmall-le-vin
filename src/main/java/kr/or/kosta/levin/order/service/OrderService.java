@@ -22,7 +22,7 @@ public interface OrderService {
 	public Map<String, Object> list(Map<String, String> param) throws Exception;
 	
 	/** 주문 상세 정보*/
-	public Map<String, String> detailProduct(String productId) throws Exception;
+	public Map<String, Object> detail(Map<String, String> param) throws Exception;
 
 	/** 주문 하기 */
 	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception;
