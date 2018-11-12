@@ -23,7 +23,8 @@ function qnaDetails(category, title, content, regdate, articleId) {
 	           + '  </tbody>'
 	           + '</table>'
 	           + '<input type="button" value="댓글" id="reply" style="float: left">'
-	           + '<input type="button" value="수정" id="update">'
+	           + '<input type="button" value="목록" id="back" onclick="getQnaList()">'
+	           + '<input type="button" value="수정" id="update" style="margin-right: 10px">'
 	           + '<input type="button" value="삭제" id="delete" style="margin-right: 10px" onclick="deletePrivateQna(' + articleId + ')">';
 	
 	$('#qnaSection').append(String);
