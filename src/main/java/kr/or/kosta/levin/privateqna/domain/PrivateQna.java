@@ -14,7 +14,7 @@ public class PrivateQna {
 	private String title;
 	private String content;
 	private String regdate;
-	private char deleteYN;
+	private String deleteYN;
 
 	/** 디폴트 생성자 */
 	public PrivateQna() {
@@ -23,7 +23,7 @@ public class PrivateQna {
 
 	/** 매개변수 있는 생성자 */
 	public PrivateQna(int articleId, String email, String category, String title, String content, String regdate,
-			char deleteYN) {
+			String deleteYN) {
 		super();
 		this.articleId = articleId;
 		this.email = email;
@@ -83,11 +83,11 @@ public class PrivateQna {
 		this.regdate = regdate;
 	}
 
-	public char getDeleteYN() {
+	public String getDeleteYN() {
 		return deleteYN;
 	}
 
-	public void setDeleteYN(char deleteYN) {
+	public void setDeleteYN(String deleteYN) {
 		this.deleteYN = deleteYN;
 	}
 
