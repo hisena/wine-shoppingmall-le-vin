@@ -146,9 +146,9 @@ $(function(){
     			// 상태에 따라 버튼 바꾸기
                 var a = $('<a>');
                 if (orderStatus === '배송 중') {
-                	$('.wc-proceed-to-checkout').prepend(a.attr('id','cancelOrder').html('주문 취소하기'));
+                	$('.button-wrapper').prepend(a.attr('id','cancelOrder').html('주문 취소하기'));
                 } else if (orderStatus === '배송 완료') {
-                	$('.wc-proceed-to-checkout').prepend(a.attr('id','refund').html('반품하기'));
+                	$('.button-wrapper').prepend(a.attr('id','refund').html('반품하기'));
                 }
     			
     			// 상품 정보
@@ -200,7 +200,7 @@ var orderDetailTemplate = '	<div class="orderInfo">' +
 						  '		</div>' +
 						  '	 </div>' +
 						  '</div>' +
-						  '<div class="wc-proceed-to-checkout" style="clear: right;">' +
+						  '<div class="wc-proceed-to-checkout button-wrapper" style="clear: right;">' +
                           '  <a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>' +
                           '  <a onclick="getOrderList(###currentPage###)">목록으로 돌아가기</a>' +
 						  '</div>';
