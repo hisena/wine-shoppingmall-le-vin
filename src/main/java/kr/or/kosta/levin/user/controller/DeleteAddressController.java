@@ -23,7 +23,7 @@ import kr.or.kosta.levin.user.domain.User;
 import kr.or.kosta.levin.user.service.UserService;
 
 /**
- * 마이페이지에서 신규배송지 추가 기능을 위한 세부 컨트롤러
+ * 마이페이지에서 신규배송지 삭제 기능을 위한 세부 컨트롤러
  * 
  * @author 박소연
  */
@@ -48,20 +48,16 @@ public class DeleteAddressController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받는 회원정보
-		
 		String addressId = request.getParameter("address_id");
-		
-		
-		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		boolean deleteAddressResult;
 		
 		try {
 			// 파라미터값 null 유효성 검사
-			if (addressId != null) { // Address 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
+			if (addressId != null) { // addressId에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
 				deleteAddressResult = userService.deleteAddress(addressId);
-				if (deleteAddressResult) { // 신규 주소 추가 성공했을 경우
+				if (deleteAddressResult) { // 주소 삭제 성공했을 경우
 					map.put("deleteAddressResult", "true");
 				} else {
 					// 실패했을 경우
@@ -69,12 +65,11 @@ public class DeleteAddressController implements Controller {
 				}
 				return map;
 			} else {
-				// Address 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+				// addressId 값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
-				
 			}
 		} catch (Exception e) {
-			throw new ServletException("userService.changeResult() 예외 발생", e);
+			throw new ServletException("OrderDeleteAddressController 예외 발생", e);
 		}
 	}
 }
