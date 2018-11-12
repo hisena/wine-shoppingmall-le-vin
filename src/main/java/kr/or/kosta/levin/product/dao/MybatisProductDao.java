@@ -12,6 +12,7 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
+import kr.or.kosta.levin.product.domain.ProductQnaComment;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
@@ -80,6 +81,15 @@ public class MybatisProductDao implements ProductDao {
 		int count = sqlSession.selectOne(NAMESPACE+ "countBySearchQna", productId);
 		sqlSession.close();
 		return count;
+	}
+
+	@Override
+	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception {
+		List<ProductQnaComment> list =null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "listQnaComment", param);
+		sqlSession.close();	
+		return list;
 	}
 	
 }
