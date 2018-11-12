@@ -20,6 +20,7 @@
 		<typeAlias type="kr.or.kosta.levin.order.domain.OrderList"         alias="OrderList"/>
 		<typeAlias type="kr.or.kosta.levin.order.domain.Delivery"         alias="Delivery"/>
 		<typeAlias type="kr.or.kosta.levin.order.domain.Address"         alias="OrderAddress"/>
+		<typeAlias type="kr.or.kosta.levin.privateqnacomment.domain.PrivateQnaComment"         alias="PrivateQnaComment"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->
@@ -63,7 +64,7 @@
 		<mapper resource="mappers/OrderMapper.xml"  />
 		<mapper resource="mappers/OrderListMapper.xml"  />
 		<mapper resource="mappers/DeliveryMapper.xml"  />
-				
+		<mapper resource="mappers/PrivateQnaCommentMapper.xml"  />		
 		<!-- URL을 사용한 XML 매퍼 파일 지정 -->
 		<!-- <mapper url="file:///c:/someProject/mapper/SomeMapper.xml" />	 -->
 		
