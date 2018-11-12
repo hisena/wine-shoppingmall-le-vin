@@ -48,9 +48,14 @@ public class ListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
+//		String searchType = request.getParameter("searchType");
+//		String currentPage = request.getParameter("currentPage");
+//		String email = request.getParameter("email");
+		
+		//테스트
 		String searchType = request.getParameter("searchType");
 		String currentPage = request.getParameter("currentPage");
-		String email = request.getParameter("email");
+		String email = "test0001@naver.com";
 		
 		if(email == null || email.trim().length() == 0) {
 			throw new RequestBadRequestException();
