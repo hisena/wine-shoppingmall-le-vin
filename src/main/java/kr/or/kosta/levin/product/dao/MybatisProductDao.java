@@ -92,5 +92,24 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();	
 		return list;
 	}
+
+	@Override
+	public boolean createQna(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int insertResult = sqlSession.insert(NAMESPACE + "createQna", productQna);
+		boolean createQnaResult = false;
+		// insert에 성공했으면
+		if (insertResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			createQnaResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return createQnaResult;
+	}
 	
 }

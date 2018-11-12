@@ -102,4 +102,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.listQnaComment(param);
 	}
 
+	// 상품 문의글 등록
+	@Override
+	public boolean addQna(ProductQna productQna) throws Exception {
+		
+		return productDao.createQna(productQna);
+	}
+
 }

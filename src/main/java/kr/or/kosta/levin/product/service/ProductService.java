@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
+import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
 
 /**
@@ -26,5 +27,8 @@ public interface ProductService {
 	
 	/** 상품의 상품 문의 댓글 목록*/
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
+	
+	/** 상품의 상품 문의글 작성*/
+	public boolean addQna(ProductQna productQna) throws Exception;
 	
 }

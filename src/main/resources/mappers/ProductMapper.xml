@@ -123,5 +123,30 @@
 		WHERE  comms.parent_id = #{qnaId}
 		AND    qnas.product_id = #{productId}
 	</select>
+	
+	<insert id="createQna" parameterType="ProductQna">
+		INSERT INTO levin_product_qnas
+		(
+					qna_id,
+        			product_id,
+       				writer,
+        			title,
+        			content,
+     			<if test="privateYn == 'Y'">
+        			private_yn,
+        		</if>
+        			regdate    
+		)VALUES(
+					qna_id_seq.nextval,
+          			#{productId},
+					#{writer},
+					#{title},
+					#{content},
+				<if test="privateYn == 'Y'">
+        			private_yn,
+        		</if>
+					sysdate
+		)
+	</insert>
 	 
 </mapper>
