@@ -163,7 +163,9 @@ public class UserServiceImpl implements UserService {
 		boolean generateResult = false;
 		// 이메일 중복이 아닐 경우
 		EmailVali emailVali = new EmailVali();
-		if(userDao.certifyEmail(email) == null) {
+		System.out.println(userDao.certifyEmail(email));
+		if(userDao.certifyEmail(email) != null) {
+			
 			emailVali.setEmail(email);
 			emailVali.setValiNumber(valiNumber);
 			// generateValiNum 메소드 호출
