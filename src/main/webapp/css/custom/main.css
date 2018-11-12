@@ -1,4 +1,25 @@
 .wineImage {
-	max-width: 212.66px;
+	max-width: 200px;
 	max-height: 212.66px;
+}
+
+#latest {
+	text-align: center;
+}
+#best {
+	text-align: center;
+}
+#sale {
+	text-align: center;
+}
+
+.product-categories-menu ul li {
+	background-color: #fff;
+    color: #333;
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    padding: 7px 20px;
+    text-transform: capitalize;
+    transition: all 0.3s ease 0s;
 }
