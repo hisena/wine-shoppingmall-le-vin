@@ -57,4 +57,11 @@ public interface UserDao {
 	/** 비밀번호 찾기 - 인증번호 보내주기 */
 	public boolean generateValiNum(EmailVali emailVali) throws Exception;
 	
+	/** 비밀번호 찾기 - 인증번호 확인*/
+	public String checkValidaitonNumber(String valiNumber) throws Exception;
+	
+	/** 비밀번호 찾기 - 비밀번호 업데이트*/
+	public boolean updatePassword(Map<String, String> param) throws Exception;
+	
+	
 }

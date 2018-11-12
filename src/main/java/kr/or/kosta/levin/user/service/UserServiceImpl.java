@@ -164,7 +164,7 @@ public class UserServiceImpl implements UserService {
 		EmailVali emailVali = new EmailVali();
 
 		// 이메일 중복이 아닐 경우
-		if(userDao.certifyEmail(email) != null) {
+		if (userDao.certifyEmail(email) != null) {
 			// generateValiNum 메소드에 보낼 값 처리
 			emailVali.setEmail(email);
 			emailVali.setValiNumber(valiNumber);
@@ -180,7 +180,30 @@ public class UserServiceImpl implements UserService {
 			throw new RequestPreconditionFailedException();
 		}
 		return generateValiNumResult;
-		
+
+	}
+
+	@Override
+	public boolean findPassword(Map<String, String> param) throws Exception, RequestPreconditionFailedException {
+		// service의 수행 결과를 controller에게 알려주기 위한 변수
+		boolean findPasswordResult = false;
+		// 비밀번호 수정 완료 여부를 위한 변수
+		boolean findResult = false;
+
+		// 인증번호 확인하는 메소드 호출, 인증번호가 일치하는 경우
+		if (userDao.checkValidaitonNumber(param.get("valiNumber")) != null) {
+			// 패스워드 수정을 위한 메소드 호출
+			findResult = userDao.updatePassword(param);
+			// dao의 insert문 성공했을 시 true값 리턴
+			if (findResult) {
+				findPasswordResult = true;
+			}
+		}
+		// 인증번호가 일치 하지 않을 경우 412에러
+		else {
+			throw new RequestPreconditionFailedException();
+		}
+		return findPasswordResult;
 	}
 
 }

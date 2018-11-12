@@ -171,7 +171,7 @@ public class MybatisUserDao implements UserDao {
 		return 0;
 	}
 
-	/** 비밀번호 찾기 - 인증번호 보내주기 */
+	/** 비밀번호 찾기 - 인증번호 만들고 디비에 저장해두기*/
 	@Override
 	public boolean generateValiNum(EmailVali emailVali) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -189,6 +189,32 @@ public class MybatisUserDao implements UserDao {
 		}
 		sqlSession.close();
 		return generateValiNum;
+	}
+
+	@Override
+	public String checkValidaitonNumber(String valiNumber) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		String checkResult = sqlSession.selectOne(NAMESPACE + "chechValidationNumber", valiNumber);
+		sqlSession.close();
+		return checkResult;
+	}
+
+	@Override
+	public boolean updatePassword(Map<String, String> param) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int updateResult = sqlSession.update(NAMESPACE + "updatePassword", param);
+		boolean updatePasswordResult = false;
+		// update에 성공한 경우
+		if (updateResult == 1) {
+			// 커밋
+			sqlSession.commit();
+			updatePasswordResult = true;
+		} else {
+			// 실패한 경우 rollback
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return updatePasswordResult;
 	}
 
 //	@Override

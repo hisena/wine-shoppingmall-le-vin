@@ -44,4 +44,7 @@ public interface UserService {
 	/** 비밀번호 찾기 - 인증번호 보내주기 */
 	public boolean generateValiNum(String email) throws Exception, RequestPreconditionFailedException;
 	
+	/** 비밀번호 찾기 -  인증번호 확인 및 업데이트 */
+	public boolean findPassword(Map<String, String> param) throws Exception, RequestPreconditionFailedException;
+	
 }
