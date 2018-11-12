@@ -94,7 +94,7 @@
        		   category, 
        		   title, 
        		   content, 
-       		   regdate 
+       		   TO_CHAR(regdate, 'yy/mm/dd') regdate
 		FROM   levin_private_qnas 
 		WHERE  article_id = #{articleId}
 	 </select>

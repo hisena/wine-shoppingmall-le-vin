@@ -1,6 +1,7 @@
 <meta charset="UTF-8">
 <!-- 커스텀 css -->
 <link rel="stylesheet" href="css/custom/qna.css">
+<link rel="stylesheet" href="css/custom/pagination.css">
 
 <!-- 메인 사진 -->
 <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
@@ -25,32 +26,15 @@
         <div class="table-responsive">
           <table id="mytable" class="table table-hover qnaDetails">
             <thead>
-              <tr class="danger" style="text-align: center">
-                <th style="width: 10%;">번호</th>
-                <th style="width: 10%;">카테고리</th>
+              <tr class="danger">
+                <th style="width: 10%; text-align: center;">번호</th>
+                <th style="width: 10%; text-align: center;">카테고리</th>
                 <th style="width: 60%;">제목</th>
-                <th style="width: 20%;">등록일</th>
+                <th style="width: 20%; text-align: center;">등록일</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-              	<td style="text-align: center">1</td>
-              	<td style="text-align: center">환불</td>
-              	<td>환불 요청 제목입니다.(임시)</td>
-              	<td style="text-align: center">2018.11.12</td>
-              </tr>
-              <tr>
-              	<td style="text-align: center">2</td>
-              	<td style="text-align: center">취소</td>
-              	<td>취소 요청 제목입니다.(임시)</td>
-              	<td style="text-align: center">2018.11.12</td>
-  			  </tr>
-  			  <tr>
-              	<td style="text-align: center">3</td>
-              	<td style="text-align: center">반품</td>
-              	<td>반품 요청 제목입니다.(임시)</td>
-              	<td style="text-align: center">2018.11.12</td>
-  			  </tr>
+              <!-- 게시글 동적추가 -->
             </tbody>
           </table>
         </div>
@@ -73,6 +57,7 @@
 <script>
 $(function() {
 	var email = getCookie("email");
+	// 처음 로딩시 ajax통신
 	$.ajax(Utils.baseUrl + "privateqna/list.mall", {
 		method: "get",
 		dataType: "json",
@@ -81,11 +66,45 @@ $(function() {
 		},
 		success: function(data) {
 			var qnaList = data.qnaList;
-			console.log(qnaList);
+			var pageInfo = data.pageInfo;
+            // 상품 리스트 출력
+   			$('tbody').empty();
+            for (var i = 0; i < qnaList.length; i++) {
+            	var String = '<tr class="qnaList">'
+            			   + '  <input type="hidden" value="'+ qnaList[i].articleId +'">'
+		                   + '  <td style="text-align: center">'+ (qnaList.length-i) +'</td>'
+    	                   + '  <td style="text-align: center">'+ qnaList[i].category +'</td>'
+    	                   + '  <td>'+ qnaList[i].title +'</td>'
+    	                   + '  <td style="text-align: center">'+ qnaList[i].regdate  +'</td>'
+                           + '</tr>';
+         		$('tbody').append(String);
+			}
+			// 페이지네이션
+			$('.pagination-lg').empty();
+			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
 		},
 		error: function(data) {
 			alert('에러발생');
 		}
+	});
+	
+	// 게시글 상세보기 Ajax
+	$(document).on ('click', '.qnaList', function(event) {
+		$.ajax(Utils.baseUrl + "privateqna/detail.mall", {
+			method: "get",
+			data: {
+				"articleId": $(event.target).parent().find('input[type="hidden"]').val()
+			},
+			dataType: "json",
+			success: function(data) {
+				var privateQna = data.privateQna;
+				// 게시글 상세보기 함수
+				alert(privateQna);
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
 	});
 });
 </script>
