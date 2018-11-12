@@ -10,8 +10,6 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.order.domain.Order;
-import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
@@ -54,14 +52,21 @@ public class MybatisOrderDao implements OrderDao {
 		return count;
 	}
 
-	// 주문 상세
+	// 주문 상세 - 주문정보 및 배송정보
 	@Override
-	public Map<String, String> getOrder(String productId) throws Exception {
-//		SqlSession sqlSession = sqlSessionFactory.openSession();
-//		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
-//		sqlSession.close();
-//		return product;
-		return null;
+	public Map<String, String> getOrder(Map<String, String> param) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> orderInfo = sqlSession.selectOne(NAMESPACE+ "getOrder", param);
+		sqlSession.close();
+		return orderInfo;
+	}
+	// 주문 상세 - 상품정보
+	@Override
+	public List<Map<String, String>> getProduct(String orderId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Map<String, String>> productInfo = sqlSession.selectList(NAMESPACE+ "getProduct", orderId);
+		sqlSession.close();
+		return productInfo;
 	}
 
 	// 주문하기
@@ -86,5 +91,7 @@ public class MybatisOrderDao implements OrderDao {
 		sqlSession.close();
 		return flag;
 	}
+
+	
 	
 }

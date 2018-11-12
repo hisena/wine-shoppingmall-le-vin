@@ -16,9 +16,10 @@ public interface OrderDao {
 	public List<Map<String, String>> listByPage(Map<String, String> param) throws Exception;
 	/** 검색해온 주문 목록의 개수 반환*/
 	public int countByList(String email) throws Exception;
-	/** 주문 상세*/
-	public Map<String, String> getOrder(String id) throws Exception;
-	
+	/** 주문 상세 - 주문 정보 및 배송정보*/
+	public Map<String, String> getOrder(Map<String, String> param) throws Exception;
+	/** 주문 상세 - 상품 정보*/
+	public List<Map<String, String>> getProduct(String orderId) throws Exception;
 	/** 주문하기*/
 	public boolean create(Order order) throws Exception;
 	
