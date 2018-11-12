@@ -16,6 +16,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
 import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
 import kr.or.kosta.levin.user.domain.Address;
 import kr.or.kosta.levin.user.domain.User;
@@ -75,13 +76,14 @@ public class AddAddressController implements Controller {
 				if (addAddressResult) { // 신규 주소 추가 성공했을 경우
 					map.put("addAddressResult", "true");
 				} else {
-					// 실패했을 경우 - 401 반환
+					// 실패했을 경우
 					map.put("addAddressResult", "false");
 				}
 				return map;
 			} else {
 				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
+				
 			}
 		} catch (Exception e) {
 			throw new ServletException("userService.changeResult() 예외 발생", e);

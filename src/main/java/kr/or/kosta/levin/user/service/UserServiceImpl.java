@@ -6,6 +6,7 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
 import kr.or.kosta.levin.user.dao.AddressDao;
 import kr.or.kosta.levin.user.dao.UserDao;
 import kr.or.kosta.levin.user.domain.Address;
@@ -110,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
 	// 신규 배송지 추가
 	@Override
-	public boolean addAddress(Address address) throws Exception {
+	public boolean addAddress(Address address) throws Exception, RequestPreconditionFailedException {
 		// controller에게 service결과 성공여부 알려주기 위한 변수
 		boolean addAddressResult = false;
 		// insert문 성공 여부를 판단하기 위한 변수
@@ -126,6 +127,8 @@ public class UserServiceImpl implements UserService {
 			if (addressResult) {
 				addAddressResult = true;
 			}
+		}else {
+			throw new RequestPreconditionFailedException();
 		}
 		return addAddressResult;
 	}
