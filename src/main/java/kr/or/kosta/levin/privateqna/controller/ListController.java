@@ -15,7 +15,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.privateqna.domain.Pagination;
+import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.privateqna.service.QnaService;
 import oracle.net.aso.e;
 

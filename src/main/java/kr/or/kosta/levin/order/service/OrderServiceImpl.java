@@ -7,6 +7,8 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.common.domain.Pagination;
+import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.order.dao.AddressDao;
 import kr.or.kosta.levin.order.dao.DeliveryDao;
 import kr.or.kosta.levin.order.dao.OrderDao;
@@ -15,8 +17,6 @@ import kr.or.kosta.levin.order.domain.Address;
 import kr.or.kosta.levin.order.domain.Delivery;
 import kr.or.kosta.levin.order.domain.Order;
 import kr.or.kosta.levin.order.domain.OrderList;
-import kr.or.kosta.levin.order.domain.PaginationManager;
-import kr.or.kosta.levin.order.domain.Pagination;
 
 
 /**

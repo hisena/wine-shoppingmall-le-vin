@@ -13,7 +13,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.product.domain.SearchPagination;
+import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.service.ProductService;
 
 /**

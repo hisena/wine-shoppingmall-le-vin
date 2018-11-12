@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.product.domain;
+package kr.or.kosta.levin.common.domain;
 
 /**
  * 검색관련 도메인

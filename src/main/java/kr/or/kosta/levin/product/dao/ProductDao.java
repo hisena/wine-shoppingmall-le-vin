@@ -1,8 +1,9 @@
 package kr.or.kosta.levin.product.dao;
 
 import java.util.List;
+
+import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 

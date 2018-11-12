@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
-import kr.or.kosta.levin.common.web.Params;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
@@ -161,18 +160,18 @@ public class MybatisUserDao implements UserDao {
 		return null;
 	}
 
-	@Override
-	public List<User> listByPage(Params params) throws Exception {
-		return null;
-	}
+//	@Override
+//	public List<User> listByPage(Params params) throws Exception {
+//		return null;
+//	}
 
 	@Override
 	public int countBySearch(String searchType, String searchValue) throws Exception {
 		return 0;
 	}
 
-	@Override
-	public int countBySearch(Params params) throws Exception {
-		return 0;
-	}
+//	@Override
+//	public int countBySearch(Params params) throws Exception {
+//		return 0;
+//	}
 }
