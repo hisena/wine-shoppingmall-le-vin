@@ -59,7 +59,9 @@ public class CancelController implements Controller {
 					return map;
 				}else {
 					// 처리 안 됐을 경우
-					throw new RequestUnauthorizedException();				}
+					map.put("cancelResult", "false");				
+				}
+				return map;
 			}
 			else {
 				// null값 들어왔을 경우
