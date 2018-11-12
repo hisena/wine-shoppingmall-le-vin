@@ -1,18 +1,10 @@
 package kr.or.kosta.levin.order.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.annotations.RequestMapping;
@@ -21,10 +13,6 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
-import kr.or.kosta.levin.order.domain.Address;
-import kr.or.kosta.levin.order.domain.Delivery;
-import kr.or.kosta.levin.order.domain.Order;
-import kr.or.kosta.levin.order.domain.OrderList;
 import kr.or.kosta.levin.order.service.OrderService;
 
 /**
@@ -55,7 +43,7 @@ public class RefundController implements Controller {
 
 		// 클라이언트로부터 받은 값
 		String orderId = request.getParameter("orderId");
-		//String orderId = "7";
+
 		// 없는 주문이 들어왔을 경우 예외처리 해야함
 		Map<String, String> map = new HashMap<>();
 		boolean refundResult;
