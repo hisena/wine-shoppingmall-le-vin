@@ -15,7 +15,7 @@
 					 email,
 					 category,
 					 content,
-					 regdate,
+					 TO_CHAR(regdate, 'yy/mm/dd') "regdate",
 					 delete_yn
 		) VALUES ( 
 					 article_id_seq.NEXTVAL,
@@ -46,7 +46,7 @@
 		SELECT qnas.article_id commentId, 
        		   qnas.email      email, 
        		   qnas.content    content, 
-       		   qnas.regdate    regdate, 
+       		   TO_CHAR(qnas.regdate, 'yy/mm/dd')    regdate, 
        		   qnas.delete_yn  deleteYN 
 		FROM   levin_private_qnas qnas 
         full join levin_private_qnas_comments comms 
