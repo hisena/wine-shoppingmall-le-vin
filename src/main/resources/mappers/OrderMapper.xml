@@ -25,16 +25,16 @@
 	</insert>
 	<!-- 주문 목록(페이징 처리 완료) -->
 	<select id="listByPage" parameterType="map" resultType="map" >
-		SELECT  orderId, 
-				email, 
-       			orderMoney, 
-       			orderDate, 
-       			isPaid,
-       			cancelDate, 
-       			regdate, 
-       			refundCompleteDate, 
-       			startDate, 
-       			deliveryCompleteDate 
+		SELECT  orderId 			"orderId", 
+				email 				"email", 
+       			orderMoney			"orderMoney", 
+       			orderDate			"orderDate", 
+       			isPaid				"isPaid",
+       			cancelDate			"cancelDate", 
+       			regdate				"regdate", 
+       			refundCompleteDate	"refundCompleteDate", 
+       			startDate			"startDate", 
+       			deliveryCompleteDate "deliveryCompleteDate"
 		FROM   (SELECT  Ceil (ROWNUM / 5) request_page, 
                			orderId, 
                			email, 
@@ -49,13 +49,13 @@
         		FROM   (SELECT  o.order_id      orderId, 
                        			o.email 		email,
                        			o.order_money   orderMoney, 
-                       			o.order_date    orderDate, 
+                       			TO_CHAR(o.order_date, 'yy/mm/dd')    orderDate,  
                        			o.is_paid       isPaid,
-                       			o.cancel_date   cancelDate,
-                       			r.regdate       regdate,
-                       			r.complete_date refundCompleteDate, 
-                       			d.start_date    startDate, 
-                       			d.complete_date deliveryCompleteDate 
+                       			TO_CHAR(o.cancel_date, 'yy/mm/dd')   cancelDate,
+                       			TO_CHAR(r.regdate, 'yy/mm/dd') regdate,
+                       			TO_CHAR(r.complete_date, 'yy/mm/dd') refundCompleteDate, 
+                       			TO_CHAR(d.start_date, 'yy/mm/dd')    startDate, 
+                       			TO_CHAR(d.complete_date, 'yy/mm/dd') deliveryCompleteDate 
                 		FROM    levin_orders o 
                         full join levin_refunds r 
                                ON o.order_id = r.order_id 

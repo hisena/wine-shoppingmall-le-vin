@@ -293,6 +293,7 @@ $(function(){
 		var item = createCartItemFromTags(targetProduct, 'list');
 		addItemToCart(item);
 		printCart();
+		snackbar('장바구니에 추가되었습니다.');
 	});
 	
 	// 장바구니 삭제 이벤트 처리
@@ -311,7 +312,15 @@ $(function(){
 		
 		var targetProduct = $(this).parents('.modal-product');
 		var item = createCartItemFromTags(targetProduct, 'detail');
-		addItemToCart(item);
-		printCart();
+		
+		var itemQuantity = item[cartIndexes.indexOf('quantity')];
+		if (!itemQuantity || itemQuantity < 1) {
+			snackbar('상품 수량을 입력해주세요.');
+		} else {
+			addItemToCart(item);
+			printCart();
+			snackbar('장바구니에 추가되었습니다.');
+		}
+		
 	});
 })
