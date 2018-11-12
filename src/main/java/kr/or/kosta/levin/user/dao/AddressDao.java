@@ -12,5 +12,8 @@ public interface AddressDao {
 	
 	/** 회원가입시 주소 등록 & MyPage에서 신규 배송지 추가*/
 	public boolean create(Address address) throws Exception;
+	
+	/** 주소 중복 확인 */
+	public boolean certify(Address address) throws Exception;
 
 }

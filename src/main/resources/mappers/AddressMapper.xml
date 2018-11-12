@@ -9,7 +9,7 @@
 	<insert  id="createAddress" parameterType="Address">
 		INSERT INTO levin_address
 		(
-					(select nvl(max(address_id) + 1, 1)  from levin_address),
+					address_id,
 					email,
 					address,
 					zip_code,
@@ -54,6 +54,15 @@
 		FROM   levin_address 
 		WHERE  email = #{email} 
 		ORDER  BY regdate DESC 
+	</select>
+	
+	<!-- 주소 중복 확인 -->
+	<select id="certify" parameterType="Address" resultType="String" >
+		SELECT email 
+		FROM   levin_address 
+		WHERE  zip_code = #{zipCode} 
+       	AND detailed_address = #{detailedAddress} 
+       	AND email = #{email}
 	</select>
 		
 </mapper>

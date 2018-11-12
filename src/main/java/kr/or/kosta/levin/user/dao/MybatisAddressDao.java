@@ -49,6 +49,21 @@ public class MybatisAddressDao implements AddressDao {
 		return flag;
 	}
 
+	// 주소 중복 확인
+	@Override
+	public boolean certify(Address address) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// 주소 중복 확인
+		String email = sqlSession.selectOne(NAMESPACE + "createAddress", address);
+		boolean flag = true;
+		// 주소가 존재하면
+		if(email != null) {
+			flag = false;
+		}
+		sqlSession.close();
+		return flag;
+	}
+
 	
 }
 

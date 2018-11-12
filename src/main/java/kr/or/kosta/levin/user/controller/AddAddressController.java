@@ -72,11 +72,11 @@ public class AddAddressController implements Controller {
 			// 파라미터값 null 유효성 검사
 			if (addressInfo.checkNull(addressInfo)) { // Address 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
 				addAddressResult = userService.addAddress(addressInfo);
-				if (addAddressResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
+				if (addAddressResult) { // 신규 주소 추가 성공했을 경우
 					map.put("addAddressResult", "true");
 				} else {
 					// 실패했을 경우 - 401 반환
-					throw new RequestUnauthorizedException();
+					map.put("addAddressResult", "false");
 				}
 				return map;
 			} else {
