@@ -6,7 +6,12 @@
 
 // 주문 상태를 계산해주는 함수
 function computeOrderState(order) {
-	var result = '배송 중';
+	var result = '상품 준비 중';
+	
+	// 배송 시작일이 있다면 배송 중 상태
+	if (order.startDate) {
+		result = '배송 중';
+	}
 	
 	// 취소 일자가 있다면 주문 취소 상태
 	if (order.cancelDate) {
@@ -145,7 +150,7 @@ $(function(){
     			
     			// 상태에 따라 버튼 바꾸기
                 var a = $('<a>');
-                if (orderStatus === '배송 중') {
+                if (orderStatus === '상품 준비 중') {
                 	$('.button-wrapper').prepend(a.attr('id','cancelOrder').html('주문 취소하기'));
                 } else if (orderStatus === '배송 완료') {
                 	$('.button-wrapper').prepend(a.attr('id','refund').html('반품하기'));
