@@ -46,8 +46,11 @@ public class ListController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-		String email = request.getParameter("email");
-		String currentPage = request.getParameter("currentPage");
+//		String email = request.getParameter("email");
+//		String currentPage = request.getParameter("currentPage");
+//		
+		String email = "test0001@naver.com";
+		String currentPage = "1";
 		
 		Map<String, String> param = new HashMap<>();
 		Map<String, Object> result;
