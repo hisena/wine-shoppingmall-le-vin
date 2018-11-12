@@ -73,7 +73,7 @@
 	</select>
 	
 	<!--  주문상세 중 주문, 배송, 배송지 정보 조회 -->
-	<select id="getOrder"  parameterType="map" resultType="map">
+	<select id="getOrder"  parameterType="int" resultType="map">
 		SELECT o.order_id         orderId, 
        		   o.email            email, 
        		   o.order_money      orderMoney, 
@@ -96,8 +96,7 @@
                 ON o.order_id = d.order_id 
          full join levin_address a 
                 ON d.address_id = a.address_id 
-		 WHERE  o.email = #{email} 
-         AND o.order_id = #{orderId}
+		 WHERE  o.order_id = #{orderId}
 	</select>
 	
 	<!--  주문상세 중 상품 정보 조회 -->
