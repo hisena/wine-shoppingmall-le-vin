@@ -31,4 +31,7 @@ public interface OrderService {
 	/** 주문취소하기*/
 	public boolean cancel(String orderId) throws Exception;
 	
+	/** 반품 하기*/
+	public boolean refund(String orderId) throws Exception;
+	
 }

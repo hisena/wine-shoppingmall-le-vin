@@ -24,4 +24,6 @@ public interface OrderDao {
 	public boolean create(Order order) throws Exception;
 	/** 주문 취소*/
 	public boolean deleteOrder(String orderId) throws Exception;
+	/** 반품 하기*/
+	public boolean createRefund(String orderId) throws Exception;
 }

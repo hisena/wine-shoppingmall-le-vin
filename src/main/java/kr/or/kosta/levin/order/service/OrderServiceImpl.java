@@ -161,5 +161,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderDao.deleteOrder(orderId);
 	}
+	// 반품하기
+	@Override
+	public boolean refund(String orderId) throws Exception {
+		
+		return orderDao.createRefund(orderId);
+	}
 	
 }

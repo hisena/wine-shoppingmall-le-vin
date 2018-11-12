@@ -6,7 +6,7 @@
 <mapper namespace="kr.or.kosta.levin.order">
 	
 	<!-- 주문 정보 등록 -->
-	<insert  id="createOrder" parameterType="Order" keyProperty="order_id">
+	<insert  id="createOrder" parameterType="Order">
 		INSERT INTO levin_orders 
         (
             		order_id, 
@@ -117,6 +117,18 @@
 		SET    cancel_date = SYSDATE
 		WHERE  order_id = #{orderId}
 	</update>
+	
+	<!-- 반품하기 -->
+	<insert  id="createRefund" parameterType="String">
+		INSERT INTO levin_refunds 
+        (
+        			order_id, 
+             		regdate
+        ) VALUES ( 
+        			#{orderId}, 
+            		SYSDATE 
+        )  
+	</insert>
 	
 		
 </mapper>
