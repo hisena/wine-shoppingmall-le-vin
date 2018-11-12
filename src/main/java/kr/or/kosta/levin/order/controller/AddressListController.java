@@ -57,10 +57,11 @@ public class AddressListController implements Controller {
 				// 데이터 목록이 잘 왔을 경우
 				if(list != null) {
 					map.put("AddressInfo", list);
-					return map;
+					
 				}else {
 					// 데이터가 없을 경우
-					throw new RequestUnauthorizedException();				}
+					map.put("AddressInfo", "false");				}
+				return map;
 			}else {
 				// null값 들어왔을 경우
 				throw new RequestBadRequestException();
