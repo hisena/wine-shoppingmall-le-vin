@@ -75,7 +75,7 @@ function getOrderList(currentPage){
                                    '   <td>' + (order.isPaid === 'Y'? '결제 완료' : '결제 대기') + '</td>' + 
                                    '   <td>' + computeOrderState(order) + '</td>' +
                                    '</tr>'
-                $('.table-content tbody').append(itemToAppend);
+                $('.order-wrapper tbody').append(itemToAppend);
 			}
 			
 			// 페이지네이션 보이기
@@ -188,27 +188,6 @@ function refund(orderId) {
 		}
 	});
 }
-
-// 이벤트 등록
-$(function(){
-    // 페이지 로딩 시 주문 목록
-	getOrderList(1);
-    
-    // 페이지네이션 주문 목록
-    $('.pagination-lg').on('click', 'a', function(event){
-    	event.preventDefault();
-    	
-    	var currentPage = $(this).attr('href');
-    	getOrderList(currentPage);
-    });
-    
-    // 주문 상세 보기
-    $('.order-wrapper').on('click', 'tbody tr', function() {
-    	
-    	var orderId = $(this).find('td:first-child').html();
-    	getOrderDetail(orderId);
-    });
-});
 
 // 주문 상세 보기를 위한 템플릿
 var orderDetailTemplate = '	<div class="orderInfo">' +
