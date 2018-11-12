@@ -1,4 +1,7 @@
 <meta charset="UTF-8">
+<!-- 커스텀 css -->
+<link rel="stylesheet" href="css/custom/main.css">
+
 <!-- 메인 와인 사진 -->
 <section class="categories-slider-area pb--100 bg__white">
   <div class="container">
@@ -12,9 +15,9 @@
                 <div class="row">
                   <div class="col-md-10 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
                     <div class="slider__inner">
-                      <h1>New Product <span class="text--theme">Collection</span></h1>
+                      <h1>Wine <span class="text--theme">Collection</span></h1>
                       <div class="slider__btn">
-                        <a class="htc__btn" href="item.html">shop now</a>
+                        <a class="htc__btn" href="components/item.html" id="item">shop now</a>
                       </div>
                     </div>
                   </div>
@@ -27,9 +30,9 @@
                 <div class="row">
                   <div class="col-md-10 col-lg-8 col-md-offset-2 col-lg-offset-4 col-sm-12 col-xs-12">
                     <div class="slider__inner">
-                      <h1>New Product <span class="text--theme">Collection</span></h1>
+                      <h1>Wine <span class="text--theme">Collection</span></h1>
                       <div class="slider__btn">
-                        <a class="htc__btn" href="item.html">shop now</a>
+                        <a class="htc__btn" href="components/item.html" id="item">shop now</a>
                       </div>
                     </div>
                   </div>
@@ -66,161 +69,32 @@
               <li class="active">
                 <a href="#home1" data-toggle="tab">
                   <div class="tab-menu-text">
-                    <h4>latest </h4>
+                    <h4>신상품 </h4>
                   </div>
                 </a>
               </li>
               <li>
                 <a href="#home2" data-toggle="tab">
                   <div class="tab-menu-text">
-                    <h4>best sale </h4>
+                    <h4>베스트상품 </h4>
                   </div>
                 </a>
               </li>
               <li>
                 <a href="#home3" data-toggle="tab">
                   <div class="tab-menu-text">
-                    <h4>on sale </h4>
+                    <h4>할인상품 </h4>
                   </div>
                 </a>
               </li>
             </ul>
           </div>
           <div class="tab-content another-product-style jump">
-            <!-- LATEST -->
+            <!-- 신상품 -->
             <div class="tab-pane active" id="home1">
               <div class="row">
-                <div class="product-slider-active owl-carousel">
-                  <!-- LATEST 첫번째 상품 -->
-                  <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
-                    <div class="product">
-                      <div class="product__inner">
-                        <div class="pro__thumb">
-                          <a href="#">
-                            <img src="images/product/wine30.jpg" alt="product images">
-                          </a>
-                        </div>
-                        <div class="product__hover__info">
-                          <ul class="product__action">
-                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="30"><span class="ti-plus"></span></a></li>
-                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="product__details">
-                        <h2><a href="product-details.html">30번째 상품</a></h2>
-                        <ul class="product__price">
-                          <li class="old__price">$16.00</li>
-                          <li class="new__price">100,000원</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- LATEST 두번째 상품 -->
-                  <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
-                      <div class="product">
-                          <div class="product__inner">
-                              <div class="pro__thumb">
-                                  <a href="#">
-                                      <img src="images/product/wine20.jpg" alt="product images">
-                                  </a>
-                              </div>
-                              <div class="product__hover__info">
-                                  <ul class="product__action">
-                                      <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="20"><span class="ti-plus"></span></a></li>
-                                      <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                                      <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                          <div class="product__details">
-                              <h2><a href="product-details.html">20번째 상품</a></h2>
-                              <ul class="product__price">
-                                  <li class="old__price">$16.00</li>
-                                  <li class="new__price">2,000$</li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                  <!-- LATEST 세번째 상품 -->
-                  <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
-                    <div class="product">
-                      <div class="product__inner">
-                        <div class="pro__thumb">
-                          <a href="#">
-                            <img src="images/product/3.png" alt="product images">
-                          </a>
-                        </div>
-                        <div class="product__hover__info">
-                          <ul class="product__action">
-                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="product__details">
-                        <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                        <ul class="product__price">
-                          <li class="old__price">$16.00</li>
-                          <li class="new__price">$10.00</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- LATEST 네번째 상품 -->
-                  <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
-                    <div class="product">
-                      <div class="product__inner">
-                        <div class="pro__thumb">
-                          <a href="#">
-                            <img src="images/product/4.png" alt="product images">
-                          </a>
-                        </div>
-                        <div class="product__hover__info">
-                          <ul class="product__action">
-                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="product__details">
-                        <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                        <ul class="product__price">
-                          <li class="old__price">$16.00</li>
-                          <li class="new__price">$10.00</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- LATEST 다섯번째 상품 -->
-                  <div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">
-                    <div class="product">
-                      <div class="product__inner">
-                        <div class="pro__thumb">
-                          <a href="#">
-                            <img src="images/product/5.png" alt="product images">
-                          </a>
-                        </div>
-                        <div class="product__hover__info">
-                          <ul class="product__action">
-                            <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
-                            <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="product__details">
-                        <h2><a href="product-details.html">Simple Black Clock</a></h2>
-                        <ul class="product__price">
-                          <li class="old__price">$16.00</li>
-                          <li class="new__price">$10.00</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                <div class="product-slider-active owl-carousel" id="latest">
+                  <!-- 상품 동적 추가 -->
                 </div>
               </div>
             </div>
@@ -1095,55 +969,7 @@
         </div>
         <div class="modal-body">
           <div class="modal-product">
-            <!-- 상품 이미지 -->
-            <div class="product-images">
-              <div class="main-image images">
-                <img alt="big images" src="images/product/big-img/Wine.jpg">
-              </div>
-            </div>
-            <!-- 상품 상세 설명 -->
-            <div class="product-info">
-              <h1>샤토 쁠래장스 뀌베 알릭스 (Chateau Plaisance cuvee Alix)</h1>
-              <div class="rating__and__review">
-                <ul class="rating">
-                  <li><span class="ti-star"></span></li>
-                  <li><span class="ti-star"></span></li>
-                  <li><span class="ti-star"></span></li>
-                  <li><span class="ti-star"></span></li>
-                  <li><span class="ti-star"></span></li>
-                </ul>
-                <div class="review">
-                  <a href="#">구매후기</a>
-                </div>
-              </div>
-              <div class="price-box-3">
-                <div class="s-price-box">
-                  <span class="new-price">$17.20</span>
-                </div>
-              </div>
-              <div class="quick-desc">
-                "가격 대비 최고의 보르도 와인"<br>
-                "부드럽고 우아하며 과일향 풍부"<br>
-                "매일 즐길 수 있는 편한 와인 for everyday!"<br>
-              </div>
-              <div>
-                <ul>
-                  <li>당도</li>
-                  <li>바디</li>
-                  <li>종류</li>
-                  <li>생산국가</li>
-                  <li>와이너리</li>
-                  <li>생산자</li>
-                  <li>빈티지</li>
-                  <li>알코올도수</li>
-                  <li>포도품종</li>
-                </ul>
-              </div>
-              <div class="addtocart-btn">
-                <a href="cart.html">구매하기</a>
-                <a href="#" style="float: right;">장바구니 담기</a>
-              </div>
-            </div>
+            <!-- 상세보기 동적 추가 -->
           </div>
         </div>
       </div>
@@ -1151,10 +977,58 @@
   </div>
 </div>
 
-<!-- 스크롤 이동 -->
+<!-- 와인 상품을 동적으로 추가 -->
+<script src="js/custom/items.js"></script>
+<!-- 와인 상품 상세보기 기능-->
+<script src="js/custom/details.js"></script>
 <script>
+// 스크롤 이동
 function fnMove(position){
 	var offset = $("#" + position).offset();
     $('html, body').animate({scrollTop : offset.top}, 600);
 }
+// Ajax 통신
+$(function() {
+	// 처음 로딩시 Ajax
+	$.ajax(Utils.baseUrl + "product/list.mall", {
+		method: "get",
+		dataType: "json",
+		data: {
+			"searchKeyword": "Red"
+		},
+		success: function(data) {
+			var productList = data.productList;
+			// 상품 리스트 출력
+			$('#latest').empty();
+			$.each(productList, function(index, item) {
+				printMainItems(item.productId, item.productNameKor, item.price);
+			});
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+	
+	// 상세보기 Ajax
+	$(document).on ('click', '.product__action li:first-child a', function(event) {
+		event.preventDefault();
+		$.ajax(Utils.baseUrl + "product/detail.mall", {
+			method: "get",
+			data: {
+				"productId": $(this).attr("href")
+			},
+			dataType: "json",
+			success: function(data) {
+				// 상세보기 함수
+				$('.modal-product').empty();
+				details(data.productId, data.productNameKor, data.productNameEng, data.price, 
+						data.sugarContent, data.body, data.kind, data.regionName, data.winery, 
+						data.vintage, data.alcohol, data.grapeKind);
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
+	});
+});
 </script>
