@@ -1,4 +1,6 @@
 <meta charset="UTF-8">
+<!-- 커스텀 css -->
+<link rel="stylesheet" href="css/custom/qna.css">
 
 <!-- 메인 사진 -->
 <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
@@ -16,3 +18,42 @@
 </div>
 
 <!-- 1:1문의 게시판 -->
+<div class="container">
+  <div class="row content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table id="mytable" class="table table-hover">
+            <thead>
+              <tr class="danger" style="text-align: center">
+                <th style="width: 10%; text-align: center">번호</th>
+                <th style="width: 10%; text-align: center">카테고리</th>
+                <th style="width: 60%; text-align: center">제목</th>
+                <th style="width: 20%; text-align: center">등록일</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              	<td style="text-align: center">1</td>
+              	<td style="text-align: center">환불</td>
+              	<td>환불 요청 제목입니다.(임시)</td>
+              	<td style="text-align: center">2018.11.12</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <input type="button" value="글쓰기" id="write">
+        <!-- 페이지네이션 -->
+      	<div class="row mt--60">
+          <div class="col-md-12">
+            <ul class="pagination pagination-lg">
+    	    </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 페이지네이션 -->
+<script src="js/common/pagination.js"></script>
