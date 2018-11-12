@@ -108,7 +108,8 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return detailResult;
 	}
-
+	
+	// 주문하기
 	@Override
 	public boolean add(Order order, Delivery delivery, Address address, List<OrderList> productList) throws Exception {
 		// Mybatis 실행 결과를 받기 위한 변수

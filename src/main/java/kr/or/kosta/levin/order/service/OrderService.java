@@ -7,8 +7,6 @@ import kr.or.kosta.levin.order.domain.Address;
 import kr.or.kosta.levin.order.domain.Delivery;
 import kr.or.kosta.levin.order.domain.Order;
 import kr.or.kosta.levin.order.domain.OrderList;
-import kr.or.kosta.levin.product.domain.Product;
-import kr.or.kosta.levin.product.domain.SearchPagination;
 
 /**
  * 주문과 관련된 비즈니스 로직 수행을 위한 인터페이스

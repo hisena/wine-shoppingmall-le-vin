@@ -46,25 +46,22 @@ public class DetailController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-		//String email = request.getParameter("email");
-		//String orderId = request.getParameter("orderId");
-		
-		String email ="test0001@naver.com";
-		String orderId = "2";
-		
+		String email = request.getParameter("email");
+		String orderId = request.getParameter("orderId");
+
 		Map<String, String> param = new HashMap<>();
-		Map<String, Object> result;
+		Map<String, Object> detailResult;
 		try {
 			// null값이 들어오지 않았을 경우
 			if(email != null && orderId != null) {
 				//파라미터로 보낼 값을 map에 저장
 				param.put("email", email);
 				param.put("orderId", orderId);
-				// list메소드 호출
-				result = orderService.detail(param);
+				// detail 메소드 호출
+				detailResult = orderService.detail(param);
 				// 데이터 목록이 잘 왔을 경우
-				if(result != null) {
-					return result;
+				if(detailResult != null) {
+					return detailResult;
 				}else {
 					// 데이터가 없을 경우
 					throw new RequestUnauthorizedException();				}
