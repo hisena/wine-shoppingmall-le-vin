@@ -49,12 +49,13 @@ public class GenerateValiNumController implements Controller {
 		
 		boolean generateValiNumResult;
 		Map<String, String> map = new HashMap<>();
-		String email = request.getParameter("email");
+		//String email = request.getParameter("email");
+		String email = "abcde1234@nave";
 		try {
 			// 파라미터값 null 유효성 검사
 			if (email != null) { // Address 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
 				generateValiNumResult = userService.generateValiNum(email);
-				if (generateValiNumResult) { // 신규 주소 추가 성공했을 경우
+				if (generateValiNumResult) { 
 					map.put("addAddressResult", "true");
 				} else {
 					// 실패했을 경우

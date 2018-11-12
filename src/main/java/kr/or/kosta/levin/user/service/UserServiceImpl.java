@@ -157,6 +157,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean generateValiNum(String email) throws Exception {
 		String valiNumber = RandomNumberGenerator.generateRandomNum();
+		if(userDao.certifyEmail(email) == null) {
+			
+		}
 		EmailVali emailVali = new EmailVali();
 		emailVali.setEmail(email);
 		emailVali.setValiNumber(valiNumber);
@@ -165,6 +168,8 @@ public class UserServiceImpl implements UserService {
 		// insert문 성공 여부를 판단하기 위한 변수
 		boolean generateResult = false;
 		// generateValiNum 메소드 호출
+		
+		
 		generateResult = userDao.generateValiNum(emailVali);
 		// dao의 insert문 성공했을 시 true값 리턴
 		if (generateResult) {
