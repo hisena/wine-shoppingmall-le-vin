@@ -32,18 +32,13 @@ public class AddCommentController implements Controller {
 	@Inject
 	private QnaService qnaService;
 
-	
-	
 	public QnaService getQnaService() {
 		return qnaService;
 	}
 
-
 	public void setQnaService(QnaService qnaService) {
 		this.qnaService = qnaService;
 	}
-
-
 
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -61,8 +56,8 @@ public class AddCommentController implements Controller {
 		String email = request.getParameter("email");
 		String category = request.getParameter("category");
 		String content = request.getParameter("content");
-		
-		//parentId null이나 공백 체크
+
+		// parentId null이나 공백 체크
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}

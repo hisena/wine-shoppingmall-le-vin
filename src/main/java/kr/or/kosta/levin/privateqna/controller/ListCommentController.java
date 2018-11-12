@@ -33,23 +33,20 @@ public class ListCommentController implements Controller {
 	@Inject
 	private QnaService qnaService;
 
-	
 	public QnaService getQnaService() {
 		return qnaService;
 	}
 
-
 	public void setQnaService(QnaService qnaService) {
 		this.qnaService = qnaService;
 	}
-
 
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
 		String parentId = request.getParameter("articleId");
-		
+
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
