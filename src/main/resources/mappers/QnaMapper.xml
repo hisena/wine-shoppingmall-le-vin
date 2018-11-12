@@ -16,7 +16,7 @@
              		 category, 
              		 title, 
              		 content, 
-             		 regdate, 
+             		 TO_CHAR(regdate, 'yy/mm/dd') regdate, 
              		 delete_yn
 		)VALUES(
 					 article_id_seq.NEXTVAL, 
@@ -94,7 +94,7 @@
        		   category, 
        		   title, 
        		   content, 
-       		   regdate 
+       		   TO_CHAR(regdate, 'yy/mm/dd') regdate 
 		FROM   levin_private_qnas 
 		WHERE  article_id = #{articleId}
 	 </select>
@@ -105,6 +105,53 @@
 		SET    delete_yn = 'Y' 
 		WHERE  article_id = #{articleId} 
 	</update>
+	 
+	 <!-- 1:1문의글의 댓글 내용 등록 -->
+	<insert id="createCommentContent" parameterType="map">
+		INSERT INTO levin_private_qnas
+		(			 
+					 article_id,
+					 email,
+					 category,
+					 content,
+					 TO_CHAR(regdate, 'yy/mm/dd') "regdate",
+					 delete_yn
+		) VALUES ( 
+					 article_id_seq.NEXTVAL,
+					 #{email},
+					 #{category},
+					 #{content},
+					 SYSDATE,
+					 'N'
+		)
+	 </insert>
+		
+	<!-- 1:1문의글의 댓글번호 및 부모번호 등록 -->
+	<insert id="createCommentId" parameterType="map">
+		INSERT INTO levin_private_qnas_comments 
+        (
+        			 parent_id, 
+             		 child_id
+        ) VALUES ( 
+        			 (SELECT article_id 
+             		  FROM   levin_private_qnas 
+             		  WHERE  article_id = #{parentId}), 
+            		 article_id_seq.CURRVAL
+        ) 
+	</insert>
+	
+	<!-- 1:1문의글의 댓글리스트 조회 -->
+	<select id="list" parameterType="int" resultType="PrivateQnaComment">
+		SELECT qnas.article_id commentId, 
+       		   qnas.email      email, 
+       		   qnas.content    content, 
+       		   TO_CHAR(qnas.regdate, 'yy/mm/dd')    regdate, 
+       		   qnas.delete_yn  deleteYN 
+		FROM   levin_private_qnas qnas 
+        full join levin_private_qnas_comments comms 
+               ON qnas.article_id = comms.child_id 
+		WHERE  comms.parent_id = #{parentId} 
+	</select>
 	 
 	 <!-- 1:1문의글 댓글 수정 -->
 	 <update id="updateComment" parameterType="map">

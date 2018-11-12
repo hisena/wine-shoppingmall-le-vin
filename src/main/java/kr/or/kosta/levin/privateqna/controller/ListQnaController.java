@@ -26,8 +26,8 @@ import oracle.net.aso.e;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/privateqna/list")
-public class ListController implements Controller {
+@RequestMapping(value = "/privateqna/qna-list")
+public class ListQnaController implements Controller {
 
 	// 서비스 선언
 	@Inject
@@ -48,14 +48,9 @@ public class ListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-//		String searchType = request.getParameter("searchType");
-//		String currentPage = request.getParameter("currentPage");
-//		String email = request.getParameter("email");
-		
-		//테스트
 		String searchType = request.getParameter("searchType");
 		String currentPage = request.getParameter("currentPage");
-		String email = "test0001@naver.com";
+		String email = request.getParameter("email");
 		
 		if(email == null || email.trim().length() == 0) {
 			throw new RequestBadRequestException();
@@ -88,7 +83,7 @@ public class ListController implements Controller {
 					throw new RequestBadRequestException();
 				}
 		} catch (Exception e) {
-			throw new ServletException("privateQna/ListController 예외 ", e);
+			throw new ServletException("privateQna/ListQnaController 예외 ", e);
 		}
 	}
 }

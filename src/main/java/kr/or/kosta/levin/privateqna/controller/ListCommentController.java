@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.privateqnacomment.controller;
+package kr.or.kosta.levin.privateqna.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.privateqnacomment.service.CommentService;
+import kr.or.kosta.levin.privateqna.service.QnaService;
 import oracle.net.aso.e;
 
 /**
@@ -26,20 +26,23 @@ import oracle.net.aso.e;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/privateqnacomment/list")
-public class ListController implements Controller {
+@RequestMapping(value = "/privateqna/comment-list")
+public class ListCommentController implements Controller {
 
 	// 서비스 선언
 	@Inject
-	private CommentService commentService;
+	private QnaService qnaService;
 
-	public CommentService getCommentService() {
-		return commentService;
+	
+	public QnaService getQnaService() {
+		return qnaService;
 	}
 
-	public void setCommentService(CommentService commentService) {
-		this.commentService = commentService;
+
+	public void setQnaService(QnaService qnaService) {
+		this.qnaService = qnaService;
 	}
+
 
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -56,7 +59,7 @@ public class ListController implements Controller {
 		try {
 
 			// 서비스의 비즈니스메소드 호출
-			map = commentService.listComment(Integer.parseInt(parentId));
+			map = qnaService.listComment(Integer.parseInt(parentId));
 
 			// 검색해온 댓글리스트에 값이 있는 경우 - commentList가 담긴 map 반환
 			ArrayList<e> commentList = (ArrayList) map.get("commentList");
@@ -67,7 +70,7 @@ public class ListController implements Controller {
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("privateQnaComment/ListController 예외 ", e);
+			throw new ServletException("privateQna/ListCommentController 예외 ", e);
 		}
 	}
 }

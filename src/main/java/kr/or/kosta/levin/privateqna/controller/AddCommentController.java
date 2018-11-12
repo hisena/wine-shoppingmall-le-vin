@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.privateqnacomment.controller;
+package kr.or.kosta.levin.privateqna.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,8 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.privateqnacomment.domain.PrivateQnaComment;
-import kr.or.kosta.levin.privateqnacomment.service.CommentService;
+import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
+import kr.or.kosta.levin.privateqna.service.QnaService;
 import oracle.net.aso.e;
 
 /**
@@ -25,20 +25,25 @@ import oracle.net.aso.e;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/privateqnacomment/add")
+@RequestMapping(value = "/privateqna/comment-add")
 public class AddCommentController implements Controller {
 
 	// 서비스 선언
 	@Inject
-	private CommentService commentService;
+	private QnaService qnaService;
 
-	public CommentService getCommentService() {
-		return commentService;
+	
+	
+	public QnaService getQnaService() {
+		return qnaService;
 	}
 
-	public void setCommentService(CommentService commentService) {
-		this.commentService = commentService;
+
+	public void setQnaService(QnaService qnaService) {
+		this.qnaService = qnaService;
 	}
+
+
 
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -83,7 +88,7 @@ public class AddCommentController implements Controller {
 		try {
 			// 파라미터값 null 유효성 검사
 			if (privateQnaComment.checkNull(privateQnaComment)) {
-				addCommentResult = commentService.addComment(parameter);
+				addCommentResult = qnaService.addComment(parameter);
 				// 1:1문의글의 댓글 등록 성공 시
 				if (addCommentResult) {
 					map.put("addCommentResult", "true");
@@ -98,7 +103,7 @@ public class AddCommentController implements Controller {
 			}
 
 		} catch (Exception e) {
-			throw new ServletException("commentService.addComment() 예외 발생", e);
+			throw new ServletException("qnaService.addComment() 예외 발생", e);
 		}
 	}
 }

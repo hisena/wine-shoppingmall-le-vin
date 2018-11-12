@@ -27,6 +27,12 @@ public interface QnaService {
 	/** 1:1문의글 삭제 */
 	public boolean removeQna(int articleId) throws Exception;
 	
+	/** 1:1문의글의 댓글 등록 */
+	public boolean addComment(Map<String, String> parameter) throws Exception;
+
+	/** 1:1문의글의 댓글 리스트 조회*/
+	public Map<String, Object> listComment(int parentId) throws Exception;
+	
 	/** 1:1문의글 댓글 수정 */
 	public boolean editComment(Map<String, Object> parameter) throws Exception;
 }

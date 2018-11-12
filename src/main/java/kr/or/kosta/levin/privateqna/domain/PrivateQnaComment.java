@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.privateqnacomment.domain;
+package kr.or.kosta.levin.privateqna.domain;
 
 /**
  * PrivateQnaComment의 데이터 전달을 위한 도메인 객체
