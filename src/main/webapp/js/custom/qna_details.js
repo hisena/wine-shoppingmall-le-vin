@@ -22,32 +22,14 @@ function qnaDetails(category, title, content, regdate, articleId) {
 	           + '    </tr>'
 	           + '  </tbody>'
 	           + '</table>'
+	           + '<input type="button" value="댓글" id="reply" style="float: left">'
 	           + '<input type="button" value="수정" id="update">'
-	           + '<input type="button" value="삭제" id="delete" style="margin-right: 10px">';
+	           + '<input type="button" value="삭제" id="delete" style="margin-right: 10px" onclick="deletePrivateQna(' + articleId + ')">';
 	
 	$('#qnaSection').append(String);
 	
-	// 게시글 삭제
-	$(document).off("click").on('click', '#delete', function(event) {
-		$.ajax(Utils.baseUrl + "privateqna/qna-remove.mall", {
-			method: "post",
-			data: {
-				"articleId": $('input[type="hidden"]').val()
-			},
-			dataType: "json",
-			success: function(data) {
-				if (data.removeQnaResult) {
-					getQnaList();
-				}
-			},
-			error: function(data) {
-				alert('에러발생');
-			}
-		});
-	});
-	
 	// 게시글 수정
-	$(document).off("click").on('click', '#update', function(event) {
+	$(document).on('click', '#update', function(event) {
 		$.ajax(Utils.baseUrl + "privateqna/qna-edit.mall", {
 			method: "post",
 			data: {
@@ -67,5 +49,23 @@ function qnaDetails(category, title, content, regdate, articleId) {
 				alert('에러발생');
 			}
 		});
+	});
+}
+// 게시글 삭제
+function deletePrivateQna(id) {
+	$.ajax(Utils.baseUrl + "privateqna/qna-remove.mall", {
+		method: "post",
+		data: {
+			"articleId": id
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.removeQnaResult) {
+				getQnaList();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
 	});
 }

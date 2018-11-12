@@ -26,10 +26,7 @@ function qnaWrite() {
 	$('#qnaSection').append(String);
 	
 	// 게시글 쓰기
-	$(document).off("click").on('click', '#create', function(event) {
-		console.log($('input[type="text"]:eq(2)').val());
-		console.log($('input[type="text"]:eq(1)').val());
-		console.log($('textarea').val());
+	$(document).on('click', '#create', function(event) {
 		$.ajax(Utils.baseUrl + "privateqna/qna-add.mall", {
 			method: "post",
 			data: {

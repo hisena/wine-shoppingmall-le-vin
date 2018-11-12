@@ -27,8 +27,7 @@ function getQnaList() {
             	if (qnaList[i].deleteYN == '1') {
             		String += '<tr><td colspan="4" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
             	} else {
-            		String += '<tr class="qnaList">'
-            			    + '  <input type="hidden" value="'+ qnaList[i].articleId +'">'
+            		String += '<tr class="qnaList" onclick="readPrivateQna(' + qnaList[i].articleId + ')">'
 		                    + '  <td style="text-align: center">'+ (qnaList.length-i) +'</td>'
     	                    + '  <td style="text-align: center">'+ qnaList[i].category +'</td>'
     	                    + '  <td>'+ qnaList[i].title +'</td>'
@@ -39,7 +38,7 @@ function getQnaList() {
             String += '</tbody>'
                     + '  </table>'
                     + '</div>'
-                    + '<input type="button" value="글쓰기" id="write">'
+                    + '<input type="button" value="글쓰기" id="write" onclick="writePrivateQna()">'
                     + '<div class="row mt--60">'
                     + '  <div class="col-md-12">'
                     + '    <ul class="pagination pagination-lg">'
@@ -56,31 +55,31 @@ function getQnaList() {
 		}
 	});
 }
+// 게시글 상세보기
+function readPrivateQna(id) {
+	$.ajax(Utils.baseUrl + "privateqna/qna-detail.mall", {
+		method: "get",
+		data: {
+			"articleId": id
+		},
+		dataType: "json",
+		success: function(data) {
+			var privateQna = data.privateQna;
+			// 게시글 상세보기 함수
+			$('#qnaSection').empty();
+			qnaDetails(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate, privateQna.articleId)
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 게시글 쓰기
+function writePrivateQna() {
+	$('#qnaSection').empty();
+	qnaWrite();
+}
 $(function() {
 	// 게시글 목록 Ajax
 	getQnaList();
-	// 게시글 상세보기 Ajax
-	$(document).off("click").on('click', '.qnaList', function(event) {
-		$.ajax(Utils.baseUrl + "privateqna/qna-detail.mall", {
-			method: "get",
-			data: {
-				"articleId": $(event.target).parent().find('input[type="hidden"]').val()
-			},
-			dataType: "json",
-			success: function(data) {
-				var privateQna = data.privateQna;
-				// 게시글 상세보기 함수
-				$('#qnaSection').empty();
-				qnaDetails(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate, privateQna.articleId)
-			},
-			error: function(data) {
-				alert('에러발생');
-			}
-		});
-	});
-	// 게시글 쓰기 Ajax
-	$(document).off("click").on('click', 'input[type="button"]', function(event) {
-		$('#qnaSection').empty();
-		qnaWrite();
-	});
 });
