@@ -6,6 +6,7 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
 import kr.or.kosta.levin.user.dao.AddressDao;
 import kr.or.kosta.levin.user.dao.UserDao;
 import kr.or.kosta.levin.user.domain.Address;
@@ -106,6 +107,31 @@ public class UserServiceImpl implements UserService {
 	public User search(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	// 신규 배송지 추가
+	@Override
+	public boolean addAddress(Address address) throws Exception, RequestPreconditionFailedException {
+		// controller에게 service결과 성공여부 알려주기 위한 변수
+		boolean addAddressResult = false;
+		// insert문 성공 여부를 판단하기 위한 변수
+		boolean addressResult = false;
+		
+		// address중복 검사
+		boolean certify = addressDao.certify(address);
+		// 주소 중복이 아닐 경우
+		if(certify) {
+			// create 메소드 호출
+			addressResult = addressDao.create(address);
+			// dao의 insert문 성공했을 시 true값 리턴
+			if (addressResult) {
+				addAddressResult = true;
+			}
+		}else {
+			// 주소가 중복될 경우 412에러 보내주기
+			throw new RequestPreconditionFailedException();
+		}
+		return addAddressResult;
 	}
 
 }

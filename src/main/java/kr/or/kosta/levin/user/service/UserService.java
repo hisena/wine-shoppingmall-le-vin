@@ -3,6 +3,7 @@ package kr.or.kosta.levin.user.service;
 import java.util.List;
 import java.util.Map;
 
+import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
 import kr.or.kosta.levin.user.domain.Address;
 import kr.or.kosta.levin.user.domain.User;
 
@@ -33,5 +34,8 @@ public interface UserService {
 	
 	/** 회원 기본정보 목록 */
 	public User listBasicInfo(String email) throws Exception;
+	
+	/** 신규 배송지 추가 */
+	public boolean addAddress(Address address) throws Exception, RequestPreconditionFailedException;
 	
 }
