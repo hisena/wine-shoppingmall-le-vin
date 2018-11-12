@@ -70,12 +70,12 @@
                   </tbody>
                 </table>
           	  </div>
-              <!-- 페이지네이션 -->
-              <div class="row mt--60">
-                <div class="col-md-12">
-                  <ul class="pagination pagination-lg">
+            </div>
+            <!-- 페이지네이션 -->
+            <div class="row mt--60">
+              <div class="col-md-12">
+                <ul class="pagination pagination-lg">
                 </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -129,7 +129,25 @@ function getOrderList(currentPage){
 			var orderList = data.orderList;
 			var pageInfo = data.pageInfo;
 			
-			$('.table-content tbody').empty();
+			$('.order-wrapper').empty();
+			
+			var tableBasic = '<div class="table-content table-responsive">' + 
+                             '	<table>' +
+                             '     <thead>' +
+                             '       <tr>' +
+                             '         <th>주문 번호</th>' +
+                             '     	   <th>총 주문 금액</th>' +
+                             '     	   <th>주문일</th>' +
+                             '     	   <th>결제 완료 여부</th>' +
+                             '     	   <th>주문상태</th>' +
+                             '     	</tr>' +
+                             '     </thead>' +
+                             '     <tbody>' + 
+                             '	   </tbody>' +
+                			 '  </table>' +
+          	  				 '</div>';
+			$('.order-wrapper').html(tableBasic);
+			
 			
 			for ( var index in orderList) {
 				var order = orderList[index];
@@ -142,6 +160,9 @@ function getOrderList(currentPage){
                                    '</tr>'
                 $('.table-content tbody').append(itemToAppend);
 			}
+			
+			// 페이지네이션 보이기
+			$('.pagination-lg').css('display','block');
 			
 			// 페이지네이션
 			$('.pagination-lg').empty();
@@ -165,10 +186,10 @@ $(function(){
     });
     
     // 주문 상세 보기
-    $('.table-content tbody').on('click', 'tr', function(){
+    $('.order-wrapper').on('click', 'tbody tr', function(){
     	
     	var currentPage = $('.pagination-lg li.active a').attr('href');
-    	
+    	console.log(currentPage);
     	var orderId = $(this).find('td:first-child').html();
     	
     	$.ajax(Utils.baseUrl + "order/detail.mall", {
@@ -181,6 +202,7 @@ $(function(){
     			order['paymentStatus'] = order.isPaid === 'Y'? '결제 완료' : '결제 대기';
     			order['orderStatus'] = computeOrderState(order);
     			order['deliveryComments'] = order['deliveryComments']? order['deliveryComments'] : '';
+    			order['currentPage'] = currentPage;
     			// 주문 관련 정보
 				var itemToAppend = orderDetailTemplate.slice();
     			for ( var key in order) {
@@ -208,6 +230,9 @@ $(function(){
 					items.push(item);
 				}
     			printItemsCommon('.shp__cart__wrap', items);
+    			
+    			// 페이지네이션 숨기기
+    			$('.pagination-lg').css('display','none');
     		},
     		error: function(error) {
     			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
@@ -241,6 +266,6 @@ var orderDetailTemplate = '	<div class="orderInfo">' +
                           '  <a id="cancelOrder">주문 취소하기</a>' +
                           '  <a id="refund">반품</a>' +
                           '  <a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>' +
-                          '  <a onclick=getOrderList(###currentPage###)>목록으로 돌아가기</a>' +
+                          '  <a onclick="getOrderList(###currentPage###)">목록으로 돌아가기</a>' +
 						  '</div>';
 </script>
