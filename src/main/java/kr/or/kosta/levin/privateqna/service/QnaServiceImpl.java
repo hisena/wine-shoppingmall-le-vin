@@ -80,7 +80,7 @@ public class QnaServiceImpl implements QnaService {
 		// 1:1문의글 수정
 		result = qnaDao.updateQna(privateQna);
 		// 1:1문의글 수정 성공여부 확인
-		if (result) { // 회원정보 수정에 성공했을 경우
+		if (result) { // 수정에 성공했을 경우
 			flag = true;
 		}
 		return flag;
@@ -101,7 +101,7 @@ public class QnaServiceImpl implements QnaService {
 		// 1:1문의글 삭제
 		result = qnaDao.deleteQna(articleId);
 		// 1:1문의글 삭제 성공여부 확인
-		if (result) { // 회원정보 삭제에 성공했을 경우
+		if (result) { // 삭제에 성공했을 경우
 			flag = true;
 		}
 		return flag;
@@ -149,5 +149,19 @@ public class QnaServiceImpl implements QnaService {
 			flag = true;
 		}
 		return flag;
+	}
+	
+	//1:1문의글 댓글 삭제
+	@Override
+	public boolean removeComment(int childId) throws Exception {
+			boolean result = false;
+			boolean flag = false;
+			// 1:1문의글 댓글 삭제
+			result = qnaDao.deleteComment(childId);
+			// 1:1문의글 댓글 삭제 성공여부 확인
+			if (result) { // 삭제에 성공했을 경우
+				flag = true;
+			}
+			return flag;
 	}
 }
