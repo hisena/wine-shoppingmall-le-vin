@@ -63,13 +63,12 @@ public class CancelController implements Controller {
 					// 처리 안 됐을 경우
 					throw new RequestUnauthorizedException();				}
 			}
-//			else {
-//				// null값 들어왔을 경우
-//				throw new RequestBadRequestException();
-//			}
+			else {
+				// null값 들어왔을 경우
+				throw new RequestBadRequestException();
+			}
 		} catch (Exception e) {
 			throw new ServletException("OrderListController 예외 발생", e);
 		}
-		return null;
 	}
 }
