@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <!-- 커스텀 css -->
 <link rel="stylesheet" href="css/custom/myPage.css">
+<link rel="stylesheet" href="css/custom/pagination.css">
 
 <!-- 메인사진 -->
 <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
@@ -68,19 +69,13 @@
                     <!-- 동적으로 내용이 생성되는 영역 -->
                   </tbody>
                 </table>
-	            <div class="wc-proceed-to-checkout" style="clear: right;">
-	              <a href="checkout.html">주문 상세보기</a>
-	              <a href="checkout.html">배송 조회하기</a>
-	              <a href="checkout.html">주문 취소하기</a>
-	              <a href="checkout.html">반품</a>
-	            </div>
           	  </div>
-            </div>
-            <!-- 페이지네이션 -->
-            <div class="row mt--60">
-              <div class="col-md-12">
-                <ul class="pagination pagination-lg">
-              </ul>
+              <!-- 페이지네이션 -->
+              <div class="row mt--60">
+                <div class="col-md-12">
+                  <ul class="pagination pagination-lg">
+                </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -123,6 +118,7 @@ function computeOrderState(order) {
 	
 	return result;
 }
+// 목록을 가져오는 함수 재사용을 위해 선언
 function getOrderList(currentPage){
 	$.ajax(Utils.baseUrl + "order/list.mall", {
 		method: "get",
@@ -156,8 +152,17 @@ function getOrderList(currentPage){
 		}
 	});
 }
-
 $(function(){
+    // 페이지 로딩 시 주문 목록
 	getOrderList(1);
+    
+    // 페이지네이션 주문 목록
+    $(document).on('click', '.pagination-lg a', function(event){
+    	event.preventDefault();
+    	
+    	var currentPage = $(this).attr('href');
+    	getOrderList(currentPage);
+    });
 });
+
 </script>

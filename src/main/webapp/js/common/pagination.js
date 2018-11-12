@@ -7,7 +7,7 @@ function page(currentPage, endPage, next, prev, startPage, totalCount) {
 	var String = '';
 	if (currentPage) {
 		if (prev) {
-			String += '<li><a href='+ startPage +'><span class="glyphicon glyphicon-backward"></span></a></li>';
+			String += '<li><a href='+ (startPage - 1) +'><span class="glyphicon glyphicon-backward"></span></a></li>';
 		}
 		if (currentPage != 1) {
 			String += '<li><a href='+ (currentPage-1) +'><span class="glyphicon glyphicon-chevron-left"></span></a></li>';
@@ -23,7 +23,7 @@ function page(currentPage, endPage, next, prev, startPage, totalCount) {
 			String += '<li><a href='+ (currentPage+1) +'><span class="glyphicon glyphicon-chevron-right"></span></a></li>';
 		}
 		if (next) {
-			String += '<li><a href='+ endPage +'><span class="glyphicon glyphicon-forward"></span></a></li>';
+			String += '<li><a href='+ (endPage + 1) +'><span class="glyphicon glyphicon-forward"></span></a></li>';
 		}
 	}
 	
