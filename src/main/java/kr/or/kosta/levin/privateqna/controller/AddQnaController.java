@@ -31,41 +31,38 @@ public class AddQnaController implements Controller {
 	@Inject
 	private QnaService qnaService;
 
-
 	public QnaService getQnaService() {
 		return qnaService;
 	}
-
 
 	public void setQnaService(QnaService qnaService) {
 		this.qnaService = qnaService;
 	}
 
-
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-
-		// 1:1문의글  등록 결과 변수 선언
+		// 1:1문의글 등록 결과 변수 선언
 		boolean addQnaResult;
 		// frontController로 값을 보내기 위한 map 선언
 		Map<String, String> map = new HashMap<>();
 		// 화면에서 받은 파라미터값 처리
 		PrivateQna privateQna = new PrivateQna();
-		
+
 		privateQna.setEmail(request.getParameter("email"));
 		privateQna.setCategory(request.getParameter("category"));
 		privateQna.setTitle(request.getParameter("title"));
 		privateQna.setContent(request.getParameter("content"));
-		
+
 		// 카테고리 체크
 		String category = request.getParameter("category");
-		boolean categoryCheck = (category != "주문/결제" && category != "배송" && category != "취소/반품" && category != "회원정보" && category != "기타");
-		if(categoryCheck == true) {
+		boolean categoryCheck = (category != "주문/결제" && category != "배송" && category != "취소/반품" && category != "회원정보"
+				&& category != "기타");
+		if (categoryCheck == true) {
 			throw new RequestBadRequestException();
 		}
-		
+
 		try {
 			// 파라미터값 null 유효성 검사
 			if (privateQna.checkNull(privateQna)) {
@@ -74,11 +71,11 @@ public class AddQnaController implements Controller {
 				if (addQnaResult) {
 					map.put("addQnaResult", "true");
 				} else {
-				// 실패시
+					// 실패시
 					map.put("addQnaResult", "false");
 				}
 				return map;
-			}else {
+			} else {
 				// 파라미터 값 중 null이 있을 때 예외처리
 				throw new RequestBadRequestException();
 			}

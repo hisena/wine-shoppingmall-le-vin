@@ -43,7 +43,7 @@ public class EditQnaController implements Controller {
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
-		
+
 		// 1:1문의글 수정 결과 변수 선언
 		boolean editQnaResult;
 		// frontController로 값을 보내기 위한 map 선언
@@ -59,7 +59,7 @@ public class EditQnaController implements Controller {
 
 		// 카테고리 체크
 		boolean categoryCheck = (category != "주문/결제" && category != "배송" && category != "취소/반품" && category != "회원정보"
-								 && category != "기타");
+				&& category != "기타");
 		if (categoryCheck) {
 			throw new RequestBadRequestException();
 		}
@@ -68,16 +68,16 @@ public class EditQnaController implements Controller {
 		if (articleId == null || articleId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
-		
+
 		privateQna.setArticleId(Integer.parseInt(articleId));
 		privateQna.setEmail(email);
 		privateQna.setCategory(category);
 		privateQna.setTitle(title);
 		privateQna.setContent(content);
-		
+
 		try {
 			// 파라미터값 null 유효성 검사
-			if (privateQna.checkNull(privateQna)) { //Null 체크 통과시
+			if (privateQna.checkNull(privateQna)) { // Null 체크 통과시
 				editQnaResult = qnaService.editQna(privateQna);
 				// 1:1문의글 수정 성공 시
 				if (editQnaResult) {

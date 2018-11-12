@@ -42,7 +42,7 @@ public class EditCommentController implements Controller {
 	@Override
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
-		
+
 		// 1:1문의글의 댓글 수정 결과 변수 선언
 		boolean editCommentResult;
 		// frontController로 값을 보내기 위한 map 선언
@@ -56,14 +56,14 @@ public class EditCommentController implements Controller {
 		if (childId == null || childId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
-		
+
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("childId", Integer.parseInt(childId));
 		parameter.put("content", content);
-		
+
 		try {
 			// content null이나 공백 유효성 검사
-			if (content != null && content.trim().length() != 0) { //Null 체크 통과시
+			if (content != null && content.trim().length() != 0) { // Null 체크 통과시
 				editCommentResult = qnaService.editComment(parameter);
 				// 1:1문의글의 댓글 수정 성공 시
 				if (editCommentResult) {

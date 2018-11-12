@@ -10,9 +10,10 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
 
 /**
- * 1:1문의 및 댓글 관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
+ * 1:1문의 및 댓글 관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스
  * 
  * @author 류세은
  *
@@ -39,19 +40,19 @@ public class MybatisQnaDao implements QnaDao {
 		List<PrivateQna> list = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		list = sqlSession.selectList(NAMESPACE + "listByPage", parameter);
-		sqlSession.close();	
+		sqlSession.close();
 		return list;
 	}
-	
+
 	// 검색한 문의 목록 갯수
 	@Override
 	public int countBySearch(Map<String, String> parameter) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int count = sqlSession.selectOne(NAMESPACE+ "countBySearch", parameter);
+		int count = sqlSession.selectOne(NAMESPACE + "countBySearch", parameter);
 		sqlSession.close();
 		return count;
 	}
-	
+
 	// 1:1문의글 등록
 	@Override
 	public boolean createQna(PrivateQna privateQna) throws Exception {
@@ -72,8 +73,8 @@ public class MybatisQnaDao implements QnaDao {
 		return flag;
 
 	}
-	
-	//1:1문의글 수정
+
+	// 1:1문의글 수정
 	@Override
 	public boolean updateQna(PrivateQna privateQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -91,18 +92,18 @@ public class MybatisQnaDao implements QnaDao {
 		sqlSession.close();
 		return flag;
 	}
-	
-	//1:1문의글 상세보기
+
+	// 1:1문의글 상세보기
 	@Override
 	public PrivateQna readQna(int articleId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		PrivateQna privateQna = null;
 		privateQna = sqlSession.selectOne(NAMESPACE + "readQna", articleId);
-		sqlSession.close();	
+		sqlSession.close();
 		return privateQna;
 	}
-	
-	//1:1문의글 삭제
+
+	// 1:1문의글 삭제
 	@Override
 	public boolean deleteQna(int articleId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -120,8 +121,37 @@ public class MybatisQnaDao implements QnaDao {
 		sqlSession.close();
 		return flag;
 	}
-	
-	//1:1문의글 댓글 수정
+
+	// 1:1문의글의 댓글 등록
+	@Override
+	public boolean createComment(Map<String, String> parameter) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		boolean flag = false;
+
+		// insert문 실행 후 반환값 저장
+		int createContentResult = sqlSession.insert(NAMESPACE + "createCommentContent", parameter);
+		if (createContentResult == 1) {
+			sqlSession.insert(NAMESPACE + "createCommentId", parameter);
+			sqlSession.commit();
+			flag = true;
+		} else {
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return flag;
+	}
+
+	// 1:1문의글의 댓글리스트 조회
+	@Override
+	public List<PrivateQnaComment> list(int parentId) throws Exception {
+		List<PrivateQnaComment> list = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "list", parentId);
+		sqlSession.close();
+		return list;
+	}
+
+	// 1:1문의글 댓글 수정
 	@Override
 	public boolean updateComment(Map<String, Object> parameter) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
