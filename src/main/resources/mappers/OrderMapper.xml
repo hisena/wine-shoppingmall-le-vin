@@ -47,9 +47,9 @@
         		FROM   (SELECT  o.order_id      orderId, 
                        			o.email, 
                        			o.order_money   orderMoney, 
-                       			o.order_date    orderDate, 
+                       			TO_CHAR(o.order_date, 'yy/mm/dd')    orderDate, 
                        			o.is_paid       isPaid, 
-                       			r.regdate, 
+                       			TO_CHAR(r.regdate, 'yy/mm/dd') regdate, 
                        			r.complete_date refundCompleteDate, 
                        			d.start_date    startDate, 
                        			d.complete_date deliveryCompleteDate 

@@ -57,12 +57,11 @@
                 <table>
                   <thead>
                     <tr>
-                      <th class="product-thumbnail">사진</th>
-                  	  <th class="product-name">상품</th>
-                  	  <th class="product-price">가격</th>
-                  	  <th class="product-quantity">수량</th>
-                  	  <th class="product-subtotal">총 가격</th>
-                  	  <th class="product-remove">주문상태(체크박스)</th>
+                      <th>주문 번호</th>
+                  	  <th>총 주문 금액</th>
+                  	  <th>주문일</th>
+                  	  <th>결제 완료 여부</th>
+                  	  <th>주문상태</th>
                   	</tr>
                   </thead>
                   <tbody>
@@ -77,13 +76,88 @@
 	            </div>
           	  </div>
             </div>
+            <!-- 페이지네이션 -->
+            <div class="row mt--60">
+              <div class="col-md-12">
+                <ul class="pagination pagination-lg">
+              </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<div id="snackbar"></div>
 
 <!-- Daum Api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="js/custom/daumApi.js"></script>
+<!-- 주문 목록 페이지네이션을 위한 자바스크립트 코드 -->
+<script src="js/common/pagination.js"></script>
+<!-- 주문 목록을 불러오기 위한 자바스크립트 코드 -->
+<script>
+// 주문 상태를 계산해주는 함수
+function computeOrderState(order) {
+	var result = '배송 중';
+	
+	// 취소 일자가 있다면 주문 취소 상태
+	if (order.cancelDate) {
+		result = '주문 취소';
+	}
+	
+	// 배송 일자가 있다면 배송 완료 상태
+	if(order.deliveryCompleteDate) {
+		result = '배송 완료';
+	}
+	
+	// (반품) 등록일이 있다면 반품 신청 상태
+	// 반품 완료일 재사용을 위해 변수 선언
+	var completeDate = order.completeDate;
+	if (order.regdate && !completeDate) {
+		result = '반품 대기';
+	} else if (order.regdate && completeDate) {
+		result = '반품 완료';
+	}
+	
+	return result;
+}
+function getOrderList(currentPage){
+	$.ajax(Utils.baseUrl + "order/list.mall", {
+		method: "get",
+		data: 'email=' + getCookie('email') + '&currentPage=' + currentPage,
+		contentType: 'application/json; charset=utf-8',
+	    dataType: 'json',
+		success: function(data) {
+			var orderList = data.orderList;
+			var pageInfo = data.pageInfo;
+			
+			$('.table-content tbody').empty();
+			
+			for ( var index in orderList) {
+				var order = orderList[index];
+				var itemToAppend = '<tr>' +
+                                   '   <td>' + order.orderId + '</td>' +
+                                   '   <td>' + order.orderMoney + '</td>' + 
+                                   '   <td>' + order.orderDate + '</td>' +
+                                   '   <td>' + (order.isPaid === 'Y'? '결제 완료' : '결제 대기') + '</td>' + 
+                                   '   <td>' + computeOrderState(order) + '</td>' +
+                                   '</tr>'
+                $('.table-content tbody').append(itemToAppend);
+			}
+			
+			// 페이지네이션
+			$('.pagination-lg').empty();
+			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
+		},
+		error: function(error) {
+			snackbar('주문 목록을 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
+		}
+	});
+}
+
+$(function(){
+	getOrderList(1);
+});
+</script>
