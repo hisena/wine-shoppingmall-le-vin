@@ -12,4 +12,6 @@ public interface CommentService {
 	/** 1:1문의글 등록 */
 	public boolean addComment(Map<String, String> parameter) throws Exception;
 
+	/** 1:1문의글의 댓글 리스트 조회*/
+	public Map<String, Object> listComment(int parentId) throws Exception;
 }
