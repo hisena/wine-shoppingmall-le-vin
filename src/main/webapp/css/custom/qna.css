@@ -2,7 +2,7 @@
 	margin-top: 30px;
 }
 
-#write, #update, #delete {
+#write, #update, #delete, #create {
 	border: 1px solid #d5d5d5;
     display: block;
     margin: auto;
@@ -17,7 +17,7 @@
     text-transform: uppercase;
 }
 
-#write:hover, #update:hover, #delete:hover {
+#write:hover, #update:hover, #delete:hover, #create:hover {
 	background: #ff4136;
     color: #fff;
     text-shadow: none;

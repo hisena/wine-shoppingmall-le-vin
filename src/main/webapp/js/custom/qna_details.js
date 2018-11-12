@@ -1,4 +1,4 @@
-function write(category, title, content, regdate, articleId) {
+function qnaDetails(category, title, content, regdate, articleId) {
 	var email = getCookie("email");
 	var String = '<table class="table table-striped table-bordered">'
 	           + '  <thead>'
@@ -28,7 +28,7 @@ function write(category, title, content, regdate, articleId) {
 	$('#qnaSection').append(String);
 	
 	// 게시글 삭제
-	$(document).on ('click', '#delete', function(event) {
+	$(document).off("click").on('click', '#delete', function(event) {
 		$.ajax(Utils.baseUrl + "privateqna/qna-remove.mall", {
 			method: "post",
 			data: {
@@ -47,7 +47,7 @@ function write(category, title, content, regdate, articleId) {
 	});
 	
 	// 게시글 수정
-	$(document).on ('click', '#update', function(event) {
+	$(document).off("click").on('click', '#update', function(event) {
 		$.ajax(Utils.baseUrl + "privateqna/qna-edit.mall", {
 			method: "post",
 			data: {

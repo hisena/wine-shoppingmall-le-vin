@@ -16,7 +16,7 @@
              		 category, 
              		 title, 
              		 content, 
-             		 TO_CHAR(regdate, 'yy/mm/dd') regdate, 
+             		 regdate,  
              		 delete_yn
 		)VALUES(
 					 article_id_seq.NEXTVAL, 

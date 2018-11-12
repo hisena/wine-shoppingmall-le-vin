@@ -60,7 +60,7 @@ $(function() {
 	// 게시글 목록 Ajax
 	getQnaList();
 	// 게시글 상세보기 Ajax
-	$(document).on ('click', '.qnaList', function(event) {
+	$(document).off("click").on('click', '.qnaList', function(event) {
 		$.ajax(Utils.baseUrl + "privateqna/qna-detail.mall", {
 			method: "get",
 			data: {
@@ -71,11 +71,16 @@ $(function() {
 				var privateQna = data.privateQna;
 				// 게시글 상세보기 함수
 				$('#qnaSection').empty();
-				write(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate, privateQna.articleId)
+				qnaDetails(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate, privateQna.articleId)
 			},
 			error: function(data) {
 				alert('에러발생');
 			}
 		});
+	});
+	// 게시글 쓰기 Ajax
+	$(document).off("click").on('click', 'input[type="button"]', function(event) {
+		$('#qnaSection').empty();
+		qnaWrite();
 	});
 });
