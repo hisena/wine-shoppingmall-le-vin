@@ -189,7 +189,6 @@ $(function(){
     $('.order-wrapper').on('click', 'tbody tr', function(){
     	
     	var currentPage = $('.pagination-lg li.active a').attr('href');
-    	console.log(currentPage);
     	var orderId = $(this).find('td:first-child').html();
     	
     	$.ajax(Utils.baseUrl + "order/detail.mall", {
@@ -200,7 +199,8 @@ $(function(){
     		success: function(data) {
     			var order = data.orderInfo;
     			order['paymentStatus'] = order.isPaid === 'Y'? '결제 완료' : '결제 대기';
-    			order['orderStatus'] = computeOrderState(order);
+    			var orderStatus = computeOrderState(order);
+    			order['orderStatus'] = orderStatus;
     			order['deliveryComments'] = order['deliveryComments']? order['deliveryComments'] : '';
     			order['currentPage'] = currentPage;
     			// 주문 관련 정보
@@ -213,6 +213,14 @@ $(function(){
     			
     			$('.payment-form .section-title-3').html('주문 확인하기');
     			$('.order-wrapper').html(itemToAppend);
+    			
+    			// 상태에 따라 버튼 바꾸기
+                var a = $('<a>');
+                if (orderStatus === '배송 중') {
+                	$('.wc-proceed-to-checkout').prepend(a.attr('id','cancelOrder').html('주문 취소하기'));
+                } else if (orderStatus === '배송 완료') {
+                	$('.wc-proceed-to-checkout').prepend(a.attr('id','refund').html('반품하기'));
+                }
     			
     			// 상품 정보
   				var items = [];
@@ -263,8 +271,6 @@ var orderDetailTemplate = '	<div class="orderInfo">' +
 						  '	 </div>' +
 						  '</div>' +
 						  '<div class="wc-proceed-to-checkout" style="clear: right;">' +
-                          '  <a id="cancelOrder">주문 취소하기</a>' +
-                          '  <a id="refund">반품</a>' +
                           '  <a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>' +
                           '  <a onclick="getOrderList(###currentPage###)">목록으로 돌아가기</a>' +
 						  '</div>';
