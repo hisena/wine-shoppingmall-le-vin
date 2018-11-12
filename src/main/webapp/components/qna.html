@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
-          <table id="mytable" class="table table-hover">
+          <table id="mytable" class="table table-hover qnaDetails">
             <thead>
               <tr class="danger" style="text-align: center">
                 <th style="width: 10%; text-align: center">번호</th>
@@ -39,6 +39,21 @@
               	<td>환불 요청 제목입니다.(임시)</td>
               	<td style="text-align: center">2018.11.12</td>
               </tr>
+              <tr class="title">
+              	<td style="text-align: center">2</td>
+              	<td style="text-align: center">취소</td>
+              	<td>취소 요청 제목입니다.(임시)</td>
+              	<td style="text-align: center">2018.11.12</td>
+  			  </tr>
+  		      <tr class="hide">
+    			<td>안녕하세요.</td>
+  			  </tr>
+  			  <tr class="title">
+    			<td style="text-align: center">3</td>
+    			<td style="text-align: center">반품</td>
+    			<td>반품 요청 제목입니다.(임시)</td>
+    			<td style="text-align: center">2018.11.08</td>
+  			  </tr>
             </tbody>
           </table>
         </div>
@@ -57,3 +72,20 @@
 
 <!-- 페이지네이션 -->
 <script src="js/common/pagination.js"></script>
+<!-- 게시글 상세보기 -->
+<script type="text/javascript">  
+	$(function(){
+	    $(".qnaDetails .title").click(function() {  
+	        var content = $(this).next("tr");
+	        if($(content).hasClass('hide')) {
+	            $(content).addClass('show').removeClass('hide');
+	            $(content).attr('style', 'display: table-row !important');
+	            $(content).children('td:first').attr("colspan", 5);
+	        }
+	        else {
+	            $(content).addClass('hide').removeClass('show');  
+	            $(content).attr('style','');
+	        }
+	    });
+	});
+</script>
