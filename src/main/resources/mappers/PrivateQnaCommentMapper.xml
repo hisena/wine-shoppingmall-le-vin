@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Product, Price table에 접근하는 sql -->
+
+<!-- 네임스페이스(사용영역) 설정 -->
+<mapper namespace="kr.or.kosta.levin.privateqnacomment">
+
+	<!-- 1:1문의글의 댓글 내용 등록 -->
+	<insert id="createCommentContent" parameterType="map">
+		INSERT INTO levin_private_qnas
+		(			 
+					 article_id,
+					 email,
+					 category,
+					 content,
+					 regdate,
+					 delete_yn
+		) VALUES ( 
+					 article_id_seq.NEXTVAL,
+					 #{email},
+					 #{category},
+					 #{content},
+					 SYSDATE,
+					 'N'
+		)
+	 </insert>
+		
+	<!-- 1:1문의글의 댓글번호 및 부모번호 등록 -->
+	<insert id="createCommentId" parameterType="map">
+		INSERT INTO levin_private_qnas_comments 
+        (
+        			 parent_id, 
+             		 child_id
+        ) VALUES ( 
+        			 (SELECT article_id 
+             		  FROM   levin_private_qnas 
+             		  WHERE  article_id = #{parentId}), 
+            		 article_id_seq.CURRVAL
+        ) 
+	</insert>
+	
+</mapper>
