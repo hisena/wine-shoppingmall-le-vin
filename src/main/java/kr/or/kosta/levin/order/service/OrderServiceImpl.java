@@ -93,14 +93,14 @@ public class OrderServiceImpl implements OrderService {
 
 	// 주문 상세 보기
 	@Override
-	public Map<String, Object> detail(Map<String, String> param) throws Exception {
+	public Map<String, Object> detail(int orderId) throws Exception {
 		
 		// controller에 Service실행 결과를 전달해주기 위한 Map 변수 선언
 		Map<String, Object> detailResult= new HashMap<>();
 		// 주문목록 중 주문정보, 배송, 배송지 정보 가져오는 메소드 호출
-		Map<String, String> orderInfo = orderDao.getOrder(param);
+		Map<String, String> orderInfo = orderDao.getOrder(orderId);
 		// 주문목록 중 상품정보 가져오는 메소드 호출
-		List<Map<String, String>> productInfo = orderDao.getProduct(param.get("orderId"));
+		List<Map<String, String>> productInfo = orderDao.getProduct(String.valueOf(orderId));
 		// 가져온 값이 null이 아닐경우 detailResult에 담기
 		if(orderInfo != null && productInfo != null) {
 		detailResult.put("orderInfo", orderInfo);

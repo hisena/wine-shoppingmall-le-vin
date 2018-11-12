@@ -54,9 +54,9 @@ public class MybatisOrderDao implements OrderDao {
 
 	// 주문 상세 - 주문정보 및 배송정보
 	@Override
-	public Map<String, String> getOrder(Map<String, String> param) throws Exception {
+	public Map<String, String> getOrder(int orderId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		Map<String, String> orderInfo = sqlSession.selectOne(NAMESPACE+ "getOrder", param);
+		Map<String, String> orderInfo = sqlSession.selectOne(NAMESPACE+ "getOrder", orderId);
 		sqlSession.close();
 		return orderInfo;
 	}

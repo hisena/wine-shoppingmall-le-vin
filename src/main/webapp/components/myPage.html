@@ -163,6 +163,24 @@ $(function(){
     	var currentPage = $(this).attr('href');
     	getOrderList(currentPage);
     });
+    
+    // 주문 상세 보기
+    $(document).on('click', '.table-content tbody tr', function(){
+    	var orderId = $(this).find('td:first-child').html();
+    	
+    	$.ajax(Utils.baseUrl + "order/detail.mall", {
+    		method: "get",
+    		data: 'orderId=' + orderId,
+    		contentType: 'application/json; charset=utf-8',
+    	    dataType: 'json',
+    		success: function(data) {
+    		},
+    		error: function(error) {
+    			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
+    		}
+    	});
+    	
+    });
 });
 
 </script>

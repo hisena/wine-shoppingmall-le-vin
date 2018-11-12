@@ -44,19 +44,20 @@ public class DetailController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-		String email = request.getParameter("email");
+		//String email = request.getParameter("email");
 		String orderId = request.getParameter("orderId");
 
 		Map<String, String> param = new HashMap<>();
 		Map<String, Object> detailResult;
 		try {
 			// null값이 들어오지 않았을 경우
-			if(email != null && orderId != null) {
+			if(orderId != null) {
+			//if(email != null && orderId != null) {
 				//파라미터로 보낼 값을 map에 저장
-				param.put("email", email);
-				param.put("orderId", orderId);
+				//param.put("email", email);
+				//param.put("orderId", orderId);
 				// detail 메소드 호출
-				detailResult = orderService.detail(param);
+				detailResult = orderService.detail(Integer.parseInt(orderId));
 				// 데이터 목록이 잘 왔을 경우
 				if(detailResult != null) {
 					return detailResult;
