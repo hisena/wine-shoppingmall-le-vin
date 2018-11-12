@@ -133,4 +133,11 @@ public class ProductServiceImpl implements ProductService {
 		map.put("pageInfo", pm.pageInfo());
 		return map;
 	}
+		
+	//	구매후기글 상세보기
+		@Override
+		public Review detailReview(int reviewId) throws Exception {
+			Review review = productDao.readReview(reviewId);
+			return review;
+		}
 }

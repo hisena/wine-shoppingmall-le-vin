@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
+import kr.or.kosta.levin.product.domain.Review;
 
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 인터페이스
@@ -29,5 +31,7 @@ public interface ProductService {
 
 	/**구매후기글 리스트*/
 	public Map<String, Object> listReview(Map<String, String> parameter) throws Exception;
-	
+
+	/**구매후기글 상세보기*/
+	public Review detailReview(int reviewId) throws Exception;
 }
