@@ -6,7 +6,7 @@ import java.util.Map;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 
 /**
- * 1:1 문의 관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
+ * 1:1 문의글 및 댓글 관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
  * @author 류세은
  * 
  */
@@ -24,5 +24,7 @@ public interface QnaDao {
 	public PrivateQna readQna(int articleId) throws Exception;
 	/** 1:1문의글 삭제*/
 	public boolean deleteQna(int articleId) throws Exception;
+	/** 1:1문의글 댓글 수정*/
+	public boolean updateComment(Map<String, Object> parameter) throws Exception;
 	
 }

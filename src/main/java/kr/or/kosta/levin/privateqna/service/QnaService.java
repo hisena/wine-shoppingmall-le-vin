@@ -6,7 +6,7 @@ import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 
 
 /**
- * PrivateQna와 관련된 비즈니스 로직 수행을 위한 인터페이스
+ * 1:1 문의글 및 댓글과 관련된 비즈니스 로직 수행을 위한 인터페이스
  * 
  * @author 류세은
  */
@@ -26,4 +26,7 @@ public interface QnaService {
 	
 	/** 1:1문의글 삭제 */
 	public boolean removeQna(int articleId) throws Exception;
+	
+	/** 1:1문의글 댓글 수정 */
+	public boolean editComment(Map<String, Object> parameter) throws Exception;
 }
