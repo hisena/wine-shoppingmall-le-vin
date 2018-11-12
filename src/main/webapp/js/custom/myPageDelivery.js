@@ -32,3 +32,25 @@ function getDeliveryList() {
 		}
 	});
 }
+function removeDelivery(addressId) {
+	var message = '배송지 삭제에 실패하셨습니다. 다시 한 번 시도해주세요.';
+	$.ajax(Utils.baseUrl + "user/address-info-delete.mall", {
+		method: "get",
+		data: {'address_id' : addressId},
+	    dataType: 'json',
+		success: function(data) {
+			
+			var result = data.deleteAddressResult === 'true';
+			
+			if (result) {
+				
+				getDeliveryList();
+				message = '성공적으로 배송지를 삭제했습니다.'
+			} 
+			snackbar(message);
+		}, 
+		error: function(data) {
+			snackbar(message);
+		}
+	});
+}

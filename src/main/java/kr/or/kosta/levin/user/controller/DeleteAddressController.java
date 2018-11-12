@@ -43,7 +43,7 @@ public class DeleteAddressController implements Controller {
 
 		// 클라이언트로부터 받는 회원정보
 		String addressId = request.getParameter("address_id");
-		
+
 		Map<String, String> map = new HashMap<String, String>();
 		boolean deleteAddressResult;
 		
