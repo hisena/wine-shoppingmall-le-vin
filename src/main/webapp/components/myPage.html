@@ -53,7 +53,7 @@
           <!-- 주문 목록 -->
           <div class="payment-form">
             <h2 class="section-title-3">주문 목록</h2>
-            <div class="checkout-form-inner">
+            <div class="checkout-form-inner order-wrapper">
               <div class="table-content table-responsive">
                 <table>
                   <thead>
@@ -157,7 +157,7 @@ $(function(){
 	getOrderList(1);
     
     // 페이지네이션 주문 목록
-    $(document).on('click', '.pagination-lg a', function(event){
+    $('.pagination-lg').on('click', 'a', function(event){
     	event.preventDefault();
     	
     	var currentPage = $(this).attr('href');
@@ -165,7 +165,10 @@ $(function(){
     });
     
     // 주문 상세 보기
-    $(document).on('click', '.table-content tbody tr', function(){
+    $('.table-content tbody').on('click', 'tr', function(){
+    	
+    	var currentPage = $('.pagination-lg li.active a').attr('href');
+    	
     	var orderId = $(this).find('td:first-child').html();
     	
     	$.ajax(Utils.baseUrl + "order/detail.mall", {
@@ -174,6 +177,37 @@ $(function(){
     		contentType: 'application/json; charset=utf-8',
     	    dataType: 'json',
     		success: function(data) {
+    			var order = data.orderInfo;
+    			order['paymentStatus'] = order.isPaid === 'Y'? '결제 완료' : '결제 대기';
+    			order['orderStatus'] = computeOrderState(order);
+    			order['deliveryComments'] = order['deliveryComments']? order['deliveryComments'] : '';
+    			// 주문 관련 정보
+				var itemToAppend = orderDetailTemplate.slice();
+    			for ( var key in order) {
+					var regExp = new RegExp('###' + key + '###', 'gm');
+					var value =  order[key] ?  order[key] : '';
+					itemToAppend = itemToAppend.replace(regExp, value);
+				}
+    			
+    			$('.payment-form .section-title-3').html('주문 확인하기');
+    			$('.order-wrapper').html(itemToAppend);
+    			
+    			// 상품 정보
+  				var items = [];
+    			var products = data.productInfo;
+    			for ( var index in products) {
+    				var item = [];
+    				var product = products[index];
+    				
+    				var productId = product.productId;
+    				item[cartIndexes.indexOf('productId')] = productId;
+    				item[cartIndexes.indexOf('productName')] = product.productNameKor;
+    				item[cartIndexes.indexOf('quantity')] = product.quantity;
+    				item[cartIndexes.indexOf('price')] = product.price.toLocaleString() + '원';
+    				item[cartIndexes.indexOf('imagePath')] = Utils.getImagePath(productId);
+					items.push(item);
+				}
+    			printItemsCommon('.shp__cart__wrap', items);
     		},
     		error: function(error) {
     			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
@@ -183,4 +217,30 @@ $(function(){
     });
 });
 
+var orderDetailTemplate = '	<div class="orderInfo">' +
+						  '	  <div class="single-checkout-box"><input type="hidden" id="orderId" value="###orderId###"></div>' + 
+    					  '	  <div class="single-checkout-box"><span>결제 상태 : </span><span>###paymentStatus###</span></div>' +
+    					  '	  <div class="single-checkout-box"><span>주문 상태 : </span><span>###orderStatus###</span></div>' +
+    					  '	  <div class="single-checkout-box"><span>주문 일자 : </span><span>###orderDate###</span></div>' +
+    					  '	  <div class="single-checkout-box"><span>수신인 이름 : </span><span>###receiverName###</span></div>' +
+    					  '	  <div class="single-checkout-box"><span>수신인 연락처 : </span><span>###receiverMobile###</span></div>' + 
+    					  '	  <div class="single-checkout-box"><span>배송 요청 사항 : </span><span>###deliveryComments###</span></div>' +
+    					  '   <div class="single-checkout-box"><span>배송 주소 : </span><span>###zipCode###&nbsp;&nbsp;###address###&nbsp;&nbsp;###detailedAddress###</span></div>' +
+    					  '</div>' +
+						  '<div class="puick-contact-area">' + 
+						  '	  <div class="shopping__cart__inner">' + 
+						  '		<div class="shp__cart__wrap"><!-- 동적으로 추가되는 영역 --></div>' + 
+						  '		   <ul class="shoping__total">' + 
+						  '			 <li class="subtotal">총 금액:</li>' + 
+						  '		     <li class="total__price">###orderMoney###</li>' + 
+						  '		   </ul>' +
+						  '		</div>' +
+						  '	 </div>' +
+						  '</div>' +
+						  '<div class="wc-proceed-to-checkout" style="clear: right;">' +
+                          '  <a id="cancelOrder">주문 취소하기</a>' +
+                          '  <a id="refund">반품</a>' +
+                          '  <a href="https://www.doortodoor.co.kr/parcel/pa_004.jsp" target="_blank">배송 조회하기</a>' +
+                          '  <a onclick=getOrderList(###currentPage###)>목록으로 돌아가기</a>' +
+						  '</div>';
 </script>
