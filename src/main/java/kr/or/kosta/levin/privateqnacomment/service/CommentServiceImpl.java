@@ -7,9 +7,6 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
-import kr.or.kosta.levin.privateqna.domain.Pagination;
-import kr.or.kosta.levin.privateqna.domain.PaginationManager;
-import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.privateqnacomment.dao.CommentDao;
 import kr.or.kosta.levin.privateqnacomment.domain.PrivateQnaComment;
 
