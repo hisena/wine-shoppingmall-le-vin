@@ -8,3 +8,24 @@
     width: 10%;
     margin-bottom: 40px;
 }
+
+.table-content th:nth-child(1), .table-content td::nth-child(1){
+	width: 10%;
+}
+
+.table-content th:nth-child(2), .table-content td:nth-child(2){
+	width: 25%;
+}
+
+.table-content th:nth-child(3), .table-content td:nth-child(3){
+	width: 25%;
+}
+
+.table-content th:nth-child(4), .table-content td:nth-child(4){
+	width: 10%;
+}
+
+.table-content th:nth-child(5), .table-content td:nth-child(5){
+	width: 20%;
+}
+

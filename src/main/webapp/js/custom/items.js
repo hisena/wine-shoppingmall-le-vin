@@ -3,6 +3,7 @@
  * 
  * @author 김홍기
  */
+// 상품 목록 페이지에서 동적 추가
 function printItems(productId, productName, price) {
 	// 추가할 상품
 	var String = '<div class="col-md-3  col-lg-3 col-sm-3 col-xs-12 single__pro">'
@@ -31,8 +32,12 @@ function printItems(productId, productName, price) {
 	$('#product').append(String);
 }
 
-function printMainItems(productId, productName, price) {
-	var String = '<div class="col-md-4 single__pro col-lg-4 cat--1 col-sm-4 col-xs-12">'
+
+
+// 메인페이지에서 동적 추가
+function printMainItems(productId, productName, price, id) {
+    // 추가할 상품
+	var String = '<div class="col-md-4 single__pro col-lg-4 col-sm-4 col-xs-12">'
 	           + '  <div class="product">'
 	           + '    <div class="product__inner">'
 	           + '      <div class="pro__thumb">'
@@ -55,5 +60,5 @@ function printMainItems(productId, productName, price) {
 	           + '  </div>'
 	           + '</div>';
 	
-	$('#latest').append(String);
+	$("#" + id).append(String);
 }
