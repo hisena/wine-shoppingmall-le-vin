@@ -10,6 +10,7 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -112,5 +113,15 @@ public class MybatisProductDao implements ProductDao {
 		int count = sqlSession.selectOne(NAMESPACE + "reviewCountBySearch", parameter);
 		sqlSession.close();
 		return count;
+	}
+	
+	//구매후기글 상세보기
+	@Override
+	public Review readReview(int reviewId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Review review = null;
+		review = sqlSession.selectOne(NAMESPACE + "readReview", reviewId);
+		sqlSession.close();
+		return review;
 	}
 }

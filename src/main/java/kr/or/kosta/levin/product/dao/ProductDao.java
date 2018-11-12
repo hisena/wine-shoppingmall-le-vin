@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -32,4 +33,6 @@ public interface ProductDao {
 	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception;
 	/** 검색해온 구매후기글 갯수 */
 	public int reviewCountBySearch(Map<String, String> parameter) throws Exception;
+	/** 구매후기글 상세보기 */
+	public Review readReview(int reviewId) throws Exception;
 }
