@@ -41,4 +41,16 @@
         ) 
 	</insert>
 	
+	<!-- 1:1문의글의 댓글리스트 조회 -->
+	<select id="list" parameterType="int" resultType="PrivateQnaComment">
+		SELECT qnas.article_id commentId, 
+       		   qnas.email      email, 
+       		   qnas.content    content, 
+       		   qnas.regdate    regdate, 
+       		   qnas.delete_yn  deleteYN 
+		FROM   levin_private_qnas qnas 
+        full join levin_private_qnas_comments comms 
+               ON qnas.article_id = comms.child_id 
+		WHERE  comms.parent_id = #{parentId} 
+	</select>
 </mapper>
