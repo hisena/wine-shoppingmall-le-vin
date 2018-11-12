@@ -100,7 +100,7 @@
 	</select>
 	
 	<!-- 검색해온 상품 문의글 갯수 조회 -->
-	<select id="countBySearchQna"  parameterType="map" resultType="int">
+	<select id="countBySearchQna"  parameterType="String" resultType="int">
 		SELECT COUNT(qna_id) count 
 		FROM   levin_product_qnas
 		WHERE  product_id NOT IN (SELECT child_id 

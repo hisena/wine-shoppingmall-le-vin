@@ -23,6 +23,6 @@ public interface ProductDao {
 	/** 페이징 처리에 따른 상품문의글 목록 반환 */	
 	public List<ProductQna> listByPageQna(Map<String, String> param) throws Exception;
 	/** 검색해온 상품 문의글 목록의 개수 반환*/
-	public int countBySearchQna(Map<String, String> param) throws Exception;
+	public int countBySearchQna(String productId) throws Exception;
 
 }

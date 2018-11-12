@@ -21,6 +21,8 @@
 		<typeAlias type="kr.or.kosta.levin.order.domain.Delivery"         alias="Delivery"/>
 		<typeAlias type="kr.or.kosta.levin.order.domain.Address"         alias="OrderAddress"/>
 		<typeAlias type="kr.or.kosta.levin.privateqna.domain.PrivateQnaComment"         alias="PrivateQnaComment"/>
+		<typeAlias type="kr.or.kosta.levin.product.domain.ProductQnaComment"         alias="ProductQnaComment"/>
+		<typeAlias type="kr.or.kosta.levin.product.domain.ProductQna"         alias="ProductQna"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->

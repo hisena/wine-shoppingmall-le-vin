@@ -75,9 +75,9 @@ public class MybatisProductDao implements ProductDao {
 
 	// 상품 문의글 갯수
 	@Override
-	public int countBySearchQna(Map<String, String> param) throws Exception {
+	public int countBySearchQna(String productId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int count = sqlSession.selectOne(NAMESPACE+ "countBySearchQna", param);
+		int count = sqlSession.selectOne(NAMESPACE+ "countBySearchQna", productId);
 		sqlSession.close();
 		return count;
 	}

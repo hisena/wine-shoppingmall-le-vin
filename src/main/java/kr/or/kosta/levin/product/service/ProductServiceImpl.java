@@ -76,11 +76,11 @@ public class ProductServiceImpl implements ProductService {
 		//페이징, 검색 처리된 상품 문의글 목록
 		List<ProductQna> list = productDao.listByPageQna(param);
 		//검색해온 상품문의글 목록 갯수
-		int count = productDao.countBySearchQna(param);
+		int count = productDao.countBySearchQna(param.get("productId"));
 		//페이징 관련정보(시작, 끝 페이지 등) 처리 
 		Pagination pagination = new Pagination();
 		PaginationManager pm = new PaginationManager();
-		pagination.setCurrentPage(Integer.parseInt(param.get("currentPagge")));
+		pagination.setCurrentPage(Integer.parseInt(param.get("currentPage")));
 		pagination.setPerPageNum(5);
 		pm.setPagination(pagination);
 		pm.setTotalCount(count);
