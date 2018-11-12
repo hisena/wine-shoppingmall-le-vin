@@ -81,14 +81,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return flag;
 	}
-	
+
 	/** 회원 기본정보 목록 */
 	@Override
 	public User listBasicInfo(String email) throws Exception {
 		User user = userDao.readBasicInfo(email);
 		return user;
 	}
-	
+
 	/** 회원정보 수정 */
 	@Override
 	public boolean changeInfo(User user) throws Exception {
@@ -115,23 +115,38 @@ public class UserServiceImpl implements UserService {
 		// controller에게 service결과 성공여부 알려주기 위한 변수
 		boolean addAddressResult = false;
 		// insert문 성공 여부를 판단하기 위한 변수
-		boolean addressResult = false;
-		
+		boolean addResult = false;
+
 		// address중복 검사
 		boolean certify = addressDao.certify(address);
 		// 주소 중복이 아닐 경우
-		if(certify) {
+		if (certify) {
 			// create 메소드 호출
-			addressResult = addressDao.create(address);
+			addResult = addressDao.create(address);
 			// dao의 insert문 성공했을 시 true값 리턴
-			if (addressResult) {
+			if (addResult) {
 				addAddressResult = true;
 			}
-		}else {
+		} else {
 			// 주소가 중복될 경우 412에러 보내주기
 			throw new RequestPreconditionFailedException();
 		}
 		return addAddressResult;
+	}
+
+	@Override
+	public boolean deleteAddress(String addressId) throws Exception {
+		// controller에게 service결과 성공여부 알려주기 위한 변수
+		boolean deleteAddressResult = false;
+		// 배송지 삭제 성공 여부를 판단하기 위한 변수
+		boolean deleteResult = false;
+
+		deleteResult = addressDao.delete(addressId);
+		// dao의 배송지 삭제 성공했을 시 true값 리턴
+		if (deleteResult) {
+			deleteAddressResult = true;
+		}
+		return deleteAddressResult;
 	}
 
 }

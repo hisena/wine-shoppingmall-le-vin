@@ -32,7 +32,8 @@
        		   zip_code         zipCode, 
        		   detailed_address detailedAddress 
 		FROM   levin_address 
-		WHERE  email = #{email} 
+		WHERE  email = #{email}
+		AND	   del_yn ='N'
 		ORDER  BY regdate DESC 
 	</select>
 	
@@ -44,5 +45,14 @@
        	AND detailed_address = #{detailedAddress} 
        	AND email = #{email}
 	</select>
+	
+	<!-- 배송지 삭제하기 -->
+	<update id="deleteOrder" parameterType="String">
+		UPDATE levin_address
+		SET    del_yn = 'Y'
+		WHERE  address_id = #{addressId}
+	</update>
+	
+	
 		
 </mapper>

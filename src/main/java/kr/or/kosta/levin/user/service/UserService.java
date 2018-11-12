@@ -38,4 +38,7 @@ public interface UserService {
 	/** 신규 배송지 추가 */
 	public boolean addAddress(Address address) throws Exception, RequestPreconditionFailedException;
 	
+	/** 신규 배송지 추가 */
+	public boolean deleteAddress(String addressId) throws Exception;
+	
 }
