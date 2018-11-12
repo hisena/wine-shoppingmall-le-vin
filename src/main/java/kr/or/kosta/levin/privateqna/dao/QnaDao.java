@@ -40,5 +40,8 @@ public interface QnaDao {
 
 	/** 1:1문의글 댓글 수정 */
 	public boolean updateComment(Map<String, Object> parameter) throws Exception;
+	
+	/** 1:1문의글 댓글 삭제 */
+	public boolean deleteComment(int childId) throws Exception;
 
 }

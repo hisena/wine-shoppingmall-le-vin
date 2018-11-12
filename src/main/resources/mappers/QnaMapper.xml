@@ -159,4 +159,11 @@
 		SET    content = #{content}
 		WHERE  article_id = #{childId} 
 	</update>
+	
+	<!-- 1:1문의글 댓글 삭제 -->
+	 <update id="deleteComment" parameterType="int">
+		UPDATE levin_private_qnas
+		SET    delete_yn = 'Y' 
+		WHERE  article_id = #{childId}
+	</update>
 </mapper>
