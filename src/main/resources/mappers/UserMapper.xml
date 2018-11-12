@@ -70,5 +70,23 @@
 	    </set>
 	    WHERE email = #{email}
 	</update>
+	
+	<!-- 회원 기본 정보 등록 -->
+	<insert  id="generateValiNum" parameterType="EmailVali">
+		INSERT INTO levin_email_validations
+		(
+					email,
+					vali_number,
+					is_validated,
+					created_date,
+					type
+		)VALUES(
+					#{email},
+					#{valiNumber},
+					'N',
+					sysdate,
+					'findpw'
+		)
+	</insert>
 	 
 </mapper>

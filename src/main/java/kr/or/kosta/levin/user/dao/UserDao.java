@@ -3,6 +3,7 @@ package kr.or.kosta.levin.user.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.levin.user.domain.EmailVali;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
@@ -52,5 +53,8 @@ public interface UserDao {
 	public int countBySearch(String searchType, String searchValue) throws Exception;
 	
 	//public int countBySearch(Params params) throws Exception;
+	
+	/** 비밀번호 찾기 - 인증번호 보내주기 */
+	public boolean generateValiNum(EmailVali emailVali) throws Exception;
 	
 }
