@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	// 신규 배송지 추가
+	/** 신규 배송지 추가 */
 	@Override
 	public boolean addAddress(Address address) throws Exception, RequestPreconditionFailedException {
 		// controller에게 service결과 성공여부 알려주기 위한 변수
@@ -134,6 +134,7 @@ public class UserServiceImpl implements UserService {
 		return addAddressResult;
 	}
 
+	/** 배송지 삭제 */
 	@Override
 	public boolean deleteAddress(String addressId) throws Exception {
 		// controller에게 service결과 성공여부 알려주기 위한 변수

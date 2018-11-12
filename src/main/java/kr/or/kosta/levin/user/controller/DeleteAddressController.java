@@ -7,8 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.javassist.tools.web.BadHttpRequest;
-
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.annotations.RequestMapping;
@@ -16,10 +14,6 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
-import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
-import kr.or.kosta.levin.user.domain.Address;
-import kr.or.kosta.levin.user.domain.User;
 import kr.or.kosta.levin.user.service.UserService;
 
 /**
