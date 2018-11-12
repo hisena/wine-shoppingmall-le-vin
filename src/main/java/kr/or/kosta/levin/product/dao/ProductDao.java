@@ -7,6 +7,7 @@ import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
+import kr.or.kosta.levin.product.domain.Review;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
@@ -27,5 +28,8 @@ public interface ProductDao {
 	public int countBySearchQna(String productId) throws Exception;
 	/** 상품댓글 목록 반환 */	
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
-
+	/** 구매후기 목록*/
+	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception;
+	/** 검색해온 구매후기글 갯수 */
+	public int reviewCountBySearch(Map<String, String> parameter) throws Exception;
 }

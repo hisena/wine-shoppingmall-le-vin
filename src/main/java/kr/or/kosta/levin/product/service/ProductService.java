@@ -26,5 +26,8 @@ public interface ProductService {
 	
 	/** 상품의 상품 문의 댓글 목록*/
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
+
+	/**구매후기글 리스트*/
+	public Map<String, Object> listReview(Map<String, String> parameter) throws Exception;
 	
 }
