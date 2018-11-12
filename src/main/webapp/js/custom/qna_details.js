@@ -1,7 +1,8 @@
-function write(category, title, content, regdate) {
+function write(category, title, content, regdate, articleId) {
 	var String = '<table class="table table-striped table-bordered">'
 	           + '  <thead>'
 	           + '    <tr>'
+	           + '      <input type="hidden" value="'+ articleId +'">'
 	           + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
 	           + '      <td colspan="3"><input type="text" class="form-control" value="'+ title +'" readonly></td>'
 	           + '    </tr>'
@@ -20,8 +21,28 @@ function write(category, title, content, regdate) {
 	           + '    </tr>'
 	           + '  </tbody>'
 	           + '</table>'
-	           + '<input type="button" value="수정" id="write">'
-	           + '<input type="button" value="삭제" id="write" style="margin-right: 10px">';
+	           + '<input type="button" value="수정" id="update">'
+	           + '<input type="button" value="삭제" id="delete" style="margin-right: 10px">';
 	
 	$('#qnaSection').append(String);
 }
+// 글 삭제
+$(document).on ('click', '#delete', function(event) {
+	console.log($('input[type="hidden"]').val());
+	$.ajax(Utils.baseUrl + "privateqna/qna-remove.mall", {
+		method: "post",
+		data: {
+			"articleId": $('input[type="hidden"]').val()
+		},
+		dataType: "json",
+		success: function(data) {
+			// 게시글  삭제
+			if (data.removeQnaResult) {
+				getQnaList();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+});

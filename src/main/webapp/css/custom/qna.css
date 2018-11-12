@@ -2,7 +2,7 @@
 	margin-top: 30px;
 }
 
-#write {
+#write, #update, #delete {
 	border: 1px solid #d5d5d5;
     display: block;
     margin: auto;
@@ -13,21 +13,6 @@
     text-align: center;
     transition: all 0.5s ease 0s;
     width: 120px;
-    color: #4b4b4b;
-    text-transform: uppercase;
-}
-
-#update, #delete {
-	border: 1px solid #d5d5d5;
-    display: block;
-    margin: auto;
-    float: right;
-    font-size: 18px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    transition: all 0.5s ease 0s;
-    width: 100px;
     color: #4b4b4b;
     text-transform: uppercase;
 }

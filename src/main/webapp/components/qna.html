@@ -23,29 +23,7 @@
   <div class="row content">
     <div class="row">
       <div class="col-md-12" id="qnaSection">
-        <div class="table-responsive">
-          <table id="mytable" class="table table-hover qnaDetails">
-            <thead>
-              <tr class="danger">
-                <th style="width: 10%; text-align: center;">번호</th>
-                <th style="width: 10%; text-align: center;">카테고리</th>
-                <th style="width: 60%;">제목</th>
-                <th style="width: 20%; text-align: center;">등록일</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- 게시글 동적추가 -->
-            </tbody>
-          </table>
-        </div>
-        <input type="button" value="글쓰기" id="write">
-        <!-- 페이지네이션 -->
-      	<div class="row mt--60">
-          <div class="col-md-12">
-            <ul class="pagination pagination-lg">
-    	    </ul>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -53,62 +31,7 @@
 
 <!-- 페이지네이션 -->
 <script src="js/common/pagination.js"></script>
+<!-- Q&A Ajax 통신 -->
+<script src="js/custom/qna.js"></script>
 <!-- 게시글 상세보기-->
 <script src="js/custom/qna_details.js"></script>
-<!-- Ajax 통신 -->
-<script>
-$(function() {
-	var email = getCookie("email");
-	// 처음 로딩시 ajax통신
-	$.ajax(Utils.baseUrl + "privateqna/qna-list.mall", {
-		method: "get",
-		dataType: "json",
-		data: {
-			"email": email
-		},
-		success: function(data) {
-			var qnaList = data.qnaList;
-			var pageInfo = data.pageInfo;
-            // 상품 리스트 출력
-   			$('tbody').empty();
-            for (var i = 0; i < qnaList.length; i++) {
-            	var String = '<tr class="qnaList">'
-            			   + '  <input type="hidden" value="'+ qnaList[i].articleId +'">'
-		                   + '  <td style="text-align: center">'+ (qnaList.length-i) +'</td>'
-    	                   + '  <td style="text-align: center">'+ qnaList[i].category +'</td>'
-    	                   + '  <td>'+ qnaList[i].title +'</td>'
-    	                   + '  <td style="text-align: center">'+ qnaList[i].regdate  +'</td>'
-                           + '</tr>';
-         		$('tbody').append(String);
-			}
-			// 페이지네이션
-			$('.pagination-lg').empty();
-			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
-		},
-		error: function(data) {
-			alert('에러발생');
-		}
-	});
-	
-	// 게시글 상세보기 Ajax
-	$(document).on ('click', '.qnaList', function(event) {
-		$.ajax(Utils.baseUrl + "privateqna/qna-detail.mall", {
-			method: "get",
-			data: {
-				"articleId": $(event.target).parent().find('input[type="hidden"]').val()
-			},
-			dataType: "json",
-			success: function(data) {
-				var privateQna = data.privateQna;
-				console.log(privateQna);
-				// 게시글 상세보기 함수
-				$('#qnaSection').empty();
-				write(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate)
-			},
-			error: function(data) {
-				alert('에러발생');
-			}
-		});
-	});
-});
-</script>
