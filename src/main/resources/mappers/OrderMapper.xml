@@ -47,7 +47,7 @@
                			startDate, 
                			deliveryCompleteDate 
         		FROM   (SELECT  o.order_id      orderId, 
-                       			o.email, 		email
+                       			o.email 		email,
                        			o.order_money   orderMoney, 
                        			o.order_date    orderDate, 
                        			o.is_paid       isPaid,

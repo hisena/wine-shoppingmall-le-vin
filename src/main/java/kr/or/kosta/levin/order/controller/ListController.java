@@ -46,11 +46,9 @@ public class ListController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-//		String email = request.getParameter("email");
-//		String currentPage = request.getParameter("currentPage");
-//		
-		String email = "test0001@naver.com";
-		String currentPage = "1";
+		String email = request.getParameter("email");
+		String currentPage = request.getParameter("currentPage");
+
 		
 		Map<String, String> param = new HashMap<>();
 		Map<String, Object> result;
@@ -67,7 +65,8 @@ public class ListController implements Controller {
 					return result;
 				}else {
 					// 데이터가 없을 경우
-					throw new RequestUnauthorizedException();				}
+					throw new RequestUnauthorizedException();				
+				}
 			}else {
 				// null값 들어왔을 경우
 				throw new RequestBadRequestException();
