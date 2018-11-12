@@ -2,7 +2,7 @@
 	margin-top: 30px;
 }
 
-#write {
+#write, #update, #delete, #create, #reply {
 	border: 1px solid #d5d5d5;
     display: block;
     margin: auto;
@@ -17,22 +17,7 @@
     text-transform: uppercase;
 }
 
-#update, #delete {
-	border: 1px solid #d5d5d5;
-    display: block;
-    margin: auto;
-    float: right;
-    font-size: 18px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    transition: all 0.5s ease 0s;
-    width: 100px;
-    color: #4b4b4b;
-    text-transform: uppercase;
-}
-
-#write:hover, #update:hover, #delete:hover {
+#write:hover, #update:hover, #delete:hover, #create:hover, #reply:hover {
 	background: #ff4136;
     color: #fff;
     text-shadow: none;
