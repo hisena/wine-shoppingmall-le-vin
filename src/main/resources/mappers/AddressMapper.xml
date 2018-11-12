@@ -9,7 +9,7 @@
 	<insert  id="createAddress" parameterType="Address">
 		INSERT INTO levin_address
 		(
-					address_id,
+					(select nvl(max(address_id) + 1, 1)  from levin_address),
 					email,
 					address,
 					zip_code,
