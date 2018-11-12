@@ -83,7 +83,11 @@ cartSelectorData.cartDetail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-thumbnail img',
 		'attr' : 'src'
 }
-
+//가능한 최대 수량 관련 정보를 담고 있는 변수
+cartSelectorData.cartDetail[cartIndexes.indexOf('maxQuantity')] = {
+	'selector' : '.product-quantity input',
+	'attr' : 'max'
+};
 
 // 모든 경우의 수를 고려해 수정
 function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
@@ -212,7 +216,8 @@ function removeItemFromCart(cartItem) {
 }
 // 가격 문자열을 숫자로 변환해주는 함수
 function priceStringToNumber(priceString) {
-	return parseInt(priceString.substr(0, priceString.length - 1).replace(',',''));
+	var pattern = new RegExp(',','g');
+	return parseInt(priceString.substr(0, priceString.length - 1).replace(pattern,''));
 }
 // 합계를 구해주는 함수 
 function getTotalPrice(quantity, price) {
