@@ -108,5 +108,12 @@
 		WHERE  ol.order_id = #{orderId}
 	</select>
 	
+	<!-- 주문취소하기 -->
+	<update id="deleteOrder" parameterType="String">
+		UPDATE levin_orders
+		SET    cancel_date = sysdate
+		WHERE  order_id = #{orderId};
+	</update>
+	
 		
 </mapper>

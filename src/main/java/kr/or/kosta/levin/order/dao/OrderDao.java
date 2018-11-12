@@ -22,5 +22,6 @@ public interface OrderDao {
 	public List<Map<String, String>> getProduct(String orderId) throws Exception;
 	/** 주문하기*/
 	public boolean create(Order order) throws Exception;
-	
+	/** 주문 취소*/
+	public boolean deleteOrder(String orderId) throws Exception;
 }
