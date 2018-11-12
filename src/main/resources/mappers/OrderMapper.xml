@@ -74,21 +74,22 @@
 	
 	<!--  주문상세 중 주문, 배송, 배송지 정보 조회 -->
 	<select id="getOrder"  parameterType="int" resultType="map">
-		SELECT o.order_id         orderId, 
-       		   o.email            email, 
-       		   o.order_money      orderMoney, 
-       		   o.order_date       orderDate, 
-       		   o.is_paid          isPaid, 
-       		   o.cancel_date      cancelDate, 
-       		   r.regdate          regdate, 
-       		   r.complete_date    refundCompleteDate, 
-       		   d.receiver_name    receiverName, 
-       		   d.receiver_mobile  receiverMobile, 
-       		   d.start_date       startDate, 
-       		   d.complete_date    deliveryCompleteDate, 
-       		   a.address          address, 
-       		   a.detailed_address detailedAddress, 
-       		   a.zip_code         zipCode 
+		SELECT o.order_id         					"orderId", 
+       		   o.email            					"email", 
+       		   o.order_money      					"orderMoney", 
+       		   TO_CHAR(o.order_date, 'yy/mm/dd')	"orderDate", 
+       		   o.is_paid          					"isPaid", 
+       		   TO_CHAR(o.cancel_date, 'yy/mm/dd')   "cancelDate", 
+       		   TO_CHAR(r.regdate, 'yy/mm/dd')       "regdate", 
+       		   TO_CHAR(r.complete_date, 'yy/mm/dd') "refundCompleteDate", 
+       		   d.receiver_name    					"receiverName", 
+       		   d.receiver_mobile  					"receiverMobile", 
+       		   TO_CHAR(d.start_date, 'yy/mm/dd')    "startDate", 
+       		   TO_CHAR(d.complete_date, 'yy/mm/dd') "deliveryCompleteDate", 
+       		   a.address          					"address", 
+       		   a.detailed_address 					"detailedAddress", 
+       		   a.zip_code         					"zipCode",
+       		   d.delivery_comments					"deliveryComments" 
 		 FROM   levin_orders o 
        	 full join levin_refunds r 
                 ON o.order_id = r.order_id 
@@ -101,12 +102,15 @@
 	
 	<!--  주문상세 중 상품 정보 조회 -->
 	<select id="getProduct"  parameterType="String" resultType="map">
-		SELECT ol.product_id      productId, 
-       		   ol.quantity        quantity, 
-       		   p.product_name_kor productNameKor 
+		SELECT ol.product_id      "productId", 
+       		   ol.quantity        "quantity", 
+       		   p.product_name_kor "productNameKor",
+       		   pri.price		  "price" 
 		FROM   levin_order_lists ol 
         full join levin_products p 
-               ON ol.product_id = p.product_id 
+               ON ol.product_id = p.product_id
+        full join levin_prices pri
+        	   ON p.product_id = pri.product_id 
 		WHERE  ol.order_id = #{orderId}
 	</select>
 	

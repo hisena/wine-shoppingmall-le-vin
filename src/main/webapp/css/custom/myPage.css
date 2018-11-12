@@ -29,3 +29,43 @@
 	width: 20%;
 }
 
+.payment-form .single-checkout-box {
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid #c1c1c1;
+}
+
+.payment-form .single-checkout-box span {
+	font-size: 15pt;
+	display: inline-block;
+	margin: 15px 10px;
+}
+
+.payment-form .single-checkout-box span:first-child {
+	font-weight: bold;
+	width: 25%;
+}
+
+.payment-form .single-checkout-box:first-child, .payment-form .single-checkout-box:last-child {
+	border-bottom: none;
+}
+
+.order-wrapper{
+	
+}
+
+.orderInfo {
+	width: 55%;
+	display: inline-block;
+}
+
+.puick-contact-area {
+	width: 35%;
+	display: inline-block;
+	float:right;
+}
+
+.wc-proceed-to-checkout {
+	margin-top: 50px;
+	text-align: right;
+}

@@ -25,7 +25,7 @@ import oracle.net.aso.e;
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/privateqna/detail")
+@RequestMapping(value = "/privateqna/qna-detail")
 public class DetailController implements Controller {
 
 	// 서비스 선언
