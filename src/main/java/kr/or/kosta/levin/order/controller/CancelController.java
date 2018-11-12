@@ -44,15 +44,13 @@ public class CancelController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-		//String orderId = request.getParameter("orderId");
+		String orderId = request.getParameter("orderId");
 
-		String orderId = "2"; 
 		Map<String, String> map = new HashMap<>();
 		boolean cancelResult;
 		try {
 			// null값이 들어오지 않았을 경우
 			if(orderId != null) {
-				
 				// cancel 메소드 호출
 				cancelResult = orderService.cancel(orderId);
 				// delete가 잘 처리 되었을 경우

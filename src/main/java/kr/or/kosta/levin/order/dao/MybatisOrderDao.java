@@ -98,6 +98,7 @@ public class MybatisOrderDao implements OrderDao {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		boolean deleteResult = false;
 		int delete = sqlSession.update(NAMESPACE+ "deleteOrder", orderId);
+		System.out.println(delete);
 		if(delete == 1) {
 			sqlSession.commit();
 			deleteResult = true;
