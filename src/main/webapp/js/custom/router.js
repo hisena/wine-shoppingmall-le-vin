@@ -12,10 +12,13 @@ $(function(){
 		route(event, '#login_register', '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#myPage', function(event) {
-		route(event, '#myPage', '.fixed__footer');
+		route(event, '#myPage', '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#item', function(event) {
 		route(event, '#item', '.fixed__footer', getLoginInfo);
+	});
+	$(document).on('click', '#qna', function(event) {
+		route(event, '#qna', '.fixed__footer', getLoginInfo);
 	});
 	$(document).on('click', '#productReview', function(event) {
 		route(event, '#productReview', '.product_details', getLoginInfo);
