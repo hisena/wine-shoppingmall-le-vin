@@ -88,5 +88,19 @@
 					'findpw'
 		)
 	</insert>
+	
+	<!-- 인증번호 확인-->
+	<select id="chechValidationNumber" parameterType="String" resultType="String">
+		SELECT vali_number
+		FROM levin_email_validations
+		WHERE vali_number=#{valiNumber} 
+	</select>
+	
+	<!-- 비밀 번호 수정-->
+	<update id="updatePassword" parameterType="map">
+		UPDATE levin_users
+		SET    password = #{password}
+		WHERE  email = #{email}
+	</update>
 	 
 </mapper>
