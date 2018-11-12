@@ -174,7 +174,8 @@ function getLoginInfo() {
 		if (email != "") {
 			$('#user').html(user[0] + "님 로그인 중...")
 			$('#user').css("display", "block");
-			$('#login_register').attr("id", "item");
+			$('#login_register').attr("href", "components/myPage.html");
+			$('#login_register').attr("id", "myPage");
 		}
 	}
 }
@@ -182,7 +183,6 @@ function getLoginInfo() {
 <!-- 로그아웃 -->
 <script>
 $(function() {
-	
 	$(document).on('click', '#user', function(event) {
 		setCookie('email', '', -1);
 		location.reload();
