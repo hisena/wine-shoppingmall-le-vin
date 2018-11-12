@@ -1,7 +1,6 @@
 package kr.or.kosta.levin.order.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,7 +15,6 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import io.github.leeseungeun.webframework.exception.RequestUnauthorizedException;
-import kr.or.kosta.levin.order.domain.Address;
 import kr.or.kosta.levin.order.service.OrderService;
 
 /**
