@@ -11,16 +11,16 @@ function getQnaList() {
 			var qnaList = data.qnaList;
 			var pageInfo = data.pageInfo;
 			var String = '<div class="table-responsive">'
- 	           + '  <table id="mytable" class="table table-hover qnaDetails">'
- 	           + '    <thead>'
- 	           + '      <tr class="danger">'
- 	           + '        <th style="width: 10%; text-align: center;">번호</th>'
- 	           + '        <th style="width: 10%; text-align: center;">카테고리</th>'
- 	           + '        <th style="width: 60%;">제목</th>'
- 	           + '        <th style="width: 20%; text-align: center;">등록일</th>'
- 	           + '      </tr>'
- 	           + '    </thead>'
- 	           + '    <tbody>';
+ 	                   + '  <table id="mytable" class="table table-hover qnaDetails">'
+ 	                   + '    <thead>'
+ 	                   + '      <tr class="danger">'
+ 	                   + '        <th style="width: 10%; text-align: center;">번호</th>'
+ 	                   + '        <th style="width: 10%; text-align: center;">카테고리</th>'
+ 	                   + '        <th style="width: 60%;">제목</th>'
+ 	                   + '        <th style="width: 20%; text-align: center;">등록일</th>'
+ 	                   + '      </tr>'
+ 	                   + '    </thead>'
+ 	                   + '    <tbody>';
             // 상품 리스트 출력
    			$('#qnaSection').empty();
             for (var i = 0; i < qnaList.length; i++) {
