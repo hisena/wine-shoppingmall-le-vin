@@ -49,10 +49,8 @@ public class RemoveCommentController implements Controller {
 		Map<String, String> map = new HashMap<String, String>();
 
 		// 화면에서 받은 파라미터값 처리
-//		String childId = request.getParameter("articleId");
+		String childId = request.getParameter("articleId");
 		
-		//테스트
-		String childId = "3";
 		// 댓글번호 null이거나 빈값 들어오는 경우 체크
 		if (childId == null || childId.trim().length() == 0) {
 			throw new RequestBadRequestException();
