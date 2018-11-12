@@ -1,4 +1,4 @@
-function details(productId, productNameKor, productNameEng, price, sugarContent, body, kind, regionName, winery, vintage, alcohol, grapeKind) {
+function details(productId, productNameKor, productNameEng, price, sugarContent, body, kind, regionName, winery, vintage, alcohol, grapeKind, totalQuantity) {
 
 var String = '<div class="product-images">'
            + '  <div class="main-image images">'
@@ -45,11 +45,7 @@ var String = '<div class="product-images">'
            + '  </div>'
            + '  <div>'
            + '    수량 :' 
-           + '    <select id="quantity">'
-           + '      <option>1</option>'
-           + '      <option>2</option>'
-           + '      <option>3</option>'
-           + '    </select>'
+           + '    <input type="number" id="quantity" step="1" min="1" max="' + totalQuantity + '">'
            + '  </div>'
            + '  <div class="addtocart-btn">'
            + '    <a href="cart.html">구매하기</a>'

@@ -20,7 +20,7 @@ cartSelectorData.list[cartIndexes.indexOf('productId')] = {
 	'selector' : '.product__action a[data-toggle="modal"]',
 	'attr' : 'href'
 };
-cartSelectorData.list[cartIndexes.indexOf('productName')] = '.product__details h2 a';
+cartSelectorData.list[cartIndexes.indexOf('productName')] = '.product__details h2';
 cartSelectorData.list[cartIndexes.indexOf('price')] = '.product__price .new__price';
 cartSelectorData.list[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.pro__thumb img',
@@ -32,7 +32,10 @@ cartSelectorData.detail[cartIndexes.indexOf('productId')] = {
 		'attr' : 'value'
 };
 cartSelectorData.detail[cartIndexes.indexOf('productName')] = '.product-info h1';
-cartSelectorData.detail[cartIndexes.indexOf('quantity')] = 'select#quantity option:selected';
+cartSelectorData.detail[cartIndexes.indexOf('quantity')] = {
+		'selector' : '#quantity',
+		'attr' : 'value'
+}
 cartSelectorData.detail[cartIndexes.indexOf('price')] = '.new-price';
 cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-images img',
