@@ -22,7 +22,7 @@
 <div class="container">
   <div class="row content">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" id="qnaSection">
         <div class="table-responsive">
           <table id="mytable" class="table table-hover qnaDetails">
             <thead>
@@ -53,6 +53,8 @@
 
 <!-- 페이지네이션 -->
 <script src="js/common/pagination.js"></script>
+<!-- 게시글 상세보기-->
+<script src="js/custom/qna_details.js"></script>
 <!-- Ajax 통신 -->
 <script>
 $(function() {
@@ -98,8 +100,10 @@ $(function() {
 			dataType: "json",
 			success: function(data) {
 				var privateQna = data.privateQna;
+				console.log(privateQna);
 				// 게시글 상세보기 함수
-				alert(privateQna);
+				$('#qnaSection').empty();
+				write(privateQna.category, privateQna.title, privateQna.content, privateQna.regdate)
 			},
 			error: function(data) {
 				alert('에러발생');
