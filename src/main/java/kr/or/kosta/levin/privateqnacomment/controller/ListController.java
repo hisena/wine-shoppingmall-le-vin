@@ -45,10 +45,7 @@ public class ListController implements Controller {
 	public Object handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, RequestException {
 
-//		String parentId = request.getParameter("articleId");
-		
-		//테스트
-		String parentId = "1";
+		String parentId = request.getParameter("articleId");
 		
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
