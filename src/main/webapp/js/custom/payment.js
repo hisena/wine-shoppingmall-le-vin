@@ -3,6 +3,7 @@
  * 
  * @author 이승은
  */
+
 function goToPurchasePage(id, items){
 	route(event, id, '.fixed__footer', function(data){
 		
@@ -72,6 +73,31 @@ $(function(){
 		} else {
 			goToPurchasePage('#' + $(this).attr('id'), [item]);
 		}
+	});
+	
+	$(document).on('click', '.addtocart-btn a:first-child', function(event){
+		
+		// 상세 보기에서 장바구니 추가 버튼 클릭 시
+		var targetProduct = $('.modal-product');
+		var item = createCartItemFromTags(targetProduct, 'detail');
+		
+		var quantityIndex = cartIndexes.indexOf('quantity');
+		var itemQuantity = item[quantityIndex];
+		var originalItem = getItemFromCookieString(getCookie('cart'), item[cartIndexes.indexOf('productId')]);
+		var originalQuantity = 0;
+		if (originalItem) {
+			originalQuantity = parseInt(originalItem[quantityIndex]);
+		}
+		if (!itemQuantity || itemQuantity < 1) {
+			snackbar('상품 수량을 입력해주세요.');
+			return false;
+		} else if (item[cartIndexes.indexOf('maxQuantity')] < (originalQuantity + parseInt(item[quantityIndex]))) {
+			snackbar('재고가 부족합니다.');
+			return false;
+		} else {
+			goToPurchasePage('#' + $(this).attr('id'), [item]);
+		}
+			
 	});
 	
 	$('#goToPurchase').click(function(event){
