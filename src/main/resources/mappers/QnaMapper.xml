@@ -76,9 +76,11 @@
 	
 	<!-- 검색해온 문의 갯수 조회 -->
 	<select id="countBySearch"  parameterType="map" resultType="int">
-		SELECT COUNT(article_id) count 
-		FROM   levin_private_qnas
-		WHERE email = #{email}
+		SELECT Count(article_id) count 
+		FROM   levin_private_qnas 
+		WHERE  article_id NOT IN (SELECT child_id 
+                          		  FROM   levin_private_qnas_comments) 
+        AND email = #{email}
 		<if test="searchType != null">
 				AND category = #{searchType}
 		</if>
