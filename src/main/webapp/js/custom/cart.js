@@ -3,7 +3,7 @@
  */
 
 // 장바구니 상품 (배열)의 각 인덱스의 의미
-var cartIndexes = ['productId', 'productName', 'quantity', 'price', 'imagePath'];
+var cartIndexes = ['productId', 'productName', 'quantity', 'price', 'imagePath', 'maxQuantity'];
 // 장바구니에서 상품을 구분할 때 사용하는 구분자
 var cartItemDelimiter = '_';
 // 상품 정보를 구분할 때 사용하는 구분자
@@ -26,6 +26,11 @@ cartSelectorData.list[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.pro__thumb img',
 		'attr' : 'src'
 }
+// 가능한 최대 수량 관련 정보를 담고 있는 변수
+cartSelectorData.list[cartIndexes.indexOf('maxQuantity')] = {
+	'selector' : '#maxQuantity',
+	'attr' : 'value'
+};
 // 상세보기에서 값을 가져올 때 
 cartSelectorData.detail[cartIndexes.indexOf('productId')] = {
 		'selector' : '#productId',
@@ -41,6 +46,11 @@ cartSelectorData.detail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-images img',
 		'attr' : 'src'
 }
+//가능한 최대 수량 관련 정보를 담고 있는 변수
+cartSelectorData.detail[cartIndexes.indexOf('maxQuantity')] = {
+	'selector' : '#quantity',
+	'attr' : 'max'
+};
 // 장바구니에서 값을 가져올 때
 cartSelectorData.cart[cartIndexes.indexOf('productId')] = {
 		'selector' : '#productId',
@@ -53,6 +63,11 @@ cartSelectorData.cart[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.shp__pro__thumb img',
 		'attr' : 'src'
 }
+//가능한 최대 수량 관련 정보를 담고 있는 변수
+cartSelectorData.cart[cartIndexes.indexOf('maxQuantity')] = {
+		'selector' : '#maxQuantity',
+		'attr' : 'value'
+};
 // 주문하기 전 장바구니 상세에서 값을 가져올 때
 cartSelectorData.cartDetail[cartIndexes.indexOf('productId')] = {
 		'selector' : '#productId',
@@ -68,7 +83,11 @@ cartSelectorData.cartDetail[cartIndexes.indexOf('imagePath')] = {
 		'selector' : '.product-thumbnail img',
 		'attr' : 'src'
 }
-
+//가능한 최대 수량 관련 정보를 담고 있는 변수
+cartSelectorData.cartDetail[cartIndexes.indexOf('maxQuantity')] = {
+	'selector' : '.product-quantity input',
+	'attr' : 'max'
+};
 
 // 모든 경우의 수를 고려해 수정
 function replaceInAllCases(value, target, stringToReplace, needDelimiter) {
@@ -197,7 +216,8 @@ function removeItemFromCart(cartItem) {
 }
 // 가격 문자열을 숫자로 변환해주는 함수
 function priceStringToNumber(priceString) {
-	return parseInt(priceString.substr(0, priceString.length - 1).replace(',',''));
+	var pattern = new RegExp(',','g');
+	return parseInt(priceString.substr(0, priceString.length - 1).replace(pattern,''));
 }
 // 합계를 구해주는 함수 
 function getTotalPrice(quantity, price) {
@@ -221,6 +241,7 @@ function printItemsCommon(targetSelector, items, needDeleteButton) {
 		// 장바구니에서 하나의 상품을 표시할 때 사용하는 html
 		var itemToAppend = '<div class="shp__single__product">'
 			+  '<input type="hidden" id="productId" value="###' + cartIndexes.indexOf('productId') + '###">'
+			+  '<input type="hidden" id="maxQuantity" value="###' + cartIndexes.indexOf('maxQuantity') + '###">'
 			+  '	<div class="shp__pro__thumb">'
 			+  '		<img src="###' + cartIndexes.indexOf('imagePath') + '###" alt="product images">'
 			+  '	</div>'
@@ -291,9 +312,21 @@ $(function(){
 		
 		var targetProduct = $(this).parents('div.product');
 		var item = createCartItemFromTags(targetProduct, 'list');
-		addItemToCart(item);
-		printCart();
-		snackbar('장바구니에 추가되었습니다.');
+		
+		// 최대 수량보다 장바구니 수량이 큰 경우 입력 방지
+		var quantityIndex = cartIndexes.indexOf('quantity');
+		var originalItem = getItemFromCookieString(getCookie('cart'), item[cartIndexes.indexOf('productId')]);
+		var originalQuantity = 0;
+		if (originalItem) {
+			originalQuantity = parseInt(originalItem[quantityIndex]);
+		}
+		if (item[cartIndexes.indexOf('maxQuantity')] < (originalQuantity + parseInt(item[quantityIndex]))) {
+			snackbar('재고가 부족합니다.');
+		} else {
+			addItemToCart(item);
+			printCart();
+			snackbar('장바구니에 추가되었습니다.');
+		}
 	});
 	
 	// 장바구니 삭제 이벤트 처리
@@ -313,9 +346,17 @@ $(function(){
 		var targetProduct = $(this).parents('.modal-product');
 		var item = createCartItemFromTags(targetProduct, 'detail');
 		
-		var itemQuantity = item[cartIndexes.indexOf('quantity')];
+		var quantityIndex = cartIndexes.indexOf('quantity');
+		var itemQuantity = item[quantityIndex];
+		var originalItem = getItemFromCookieString(getCookie('cart'), item[cartIndexes.indexOf('productId')]);
+		var originalQuantity = 0;
+		if (originalItem) {
+			originalQuantity = parseInt(originalItem[quantityIndex]);
+		}
 		if (!itemQuantity || itemQuantity < 1) {
 			snackbar('상품 수량을 입력해주세요.');
+		} else if (item[cartIndexes.indexOf('maxQuantity')] < (originalQuantity + parseInt(item[quantityIndex]))) {
+			snackbar('재고가 부족합니다.');
 		} else {
 			addItemToCart(item);
 			printCart();

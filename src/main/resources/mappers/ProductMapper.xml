@@ -12,16 +12,19 @@
 		SELECT productId, 
 			   productNameKor, 
 			   price, 
-			   kind 
+			   kind,
+			   totalQuantity "totalQuantity" 
 		FROM   (SELECT Ceil(ROWNUM / #{perPageNum}) request_page, 
                		   productId, 
                		   productNameKor, 
                		   price, 
-               		   kind 
+               		   kind,
+               		   totalQuantity 
         		FROM   (SELECT pro.product_id       productId, 
                        		   pro.product_name_kor productNameKor, 
                        		   pri.price            price, 
-                       		   pro.kind             kind 
+                       		   pro.kind             kind,
+                       		   pro.total_quantity   totalQuantity
                 		FROM   levin_products pro 
                        	INNER JOIN levin_prices pri 
                         ON pro.product_id = pri.product_id
