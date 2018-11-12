@@ -55,11 +55,11 @@ public class RefundController implements Controller {
 				// delete가 잘 처리 되었을 경우
 				if (refundResult) {
 					map.put("refundResult", "true");
-					return map;
 				} else {
 					// 처리 안 됐을 경우
-					throw new RequestUnauthorizedException();
+					map.put("refundResult", "false");
 				}
+				return map;
 			} else {
 				// null값 들어왔을 경우
 				throw new RequestBadRequestException();

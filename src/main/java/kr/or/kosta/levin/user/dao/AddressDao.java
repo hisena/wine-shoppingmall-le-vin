@@ -15,5 +15,8 @@ public interface AddressDao {
 	
 	/** 주소 중복 확인 */
 	public boolean certify(Address address) throws Exception;
+	
+	/** 배송지 삭제 */
+	public boolean delete(String addressId) throws Exception;
 
 }

@@ -64,6 +64,27 @@ public class MybatisAddressDao implements AddressDao {
 		return flag;
 	}
 
+	// 배송지 삭제
+	@Override
+	public boolean delete(String addressId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		// service에 실행 결과를 반환해주기 위한 변수
+		boolean deleteAddressResult = false;
+		int delete = sqlSession.update(NAMESPACE + "delete", addressId);
+		// 배송지 삭제 성공했으면
+		if (delete == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			deleteAddressResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return deleteAddressResult;
+	}
+
 	
 }
 
