@@ -96,13 +96,18 @@ public class MybatisOrderDao implements OrderDao {
 	@Override
 	public boolean deleteOrder(String orderId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// 주문 취소 결과값을 Service에 보내기 위한 변수
 		boolean deleteResult = false;
 		int delete = sqlSession.update(NAMESPACE+ "deleteOrder", orderId);
 		System.out.println(delete);
+		// update문이 잘 실행 되었을 경우
 		if(delete == 1) {
+			// 변경 사항 커밋
 			sqlSession.commit();
+			// 성공 값 Service로 보내주기
 			deleteResult = true;
 		}else {
+			// update문 실패했을 경우 롤백
 			sqlSession.rollback();
 		}
 		sqlSession.close();
