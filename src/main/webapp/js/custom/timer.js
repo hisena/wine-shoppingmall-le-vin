@@ -1,11 +1,6 @@
 // 인증번호 확인을 위한 타이머 생성
 var timer;
 $(function() {
-	$(document).on('click', '.forget > a', function(event) {
-		clock(3,0, function() {
-			alert('시간 종료')
-		})
-	});
 	$(document).on('click', '#start', function(event) {
 		clock(1,0, function () {
 			$('#clock').css("display", "none");
