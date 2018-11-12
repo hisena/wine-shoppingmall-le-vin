@@ -69,5 +69,44 @@
 		WHERE  email=#{email}
 	</select>
 	
+	<!--  주문상세 중 주문, 배송, 배송지 정보 조회 -->
+	<select id="getOrder"  parameterType="map" resultType="map">
+		SELECT o.order_id         orderId, 
+       		   o.email            email, 
+       		   o.order_money      orderMoney, 
+       		   o.order_date       orderDate, 
+       		   o.is_paid          isPaid, 
+       		   o.cancel_date      cancelDate, 
+       		   r.regdate          regdate, 
+       		   r.complete_date    refundCompleteDate, 
+       		   d.receiver_name    receiverName, 
+       		   d.receiver_mobile  receiverMobile, 
+       		   d.start_date       startDate, 
+       		   d.complete_date    deliveryCompleteDate, 
+       		   a.address          address, 
+       		   a.detailed_address detailedAddress, 
+       		   a.zip_code         zipCode 
+		 FROM   levin_orders o 
+       	 full join levin_refunds r 
+                ON o.order_id = r.order_id 
+         full join levin_deliverys d 
+                ON o.order_id = d.order_id 
+         full join levin_address a 
+                ON d.address_id = a.address_id 
+		 WHERE  o.email = #{email} 
+         AND o.order_id = #{orderId}
+	</select>
+	
+	<!--  주문상세 중 상품 정보 조회 -->
+	<select id="getProduct"  parameterType="String" resultType="map">
+		SELECT ol.product_id      productId, 
+       		   ol.quantity        quantity, 
+       		   p.product_name_kor productNameKor 
+		FROM   levin_order_lists ol 
+        full join levin_products p 
+               ON ol.product_id = p.product_id 
+		WHERE  ol.order_id = #{orderId}
+	</select>
+	
 		
 </mapper>
