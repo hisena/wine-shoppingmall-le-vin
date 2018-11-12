@@ -48,19 +48,23 @@ public class ListQnaCommentController implements Controller {
 		String qnaId = request.getParameter("qnaId");
 		String productId = request.getParameter("productId");
 		
-		
 		Map<String, String> param = new HashMap<>();
 		List<ProductQnaComment> listResult;
-
+		Map<String, Object> map = new HashMap<>();
 		try {
 			// 전달 받은 값 null 체크
 			if(productId != null && qnaId != null) {
 				param.put("qnaId", qnaId);
 				param.put("productId", productId);
 				listResult = productService.listQnaComment(param);
-				
-				return listResult;
-				
+				// 댓글 리스트가 존재하면
+				if(!listResult.isEmpty()) {
+					map.put("QnaCommentlistResult", listResult);
+				}else {
+					// 존재 하지 않을 경우
+					map.put("QnaCommentlistResult", "false");
+				}
+				return map;
 			}else {
 				// 클라이언트로부터 받은 값이 null일 경우
 				throw new RequestBadRequestException();

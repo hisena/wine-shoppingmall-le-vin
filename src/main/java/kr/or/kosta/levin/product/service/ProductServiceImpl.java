@@ -85,8 +85,12 @@ public class ProductServiceImpl implements ProductService {
 		pm.setPagination(pagination);
 		pm.setTotalCount(count);
 
-		// controller로 넘겨 주기 위해 map에 담아주기
-		map.put("qnaList", list);
+		// 상품 문의글 목록이 존재하지 않을 경우
+		if(list.isEmpty()) {
+			map.put("qnaList", "false");
+		}else {
+			map.put("qnaList", list);
+		}
 		map.put("pageInfo", pm.pageInfo());
 
 		return map;

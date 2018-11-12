@@ -110,11 +110,13 @@
 	
 	<!-- 상품 문의 댓글 조회 -->
 	<select id="listQnaComment" parameterType="map" resultType="ProductQnaComment" >
-		SELECT qnas.qna_id     commentId, 
-       		   qnas.content    content, 
-       		   qnas.regdate    regdate, 
-       		   qnas.delete_yn  deleteYn, 
-       		   qnas.private_yn privateYn 
+		SELECT qnas.qna_id     	commentId,
+			   qnas.product_id  productId, 
+       		   qnas.content     content,
+       		   qnas.writer      writer, 
+       		   TO_CHAR(qnas.regdate, 'yyyy-mm-dd')     regdate, 
+       		   qnas.delete_yn   deleteYn, 
+       		   qnas.private_yn  privateYn 
 		FROM   levin_product_qnas qnas 
         full join levin_product_qnas_comments comms 
                ON qnas.qna_id = comms.child_id 

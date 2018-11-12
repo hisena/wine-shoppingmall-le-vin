@@ -83,6 +83,7 @@ public class MybatisProductDao implements ProductDao {
 		return count;
 	}
 
+	// 상품 문의 댓글 목록
 	@Override
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception {
 		List<ProductQnaComment> list =null;
