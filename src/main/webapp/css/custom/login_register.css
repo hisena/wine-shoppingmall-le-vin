@@ -16,7 +16,7 @@
 	height: 14px;
 }
 
-#loginButton, #registButton, #findPwButton {
+#loginButton, #registButton, #findPwButton, #confirmPwButton {
 	border: 1px solid #d5d5d5;
     display: block;
     margin: auto;
@@ -52,7 +52,7 @@
     text-transform: uppercase;
 }
 
-#emailConfirm:hover, #postFinder:hover, #loginButton:hover, #registButton:hover, #findPwButton:hover {
+#emailConfirm:hover, #postFinder:hover, #loginButton:hover, #registButton:hover, #findPwButton:hover, #confirmPwButton:hover {
 	background: #ff4136;
     color: #fff;
     text-shadow: none;
