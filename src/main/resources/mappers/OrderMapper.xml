@@ -25,15 +25,15 @@
 	</insert>
 	<!-- 주문 목록(페이징 처리 완료) -->
 	<select id="listByPage" parameterType="map" resultType="map" >
-		SELECT  orderId, 
-				email, 
-       			orderMoney, 
-       			orderDate, 
-       			isPaid, 
-       			regdate, 
-       			refundCompleteDate, 
-       			startDate, 
-       			deliveryCompleteDate 
+		SELECT  orderId 			"orderId", 
+				email 				"email", 
+       			orderMoney			"orderMoney", 
+       			orderDate			"orderDate", 
+       			isPaid				"isPaid", 
+       			regdate				"regdate", 
+       			refundCompleteDate	"refundCompleteDate", 
+       			startDate			"startDate", 
+       			deliveryCompleteDate "deliveryCompleteDate"
 		FROM   (SELECT  Ceil (ROWNUM / 5) request_page, 
                			orderId, 
                			email, 
