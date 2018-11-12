@@ -98,10 +98,12 @@
 			return false;
 		} else {
 			
-    		// 사이드 장바구니에 반영
-    		value = replaceInAllCases(value, createItemString(originalItem), createItemString(item), true);
-    		setInstanceEncodedCookie('cart', value);
-    		printCart();
+			if(originalItem) {
+        		// 사이드 장바구니에 반영
+        		value = replaceInAllCases(value, createItemString(originalItem), createItemString(item), true);
+        		setInstanceEncodedCookie('cart', value);
+        		printCart();
+			}
     		
     		// 상품별 합계와 장바구니 합계 출력
     		var newSubTotal = getTotalPrice(item[cartIndexes.indexOf('quantity')], item[cartIndexes.indexOf('price')]);
@@ -122,7 +124,7 @@
 			var itemTarget = targetProducts.eq(i);
 			var item = createCartItemFromTags(itemTarget, type);
 			
-			if (parseInt(item[cartIndexes.indexOf('quantity')]) > parseInt(cartIndexes.indexOf('maxQuantitu'))) {
+			if (parseInt(item[cartIndexes.indexOf('quantity')]) > parseInt(item[cartIndexes.indexOf('maxQuantity')])) {
 				snackbar('재고가 부족합니다.');
 				return false;
 			}
