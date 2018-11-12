@@ -5,27 +5,7 @@
 <!-- 네임스페이스(사용영역) 설정 -->
 <mapper namespace="kr.or.kosta.levin.user">
 	
-	<!-- 주소 정보 등록 -->
-	<insert  id="createAddress" parameterType="Address">
-		INSERT INTO levin_address
-		(
-					address_id,
-					email,
-					address,
-					zip_code,
-					detailed_address,
-          			regdate
-		)VALUES(
-					address_id_seq.nextval,
-          			#{email},
-					#{address},
-					#{zipCode},
-					#{detailedAddress},
-					sysdate
-		)
-	</insert>
-	
-	<!-- 신규 배송지 추가 -->
+	<!-- 회원가입시 주소등록 신규 배송지 추가 -->
 	<insert  id="createNewAddress" parameterType="OrderAddress">
 		INSERT INTO levin_address
 		(

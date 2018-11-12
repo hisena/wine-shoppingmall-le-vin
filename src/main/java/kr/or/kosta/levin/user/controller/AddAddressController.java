@@ -53,11 +53,6 @@ public class AddAddressController implements Controller {
 		String zipCode = request.getParameter("zipCode");
 		String detailedAddress = request.getParameter("detailedAddress");
 		
-//		String email = "abcde1234@naver.com";
-//		String address = "서울시 강동구 암사3동 롯데캐슬퍼스트 1차";
-//		String zipCode = "06-456";
-//		String detailedAddress = "128동 1702호";
-
 		
 		Address addressInfo = new Address();
 		Map<String, String> map = new HashMap<String, String>();

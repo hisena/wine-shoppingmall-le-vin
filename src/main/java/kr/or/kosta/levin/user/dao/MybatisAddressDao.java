@@ -29,12 +29,12 @@ public class MybatisAddressDao implements AddressDao {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
-	// 회원가입
+	// 회원가입시 주소 추가 및 신규 배송지 추가
 	@Override
 	public boolean create(Address address) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// insert문 실행 후 반환값 저장
-		int result = sqlSession.insert(NAMESPACE + "createAddress", address);
+		int result = sqlSession.insert(NAMESPACE + "createNewAddress", address);
 		boolean flag = false;
 		// insert에 성공했으면
 		if(result == 1) {
@@ -54,7 +54,7 @@ public class MybatisAddressDao implements AddressDao {
 	public boolean certify(Address address) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// 주소 중복 확인
-		String email = sqlSession.selectOne(NAMESPACE + "createAddress", address);
+		String email = sqlSession.selectOne(NAMESPACE + "certify", address);
 		boolean flag = true;
 		// 주소가 존재하면
 		if(email != null) {
