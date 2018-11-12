@@ -1,6 +1,5 @@
 package kr.or.kosta.levin.user.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -183,6 +182,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/** 비밀번호 찾기 - 인증번호 확인 및 업데이트 */
 	@Override
 	public boolean findPassword(Map<String, String> param) throws Exception, RequestPreconditionFailedException {
 		// service의 수행 결과를 controller에게 알려주기 위한 변수
@@ -192,9 +192,9 @@ public class UserServiceImpl implements UserService {
 
 		// 인증번호 확인하는 메소드 호출, 인증번호가 일치하는 경우
 		if (userDao.checkValidaitonNumber(param.get("valiNumber")) != null) {
-			// 패스워드 수정을 위한 메소드 호출
+			// 비밀번호 수정을 위한 메소드 호출
 			findResult = userDao.updatePassword(param);
-			// dao의 insert문 성공했을 시 true값 리턴
+			// dao의 update문 성공했을 시 true값 리턴
 			if (findResult) {
 				findPasswordResult = true;
 			}

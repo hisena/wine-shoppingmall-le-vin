@@ -191,6 +191,7 @@ public class MybatisUserDao implements UserDao {
 		return generateValiNum;
 	}
 
+	/** 비밀번호 찾기 - 인증번호 확인*/
 	@Override
 	public String checkValidaitonNumber(String valiNumber) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -199,6 +200,7 @@ public class MybatisUserDao implements UserDao {
 		return checkResult;
 	}
 
+	/** 비밀번호 찾기 - 비밀번호 업데이트*/
 	@Override
 	public boolean updatePassword(Map<String, String> param) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
