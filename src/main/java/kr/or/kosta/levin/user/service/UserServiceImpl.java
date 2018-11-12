@@ -161,11 +161,11 @@ public class UserServiceImpl implements UserService {
 		boolean generateValiNumResult = false;
 		// insert문 성공 여부를 판단하기 위한 변수
 		boolean generateResult = false;
-		// 이메일 중복이 아닐 경우
 		EmailVali emailVali = new EmailVali();
-		System.out.println(userDao.certifyEmail(email));
+
+		// 이메일 중복이 아닐 경우
 		if(userDao.certifyEmail(email) != null) {
-			
+			// generateValiNum 메소드에 보낼 값 처리
 			emailVali.setEmail(email);
 			emailVali.setValiNumber(valiNumber);
 			// generateValiNum 메소드 호출
@@ -175,6 +175,7 @@ public class UserServiceImpl implements UserService {
 				generateValiNumResult = true;
 			}
 		}
+		// 이메일 중복일 경우 412에러
 		else {
 			throw new RequestPreconditionFailedException();
 		}

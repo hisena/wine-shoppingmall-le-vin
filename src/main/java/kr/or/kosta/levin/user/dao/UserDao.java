@@ -54,6 +54,7 @@ public interface UserDao {
 	
 	//public int countBySearch(Params params) throws Exception;
 	
+	/** 비밀번호 찾기 - 인증번호 보내주기 */
 	public boolean generateValiNum(EmailVali emailVali) throws Exception;
 	
 }

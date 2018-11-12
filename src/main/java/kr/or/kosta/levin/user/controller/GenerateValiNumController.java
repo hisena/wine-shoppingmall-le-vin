@@ -23,7 +23,7 @@ import kr.or.kosta.levin.user.domain.User;
 import kr.or.kosta.levin.user.service.UserService;
 
 /**
- * 마이페이지에서 신규배송지 추가 기능을 위한 세부 컨트롤러
+ * 비밀번호 찾기에서 인증 기능을 위한 세부 컨트롤러
  * 
  * @author 박소연
  */
@@ -49,10 +49,12 @@ public class GenerateValiNumController implements Controller {
 		
 		boolean generateValiNumResult;
 		Map<String, String> map = new HashMap<>();
+		// 클라이언트에서 받은 정보
 		String email = request.getParameter("email");
+		
 		try {
 			// 파라미터값 null 유효성 검사
-			if (email != null) { // Address 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
+			if (email != null) { // email에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
 				generateValiNumResult = userService.generateValiNum(email);
 				if (generateValiNumResult) { 
 					map.put("addAddressResult", "true");
@@ -62,7 +64,7 @@ public class GenerateValiNumController implements Controller {
 				}
 				return map;
 			} else {
-				// Address 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+				// email값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
 				
 			}

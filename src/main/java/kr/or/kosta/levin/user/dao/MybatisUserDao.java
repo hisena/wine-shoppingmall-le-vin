@@ -171,6 +171,7 @@ public class MybatisUserDao implements UserDao {
 		return 0;
 	}
 
+	/** 비밀번호 찾기 - 인증번호 보내주기 */
 	@Override
 	public boolean generateValiNum(EmailVali emailVali) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
