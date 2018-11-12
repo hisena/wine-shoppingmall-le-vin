@@ -155,4 +155,11 @@ public class OrderServiceImpl implements OrderService {
 		return addressDao.list(email);
 	}
 	
+	// 주문 취소하기
+	@Override
+	public boolean cancel(String orderId) throws Exception {
+		
+		return orderDao.deleteOrder(orderId);
+	}
+	
 }

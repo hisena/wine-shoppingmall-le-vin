@@ -28,4 +28,7 @@ public interface OrderService {
 	/** 배송지 목록 불러오기*/
 	public List<Address> addressList(String email) throws Exception;
 	
+	/** 주문취소하기*/
+	public boolean cancel(String orderId) throws Exception;
+	
 }

@@ -74,22 +74,44 @@ public class MybatisOrderDao implements OrderDao {
 	public boolean create(Order order) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// insert문 실행 후 반환값 저장을 위한 변수
-		int result =0;
+		
 		// service에 실행 결과를 반환해주기 위한 변수
-		boolean flag = false;
-		result= sqlSession.insert(NAMESPACE + "createOrder", order);
+		boolean createResult = false;
+		int insert = sqlSession.insert(NAMESPACE + "createOrder", order);
 		
 		// insert에 성공했으면
-		if (result == 1) {
+		if (insert == 1) {
 			// 커밋해주기
 			sqlSession.commit();
-			flag = true;
+			createResult = true;
 		} else {
 			// 실패했으면 rollback해주기
 			sqlSession.rollback();
 		}
 		sqlSession.close();
-		return flag;
+		return createResult;
+	}
+	
+	// 주문 취소하기
+	@Override
+	public boolean deleteOrder(String orderId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// 주문 취소 결과값을 Service에 보내기 위한 변수
+		boolean deleteResult = false;
+		int delete = sqlSession.update(NAMESPACE+ "deleteOrder", orderId);
+		System.out.println(delete);
+		// update문이 잘 실행 되었을 경우
+		if(delete == 1) {
+			// 변경 사항 커밋
+			sqlSession.commit();
+			// 성공 값 Service로 보내주기
+			deleteResult = true;
+		}else {
+			// update문 실패했을 경우 롤백
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return deleteResult;
 	}
 
 	
