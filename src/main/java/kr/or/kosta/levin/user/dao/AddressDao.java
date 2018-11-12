@@ -10,7 +10,7 @@ import kr.or.kosta.levin.user.domain.Address;
  */
 public interface AddressDao {
 	
-	/** 회원가입시 주소 등록*/
+	/** 회원가입시 주소 등록 & MyPage에서 신규 배송지 추가*/
 	public boolean create(Address address) throws Exception;
 
 }

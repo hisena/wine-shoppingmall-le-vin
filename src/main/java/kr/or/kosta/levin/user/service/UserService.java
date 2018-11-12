@@ -34,4 +34,7 @@ public interface UserService {
 	/** 회원 기본정보 목록 */
 	public User listBasicInfo(String email) throws Exception;
 	
+	/** 신규 배송지 추가 */
+	public boolean addAddress(Address address) throws Exception;
+	
 }

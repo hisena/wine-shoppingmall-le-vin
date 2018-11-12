@@ -108,4 +108,20 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+	// 신규 배송지 추가
+	@Override
+	public boolean addAddress(Address address) throws Exception {
+		// controller에게 service결과 성공여부 알려주기 위한 변수
+		boolean flag = false;
+		// insert문 성공 여부를 판단하기 위한 변수
+		boolean addressResult = false;
+		// create 메소드 호출
+		addressResult = addressDao.create(address);
+		// dao의 insert문 성공했을 시 true값 리턴
+		if (addressResult) {
+			flag = true;
+		}
+		return flag;
+	}
+
 }
