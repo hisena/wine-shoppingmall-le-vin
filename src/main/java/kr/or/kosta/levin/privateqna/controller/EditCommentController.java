@@ -49,12 +49,8 @@ public class EditCommentController implements Controller {
 		Map<String, String> map = new HashMap<String, String>();
 
 		// 화면에서 받은 파라미터값 처리
-//		String childId = request.getParameter("articleId");
-//		String content = request.getParameter("content");
-		
-		//테스트
-		String childId = "330";
-		String content = "주문 취소 관련 정보를 전해드리기 위해 연락드리겠습니다222";
+		String childId = request.getParameter("articleId");
+		String content = request.getParameter("content");
 
 		// 댓글번호 null이거나 빈값 들어오는 경우 체크
 		if (childId == null || childId.trim().length() == 0) {
