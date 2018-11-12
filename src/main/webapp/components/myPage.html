@@ -53,7 +53,7 @@
           <!-- 주문 목록 -->
           <div class="payment-form">
             <h2 class="section-title-3">주문 목록</h2>
-            <div class="checkout-form-inner">
+            <div class="checkout-form-inner order-wrapper">
               <div class="table-content table-responsive">
                 <table>
                   <thead>
@@ -70,12 +70,12 @@
                   </tbody>
                 </table>
           	  </div>
-              <!-- 페이지네이션 -->
-              <div class="row mt--60">
-                <div class="col-md-12">
-                  <ul class="pagination pagination-lg">
+            </div>
+            <!-- 페이지네이션 -->
+            <div class="row mt--60">
+              <div class="col-md-12">
+                <ul class="pagination pagination-lg">
                 </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -92,95 +92,4 @@
 <!-- 주문 목록 페이지네이션을 위한 자바스크립트 코드 -->
 <script src="js/common/pagination.js"></script>
 <!-- 주문 목록을 불러오기 위한 자바스크립트 코드 -->
-<script>
-// 주문 상태를 계산해주는 함수
-function computeOrderState(order) {
-	var result = '배송 중';
-	
-	// 취소 일자가 있다면 주문 취소 상태
-	if (order.cancelDate) {
-		result = '주문 취소';
-	}
-	
-	// 배송 일자가 있다면 배송 완료 상태
-	if(order.deliveryCompleteDate) {
-		result = '배송 완료';
-	}
-	
-	// (반품) 등록일이 있다면 반품 신청 상태
-	// 반품 완료일 재사용을 위해 변수 선언
-	var completeDate = order.completeDate;
-	if (order.regdate && !completeDate) {
-		result = '반품 대기';
-	} else if (order.regdate && completeDate) {
-		result = '반품 완료';
-	}
-	
-	return result;
-}
-// 목록을 가져오는 함수 재사용을 위해 선언
-function getOrderList(currentPage){
-	$.ajax(Utils.baseUrl + "order/list.mall", {
-		method: "get",
-		data: 'email=' + getCookie('email') + '&currentPage=' + currentPage,
-		contentType: 'application/json; charset=utf-8',
-	    dataType: 'json',
-		success: function(data) {
-			var orderList = data.orderList;
-			var pageInfo = data.pageInfo;
-			
-			$('.table-content tbody').empty();
-			
-			for ( var index in orderList) {
-				var order = orderList[index];
-				var itemToAppend = '<tr>' +
-                                   '   <td>' + order.orderId + '</td>' +
-                                   '   <td>' + order.orderMoney + '</td>' + 
-                                   '   <td>' + order.orderDate + '</td>' +
-                                   '   <td>' + (order.isPaid === 'Y'? '결제 완료' : '결제 대기') + '</td>' + 
-                                   '   <td>' + computeOrderState(order) + '</td>' +
-                                   '</tr>'
-                $('.table-content tbody').append(itemToAppend);
-			}
-			
-			// 페이지네이션
-			$('.pagination-lg').empty();
-			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
-		},
-		error: function(error) {
-			snackbar('주문 목록을 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
-		}
-	});
-}
-$(function(){
-    // 페이지 로딩 시 주문 목록
-	getOrderList(1);
-    
-    // 페이지네이션 주문 목록
-    $(document).on('click', '.pagination-lg a', function(event){
-    	event.preventDefault();
-    	
-    	var currentPage = $(this).attr('href');
-    	getOrderList(currentPage);
-    });
-    
-    // 주문 상세 보기
-    $(document).on('click', '.table-content tbody tr', function(){
-    	var orderId = $(this).find('td:first-child').html();
-    	
-    	$.ajax(Utils.baseUrl + "order/detail.mall", {
-    		method: "get",
-    		data: 'orderId=' + orderId,
-    		contentType: 'application/json; charset=utf-8',
-    	    dataType: 'json',
-    		success: function(data) {
-    		},
-    		error: function(error) {
-    			snackbar('주문 상세 정보를 불러오는 중 오류가 발생했습니다. 잠시 후 시도해주시길 바랍니다.');
-    		}
-    	});
-    	
-    });
-});
-
-</script>
+<script src="js/custom/myPageOrder.js"></script>
