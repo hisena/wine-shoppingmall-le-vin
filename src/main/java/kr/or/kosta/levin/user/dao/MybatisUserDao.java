@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.user.domain.EmailVali;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
@@ -168,6 +169,25 @@ public class MybatisUserDao implements UserDao {
 	@Override
 	public int countBySearch(String searchType, String searchValue) throws Exception {
 		return 0;
+	}
+
+	@Override
+	public boolean generateValiNum(EmailVali emailVali) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int insertResult =  sqlSession.insert(NAMESPACE + "generateValiNum", emailVali);
+		boolean generateValiNum = false;
+		// insert에 성공했으면
+		if (insertResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			generateValiNum = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return generateValiNum;
 	}
 
 //	@Override

@@ -1,5 +1,6 @@
 package kr.or.kosta.levin.user.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,11 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestPreconditionFailedException;
+import kr.or.kosta.levin.common.domain.RandomNumberGenerator;
 import kr.or.kosta.levin.user.dao.AddressDao;
 import kr.or.kosta.levin.user.dao.UserDao;
 import kr.or.kosta.levin.user.domain.Address;
+import kr.or.kosta.levin.user.domain.EmailVali;
 import kr.or.kosta.levin.user.domain.User;
 
 /**
@@ -148,6 +151,28 @@ public class UserServiceImpl implements UserService {
 			deleteAddressResult = true;
 		}
 		return deleteAddressResult;
+	}
+
+	/** 비밀번호 찾기 - 인증번호 보내주기 */
+	@Override
+	public boolean generateValiNum(String email) throws Exception {
+		String valiNumber = RandomNumberGenerator.generateRandomNum();
+		EmailVali emailVali = new EmailVali();
+		emailVali.setEmail(email);
+		emailVali.setValiNumber(valiNumber);
+		
+		boolean generateValiNumResult = false;
+		// insert문 성공 여부를 판단하기 위한 변수
+		boolean generateResult = false;
+		// generateValiNum 메소드 호출
+		generateResult = userDao.generateValiNum(emailVali);
+		// dao의 insert문 성공했을 시 true값 리턴
+		if (generateResult) {
+			generateValiNumResult = true;
+		}
+		
+		return generateValiNumResult;
+		
 	}
 
 }
