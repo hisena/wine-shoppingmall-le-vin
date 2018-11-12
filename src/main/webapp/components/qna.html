@@ -58,7 +58,7 @@
 $(function() {
 	var email = getCookie("email");
 	// 처음 로딩시 ajax통신
-	$.ajax(Utils.baseUrl + "privateqna/list.mall", {
+	$.ajax(Utils.baseUrl + "privateqna/qna-list.mall", {
 		method: "get",
 		dataType: "json",
 		data: {
@@ -90,7 +90,7 @@ $(function() {
 	
 	// 게시글 상세보기 Ajax
 	$(document).on ('click', '.qnaList', function(event) {
-		$.ajax(Utils.baseUrl + "privateqna/detail.mall", {
+		$.ajax(Utils.baseUrl + "privateqna/qna-detail.mall", {
 			method: "get",
 			data: {
 				"articleId": $(event.target).parent().find('input[type="hidden"]').val()
