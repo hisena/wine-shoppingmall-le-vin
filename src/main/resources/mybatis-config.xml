@@ -14,7 +14,7 @@
 		<typeAlias type="kr.or.kosta.levin.user.domain.Address"         alias="Address"/>
 		<typeAlias type="kr.or.kosta.levin.user.domain.EmailVali"         alias="EmailVali"/>
 		<typeAlias type="kr.or.kosta.levin.product.domain.Product"         alias="Product"/>
-		<typeAlias type="kr.or.kosta.levin.product.domain.SearchPagination"         alias="SearchPagination"/>
+		<typeAlias type="kr.or.kosta.levin.common.domain.SearchPagination"         alias="SearchPagination"/>
 		<typeAlias type="kr.or.kosta.levin.privateqna.domain.PrivateQna"         alias="PrivateQna"/>
 		<typeAlias type="kr.or.kosta.levin.order.domain.Order"         alias="Order"/>
 		<typeAlias type="kr.or.kosta.levin.order.domain.OrderList"         alias="OrderList"/>

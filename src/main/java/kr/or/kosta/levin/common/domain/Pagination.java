@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.order.domain;
+package kr.or.kosta.levin.common.domain;
 
 /**
  * 페이징 처리를 위한 도메인

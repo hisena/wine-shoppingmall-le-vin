@@ -7,9 +7,9 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.common.domain.Pagination;
+import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.privateqna.dao.QnaDao;
-import kr.or.kosta.levin.privateqna.domain.Pagination;
-import kr.or.kosta.levin.privateqna.domain.PaginationManager;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 
 /**
@@ -53,7 +53,7 @@ public class QnaServiceImpl implements QnaService {
 		
 		// controller로 넘겨 주기 위해 map에 담아주기
 		map.put("qnaList", list);
-		map.put("pageInfo", pm);
+		map.put("pageInfo", pm.pageInfo());
 		return map;
 	}
 	

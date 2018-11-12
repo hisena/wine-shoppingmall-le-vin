@@ -1,6 +1,5 @@
 package kr.or.kosta.levin.privateqna.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,12 +14,8 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
-import kr.or.kosta.levin.privateqna.domain.Pagination;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.privateqna.service.QnaService;
-import kr.or.kosta.levin.user.domain.Address;
-import kr.or.kosta.levin.user.domain.User;
-import oracle.net.aso.e;
 
 /**
  * 1:1문의글 등록을 위한 세부 컨트롤러

@@ -1,4 +1,4 @@
-package kr.or.kosta.levin.product.domain;
+package kr.or.kosta.levin.common.domain;
 
 import java.util.HashMap;
 import java.util.Map;
