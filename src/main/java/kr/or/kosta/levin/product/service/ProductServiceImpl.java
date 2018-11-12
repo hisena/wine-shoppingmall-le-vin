@@ -7,10 +7,13 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.dao.ProductDao;
 import kr.or.kosta.levin.product.domain.Product;
+import kr.or.kosta.levin.product.domain.Review;
 
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 Service 객체
@@ -65,5 +68,32 @@ public class ProductServiceImpl implements ProductService {
 	public Product detailProduct(String productId) throws Exception {
 		return productDao.getProduct(productId);
 	}
+	
+	// 구매후기글 리스트
+	@Override
+	public Map<String, Object> listReview(Map<String, String> parameter) throws Exception {
+		int currentPage = Integer.parseInt(parameter.get("currentPage"));
+		int perPageNum = Integer.parseInt(parameter.get("perPageNum"));
+		Map<String, Object> map = new HashMap<String, Object>();
 
+		// 페이징, 검색 처리된 구매후기 리스트
+		List<Review> list = productDao.reviewListByPage(parameter);
+		// 검색해온 구매후기글 갯수
+		int count = productDao.reviewCountBySearch(parameter);
+		// 페이징 관련정보(시작, 끝 페이지 등) 처리
+		PaginationManager pm = new PaginationManager();
+		Pagination pagination = new Pagination();
+		pagination.setCurrentPage(currentPage);
+		pagination.setPerPageNum(perPageNum);
+		pm.setPagination(pagination);
+		pm.setTotalCount(count);
+
+		// controller로 넘겨 주기 위해 map에 담아주기
+		if(list.isEmpty()) {
+			map.put("reviewList", false);	
+		}
+		map.put("reviewList", list);
+		map.put("pageInfo", pm.pageInfo());
+		return map;
+	}
 }

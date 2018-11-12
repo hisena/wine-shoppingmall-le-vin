@@ -19,4 +19,7 @@ public interface ProductService {
 	/**상품 상세 정보*/
 	public Product detailProduct(String productId) throws Exception;
 	
+	/**구매후기글 리스트*/
+	public Map<String, Object> listReview(Map<String, String> parameter) throws Exception;
+	
 }

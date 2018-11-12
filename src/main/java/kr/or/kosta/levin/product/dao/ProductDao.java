@@ -1,9 +1,11 @@
 package kr.or.kosta.levin.product.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
+import kr.or.kosta.levin.product.domain.Review;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
@@ -18,5 +20,8 @@ public interface ProductDao {
 	public int countBySearch(SearchPagination searchPagination) throws Exception;
 	/** 상품 상세*/
 	public Product getProduct(String id) throws Exception;
-	
+	/** 구매후기 목록*/
+	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception;
+	/** 검색해온 구매후기글 갯수 */
+	public int reviewCountBySearch(Map<String, String> parameter) throws Exception;
 }

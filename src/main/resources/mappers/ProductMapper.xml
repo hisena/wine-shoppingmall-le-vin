@@ -64,4 +64,48 @@
 		WHERE  pro.product_id = #{productId}
 	</select>
 	 
+	 <!-- 구매후기글 리스트 -->
+	<select id="reviewListByPage" parameterType="map" resultType="Review" >
+	  SELECT 
+      		  reviewId, 
+       		  productId,
+       		  email,  
+      		  title,
+       		  content,
+       		  grade,
+       		  regdate,
+       		  deleteYN
+      FROM   (SELECT Ceil(rownum / #{perPageNum}) request_page, 
+               		 reviewId,
+               		 productId, 
+               		 email, 
+               		 title,
+                     content,
+                     grade,
+               		 regdate,
+               		 deleteYN 
+              FROM   (SELECT  review_id         reviewId,
+              				  product_id		productId, 
+                              email, 
+                              title,
+                              content,
+                              grade,
+                              TO_CHAR(regdate, 'yyyy-mm-dd') regdate,
+                              delete_yn         deleteYN 
+                      FROM   levin_reviews
+                      WHERE  review_id NOT IN (SELECT child_id
+                                                FROM   levin_reviews_comments)                         
+                      and 	 product_id = #{productId}
+                      ORDER  BY review_id DESC)) 
+	   WHERE  request_page = #{currentPage}
+	</select>
+	
+	<!-- 검색해온 구매후기글 갯수 조회 -->
+	<select id="reviewCountBySearch"  parameterType="map" resultType="int">
+	  SELECT COUNT(review_id) count 
+	  FROM   levin_reviews
+	  WHERE  review_id NOT IN (SELECT child_id 
+                          	   FROM   levin_reviews_comments)                         
+	  AND product_id = #{productId}
+	</select>
 </mapper>
