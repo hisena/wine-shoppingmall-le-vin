@@ -7,10 +7,12 @@ import java.util.Map;
 import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
+import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.dao.ProductDao;
 import kr.or.kosta.levin.product.domain.Product;
+import kr.or.kosta.levin.product.domain.ProductQna;
 
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 Service 객체
@@ -64,6 +66,30 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product detailProduct(String productId) throws Exception {
 		return productDao.getProduct(productId);
+	}
+
+	// 상품 문의글 목록
+	@Override
+	public Map<String, Object> listQna(Map<String, String> param) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		
+		//페이징, 검색 처리된 상품 문의글 목록
+		List<ProductQna> list = productDao.listByPageQna(param);
+		//검색해온 상품문의글 목록 갯수
+		int count = productDao.countBySearchQna(param);
+		//페이징 관련정보(시작, 끝 페이지 등) 처리 
+		Pagination pagination = new Pagination();
+		PaginationManager pm = new PaginationManager();
+		pagination.setCurrentPage(Integer.parseInt(param.get("currentPagge")));
+		pagination.setPerPageNum(5);
+		pm.setPagination(pagination);
+		pm.setTotalCount(count);
+		
+		// controller로 넘겨 주기 위해 map에 담아주기
+		map.put("qnaList", list);
+		map.put("pageInfo", pm.pageInfo());
+		
+		return map;
 	}
 
 }

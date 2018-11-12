@@ -1,6 +1,7 @@
 package kr.or.kosta.levin.product.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,6 +11,7 @@ import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.domain.Product;
+import kr.or.kosta.levin.product.domain.ProductQna;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
@@ -59,6 +61,25 @@ public class MybatisProductDao implements ProductDao {
 		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
 		sqlSession.close();
 		return product;
+	}
+
+	// 상품 문의글 목록
+	@Override
+	public List<ProductQna> listByPageQna(Map<String, String> param) throws Exception {
+		List<ProductQna> list =null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "listByPageQna", param);
+		sqlSession.close();	
+		return list;
+	}
+
+	// 상품 문의글 갯수
+	@Override
+	public int countBySearchQna(Map<String, String> param) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int count = sqlSession.selectOne(NAMESPACE+ "countBySearchQna", param);
+		sqlSession.close();
+		return count;
 	}
 	
 }

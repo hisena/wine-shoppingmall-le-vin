@@ -63,5 +63,49 @@
                ON pro.region_id = reg.region_id 
 		WHERE  pro.product_id = #{productId}
 	</select>
+	
+	<!-- 상품 문의글 조회 -->
+	<select id="listByPageQna" parameterType="map" resultType="ProductQna" >
+		SELECT  qnaId, 
+       		    productId, 
+        	    writer, 
+        		title,
+        		content,
+        		regdate,
+        		deleteYn,
+        		privateYn 
+      	FROM   (SELECT Ceil(rownum / 5) request_page, 
+               		   qnaId, 
+               		   productId, 
+               		   writer, 
+               		   title,
+               		   content,
+               		   regdate,
+               		   deleteYn,
+                       privateYn
+               FROM   (SELECT  qna_id qnaId,
+                               product_id productId,
+                               writer,
+                               title,
+                               content,
+                               TO_CHAR(regdate, 'yyyy-mm-dd') regdate,
+                               delete_yn deleteYn,
+                               private_yn privateYn 
+                       FROM   levin_product_qnas 
+                       WHERE  qna_id NOT IN (SELECT child_id 
+                                             FROM   levin_product_qnas_comments)                         
+                      and product_id = #{productId} 
+                      ORDER  BY qna_id DESC)) 
+		WHERE  request_page = #{currentPage}
+	</select>
+	
+	<!-- 검색해온 상품 문의글 갯수 조회 -->
+	<select id="countBySearchQna"  parameterType="map" resultType="int">
+		SELECT COUNT(qna_id) count 
+		FROM   levin_product_qnas
+		WHERE  product_id NOT IN (SELECT child_id 
+                          FROM   levin_product_qnas_comments)                         
+		and product_id = #{productId}
+	</select>
 	 
 </mapper>

@@ -19,4 +19,7 @@ public interface ProductService {
 	/**상품 상세 정보*/
 	public Product detailProduct(String productId) throws Exception;
 	
+	/** 상품의 상품 문의글 목록 및 페이징 처리*/
+	public Map<String, Object> listQna(Map<String, String> param) throws Exception;
+	
 }

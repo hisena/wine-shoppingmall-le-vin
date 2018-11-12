@@ -63,5 +63,4 @@ public interface UserDao {
 	/** 비밀번호 찾기 - 비밀번호 업데이트*/
 	public boolean updatePassword(Map<String, String> param) throws Exception;
 	
-	
 }
