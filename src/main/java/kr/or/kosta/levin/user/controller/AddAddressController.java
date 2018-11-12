@@ -76,7 +76,7 @@ public class AddAddressController implements Controller {
 				}
 				return map;
 			} else {
-				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+				// Address 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
 				throw new RequestBadRequestException();
 				
 			}

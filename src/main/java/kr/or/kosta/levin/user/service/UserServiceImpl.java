@@ -128,6 +128,7 @@ public class UserServiceImpl implements UserService {
 				addAddressResult = true;
 			}
 		}else {
+			// 주소가 중복될 경우 412에러 보내주기
 			throw new RequestPreconditionFailedException();
 		}
 		return addAddressResult;
