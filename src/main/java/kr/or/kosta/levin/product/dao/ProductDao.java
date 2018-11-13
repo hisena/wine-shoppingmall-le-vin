@@ -6,11 +6,9 @@ import java.util.Map;
 import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
-<<<<<<< HEAD
-=======
+
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.FilterPagination;
->>>>>>> refs/heads/client_product_filter
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
