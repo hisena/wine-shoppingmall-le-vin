@@ -21,7 +21,7 @@ function getReviewList(productId) {
             	if (reviewList[i].deleteYN == 'Y') {
             		String += '<tr><td colspan="5" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
             	} else {
-            		String += '<tr>'
+            		String += '<tr onclick="readReview(' + reviewList[i].reviewId + ')">'
 		                    + '  <td>'+ reviewList[i].reviewId +'</td>'
     	                    + '  <td>'+ reviewList[i].title +'</td>'
     	                    + '  <td>'+ reviewList[i].email +'</td>'
@@ -34,6 +34,25 @@ function getReviewList(productId) {
 			// 페이지네이션
 			$('.pagination-lg').empty();
 			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount);
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 구매후기 상세보기
+function readReview(id) {
+	$.ajax(Utils.baseUrl + "product/review-detail.mall", {
+		method: "get",
+		data: {
+			"reviewId": id
+		},
+		dataType: "json",
+		success: function(data) {
+			var review = data.review;
+			// 게시글 상세보기 함수
+			$('.productReview').empty();
+			reviewDetails(review.grade, review.title, review.content, review.regdate, review.productId)
 		},
 		error: function(data) {
 			alert('에러발생');
