@@ -261,4 +261,18 @@ public class ProductServiceImpl implements ProductService {
 	public boolean removeQna(String productId) throws Exception {
 		return productDao.deleteQna(productId);
 	}
+	
+	// 구매후기글의 댓글 삭제
+	@Override
+	public boolean removeReviewComment(int childId) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 구매후기글의 댓글 삭제
+		result = productDao.deleteReviewComment(childId);
+		// 구매후기글의 댓글 삭제 성공여부 확인
+		if (result) { // 삭제에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
 }
