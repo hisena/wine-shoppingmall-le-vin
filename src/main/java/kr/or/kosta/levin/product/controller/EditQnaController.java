@@ -20,13 +20,13 @@ import kr.or.kosta.levin.product.service.ProductService;
 import oracle.net.aso.e;
 
 /**
- * 구매후기글 수정을 위한 세부 컨트롤러
+ * 상품문의글 수정을 위한 세부 컨트롤러
  * 
- * @author 류세은
+ * @author 박소연
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/product/review-edit")
+@RequestMapping(value = "/product/qna-edit")
 public class EditQnaController implements Controller {
 
 	// 서비스 선언
@@ -79,7 +79,7 @@ public class EditQnaController implements Controller {
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("product/DetailController 예외 ", e);
+			throw new ServletException("product/EditQnaController 예외 ", e);
 		}
 	}
 }
