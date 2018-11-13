@@ -46,7 +46,7 @@ public class ListReviewCommentController implements Controller {
 			throws ServletException, RequestException {
 		
 
-		String parentId = request.getParameter("reviewId");
+		String parentId = "1";
 		
 		//부모글 번호 null과 공백값 체크
 		if (parentId == null || parentId.trim().length() == 0) {

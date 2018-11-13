@@ -339,8 +339,8 @@
 
 
 	<!-- 구매후기 댓글리스트 -->
-	<select id="listReviewComment" parameterType="int" resultType="ReviewComment">
-	  SELECT reviews.review_id     commentId, 
+	<select id="listReviewComment" parameterType="int" resultType="Review">
+	  SELECT reviews.review_id     reviewId, 
        		 reviews.email, 
        		 reviews.content, 
        		 To_char(reviews.regdate, 'yyyy-mm-dd') regdate, 
