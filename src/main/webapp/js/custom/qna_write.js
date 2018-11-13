@@ -21,7 +21,8 @@ function qnaWrite() {
                + '    </tr>'
                + '  </tbody>'
                + '</table>'
-               + '<input type="button" value="글쓰기" id="create">';
+               + '<input type="button" value="목록" id="back" onclick="getQnaList()">'
+               + '<input type="button" value="글쓰기" id="create" style="margin-right: 10px">';
 
 	$('#qnaSection').append(String);
 	

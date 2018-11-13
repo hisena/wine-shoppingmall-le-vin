@@ -13,16 +13,17 @@ public class PrivateQnaComment {
 	private String category;
 	private String content;
 	private String regdate;
-	private char deleteYN;
+	private String deleteYN;
 
 	/** 디폴트 생성자 */
 	public PrivateQnaComment() {
 		super();
 	}
 
-	/** 매개변수 있는 생성자 */
+	
+
 	public PrivateQnaComment(int commentId, String email, String category, String content, String regdate,
-			char deleteYN) {
+			String deleteYN) {
 		super();
 		this.commentId = commentId;
 		this.email = email;
@@ -32,56 +33,90 @@ public class PrivateQnaComment {
 		this.deleteYN = deleteYN;
 	}
 
-	/** getter/setter */
+
+	
+
+	public int getCommentId() {
+		return commentId;
+	}
+
+
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public String getCategory() {
 		return category;
 	}
 
+
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
+
 
 	public String getContent() {
 		return content;
 	}
 
+
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+
 
 	public String getRegdate() {
 		return regdate;
 	}
 
+
+
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 
-	public char getDeleteYN() {
+
+
+	public String getDeleteYN() {
 		return deleteYN;
 	}
 
-	public void setDeleteYN(char deleteYN) {
+
+
+	public void setDeleteYN(String deleteYN) {
 		this.deleteYN = deleteYN;
 	}
 
-	/** toString 메소드 */
+
+
 	@Override
 	public String toString() {
 		return "PrivateQnaComment [commentId=" + commentId + ", email=" + email + ", category=" + category
 				+ ", content=" + content + ", regdate=" + regdate + ", deleteYN=" + deleteYN + "]";
 	}
 
-	// privateQna 속성값 null 체크
+
+
+	// privateQnaComment 속성값 null 체크
 	public boolean checkNull(PrivateQnaComment privateQnaComment) {
 
 		// 속성값 중 하나라도 null이거나 공백값이라면 - false

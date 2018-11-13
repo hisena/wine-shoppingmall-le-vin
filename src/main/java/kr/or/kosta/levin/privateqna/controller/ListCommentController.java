@@ -16,6 +16,7 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
 import kr.or.kosta.levin.privateqna.service.QnaService;
 import oracle.net.aso.e;
 
@@ -46,25 +47,27 @@ public class ListCommentController implements Controller {
 			throws ServletException, RequestException {
 
 		String parentId = request.getParameter("articleId");
+
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
 
 		// 반환해줄 map
-		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<PrivateQnaComment> list;
+		Map<String, Object> listResult = new HashMap<String, Object>();
 		try {
-
 			// 서비스의 비즈니스메소드 호출
-			map = qnaService.listComment(Integer.parseInt(parentId));
+			list = qnaService.listComment(Integer.parseInt(parentId));
 
 			// 검색해온 댓글리스트에 값이 있는 경우 - commentList가 담긴 map 반환
-			ArrayList<e> commentList = (ArrayList) map.get("commentList");
-			if (commentList.size() != 0) {
-				return map;
+			if (!list.isEmpty()) {
+				listResult.put("listResult", list);
 			} else {
-				// 검색해온 댓글리스트에 값이 없을 경우 - 400 에러
-				throw new RequestBadRequestException();
+				listResult.put("listResult", "false");
 			}
+			return listResult;
+			
 		} catch (Exception e) {
 			throw new ServletException("privateQna/ListCommentController 예외 ", e);
 		}

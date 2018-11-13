@@ -158,7 +158,6 @@ $(function() {
 			// 상품 리스트 출력
 			$('#product').empty();
 			$.each(productList, function(index, item) {
-				console.log(item);
 				printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
 			});
 			// 페이지네이션
