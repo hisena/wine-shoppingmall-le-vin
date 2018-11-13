@@ -67,4 +67,6 @@ public interface ProductDao {
 	/** 구매후기글의 댓글 수정 */
 	public boolean updateReviewComment(Map<String, Object> parameter) throws Exception;
 
+	/** 상품문의 댓글 수정하기 */
+	public boolean updateQnaComment(ProductQna productQna) throws Exception;
 }

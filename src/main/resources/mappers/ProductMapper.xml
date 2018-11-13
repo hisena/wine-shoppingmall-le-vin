@@ -357,4 +357,11 @@
 	  SET    content = #{content} 
 	  WHERE  review_id = #{childId} 
 	</update>
+	
+	<!-- 상품문의댓글 수정하기 -->
+	<update id="updateQnaComment" parameterType="ProductQna">
+	  UPDATE levin_product_qnas 
+	  SET    content = #{content} 
+	  WHERE  qna_id = #{qnaId}
+	</update>
 </mapper>

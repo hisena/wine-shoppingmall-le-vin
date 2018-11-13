@@ -317,4 +317,24 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return flag;
 	}
+	
+	// 상품문의 댓글 수정하기
+	@Override
+	public boolean updateQnaComment(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// update문 실행 후 반환값 저장
+		int updateResult = sqlSession.insert(NAMESPACE + "updateQnaComment", productQna);
+		boolean updateQnaCommResult = false;
+		// update에 성공했으면
+		if (updateResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			updateQnaCommResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return updateQnaCommResult;
+	}
 }

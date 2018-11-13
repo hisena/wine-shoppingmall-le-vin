@@ -65,4 +65,6 @@ public interface ProductService {
 	
 	/**구매후기글의 댓글 수정 */
 	public boolean editReviewComment(Map<String, Object> parameter) throws Exception;
+	/**상품문의 댓글 수정*/
+	public boolean editQnaComment(ProductQna productQna) throws Exception;
 }
