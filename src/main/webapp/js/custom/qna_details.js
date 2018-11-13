@@ -22,10 +22,12 @@ function qnaDetails(category, title, content, regdate, articleId) {
 	           + '    </tr>'
 	           + '  </tbody>'
 	           + '</table>'
-	           + '<input type="button" value="댓글" id="reply" style="float: left">'
+	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyQna(' + articleId + ')">'
 	           + '<input type="button" value="목록" id="back" onclick="getQnaList()">'
-	           + '<input type="button" value="수정" id="update" style="margin-right: 10px">'
-	           + '<input type="button" value="삭제" id="delete" style="margin-right: 10px" onclick="deletePrivateQna(' + articleId + ')">';
+	           + '<input type="button" value="수정" id="update" style="margin: 0 10px 20px 0">'
+	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deletePrivateQna(' + articleId + ')">'
+	           + '<div class="col-md-12" id="replySection">'
+	           + '</div>'
 	
 	$('#qnaSection').append(String);
 	
@@ -63,6 +65,42 @@ function deletePrivateQna(id) {
 		success: function(data) {
 			if (data.removeQnaResult) {
 				getQnaList();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+
+// 댓글 리스트 출력
+function replyQna(id) {
+	$.ajax(Utils.baseUrl + "privateqna/comment-list.mall", {
+		method: "get",
+		data: {
+			"articleId": id
+		},
+		dataType: "json",
+		success: function(data) {
+			var listResult = data.listResult;
+			var String = '<table class="table table-striped table-bordered" style="">'
+				       + '  <tr>'
+				       + '    <th>댓글번호</th>'
+				       + '    <th>이메일</th>'
+				       + '    <th>내용</th>'
+				       + '    <th>등록일</th>'
+				       + '  </tr>';
+			if (data.listResult != 'false') {
+				for (var i = 0; i < listResult.length; i++) {
+					String += '<tr>'
+						    + '  <td>'+ listResult[i].commentId +'</td>'
+						    + '  <td>'+ listResult[i].email +'</td>'
+						    + '  <td>'+ listResult[i].content +'</td>'
+						    + '  <td>'+ listResult[i].regdate +'</td>'
+						    + '</tr>'
+				}
+				String += '</table>';
+				$('#replySection').append(String);
 			}
 		},
 		error: function(data) {
