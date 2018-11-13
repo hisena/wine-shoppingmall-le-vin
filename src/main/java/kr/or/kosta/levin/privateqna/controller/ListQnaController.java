@@ -1,6 +1,5 @@
 package kr.or.kosta.levin.privateqna.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.privateqna.service.QnaService;
-import oracle.net.aso.e;
 
 /**
  * 1:1문의 게시판 목록을 불러오기 위한 세부 컨트롤러

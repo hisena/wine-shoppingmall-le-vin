@@ -55,7 +55,11 @@ public class ProductServiceImpl implements ProductService {
 		pm.setTotalCount(count);
 
 		// controller로 넘겨 주기 위해 map에 담아주기
-		map.put("productList", list);
+		if(!list.isEmpty()) {
+			map.put("productList", list);
+		}else {
+			map.put("productList", "false");
+		}
 		map.put("pageInfo", pm.pageInfo());
 
 		if (searchPagination.getSearchKeyword() != null) {
@@ -126,9 +130,10 @@ public class ProductServiceImpl implements ProductService {
 
 		// controller로 넘겨 주기 위해 map에 담아주기
 		if (list.isEmpty()) {
-			map.put("reviewList", false);
+			map.put("reviewList", "false");
+		}else {
+			map.put("reviewList", list);
 		}
-		map.put("reviewList", list);
 		map.put("pageInfo", pm.pageInfo());
 		return map;
 	}

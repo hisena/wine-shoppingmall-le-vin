@@ -65,15 +65,8 @@ public class ListReviewController implements Controller {
 		Map<String, Object> map;
 		try {
 			map = productService.listReview(parameter);
-
-			// 검색해온 구매후기 리스트에 값이 있는 경우 - reviewList와 pageinfo가 담긴 map 반환
-			ArrayList<e> reviewList = (ArrayList) map.get("reviewList");
-			if (reviewList.size() != 0) {
-				return map;
-			} else {
-				// 검색해온 구매후기 리스트에 값이 없을 경우
-				return false;
-			}
+			return map;
+			
 		} catch (Exception e) {
 			throw new ServletException("product/ListReviewController 예외 ", e);
 		}
