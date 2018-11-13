@@ -236,4 +236,9 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 
 	}
+	// 상품 문의 댓글 수정
+	@Override
+	public boolean editQnaComment(ProductQna productQna) throws Exception {
+		return productDao.updateQnaComment(productQna);
+	}
 }
