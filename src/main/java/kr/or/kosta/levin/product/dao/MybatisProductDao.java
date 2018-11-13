@@ -11,15 +11,17 @@ import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
 import kr.or.kosta.levin.product.domain.Review;
+import kr.or.kosta.levin.product.domain.ReviewComment;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스
  * 
- * @author 박소연
+ * @author 박소연, 류세은
  *
  */
 @Bean(type = BeanType.Repository)
@@ -262,5 +264,15 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return productQna;
 
+	}
+	
+	//구매후기글 댓글리스트
+	@Override
+	public List<ReviewComment> listReviewComm(int parentId) throws Exception {
+		List<ReviewComment> list = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		list = sqlSession.selectList(NAMESPACE + "listReviewComm", parentId);
+		sqlSession.close();
+		return list;
 	}
 }

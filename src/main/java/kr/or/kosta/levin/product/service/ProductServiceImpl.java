@@ -10,16 +10,18 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
 import kr.or.kosta.levin.product.dao.ProductDao;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
 import kr.or.kosta.levin.product.domain.Review;
+import kr.or.kosta.levin.product.domain.ReviewComment;
 
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 Service 객체
  * 
- * @author 박소연
+ * @author 박소연, 류세은
  *
  */
 @Bean(type = BeanType.Service)
@@ -216,5 +218,12 @@ public class ProductServiceImpl implements ProductService {
 	public ProductQna detailQna(String qnaId) throws Exception {
 		return productDao.readQna(qnaId);
 
+	}
+	
+	@Override
+	public List<ReviewComment> listReviewComm(int parentId) throws Exception {
+		// 댓글 리스트
+				List<ReviewComment> list = productDao.listReviewComm(parentId);
+				return list;
 	}
 }
