@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
-import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -41,6 +40,10 @@ public interface ProductDao {
 
 	/** 상품 문의글 등록 */
 	public boolean createQna(ProductQna productQna) throws Exception; 
+	
+	/** 상품 문의 댓글 등록 */
+	public boolean createQnaComment(ProductQna productQna) throws Exception; 
+	
 	
 
 }

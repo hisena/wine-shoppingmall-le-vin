@@ -147,7 +147,7 @@ public class MybatisProductDao implements ProductDao {
 	}
 
 	
-	//전체글 상품 문의글 작성
+	//상품 문의글 작성
 	@Override
 	public boolean createQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -166,6 +166,32 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return createQnaResult;
 	}
+
+	// 상품문의 댓글 등록
+	@Override
+	public boolean createQnaComment(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int insertResult = sqlSession.insert(NAMESPACE + "createQnaComment", productQna);
+		boolean createQnaCommentResult = false;
+		// 댓글 등록에 성공했으면
+		if (insertResult == 1) {
+			// 상품문의 원글과 댓글의 관계 설정해주기
+			if(sqlSession.insert(NAMESPACE + "createQnaCommentId", Integer.parseInt(productQna.getQnaId())) == 1) {
+				// 커밋해주기
+				sqlSession.commit();
+				createQnaCommentResult = true;
+			}else {
+				sqlSession.rollback();
+			}
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return createQnaCommentResult;
+	}
+	
 	
 
 }

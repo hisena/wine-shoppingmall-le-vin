@@ -230,4 +230,38 @@
                         'N' 
       )
 	</insert>
+	
+	<!-- 상품 문의 댓글 등록 -->
+	<insert id="createQnaComment" parameterType="ProductQna">
+		INSERT INTO levin_product_qnas
+		(
+					qna_id,
+       			 	product_id,
+        			writer,
+        			content,
+        			private_yn,
+        			regdate	    
+		)VALUES(
+					qna_id_seq.nextval,
+          			#{productId},
+					#{writer},
+					#{content},
+          			#{privateYn},
+          			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상품 문의 댓글 등록 -->
+	<insert id="createQnaCommentId" parameterType="int">
+		INSERT INTO levin_product_qnas_comments 
+        (
+        			parent_id, 
+             		child_id
+        ) VALUES  (
+        			(SELECT qna_id 
+             		FROM   levin_product_qnas 
+             		WHERE  qna_id = #{qnaId}),
+            		qna_id_seq.CURRVAL
+         )
+	</insert>
 </mapper>
