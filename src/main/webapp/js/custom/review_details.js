@@ -83,8 +83,7 @@ function replyListReview(id) {
 		},
 		dataType: "json",
 		success: function(data) {
-			var reviewCommResult = data.reviewCommResult;
-			console.log(reviewCommResult);
+			var reviewCommentResult = data.reviewCommentResult;
 			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
 				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteReview()" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
@@ -95,16 +94,16 @@ function replyListReview(id) {
 				       + '    <th style="width: 8%">등록일</th>'
 				       + '    <th style="width: 17%"></th>'
 				       + '  </tr>';
-			if (reviewCommResult != 'false') {
-				for (var i = 0; i < reviewCommResult.length; i++) {
+			if (reviewCommentResult != 'false') {
+				for (var i = 0; i < reviewCommentResult.length; i++) {
 					String += '<tr>'
-					if (reviewCommResult[i].deleteYN == 'Y') {
+					if (reviewCommentResult[i].deleteYN == 'Y') {
 						String += '<td colspan="5" style="text-align: center;">삭제된 댓글입니다.</td>';
 					} else {
-						String += '<td id="commentId">'+ reviewCommResult[i].commentId +'</td>'
-					            + '<td>'+ reviewCommResult[i].email +'</td>'
-					            + '<td><input type="text" value="'+ reviewCommResult[i].content +'" id="replyContent"></td>'
-					            + '<td>'+ reviewCommResult[i].regdate +'</td>'
+						String += '<td id="commentId">'+ reviewCommentResult[i].reviewId +'</td>'
+					            + '<td>'+ reviewCommentResult[i].email +'</td>'
+					            + '<td><input type="text" value="'+ reviewCommentResult[i].content +'" id="replyContent"></td>'
+					            + '<td>'+ reviewCommentResult[i].regdate +'</td>'
 					            + '<td>'
 					            + '<input type="button" value="수정" onclick="replyUpdateReview()" id="replyUpdate">'
 					            + '<input type="button" value="삭제" onclick="replyDeleteReview()" id="replyDelete" style="margin-right: 10px">'
