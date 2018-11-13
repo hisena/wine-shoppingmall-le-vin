@@ -29,17 +29,21 @@
             <h2 class="section-title-3">회원 정보 수정</h2>
             <div class="checkout-form-inner">
               <div class="single-checkout-box">
-                <input type="text" placeholder="이름">
+                <input type="text" name="userName" placeholder="이름" readonly>
+                <input type="text" name="email" placeholder="이메일" readonly>
               </div>
               <div class="single-checkout-box">
-                <input type="text" placeholder="새 비밀번호">
-                <input type="text" placeholder="새 비밀번호 확인">
+                <input type="password" id="passwordForChange" placeholder="기존 비밀번호">
               </div>
               <div class="single-checkout-box">
-                <input type="text" placeholder="휴대폰 번호">
+                <input type="password" name="password" id="newPassword" placeholder="새 비밀번호">
+                <input type="password" id="passwordConfirm" placeholder="새 비밀번호 확인">
+              </div>
+              <div class="single-checkout-box">
+                <input type="text" name="mobile" placeholder="휴대폰 번호">
               </div>
               <div class="wc-proceed-to-checkout" style="clear: right;">
-                <a href="checkout.html">회원 정보 수정하기</a>
+                <a id="editBasicInfo">회원 정보 수정하기</a>
               </div>
             </div>
           </div>
@@ -123,6 +127,8 @@
 <script src="js/custom/myPageOrder.js"></script>
 <!-- 배송지 연결을 위한 자바스크립트 코드 -->
 <script src="js/custom/myPageDelivery.js"></script>
+<!-- 기본 정보 불러오기 및 수정하기 위한 자바스크립트 코드 -->
+<script src="js/custom/myPageBasicInfo.js"></script>
 <script>
 //이벤트 등록
 $(function(){
@@ -194,6 +200,59 @@ $(function(){
 			}
 		});
 			
+    });
+    
+    // 회원 기본 정보 불러오는 함수 호출
+    getMyPageBasicInfo();
+    
+    // 회원 정보 수정
+    $('#editBasicInfo').click(function(){
+    	// 유효성 검사
+		var validationResult = Validation.validAllInputs([ 
+			Validation.isValidEmail,
+			Validation.isValidNewPassword,
+			Validation.isPasswordChecked,
+			Validation.isValidMobile,
+			Validation.isValidOldPassword,
+		]);
+		if (!validationResult) {
+			return;
+		}
+		
+		// 데이터 직렬화
+		var data = {
+			'email' : getCookie('email'),
+			'password' : $('#passwordForChange').val().trim(),
+			'newPassword' : $('input[name="password"]').val().trim(),
+			'mobile' : $('input[name="mobile"]').val().trim()
+		};
+		
+		var message = '개인 정보 변경에 실패하셨습니다. 다시 한 번 시도해주세요.';
+		
+		// 통신 
+		$.ajax(Utils.baseUrl + 'user/info-change.mall', {
+			data: data,
+			dataType: "JSON",
+			method: "POST",
+			success: function(data) {
+				var result = data.changeResult === 'true';
+				
+				if (result) {
+					
+					message = '성공적으로 개인 정보를 변경했습니다.'
+					getMyPageBasicInfo();
+				} 
+				snackbar(message);
+			},
+			error: function(error) {
+				if (error.status === 400) {
+					message = '입력 값을 확인해주세요.';
+				} else if (error.status == 401) {
+					message = '기존 비밀번호가 일치하지 않아 정보를 변경할 수 없습니다.';
+				}
+				snackbar(message);
+			}
+		});
     });
 
 });

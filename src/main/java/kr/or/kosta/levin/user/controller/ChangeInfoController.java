@@ -48,34 +48,46 @@ public class ChangeInfoController implements Controller {
 		// 클라이언트로부터 받는 회원정보
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String userName = request.getParameter("userName");
+		String newPassword = request.getParameter("newPassword");
 		String mobile = request.getParameter("mobile");
 
-		User user = new User();
 		Map<String, String> map = new HashMap<String, String>();
-		boolean changeResult;
-
-		// user 객체에 클라이언트로부터 받은 정보 입력
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setUserName(userName);
-		user.setMobile(mobile);
+		boolean changeResult = false;
 
 		try {
 			// 파라미터값 null 유효성 검사
-			if (user.checkNull(user)) { // user 객체에 올바른 값이 들어오는 경우 - 서비스 메소드 실행
-				changeResult = userService.changeInfo(user);
-				if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
-					map.put("changeResult", "true");
-				} else {
-					// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
-					map.put("changeResult", "false");
-				}
-				return map;
-			} else {
-				// user 객체의 속성값으로 null이나 공백값이 들어왔을 경우 - 400(bad request) 에러 발생
+			// newPassword는 비밀번호 변경하지 않을 경우 기존 비밀번호 이용하므로 null 가능
+			if (email == null
+				|| password == null
+				|| mobile == null) { 
 				throw new RequestBadRequestException();
 			}
+				
+			// 기존 비밀번호가 틀릴 경우
+			if (userService.login(email, password) == null) {
+				throw new RequestUnauthorizedException();
+			}	
+			
+			// user 객체에 클라이언트로부터 받은 정보 입력
+			User user = new User();
+			user.setEmail(email);
+			// 새로운 비밀번호가 입력되었을 경우에만 새로운 비밀번호로 값을 설정
+			if (newPassword == null || newPassword.trim().length() <= 0) {
+				user.setPassword(password);
+			} else {
+				user.setPassword(newPassword);
+			}
+			user.setMobile(mobile);
+			
+			changeResult = userService.changeInfo(user);
+			if (changeResult) { // 회원정보 수정에 성공했을 경우 - 클라이언트에게 changeResult : true 반환
+				map.put("changeResult", "true");
+			} else {
+				// 실패했을 경우 - 클라이언트에게 changeResult : false 반환
+				map.put("changeResult", "false");
+			}
+			return map;
+			
 		} catch (Exception e) {
 			throw new ServletException("userService.changeResult() 예외 발생", e);
 		}

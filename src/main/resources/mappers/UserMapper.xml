@@ -53,7 +53,6 @@
 	<!-- 회원 기본정보 목록-->
 	<select id="readBasicInfo" parameterType="String" resultType="User">
 		SELECT 	email, 
-	   		   	password, 
        			user_name "userName", 
        			mobile, 
        			regdate 
