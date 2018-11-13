@@ -52,7 +52,7 @@ var Validation = {
 		},
 		'isValidCardNumber' : {
 			'selector': '#cardNumber',
-			'message' : '결제를 위해 카드 번호를 입력해주세요.'
+			'message' : '결제를 위해 - 제외 16자리 카드 번호를 입력해주세요.'
 		},
 		'isValidValidityPeriod' : {
 			'selector' : '#validityPeriod',
@@ -61,6 +61,14 @@ var Validation = {
 		'isValidCscNumber' : {
 			'selector' : '#cscNumber',
 			'message' : '유효한 csc 번호가 아닙니다. 확인 부탁드립니다.'
+		},
+		'isValidOldPassword' : {
+			'selector' : '#passwordForChange',
+			'message' : '올바른 비밀번호 형식이 아닙니다.'
+		},
+		'isValidNewPassword' : {
+			'selector' : 'input[name="password"]',
+			'message' : '올바른 비밀번호 형식이 아닙니다.'
 		}
 	},
 	// 선택자 정보를 이용해 검사 대상이 되는 input 태그를 가져오는 함수
@@ -102,6 +110,21 @@ Validation.isEmailDuplicationChecked = function isEmailDuplicationChecked() {
 Validation.isValidPassword = function isValidPassword(){
 	
 	var passwd = Validation.getTargetValue(Validation.isValidPassword);
+	var pattern = /[0-9a-zA-Z]{8,16}/;
+	
+	return pattern.test(passwd);
+};
+
+Validation.isValidNewPassword = function isValidNewPassword() {
+	var passwd = Validation.getTargetValue(Validation.isValidNewPassword);
+	var pattern = /[0-9a-zA-Z]{8,16}/;
+	
+	return (passwd.trim().length === 0) || pattern.test(passwd);
+}
+
+Validation.isValidOldPassword = function isValidOldPassword(){
+	
+	var passwd = Validation.getTargetValue(Validation.isValidOldPassword);
 	var pattern = /[0-9a-zA-Z]{8,16}/;
 	
 	return pattern.test(passwd);
