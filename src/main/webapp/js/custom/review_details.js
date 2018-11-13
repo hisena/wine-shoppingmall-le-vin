@@ -24,7 +24,7 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyListQna(' + reviewId + ')">'
 	           + '<input type="button" value="목록" id="back" onclick="getReviewList('+ productId +')">'
 	           + '<input type="button" value="수정" id="update" style="margin: 0 10px 20px 0">'
-	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deletePrivateQna(' + reviewId + ')">'
+	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deleteReview(' + reviewId + ')">'
 	           + '<div class="col-md-12" id="replySection">'
 	           + '</div>'
 	
@@ -52,5 +52,24 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 				alert('에러발생');
 			}
 		});
+	});
+}
+// 구매후기 삭제
+function deleteReview(id) {
+	$.ajax(Utils.baseUrl + "product/review-remove.mall", {
+		method: "post",
+		data: {
+			"reviewId": id
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.removeReviewResult) {
+				$('.product_details').empty();
+				getReviewList($('#productId').val());
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
 	});
 }
