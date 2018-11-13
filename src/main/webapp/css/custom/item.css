@@ -17,3 +17,11 @@
 	clear:left;
 	float:left;
 }
+
+.alcohol, .sugar-content, .body, .price {
+	width: 100%;
+}
+
+.filter__list .active {
+	color : #ff4136;
+}

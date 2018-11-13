@@ -11,6 +11,7 @@ import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.dao.ProductDao;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -279,5 +280,51 @@ public class ProductServiceImpl implements ProductService {
 			flag = true;
 		}
 		return flag;
+	}
+		
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	@Override
+	public Map<String, Object> initiateFilterValues() throws Exception {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 와인 종류 정보 넣어줌
+		result.put("kind", productDao.readKindValues());
+		
+		// 생산지 정보 넣어줌
+		result.put("region", productDao.readRegionValues());
+		
+		// 최소, 최대 도수 정보 넣어줌
+		result.put("alcohol", productDao.readAlcoholMinMaxValues());
+		
+		// 최소, 최대 당도 정보 넣어줌
+		result.put("sugarContent", productDao.readSugarContentMinMaxValues());
+		
+		// 최소, 최대 바디 정보 넣어줌
+		result.put("body", productDao.readBodyMinMaxValues());
+		
+		// 최소, 최대 가격 정보 넣어줌
+		result.put("price", productDao.readPriceMinMaxValues());
+		
+		return result;
+	}
+	
+	// 필터와 페이지네이션 적용된 리스트를 불러옴
+	@Override
+	public Map<String, Object> listFilteredProduct(FilterPagination filterPagination) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int count = productDao.filteredListCount(filterPagination);
+		
+		// 페이징 관련정보(시작, 끝 페이지 등) 처리
+		PaginationManager pm = new PaginationManager();
+		pm.setPagination(filterPagination);
+		pm.setTotalCount(count);
+		
+		map.put("productList", productDao.filteredList(filterPagination));
+		map.put("pageInfo", pm.pageInfo());
+		
+		return map;
 	}
 }

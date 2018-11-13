@@ -3,7 +3,14 @@ package kr.or.kosta.levin.product.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
+
 import kr.or.kosta.levin.common.domain.SearchPagination;
+<<<<<<< HEAD
+=======
+import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+import kr.or.kosta.levin.product.domain.FilterPagination;
+>>>>>>> refs/heads/client_product_filter
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -75,4 +82,16 @@ public interface ProductDao {
 	
 	/** 구매후기글의 댓글 삭제 */
 	public boolean deleteReviewComment(int childId) throws Exception;
+	
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	public List<String> readKindValues() throws Exception;
+	public List<Map<String, String>> readRegionValues() throws Exception;
+	public Map<String, String> readAlcoholMinMaxValues() throws Exception;
+	public Map<String, String> readSugarContentMinMaxValues() throws Exception;
+	public Map<String, String> readBodyMinMaxValues() throws Exception;
+	public Map<String, String> readPriceMinMaxValues() throws Exception;
+	
+	/** 필터에 따른 상품 목록 (페이지네이션 적용) */	
+	public List<Product> filteredList(FilterPagination filterPagination) throws Exception;
+	public int filteredListCount(FilterPagination filterPagination) throws Exception;
 }

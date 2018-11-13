@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -73,4 +74,8 @@ public interface ProductService {
 	
 	/**구매후기글의 댓글 삭제*/
 	public boolean removeReviewComment(int childId) throws Exception;
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	public Map<String, Object> initiateFilterValues() throws Exception;
+	/** 필터와 페이지네이션이 적용된 목록을 불러옴 */
+	public Map<String, Object> listFilteredProduct(FilterPagination filterPagination) throws Exception;
 }

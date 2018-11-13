@@ -379,4 +379,92 @@
 	  where  review_id = #{childId}
 	</update>
 	
+	<!-- 필터 값 초기화를 위한 조회 : 와인 종류 -->
+	<select id="readKindValues" resultType="string">
+	  SELECT DISTINCT( kind ) "kind"
+		FROM   levin_products  
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 생산지 종류 -->
+	<select id="readRegionValues" resultType="map">
+	  SELECT region_id		"regionId", 
+	       	 region_name 	"regionName"
+	    FROM   levin_regions 
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 도수 최대/최소 -->
+	<select id="readAlcoholMinMaxValues" resultType="map">
+	  SELECT Max(To_number(alcohol)) "max", 
+       		 Min(To_number(alcohol)) "min" 
+		FROM   levin_products 
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 당도 최대/최소 -->
+	<select id="readSugarContentMinMaxValues" resultType="map">
+	  SELECT Max(sugar_content) "max", 
+      		 Min(sugar_content) "min" 
+		FROM   levin_products  
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 바디 최대/최소 -->
+	<select id="readBodyMinMaxValues" resultType="map">
+	  SELECT Max(BODY) "max", 
+		     Min(BODY) "min" 
+		FROM   levin_products   
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 가격 최대/최소 -->
+	<select id="readPriceMinMaxValues" resultType="map">
+	  SELECT Max(price) "max", 
+		     Min(price) "min" 
+		FROM   levin_prices  
+	</select>
+	
+	<!-- 필터 적용된 목록 조회 -->
+	<select id="readFilteredList" parameterType="FilterPagination" resultType="Product">
+		SELECT productid, 
+		       productnamekor, 
+		       price, 
+		       kind, 
+		       totalquantity "totalQuantity" 
+		FROM   (SELECT Ceil(ROWNUM / #{perPageNum}) request_page, 
+		               productid, 
+		               productnamekor, 
+		               price, 
+		               kind, 
+		               totalquantity 
+		        FROM   (SELECT pro.product_id       productId, 
+		                       pro.product_name_kor productNameKor, 
+		                       pri.price            price, 
+		                       pro.kind             kind, 
+		                       pro.total_quantity   totalQuantity 
+		                FROM   levin_products pro 
+		                       inner join levin_prices pri 
+		                               ON pro.product_id = pri.product_id 
+		                WHERE  TO_NUMBER(alcohol) BETWEEN #{minAlcohol} AND #{maxAlcohol}
+		                       AND sugar_content BETWEEN #{minSugarContent} AND #{maxSugarContent}
+		                       AND body BETWEEN #{minBody} AND #{maxBody}  
+		                       AND price BETWEEN #{minPrice} AND #{maxPrice} 
+		               	<if test="kind != null">
+		                	   AND kind = #{kind}
+		                </if>
+		                <if test="regionId != null">
+		                       AND region_id = #{regionId} 
+		                </if>
+		                ORDER  BY pro.product_id)) 
+		WHERE  request_page = #{currentPage}
+	</select>
+	<!-- 필터 적용된 목록 개수 -->
+	<select id="readFilteredListCount" parameterType="FilterPagination" resultType="int">
+		SELECT COUNT(pro.product_id) 
+		FROM   levin_products pro 
+               inner join levin_prices pri 
+                       ON pro.product_id = pri.product_id 
+        WHERE  TO_NUMBER(alcohol) BETWEEN #{minAlcohol} AND #{maxAlcohol}
+               AND sugar_content BETWEEN #{minSugarContent} AND #{maxSugarContent}
+               AND body BETWEEN #{minBody} AND #{maxBody}  
+               AND price BETWEEN #{minPrice} AND #{maxPrice} 
+       	<if test="kind != null">
+        	   AND kind = #{kind}
+        </if>
+        <if test="regionId != null">
+               AND region_id = #{regionId} 
+        </if>
+        ORDER  BY pro.product_id
+	</select>
 </mapper>

@@ -12,6 +12,7 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -375,5 +376,79 @@ public class MybatisProductDao implements ProductDao {
 		}
 		sqlSession.close();
 		return flag;
+	}
+	
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	@Override
+	public List<String> readKindValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<String> result = null;
+		result = sqlSession.selectList(NAMESPACE + "readKindValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public List<Map<String, String>> readRegionValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Map<String, String>> result = null;
+		result = sqlSession.selectList(NAMESPACE + "readRegionValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public Map<String, String> readAlcoholMinMaxValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> result = null;
+		result = sqlSession.selectOne(NAMESPACE + "readAlcoholMinMaxValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public Map<String, String> readSugarContentMinMaxValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> result = null;
+		result = sqlSession.selectOne(NAMESPACE + "readSugarContentMinMaxValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public Map<String, String> readBodyMinMaxValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> result = null;
+		result = sqlSession.selectOne(NAMESPACE + "readBodyMinMaxValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public Map<String, String> readPriceMinMaxValues() throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		Map<String, String> result = null;
+		result = sqlSession.selectOne(NAMESPACE + "readPriceMinMaxValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	// 필터와 페이지네이션 적용된 리스트 
+	@Override
+	public List<Product> filteredList(FilterPagination filterPagination) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Product> result = null;
+		result = sqlSession.selectList(NAMESPACE + "readFilteredList", filterPagination);
+		sqlSession.close();
+		return result;
+	}
+	
+	@Override
+	public int filteredListCount(FilterPagination filterPagination) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		result = sqlSession.selectOne(NAMESPACE + "readFilteredListCount", filterPagination);
+		sqlSession.close();
+		return result;
 	}
 }
