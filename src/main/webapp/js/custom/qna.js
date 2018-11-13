@@ -51,7 +51,7 @@ function getQnaList() {
 			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount)
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('로그인 후 이용해주세요.');
 		}
 	});
 }
