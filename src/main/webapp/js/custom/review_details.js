@@ -29,5 +29,5 @@ function reviewDetails(grade, title, content, regdate, productId) {
 	           + '</div>'
 	
 	$('.pagination-lg').empty();
-	$('.productReview').append(String);
+	$('.product_details').append(String);
 }

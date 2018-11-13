@@ -1,25 +1,13 @@
 <meta charset="UTF-8">
-<!-- 커스텀 css -->
-<link rel="stylesheet" href="css/custom/review.css">
-<link rel="stylesheet" href="css/custom/pagination.css">
-
-<table class="table table-hover productReview">
-  <!-- 테이블 내용 동적 삽입 -->
-</table>
-<!-- 페이지 네이션 -->
-<div class="row mt--60">
-  <div class="col-md-12">
-    <ul class="pagination pagination-lg">
-    </ul>
-  </div>
-</div>
 
 <!-- 페이지네이션 -->
 <script src="js/common/pagination.js"></script>
 <!-- Review Ajax 통신 -->
 <script src="js/custom/review.js"></script>
-<!-- 구매후기 상세보기 함수 -->
+<!-- 구매후기 상세보기 자바 스크립트 -->
 <script src="js/custom/review_details.js"></script>
+<!-- 구매후기 글쓰기 자바 스크립트 -->
+<script src="js/custom/review_write.js"></script>
 <!-- Ajax통신 -->
 <script>
 $(function() {
@@ -38,20 +26,21 @@ $(function() {
 			success: function(data) {
 				var reviewList = data.reviewList;
 				var pageInfo = data.pageInfo;
-				var String = '<tr class="danger">'
-			               + '  <th>번호</th>'
-				           + '  <th>제목</th>'
-				           + '  <th>작성자</th>'
-				           + '  <th>작성일</th>'
-				           + '  <th>별점</th>'
-			               + '</tr>';
-				// 구매후기 리스트 풀력
-				$('.productReview').empty();
+				var String = '<table class="table table-hover">'
+					       + '  <tr class="danger">'
+			               + '    <th>번호</th>'
+				           + '    <th>제목</th>'
+				           + '    <th>작성자</th>'
+				           + '    <th>작성일</th>'
+				           + '    <th>별점</th>'
+			               + '  </tr>';
+				// 구매후기 리스트 출력
+				$('.product_details').empty();
 				for (var i = 0; i < reviewList.length; i++) {
 	            	if (reviewList[i].deleteYN == 'Y') {
 	            		String += '<tr><td colspan="5" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
 	            	} else {
-	            		String += '<tr>'
+	            		String += '<tr onclick="readReview(' + reviewList[i].reviewId + ')">'
 			                    + '  <td>'+ reviewList[i].reviewId +'</td>'
 	    	                    + '  <td>'+ reviewList[i].title +'</td>'
 	    	                    + '  <td>'+ reviewList[i].email +'</td>'
@@ -60,7 +49,15 @@ $(function() {
 	                            + '</tr>';
 	            	}
 				}
-				$('.productReview').append(String);
+				String += '</table>'
+	    		        + '<input type="button" value="글쓰기" id="write" onclick="writeReview()">'
+	    		        + '<div class="row mt--60">'
+	    		        + '  <div class="col-md-12">'
+	                    + '    <ul class="pagination pagination-lg">'
+	                    + '    </ul>'
+	                    + '  </div>'
+	                    + '</div>'
+				$('.product_details').append(String);
 				// 페이지네이션
 				$('.pagination-lg').empty();
 				page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount);
