@@ -285,7 +285,9 @@
 	  SELECT qna_id 		qnaId, 
        		 product_id		productId, 
        		 title, 
-       		 content, 
+       		 content,
+       		 writer,
+       		 private_yn		privateYn, 
        		 TO_CHAR(regdate, 'yyyy-mm-dd') regdate 
 	  FROM   levin_product_qnas 
 	  WHERE  qna_id = #{qnaId} 

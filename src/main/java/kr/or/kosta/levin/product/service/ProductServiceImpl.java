@@ -199,7 +199,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	// 상품 문의글 상세보기
 	@Override
-	public ProductQna detailQna(String qna) throws Exception {
-		return productDao.readQna(qna);
+	public ProductQna detailQna(String qnaId) throws Exception {
+		return productDao.readQna(qnaId);
 	}
 }
