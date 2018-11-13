@@ -147,7 +147,7 @@ public class MybatisProductDao implements ProductDao {
 		return flag;
 	}
 
-	// 상품 문의글 작성
+	// 상품 문의글 등록
 	@Override
 	public boolean createQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();

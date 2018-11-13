@@ -47,8 +47,8 @@ public class RemoveQnaController implements Controller {
 
 		Map<String, Object> map = new HashMap<>();
 		
-		//String qnaId = request.getParameter("qnaId");
-		String qnaId = "8";
+		String qnaId = request.getParameter("qnaId");
+		
 		String currentPage = request.getParameter("currentPage");
 		// 현재 페이지 값 처리
 		if(currentPage == null || currentPage.trim().length() == 0) {
