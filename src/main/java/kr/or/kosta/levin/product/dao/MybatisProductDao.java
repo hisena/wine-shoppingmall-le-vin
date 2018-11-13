@@ -144,4 +144,23 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return flag;
 	}
+	
+	//구매후기글 수정
+	@Override
+	public boolean updateReview(Review review) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.update(NAMESPACE + "updateReview", review);
+		boolean flag = false;
+		// update에 성공한 경우
+		if (result == 1) {
+			// 커밋
+			sqlSession.commit();
+			flag = true;
+		} else {
+			// 실패한 경우 rollback
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return flag;
+	}
 }

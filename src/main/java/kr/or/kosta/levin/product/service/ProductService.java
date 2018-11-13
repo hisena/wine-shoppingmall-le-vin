@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
-import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
 import kr.or.kosta.levin.product.domain.Review;
@@ -37,4 +36,7 @@ public interface ProductService {
 	
 	/**구매후기글 등록*/
 	public boolean addReview(Review review) throws Exception;
+	
+	/**구매후기글 수정*/
+	public boolean editReview(Review review) throws Exception;
 }

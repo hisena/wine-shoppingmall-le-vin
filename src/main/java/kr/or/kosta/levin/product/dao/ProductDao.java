@@ -37,4 +37,6 @@ public interface ProductDao {
 	public Review readReview(int reviewId) throws Exception;
 	/** 구매후기글 등록 */
 	public boolean createReview(Review review) throws Exception;
+	/** 구매후기글 수정 */
+	public boolean updateReview(Review review) throws Exception;
 }

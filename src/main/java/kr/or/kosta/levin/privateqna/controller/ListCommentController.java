@@ -46,7 +46,6 @@ public class ListCommentController implements Controller {
 			throws ServletException, RequestException {
 
 		String parentId = request.getParameter("articleId");
-
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
