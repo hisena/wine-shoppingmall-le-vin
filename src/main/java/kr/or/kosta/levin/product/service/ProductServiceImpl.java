@@ -10,7 +10,6 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
-import kr.or.kosta.levin.privateqna.domain.PrivateQnaComment;
 import kr.or.kosta.levin.product.dao.ProductDao;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
