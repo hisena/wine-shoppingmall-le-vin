@@ -44,24 +44,11 @@ public class AddQnaController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-//		String privateYn = request.getParameter("privateYn");
-//		String productId = request.getParameter("productId");
-//		String title = request.getParameter("title");
-//	    String writer = request.getParameter("writer");
-//	    String content = request.getParameter("content");
-		
-		// 혹시 몰라서 남겨둠 테스트 완료하면 지우기
-//	    String privateYn = "N";
-//		String productId = "5";
-//		String title = "상품5에 대한 문의글 제목입니다.";
-//	    String writer = "test0001@naver.com";
-//	    String content = "상품5에 대한 문의글 내용입니다.";
-	    
-		String privateYn = "";
-		String productId = "";
-		String title = "";
-		String writer = "";
-		String content="";
+		String privateYn = request.getParameter("privateYn");
+		String productId = request.getParameter("productId");
+		String title = request.getParameter("title");
+	    String writer = request.getParameter("writer");
+	    String content = request.getParameter("content");
 		    
 		boolean addResult;
 		ProductQna productQna = new ProductQna();
@@ -72,6 +59,7 @@ public class AddQnaController implements Controller {
 					&& productId.trim().length() != 0 && privateYn.trim().length() != 0
 					&& title.trim().length() != 0 && writer.trim().length() != 0
 					&& content.trim().length() != 0) {
+				// 도메인에 담아주기
 				productQna.setProductId(productId);
 				productQna.setPrivateYn(privateYn);
 				productQna.setTitle(title);
@@ -79,6 +67,7 @@ public class AddQnaController implements Controller {
 				productQna.setWriter(writer);
 				
 				addResult = productService.addQna(productQna);
+				// service 작업 결과가 true일 경우
 				if(addResult) {
 					map.put("addQna", "true");
 				}else {

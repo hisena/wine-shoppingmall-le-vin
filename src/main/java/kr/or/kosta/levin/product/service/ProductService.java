@@ -28,7 +28,7 @@ public interface ProductService {
 	/** 상품의 상품 문의 댓글 목록*/
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
 	
-	/** 상품의 상품 문의글 작성*/
+	/** 상품의 상품 문의글 등록*/
 	public boolean addQna(ProductQna productQna) throws Exception;
 	
 }
