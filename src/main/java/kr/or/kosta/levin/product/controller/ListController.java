@@ -44,7 +44,7 @@ public class ListController implements Controller {
 		
 		String searchKeyword = request.getParameter("searchKeyword");
 		String currentPage = request.getParameter("currentPage");
-		if(currentPage == null) {
+		if(currentPage == null || currentPage.trim().length() == 0) {
 			currentPage = "0";
 		}
 		// 보여줄 페이지 갯수 전달할시 추가

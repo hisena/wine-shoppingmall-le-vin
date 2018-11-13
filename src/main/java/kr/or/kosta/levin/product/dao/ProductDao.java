@@ -29,6 +29,7 @@ public interface ProductDao {
 	public int countBySearchQna(String productId) throws Exception;
 	/** 상품댓글 목록 반환 */	
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
+
 	/** 구매후기 목록*/
 	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception;
 	/** 검색해온 구매후기글 갯수 */
@@ -37,4 +38,9 @@ public interface ProductDao {
 	public Review readReview(int reviewId) throws Exception;
 	/** 구매후기글 등록 */
 	public boolean createReview(Review review) throws Exception;
+
+	/** 상품 문의글 등록 */
+	public boolean createQna(ProductQna productQna) throws Exception; 
+	
+
 }

@@ -44,7 +44,7 @@ public class DetailController implements Controller {
 		String productId = request.getParameter("productId");
 		try {
 			// 파라미터값 null 체크
-			if (productId != null) {
+			if (productId != null && productId.trim().length() != 0) {
 				Product product = productService.detailProduct(productId);
 				// 검색해온 상품상세정보가 이 null이 아니면
 				if (product != null) {

@@ -44,6 +44,7 @@
 		</if>
 	</select>
 	
+	<!-- 상품 상세보기 -->
 	<select id="getProduct" parameterType="String" resultType="Product" >
 		SELECT pro.product_id       productId, 
        		   pro.product_name_kor productNameKor, 
@@ -126,6 +127,28 @@
 		WHERE  comms.parent_id = #{qnaId}
 		AND    qnas.product_id = #{productId}
 	</select>
+	
+	<!-- 상품 문의 등록 -->
+	<insert id="createQna" parameterType="ProductQna">
+		INSERT INTO levin_product_qnas
+		(
+					qna_id,
+        			product_id,
+       				writer,
+        			title,
+        			private_yn,
+        			content,
+        			regdate    
+		)VALUES(
+					qna_id_seq.nextval,
+          			#{productId},
+					#{writer},
+					#{title},
+					#{privateYn},
+					#{content},
+					SYSDATE
+		)
+	</insert>
 	 
 	 <!-- 구매후기글 리스트 -->
 	<select id="reviewListByPage" parameterType="map" resultType="Review" >

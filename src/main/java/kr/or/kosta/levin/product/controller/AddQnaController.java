@@ -14,17 +14,18 @@ import io.github.leeseungeun.webframework.controller.Controller;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
+import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.service.ProductService;
 
 /**
- * 상품문의 게시판 목록을 불러오기 위한 세부 컨트롤러
+ * 상품문의글 작성하기 기능을 위한 세부 컨트롤러
  * 
  * @author 박소연
  */
 
 @Bean(type = BeanType.Controller)
-@RequestMapping(value = "/product/qna-list")
-public class ListQnaController implements Controller {
+@RequestMapping(value = "/product/qna-add")
+public class AddQnaController implements Controller {
 
 	// 서비스 선언
 	@Inject
@@ -43,31 +44,43 @@ public class ListQnaController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-		String currentPage = request.getParameter("currentPage");
+		String privateYn = request.getParameter("privateYn");
 		String productId = request.getParameter("productId");
-		
-		if (currentPage == null) {
-			currentPage = "1";
-		}
-		
-		Map<String, String> param = new HashMap<>();
-		Map<String, Object> listResult;
-
+		String title = request.getParameter("title");
+	    String writer = request.getParameter("writer");
+	    String content = request.getParameter("content");
+		    
+		boolean addResult;
+		ProductQna productQna = new ProductQna();
+		Map<String, String> map = new HashMap<>();
 		try {
 			// 전달 받은 값 null 체크
-			if(productId != null && productId.trim().length() != 0) {
-				param.put("currentPage", currentPage);
-				param.put("productId", productId);
-				listResult = productService.listQna(param);
+			if(productId != null && privateYn != null && title != null && writer != null && content != null
+					&& productId.trim().length() != 0 && privateYn.trim().length() != 0
+					&& title.trim().length() != 0 && writer.trim().length() != 0
+					&& content.trim().length() != 0) {
+				// 도메인에 담아주기
+				productQna.setProductId(productId);
+				productQna.setPrivateYn(privateYn);
+				productQna.setTitle(title);
+				productQna.setContent(content);
+				productQna.setWriter(writer);
 				
-				return listResult;
+				addResult = productService.addQna(productQna);
+				// service 작업 결과가 true일 경우
+				if(addResult) {
+					map.put("addQna", "true");
+				}else {
+					map.put("addQna", "false");
+				}
+				return map;
 				
 			}else {
 				// 클라이언트로부터 받은 값이 null일 경우
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("product/QnaListController 예외 ", e);
+			throw new ServletException("product/AddQnaController 예외 ", e);
 		}
 	}
 }

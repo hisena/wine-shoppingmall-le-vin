@@ -3,6 +3,7 @@ package kr.or.kosta.levin.user.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.user.domain.EmailVali;
 import kr.or.kosta.levin.user.domain.User;
 

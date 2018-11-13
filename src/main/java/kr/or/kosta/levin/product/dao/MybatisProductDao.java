@@ -95,6 +95,7 @@ public class MybatisProductDao implements ProductDao {
 		return list;
 	}
 
+
 	// 구매후기글 리스트
 	@Override
 	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception {
@@ -144,4 +145,27 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return flag;
 	}
+
+	
+	//전체글 상품 문의글 작성
+	@Override
+	public boolean createQna(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int insertResult = sqlSession.insert(NAMESPACE + "createQna", productQna);
+		boolean createQnaResult = false;
+		// insert에 성공했으면
+		if (insertResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			createQnaResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return createQnaResult;
+	}
+	
+
 }
