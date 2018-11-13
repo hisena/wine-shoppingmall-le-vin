@@ -45,4 +45,6 @@ public interface ProductService {
 	/** 상품의 상품 문의 댓글 등록*/
 	public boolean addQnaComment(ProductQna productQna) throws Exception;
 
+	/**구매후기글 수정*/
+	public boolean editReview(Review review) throws Exception;
 }

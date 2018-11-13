@@ -112,8 +112,7 @@ public class Review {
 	public boolean checkNull(Review review) {
 
 		// 속성값 중 하나라도 null이거나 공백값이라면 - false
-		if (review.getEmail() == null || review.getTitle() == null || review.getContent() == null
-				|| review.getEmail().trim().length() == 0
+		if (review.getTitle() == null || review.getContent() == null
 				|| review.getTitle().trim().length() == 0 || review.getContent().trim().length() == 0) 
 		{
 			return false;

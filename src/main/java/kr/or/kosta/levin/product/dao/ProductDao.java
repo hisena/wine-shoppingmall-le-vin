@@ -44,6 +44,6 @@ public interface ProductDao {
 	/** 상품 문의 댓글 등록 */
 	public boolean createQnaComment(ProductQna productQna) throws Exception; 
 	
-	
-
+	/** 구매후기글 수정 */
+	public boolean updateReview(Review review) throws Exception;
 }
