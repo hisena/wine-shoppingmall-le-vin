@@ -65,4 +65,7 @@ public interface ProductService {
 	
 	/**상품문의 댓글 수정*/
 	public boolean editQnaComment(ProductQna productQna) throws Exception;
+	
+	/**상품문의글 및 댓글 삭제*/
+	public boolean removeQna(String productId) throws Exception;
 }

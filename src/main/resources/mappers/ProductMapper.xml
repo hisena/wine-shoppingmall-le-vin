@@ -357,4 +357,12 @@
 	  SET    content = #{content} 
 	  WHERE  qna_id = #{qnaId}
 	</update>
+	
+	<!-- 상품문의글 및 댓글 삭제하기 -->
+	<update id="deleteQna" parameterType="String">
+	  UPDATE levin_product_qnas 
+	  SET    delete_yn = 'Y' 
+	  WHERE  qna_id = #{qnaId}
+	</update>
+	
 </mapper>
