@@ -46,4 +46,7 @@ public interface ProductDao {
 	
 	/** 구매후기글 수정 */
 	public boolean updateReview(Review review) throws Exception;
+	
+	/** 구매후기글 삭제 */
+	public boolean deleteReview(int reviewId) throws Exception;
 }

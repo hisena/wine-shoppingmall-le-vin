@@ -169,6 +169,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.createQnaComment(productQna);
 	}
 	
+	// 구매후기글 수정
 	@Override
 	public boolean editReview(Review review) throws Exception {
 		boolean result = false;
@@ -177,6 +178,20 @@ public class ProductServiceImpl implements ProductService {
 		result = productDao.updateReview(review);
 		// 구매후기글 수정 성공여부 확인
 		if (result) { // 수정에 성공했을 경우
+			flag = true;
+		}
+		return flag;
+	}
+	
+	// 구매후기글 삭제
+	@Override
+	public boolean removeReview(int reviewId) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 구매후기글 삭제
+		result = productDao.deleteReview(reviewId);
+		// 구매후기글 삭제 성공여부 확인
+		if (result) { // 삭제에 성공했을 경우
 			flag = true;
 		}
 		return flag;

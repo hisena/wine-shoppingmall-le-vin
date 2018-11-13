@@ -265,11 +265,18 @@
          )
 	</insert>
       <!-- 구매후기 수정 -->
-      <update id="updateReview" parameterType="Review">
+    <update id="updateReview" parameterType="Review">
       UPDATE levin_reviews 
 	  SET    title = #{title}, 
        		 content = #{content}, 
        		 grade = #{grade}
 	  WHERE  review_id = #{reviewId} 
-	  </update>
+	</update>
+	  
+	  <!-- 구매후기 삭제 -->
+	<update id="deleteReview" parameterType="int">
+	  update LEVIN_REVIEWS
+	  set 	 DELETE_YN = 'Y'
+	  where  review_id = #{reviewId}
+	</update>
 </mapper>
