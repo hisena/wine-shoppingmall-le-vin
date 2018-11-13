@@ -43,7 +43,7 @@ function qnaWrite() {
 				}
 			},
 			error: function(data) {
-				alert('에러발생');
+				snackbar('알수없는 오류가 발생했습니다.')
 			}
 		});
 	});

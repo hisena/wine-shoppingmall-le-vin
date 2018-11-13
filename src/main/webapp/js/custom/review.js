@@ -46,7 +46,7 @@ function getReviewList(productId) {
 			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount);
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -65,7 +65,7 @@ function readReview(id) {
 			reviewDetails(review.grade, review.title, review.content, review.regdate, id,  review.productId)
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }

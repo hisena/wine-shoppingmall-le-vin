@@ -49,7 +49,7 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 				}
 			},
 			error: function(data) {
-				alert('에러발생');
+				snackbar('알수없는 오류가 발생했습니다.')
 			}
 		});
 	});
@@ -69,7 +69,7 @@ function deleteReview(id) {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -121,7 +121,7 @@ function replyListReview(id) {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -143,7 +143,7 @@ function replyWriteReview() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -161,7 +161,7 @@ function replyDeleteReview() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -180,7 +180,7 @@ function replyUpdateReview() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }

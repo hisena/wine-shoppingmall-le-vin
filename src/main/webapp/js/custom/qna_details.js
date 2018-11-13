@@ -49,7 +49,7 @@ function qnaDetails(category, title, content, regdate, articleId) {
 				}
 			},
 			error: function(data) {
-				alert('에러발생');
+				snackbar('알수없는 오류가 발생했습니다.')
 			}
 		});
 	});
@@ -68,7 +68,7 @@ function deletePrivateQna(id) {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -120,7 +120,7 @@ function replyListQna(id) {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -142,7 +142,7 @@ function replyWriteQna() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -160,7 +160,7 @@ function replyDeleteQna() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
@@ -179,7 +179,7 @@ function replyUpdateQna() {
 			}
 		},
 		error: function(data) {
-			alert('에러발생');
+			snackbar('알수없는 오류가 발생했습니다.')
 		}
 	});
 }
