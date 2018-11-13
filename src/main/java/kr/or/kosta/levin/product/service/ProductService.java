@@ -34,4 +34,7 @@ public interface ProductService {
 
 	/**구매후기글 상세보기*/
 	public Review detailReview(int reviewId) throws Exception;
+	
+	/**구매후기글 등록*/
+	public boolean addReview(Review review) throws Exception;
 }

@@ -17,7 +17,7 @@ import kr.or.kosta.levin.product.domain.ProductQnaComment;
 import kr.or.kosta.levin.product.domain.Review;
 
 /**
- * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스 
+ * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 구현클래스
  * 
  * @author 박소연
  *
@@ -41,18 +41,18 @@ public class MybatisProductDao implements ProductDao {
 	// 상품 목록 불러오기(페이징, 검색처리)
 	@Override
 	public List<Product> listByPage(SearchPagination searchPagination) throws Exception {
-		List<Product> list =null;
+		List<Product> list = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		list = sqlSession.selectList(NAMESPACE + "listByPage", searchPagination);
-		sqlSession.close();	
+		sqlSession.close();
 		return list;
 	}
-	
+
 	// 검색한 상품 목록 갯수
 	@Override
 	public int countBySearch(SearchPagination searchPagination) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int count = sqlSession.selectOne(NAMESPACE+ "countBySearch", searchPagination);
+		int count = sqlSession.selectOne(NAMESPACE + "countBySearch", searchPagination);
 		sqlSession.close();
 		return count;
 	}
@@ -61,7 +61,7 @@ public class MybatisProductDao implements ProductDao {
 	@Override
 	public Product getProduct(String productId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		Product product = sqlSession.selectOne(NAMESPACE+ "getProduct", productId);
+		Product product = sqlSession.selectOne(NAMESPACE + "getProduct", productId);
 		sqlSession.close();
 		return product;
 	}
@@ -69,10 +69,10 @@ public class MybatisProductDao implements ProductDao {
 	// 상품 문의글 목록
 	@Override
 	public List<ProductQna> listByPageQna(Map<String, String> param) throws Exception {
-		List<ProductQna> list =null;
+		List<ProductQna> list = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		list = sqlSession.selectList(NAMESPACE + "listByPageQna", param);
-		sqlSession.close();	
+		sqlSession.close();
 		return list;
 	}
 
@@ -80,7 +80,7 @@ public class MybatisProductDao implements ProductDao {
 	@Override
 	public int countBySearchQna(String productId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int count = sqlSession.selectOne(NAMESPACE+ "countBySearchQna", productId);
+		int count = sqlSession.selectOne(NAMESPACE + "countBySearchQna", productId);
 		sqlSession.close();
 		return count;
 	}
@@ -88,14 +88,14 @@ public class MybatisProductDao implements ProductDao {
 	// 상품 문의 댓글 목록
 	@Override
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception {
-		List<ProductQnaComment> list =null;
+		List<ProductQnaComment> list = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		list = sqlSession.selectList(NAMESPACE + "listQnaComment", param);
-		sqlSession.close();	
+		sqlSession.close();
 		return list;
 	}
-	
-	//구매후기글 리스트
+
+	// 구매후기글 리스트
 	@Override
 	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception {
 		List<Review> list = null;
@@ -103,10 +103,10 @@ public class MybatisProductDao implements ProductDao {
 		list = sqlSession.selectList(NAMESPACE + "reviewListByPage", parameter);
 		sqlSession.close();
 		return list;
-		
+
 	}
-	
-	//구매후기글 갯수
+
+	// 구매후기글 갯수
 	@Override
 	public int reviewCountBySearch(Map<String, String> parameter) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -114,8 +114,8 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return count;
 	}
-	
-	//구매후기글 상세보기
+
+	// 구매후기글 상세보기
 	@Override
 	public Review readReview(int reviewId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -123,5 +123,25 @@ public class MybatisProductDao implements ProductDao {
 		review = sqlSession.selectOne(NAMESPACE + "readReview", reviewId);
 		sqlSession.close();
 		return review;
+	}
+
+	// 구매후기글 등록
+	@Override
+	public boolean createReview(Review review) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int result = sqlSession.insert(NAMESPACE + "createReview", review);
+		boolean flag = false;
+		// insert에 성공했으면
+		if (result == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			flag = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return flag;
 	}
 }

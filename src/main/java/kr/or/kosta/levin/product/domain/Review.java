@@ -113,8 +113,9 @@ public class Review {
 
 		// 속성값 중 하나라도 null이거나 공백값이라면 - false
 		if (review.getEmail() == null || review.getTitle() == null || review.getContent() == null
-				|| review.getEmail().trim().length() == 0 || review.getTitle().trim().length() == 0
-				|| review.getContent().trim().length() == 0) {
+				|| review.getEmail().trim().length() == 0
+				|| review.getTitle().trim().length() == 0 || review.getContent().trim().length() == 0) 
+		{
 			return false;
 		}
 		// 속성값 모두 값이 존재하면- true

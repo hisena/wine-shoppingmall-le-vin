@@ -69,9 +69,8 @@ public class ProductServiceImpl implements ProductService {
 	public Product detailProduct(String productId) throws Exception {
 		return productDao.getProduct(productId);
 	}
-	
-	
-		// 상품 문의글 목록
+
+	// 상품 문의글 목록
 	@Override
 	public Map<String, Object> listQna(Map<String, String> param) throws Exception {
 		Map<String, Object> map = new HashMap<>();
@@ -89,30 +88,30 @@ public class ProductServiceImpl implements ProductService {
 		pm.setTotalCount(count);
 
 		// 상품 문의글 목록이 존재하지 않을 경우
-		if(list.isEmpty()) {
+		if (list.isEmpty()) {
 			map.put("qnaList", "false");
-		}else {
+		} else {
 			map.put("qnaList", list);
 		}
 		map.put("pageInfo", pm.pageInfo());
 
 		return map;
 	}
-	
+
 	// 상품 문의 댓글 목록
 	@Override
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception {
 
 		return productDao.listQnaComment(param);
 	}
-	
+
 	// 구매후기글 리스트
-		@Override
-		public Map<String, Object> listReview(Map<String, String> parameter) throws Exception {
-			int currentPage = Integer.parseInt(parameter.get("currentPage"));
-			int perPageNum = Integer.parseInt(parameter.get("perPageNum"));
-			Map<String, Object> map = new HashMap<String, Object>();
-		
+	@Override
+	public Map<String, Object> listReview(Map<String, String> parameter) throws Exception {
+		int currentPage = Integer.parseInt(parameter.get("currentPage"));
+		int perPageNum = Integer.parseInt(parameter.get("perPageNum"));
+		Map<String, Object> map = new HashMap<String, Object>();
+
 		// 페이징, 검색 처리된 구매후기 리스트
 		List<Review> list = productDao.reviewListByPage(parameter);
 		// 검색해온 구매후기글 갯수
@@ -126,18 +125,33 @@ public class ProductServiceImpl implements ProductService {
 		pm.setTotalCount(count);
 
 		// controller로 넘겨 주기 위해 map에 담아주기
-		if(list.isEmpty()) {
-			map.put("reviewList", false);	
+		if (list.isEmpty()) {
+			map.put("reviewList", false);
 		}
 		map.put("reviewList", list);
 		map.put("pageInfo", pm.pageInfo());
 		return map;
 	}
-		
-	//	구매후기글 상세보기
-		@Override
-		public Review detailReview(int reviewId) throws Exception {
-			Review review = productDao.readReview(reviewId);
-			return review;
+
+	// 구매후기글 상세보기
+	@Override
+	public Review detailReview(int reviewId) throws Exception {
+		Review review = productDao.readReview(reviewId);
+		return review;
+	}
+
+	// 구매후기글 등록
+	@Override
+	public boolean addReview(Review review) throws Exception {
+		// Mybatis 실행 결과를 받기 위한 변수
+		boolean addResult = false;
+		boolean flag = false;
+		// 구매후기글 등록
+		addResult = productDao.createReview(review);
+		// 등록에 성공하면
+		if (addResult) {
+			flag = true;
 		}
+		return flag;
+	}
 }

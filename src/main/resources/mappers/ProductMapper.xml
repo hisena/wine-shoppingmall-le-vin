@@ -183,4 +183,28 @@
 	  FROM   levin_reviews 
 	  WHERE  review_id = #{reviewId} 
 	</select>
+	
+	<!-- 구매후기 등록 -->
+	<insert id="createReview" parameterType="Review">
+	  INSERT INTO levin_reviews 
+      ( 
+                        review_id, 
+                        product_id, 
+                        email, 
+                        title, 
+                        content, 
+                        grade, 
+                        regdate, 
+                        delete_yn 
+      )VALUES( 
+                        review_id_seq.NEXTVAL, 
+                        #{productId}, 
+                        #{email}, 
+                        #{title}, 
+                        #{content}, 
+                        #{grade}, 
+                        SYSDATE, 
+                        'N' 
+      )
+	</insert>
 </mapper>
