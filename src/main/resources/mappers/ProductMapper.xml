@@ -282,7 +282,7 @@
 	</update>
 
 	  <!-- 구매후기 댓글 등록  -->
-	<insert id="createReviewComm" parameterType="map">
+	<insert id="createReviewComment" parameterType="map">
 	  INSERT INTO levin_reviews 
       ( 
                         review_id, 
@@ -302,7 +302,7 @@
 	</insert>
 	
 	<!-- 구매후기 댓글 등록  -->
-	<insert id="createReviewCommId" parameterType="int">
+	<insert id="createReviewCommentId" parameterType="int">
 	  INSERT INTO levin_reviews_comments 
       (
       		 	parent_id, 
@@ -339,8 +339,8 @@
 
 
 	<!-- 구매후기 댓글리스트 -->
-	<select id="listReviewComm" parameterType="int" resultType="ReviewComment">
-	  SELECT reviews.review_id     reviewId, 
+	<select id="listReviewComment" parameterType="int" resultType="ReviewComment">
+	  SELECT reviews.review_id     commentId, 
        		 reviews.email, 
        		 reviews.content, 
        		 To_char(reviews.regdate, 'yyyy-mm-dd') regdate, 
@@ -350,5 +350,11 @@
              ON reviews.review_id = comms.child_id 
 	  WHERE  comms.parent_id = #{parentId} 
 	</select>
-
+	
+	<!-- 구매후기 댓글 수정 -->
+	<update id="updateReviewComment" parameterType="map">
+	  UPDATE levin_reviews 
+	  SET    content = #{content} 
+	  WHERE  review_id = #{childId} 
+	</update>
 </mapper>

@@ -201,12 +201,12 @@ public class ProductServiceImpl implements ProductService {
 
 	// 구매후기글의 댓글 등록
 	@Override
-	public boolean addReviewComm(Map<String, String> parameter) throws Exception {
+	public boolean addReviewComment(Map<String, String> parameter) throws Exception {
 		// Mybatis 실행 결과를 받기 위한 변수
 		boolean addResult = false;
 		boolean flag = false;
 		// 구매후기글의 댓글 등록
-		addResult = productDao.createReviewComm(parameter);
+		addResult = productDao.createReviewComment(parameter);
 		// 등록에 성공하면
 		if (addResult) {
 			flag = true;
@@ -229,11 +229,26 @@ public class ProductServiceImpl implements ProductService {
 
 
 	}
+	//구매후기글의 댓글 리스트
 	@Override
-	public List<ReviewComment> listReviewComm(int parentId) throws Exception {
+	public List<ReviewComment> listReviewComment(int parentId) throws Exception {
 		// 댓글 리스트
-		List<ReviewComment> list = productDao.listReviewComm(parentId);
+		List<ReviewComment> list = productDao.listReviewComment(parentId);
 		return list;
 
+	}
+	
+	// 구매후기글의 댓글 수정
+	@Override
+	public boolean editReviewComment(Map<String, Object> parameter) throws Exception {
+		boolean result = false;
+		boolean flag = false;
+		// 구매후기글의 댓글 수정
+		result = productDao.updateReviewComment(parameter);
+		// 구매후기글 댓글 수정 성공여부 확인
+		if (result) { // 수정에 성공했을 경우
+			flag = true;
+		}
+		return flag;
 	}
 }

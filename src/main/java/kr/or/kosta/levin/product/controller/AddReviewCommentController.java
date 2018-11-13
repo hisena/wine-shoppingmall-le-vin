@@ -26,7 +26,7 @@ import oracle.net.aso.e;
 
 @Bean(type = BeanType.Controller)
 @RequestMapping(value = "/product/review-comment-add")
-public class AddReviewCommController implements Controller {
+public class AddReviewCommentController implements Controller {
 
 	// 서비스 선언
 	@Inject
@@ -45,7 +45,7 @@ public class AddReviewCommController implements Controller {
 			throws ServletException, RequestException {
 
 		// 구매후기글 등록 결과 변수 선언
-		boolean addReviewCommResult;
+		boolean addReviewCommentResult;
 		// frontController로 값을 보내기 위한 map 생성
 		Map<String, String> map = new HashMap<String, String>();
 
@@ -81,13 +81,13 @@ public class AddReviewCommController implements Controller {
 		try {
 			// 파라미터값 null 유효성 검사
 			if (reviewComment.checkNull(reviewComment)) {
-				addReviewCommResult = productService.addReviewComm(parameter);
+				addReviewCommentResult = productService.addReviewComment(parameter);
 				// 구매후기글의 댓글 등록 성공 시
-				if (addReviewCommResult) {
-					map.put("addReviewCommResult", "true");
+				if (addReviewCommentResult) {
+					map.put("addReviewCommentResult", "true");
 				} else {
 					// 실패시
-					map.put("addReviewCommResult", "false");
+					map.put("addReviewCommentResult", "false");
 				}
 				return map;
 			} else {
@@ -96,7 +96,7 @@ public class AddReviewCommController implements Controller {
 			}
 
 		} catch (Exception e) {
-			throw new ServletException("productService.addReviewComm() 예외 발생", e);
+			throw new ServletException("productService.addReviewComment() 예외 발생", e);
 		}
 	}
 }

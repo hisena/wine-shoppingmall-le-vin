@@ -233,19 +233,19 @@ public class MybatisProductDao implements ProductDao {
 
 	// 구매후기글의 댓글 내용 등록
 	@Override
-	public boolean createReviewComm(Map<String, String> parameter) throws Exception {
+	public boolean createReviewComment(Map<String, String> parameter) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		String parentId = parameter.get("parentId");
 		// insert문 실행 후 반환값 저장
-		int insertResult = sqlSession.insert(NAMESPACE + "createReviewComm", parameter);
-		boolean createReviewCommResult = false;
+		int insertResult = sqlSession.insert(NAMESPACE + "createReviewComment", parameter);
+		boolean createReviewCommentResult = false;
 		// 댓글 등록에 성공했으면
 		if (insertResult == 1) {
 			// 구매후기 원글과 댓글의 관계 설정해주기
-			if ((sqlSession.insert(NAMESPACE + "createReviewCommId", Integer.parseInt(parentId))) == 1) {
+			if ((sqlSession.insert(NAMESPACE + "createReviewCommentId", Integer.parseInt(parentId))) == 1) {
 				// 커밋해주기
 				sqlSession.commit();
-				createReviewCommResult = true;
+				createReviewCommentResult = true;
 			} else {
 				sqlSession.rollback();
 			}
@@ -254,7 +254,7 @@ public class MybatisProductDao implements ProductDao {
 			sqlSession.rollback();
 		}
 		sqlSession.close();
-		return createReviewCommResult;
+		return createReviewCommentResult;
 	}
 	// 상품문의 상세보기
 	@Override
@@ -289,12 +289,32 @@ public class MybatisProductDao implements ProductDao {
 	
 	//구매후기글 댓글리스트
 	@Override
-	public List<ReviewComment> listReviewComm(int parentId) throws Exception {
+	public List<ReviewComment> listReviewComment(int parentId) throws Exception {
 		List<ReviewComment> list = null;
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		list = sqlSession.selectList(NAMESPACE + "listReviewComm", parentId);
+		list = sqlSession.selectList(NAMESPACE + "listReviewComment", parentId);
 		sqlSession.close();
 		return list;
 
+	}
+	
+	//구매후기글의 댓글 수정
+	@Override
+	public boolean updateReviewComment(Map<String, Object> parameter) throws Exception {
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = sqlSession.update(NAMESPACE + "updateComment", parameter);
+		boolean flag = false;
+		// update에 성공한 경우
+		if (result == 1) {
+			// 커밋
+			sqlSession.commit();
+			flag = true;
+		} else {
+			// 실패한 경우 rollback
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return flag;
 	}
 }

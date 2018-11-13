@@ -52,7 +52,7 @@ public interface ProductDao {
 	public boolean deleteReview(int reviewId) throws Exception;
 
 	/** 구매후기글의 댓글 등록 */
-	public boolean createReviewComm(Map<String, String> parameter) throws Exception; 
+	public boolean createReviewComment(Map<String, String> parameter) throws Exception; 
 
 	/** 상품문의글 상세보기 */
 	public ProductQna readQna(String qnaId) throws Exception;
@@ -62,7 +62,9 @@ public interface ProductDao {
 	public boolean updateQna(ProductQna productQna) throws Exception;
 
 	/** 구매후기글의 댓글리스트 */
-	public List<ReviewComment> listReviewComm(int parentId) throws Exception;
-
+	public List<ReviewComment> listReviewComment(int parentId) throws Exception;
+	
+	/** 구매후기글의 댓글 수정 */
+	public boolean updateReviewComment(Map<String, Object> parameter) throws Exception;
 
 }

@@ -27,7 +27,7 @@ import oracle.net.aso.e;
 
 @Bean(type = BeanType.Controller)
 @RequestMapping(value = "/product/review-comment-list")
-public class ListReviewCommController implements Controller {
+public class ListReviewCommentController implements Controller {
 
 	// 서비스 선언
 	@Inject
@@ -55,23 +55,23 @@ public class ListReviewCommController implements Controller {
 
 		// 반환해줄 map
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<ReviewComment> reviewCommResult;
+		List<ReviewComment> reviewCommentResult;
 		try {
 
 			// 서비스의 비즈니스메소드 호출
-			reviewCommResult = productService.listReviewComm(Integer.parseInt(parentId));
+			reviewCommentResult = productService.listReviewComment(Integer.parseInt(parentId));
 
 			// 검색해온 댓글리스트에 값이 있는 경우
-			if (!(reviewCommResult.isEmpty())) {
-				map.put("reviewCommResult", reviewCommResult);
+			if (!(reviewCommentResult.isEmpty())) {
+				map.put("reviewCommentResult", reviewCommentResult);
 				return map;
 			} else {
 				// 검색해온 댓글리스트에 값이 없을 경우
-				map.put("reviewCommResult", "false");
+				map.put("reviewCommentResult", "false");
 				return map;
 			}
 		} catch (Exception e) {
-			throw new ServletException("productQna/ListReviewCommController 예외 ", e);
+			throw new ServletException("productQna/ListReviewCommentController 예외 ", e);
 		}
 	}
 }
