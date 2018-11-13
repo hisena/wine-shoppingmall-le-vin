@@ -256,4 +256,10 @@ public class ProductServiceImpl implements ProductService {
 	public boolean editQnaComment(ProductQna productQna) throws Exception {
 		return productDao.updateQnaComment(productQna);
 	}
+
+	// 상품 문의글 및 댓글 삭제하기
+	@Override
+	public boolean removeQna(String productId) throws Exception {
+		return productDao.deleteQna(productId);
+	}
 }

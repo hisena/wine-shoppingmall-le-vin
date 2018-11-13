@@ -147,7 +147,7 @@ public class MybatisProductDao implements ProductDao {
 		return flag;
 	}
 
-	// 상품 문의글 작성
+	// 상품 문의글 등록
 	@Override
 	public boolean createQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -272,7 +272,7 @@ public class MybatisProductDao implements ProductDao {
 	public boolean updateQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// update문 실행 후 반환값 저장
-		int updateResult = sqlSession.insert(NAMESPACE + "updateQna", productQna);
+		int updateResult = sqlSession.update(NAMESPACE + "updateQna", productQna);
 		boolean updateQnaResult = false;
 		// update에 성공했으면
 		if (updateResult == 1) {
@@ -323,7 +323,7 @@ public class MybatisProductDao implements ProductDao {
 	public boolean updateQnaComment(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		// update문 실행 후 반환값 저장
-		int updateResult = sqlSession.insert(NAMESPACE + "updateQnaComment", productQna);
+		int updateResult = sqlSession.update(NAMESPACE + "updateQnaComment", productQna);
 		boolean updateQnaCommResult = false;
 		// update에 성공했으면
 		if (updateResult == 1) {
@@ -336,5 +336,25 @@ public class MybatisProductDao implements ProductDao {
 		}
 		sqlSession.close();
 		return updateQnaCommResult;
+	}
+
+	// 상품 문의글 및 댓글 삭제하기
+	@Override
+	public boolean deleteQna(String productId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// update문 실행 후 반환값 저장
+		int deleteResult = sqlSession.update(NAMESPACE + "deleteQna", productId);
+		boolean deleteQnaResult = false;
+		// update에 성공했으면
+		if (deleteResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			deleteQnaResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return deleteQnaResult;
 	}
 }

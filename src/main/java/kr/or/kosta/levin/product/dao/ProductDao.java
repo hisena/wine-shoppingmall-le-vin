@@ -69,4 +69,7 @@ public interface ProductDao {
 
 	/** 상품문의 댓글 수정하기 */
 	public boolean updateQnaComment(ProductQna productQna) throws Exception;
+	
+	/** 상품문의글 및 댓글 삭제하기 */
+	public boolean deleteQna(String productId) throws Exception;
 }
