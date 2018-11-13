@@ -70,15 +70,8 @@ public class ListQnaController implements Controller {
 		Map<String, Object> map;
 		try {
 			map = qnaService.list(parameter);
-
-			// 검색해온 문의리스트에 값이 있는 경우 - qnaList와 pageinfo가 담긴 map 반환
-			ArrayList<e> qnaList = (ArrayList) map.get("qnaList");
-			if (qnaList.size() != 0) {
-				return map;
-			} else {
-				// 검색해온 문의리스트에 값이 없을 경우 - 400 에러
-				throw new RequestBadRequestException();
-			}
+			return map;
+			
 		} catch (Exception e) {
 			throw new ServletException("privateQna/ListQnaController 예외 ", e);
 		}

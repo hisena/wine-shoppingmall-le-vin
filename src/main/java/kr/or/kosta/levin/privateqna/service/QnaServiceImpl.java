@@ -51,9 +51,14 @@ public class QnaServiceImpl implements QnaService {
 		pagination.setCurrentPage(currentPage);
 		pm.setPagination(pagination);
 		pm.setTotalCount(count);
+		
+		if(!list.isEmpty()) {
+			map.put("qnaList", list);
+		}else {
+			map.put("qnaList", "false");
+		}
 
 		// controller로 넘겨 주기 위해 map에 담아주기
-		map.put("qnaList", list);
 		map.put("pageInfo", pm.pageInfo());
 		return map;
 	}
