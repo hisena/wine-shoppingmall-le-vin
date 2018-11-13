@@ -176,7 +176,7 @@
                               title,
                               content,
                               grade,
-                              TO_CHAR(regdate, 'yyyy-mm-dd') regdate,
+                              TO_CHAR(regdate, 'yy-mm-dd') regdate,
                               delete_yn         deleteYN 
                       FROM   levin_reviews
                       WHERE  review_id NOT IN (SELECT child_id
@@ -197,13 +197,13 @@
 	
 	<!-- 구매후기 상세보기 -->
 	<select id="readReview" parameterType="int" resultType="Review">
-	  SELECT review_id, 
-	  		 product_id,
+	  SELECT review_id reviewId, 
+	  		 product_id productId,
         	 email, 
        	     title, 
        	     content, 
        	     grade, 
-       	     To_char(regdate, 'yyyy-mm-dd') regdate 
+       	     To_char(regdate, 'yy-mm-dd') regdate 
 	  FROM   levin_reviews 
 	  WHERE  review_id = #{reviewId} 
 	</select>
