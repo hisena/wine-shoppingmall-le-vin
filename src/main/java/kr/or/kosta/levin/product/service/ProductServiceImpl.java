@@ -196,4 +196,10 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return flag;
 	}
+	
+	// 상품 문의글 상세보기
+	@Override
+	public ProductQna detailQna(String qna) throws Exception {
+		return productDao.readQna(qna);
+	}
 }

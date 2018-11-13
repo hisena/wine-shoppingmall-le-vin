@@ -229,4 +229,13 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return flag;
 	}
+
+	// 상품문의 상세보기
+	@Override
+	public ProductQna readQna(String qnaId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		ProductQna productQna = sqlSession.selectOne(NAMESPACE + "readQna", qnaId);
+		sqlSession.close();
+		return productQna;
+	}
 }

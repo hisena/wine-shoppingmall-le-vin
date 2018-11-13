@@ -49,4 +49,7 @@ public interface ProductService {
 	
 	/**구매후기글 삭제*/
 	public boolean removeReview(int reviewId) throws Exception;
+	
+	/**상품문의글 상세보기*/
+	public ProductQna detailQna(String qnaId) throws Exception;
 }
