@@ -230,4 +230,41 @@
                         'N' 
       )
 	</insert>
+	
+	<!-- 필터 값 초기화를 위한 조회 : 와인 종류 -->
+	<select id="readKindValues" resultType="string">
+	  SELECT DISTINCT( kind ) "kind"
+		FROM   levin_products  
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 생산지 종류 -->
+	<select id="readRegionValues" resultType="map">
+	  SELECT region_id		"regionId", 
+	       	 region_name 	"regionName"
+	    FROM   levin_regions 
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 도수 최대/최소 -->
+	<select id="readAlcoholMinMaxValues" resultType="map">
+	  SELECT Max(To_number(alcohol)) "max", 
+       		 Min(To_number(alcohol)) "min" 
+		FROM   levin_products 
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 당도 최대/최소 -->
+	<select id="readSugarContentMinMaxValues" resultType="map">
+	  SELECT Max(sugar_content) "max", 
+      		 Min(sugar_content) "min" 
+		FROM   levin_products  
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 바디 최대/최소 -->
+	<select id="readBodyMinMaxValues" resultType="map">
+	  SELECT Max(BODY) "max", 
+		     Min(BODY) "min" 
+		FROM   levin_products   
+	</select>
+	<!-- 필터 값 초기화를 위한 조회 : 가격 최대/최소 -->
+	<select id="readPriceMinMaxValues" resultType="map">
+	  SELECT Max(price) "max", 
+		     Min(price) "min" 
+		FROM   levin_prices  
+	</select>
+	
 </mapper>

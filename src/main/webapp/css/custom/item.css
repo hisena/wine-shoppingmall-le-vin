@@ -17,3 +17,7 @@
 	clear:left;
 	float:left;
 }
+
+.alcohol, .sugar-content, .body, .price {
+	width: 100%;
+}

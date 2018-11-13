@@ -3,6 +3,8 @@ package kr.or.kosta.levin.product.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
+
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.Product;
@@ -42,5 +44,11 @@ public interface ProductDao {
 	/** 상품 문의글 등록 */
 	public boolean createQna(ProductQna productQna) throws Exception; 
 	
-
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	public List<String> readKindValues() throws Exception;
+	public List<Map<String, String>> readRegionValues() throws Exception;
+	public Map<String, String> readAlcoholMinMaxValues() throws Exception;
+	public Map<String, String> readSugarContentMinMaxValues() throws Exception;
+	public Map<String, String> readBodyMinMaxValues() throws Exception;
+	public Map<String, String> readPriceMinMaxValues() throws Exception;
 }

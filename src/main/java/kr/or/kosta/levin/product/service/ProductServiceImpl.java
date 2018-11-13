@@ -160,4 +160,31 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.createQna(productQna);
 
 	}
+	
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	@Override
+	public Map<String, Object> initiateFilterValues() throws Exception {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 와인 종류 정보 넣어줌
+		result.put("kind", productDao.readKindValues());
+		
+		// 생산지 정보 넣어줌
+		result.put("region", productDao.readRegionValues());
+		
+		// 최소, 최대 도수 정보 넣어줌
+		result.put("alcohol", productDao.readAlcoholMinMaxValues());
+		
+		// 최소, 최대 당도 정보 넣어줌
+		result.put("sugarContent", productDao.readSugarContentMinMaxValues());
+		
+		// 최소, 최대 바디 정보 넣어줌
+		result.put("body", productDao.readBodyMinMaxValues());
+		
+		// 최소, 최대 가격 정보 넣어줌
+		result.put("price", productDao.readPriceMinMaxValues());
+		
+		return result;
+	}
 }

@@ -50,49 +50,35 @@
             </div>
             <div class="filter__content">
               <div class="fiter__content__inner">
-                <div class="single__filter">
-                  <h2>Sort By</h2>
+                <div class="single__filter kind">
+                  <h2>종류</h2>
                   <ul class="filter__list">
-                    <li><a href="#default">Default</a></li>
-                    <li><a href="#accessories">Accessories</a></li>
-                    <li><a href="#bags">Bags</a></li>
-                    <li><a href="#chair">Chair</a></li>
-                    <li><a href="#decoration">Decoration</a></li>
-                    <li><a href="#fashion">Fashion</a></li>
                   </ul>
                 </div>
-                <div class="single__filter">
-                  <h2>Size</h2>
+                <div class="single__filter region">
+                  <h2>생산지</h2>
                   <ul class="filter__list">
-                    <li><a href="#xxl">XXL</a></li>
-                    <li><a href="#xl">XL</a></li>
-                    <li><a href="#x">X</a></li>
-                    <li><a href="#l">L</a></li>
-                    <li><a href="#m">M</a></li>
-                    <li><a href="#s">S</a></li>
                   </ul>
                 </div>
-                <div class="single__filter">
-                  <h2>Tags</h2>
-                  <ul class="filter__list">
-                    <li><a href="#">All</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Bags</a></li>
-                    <li><a href="#">Chair</a></li>
-                    <li><a href="#">Decoration</a></li>
-                    <li><a href="#">Fashion</a></li>
-                  </ul>
+                <div class="single__filter alcohol">
+                  <h2>도수</h2>
+                  <input type="text" id="alcohol-amount" readonly style="border:0;">
+                  <div id="alcohol-range"></div>
                 </div>
-                <div class="single__filter">
-                  <h2>Price</h2>
-                  <ul class="filter__list">
-                    <li><a href="#">$0.00 - $50.00</a></li>
-                    <li><a href="#">$50.00 - $100.00</a></li>
-                    <li><a href="#">$100.00 - $150.00</a></li>
-                    <li><a href="#">$150.00 - $200.00</a></li>
-                    <li><a href="#">$300.00 - $500.00</a></li>
-                    <li><a href="#">$500.00 - $700.00</a></li>
-                  </ul>
+                <div class="single__filter sugar-content">
+                  <h2>당도</h2>
+                  <input type="text" id="sugar-amount" readonly style="border:0;">
+                  <div id="sugar-range"></div>
+                </div>
+                <div class="single__filter body">
+                  <h2>바디</h2>
+                  <input type="text" id="body-amount" readonly style="border:0;">
+                  <div id="body-range"></div>
+                </div>
+                <div class="single__filter price">
+                  <h2>가격</h2>
+                  <input type="text" id="price-amount" readonly style="border:0;">
+                  <div id="price-range"></div>
                 </div>
               </div>
             </div>
@@ -143,9 +129,19 @@
 <script src="js/custom/details.js"></script>
 <!-- 페이지네이션 -->
 <script src="js/common/pagination.js"></script>
+<!-- 필터에서의 range slider를 위한 jquery ui -->
+<link type="text/css" rel="stylesheet" href="js/plugins/jquery-ui.min.css">
+<link type="text/css" rel="stylesheet" href="js/plugins/jquery-ui.structure.min.css">
+<link type="text/css" rel="stylesheet" href="js/plugins/jquery-ui.theme.min.css">
+<script src="js/plugins/jquery-ui.min.js"></script>
+<script src="js/custom/product_filter.js"></script>
 <!-- Ajax통신 -->
 <script>
 $(function() {
+	// 데이터베이싀에서 필터 초기값을 불러옴
+	getProductRangeValues();
+	// 필터 초기화
+	initiateFilters(); 
 	// 검색키워드 선언
 	var searchKeyword;
 	// 처음 로딩시 Ajax
@@ -158,7 +154,6 @@ $(function() {
 			// 상품 리스트 출력
 			$('#product').empty();
 			$.each(productList, function(index, item) {
-				console.log(item);
 				printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
 			});
 			// 페이지네이션

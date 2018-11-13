@@ -42,5 +42,7 @@ public interface ProductService {
 	/** 상품의 상품 문의글 등록*/
 	public boolean addQna(ProductQna productQna) throws Exception;
 	
+	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
+	public Map<String, Object> initiateFilterValues() throws Exception;
 
 }
