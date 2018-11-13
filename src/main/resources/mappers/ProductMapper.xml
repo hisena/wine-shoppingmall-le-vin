@@ -372,4 +372,11 @@
 	  WHERE  qna_id = #{qnaId}
 	</update>
 	
+	<!-- 구매후기 댓글 삭제 -->
+	<update id="deleteReviewComment" parameterType="int">
+	  update LEVIN_REVIEWS
+	  set 	 DELETE_YN = 'Y'
+	  where  review_id = #{childId}
+	</update>
+	
 </mapper>

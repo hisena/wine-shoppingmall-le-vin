@@ -70,4 +70,7 @@ public interface ProductService {
 	
 	/**상품문의글 및 댓글 삭제*/
 	public boolean removeQna(String productId) throws Exception;
+	
+	/**구매후기글의 댓글 삭제*/
+	public boolean removeReviewComment(int childId) throws Exception;
 }

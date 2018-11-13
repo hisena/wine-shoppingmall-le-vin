@@ -72,4 +72,7 @@ public interface ProductDao {
 	
 	/** 상품문의글 및 댓글 삭제하기 */
 	public boolean deleteQna(String productId) throws Exception;
+	
+	/** 구매후기글의 댓글 삭제 */
+	public boolean deleteReviewComment(int childId) throws Exception;
 }
