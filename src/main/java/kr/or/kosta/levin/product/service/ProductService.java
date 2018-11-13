@@ -49,7 +49,11 @@ public interface ProductService {
 	
 	/**구매후기글 삭제*/
 	public boolean removeReview(int reviewId) throws Exception;
-	
+
 	/**구매후기글의 댓글 등록 */
 	public boolean addReviewComm(Map<String, String> parameter) throws Exception;
+
+	/**상품문의글 상세보기*/
+	public ProductQna detailQna(String qnaId) throws Exception;
+
 }

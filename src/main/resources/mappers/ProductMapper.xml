@@ -280,7 +280,7 @@
 	  set 	 DELETE_YN = 'Y'
 	  where  review_id = #{reviewId}
 	</update>
-	
+
 	  <!-- 구매후기 댓글 등록  -->
 	<insert id="createReviewComm" parameterType="map">
 	  INSERT INTO levin_reviews 
@@ -314,4 +314,18 @@
             	 review_id_seq.CURRVAL 
       ) 
       </insert>
+
+	<!-- 상품문의글 상세보기 -->
+	<select id="readQna" parameterType="String" resultType="ProductQna">
+	  SELECT qna_id 		qnaId, 
+       		 product_id		productId, 
+       		 title, 
+       		 content,
+       		 writer,
+       		 private_yn		privateYn, 
+       		 TO_CHAR(regdate, 'yyyy-mm-dd') regdate 
+	  FROM   levin_product_qnas 
+	  WHERE  qna_id = #{qnaId} 
+	</select>
+
 </mapper>

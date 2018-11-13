@@ -228,6 +228,7 @@ public class MybatisProductDao implements ProductDao {
 		return flag;
 	}
 
+
 	// 구매후기글의 댓글 내용 등록
 	@Override
 	public boolean createReviewComm(Map<String, String> parameter) throws Exception {
@@ -252,5 +253,14 @@ public class MybatisProductDao implements ProductDao {
 		}
 		sqlSession.close();
 		return createReviewCommResult;
+	}
+	// 상품문의 상세보기
+	@Override
+	public ProductQna readQna(String qnaId) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		ProductQna productQna = sqlSession.selectOne(NAMESPACE + "readQna", qnaId);
+		sqlSession.close();
+		return productQna;
+
 	}
 }

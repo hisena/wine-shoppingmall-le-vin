@@ -196,7 +196,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return flag;
 	}
-	
+
 	// 구매후기글의 댓글 등록
 	@Override
 	public boolean addReviewComm(Map<String, String> parameter) throws Exception {
@@ -210,5 +210,11 @@ public class ProductServiceImpl implements ProductService {
 					flag = true;
 				}
 				return flag;
+	}
+	// 상품 문의글 상세보기
+	@Override
+	public ProductQna detailQna(String qnaId) throws Exception {
+		return productDao.readQna(qnaId);
+
 	}
 }
