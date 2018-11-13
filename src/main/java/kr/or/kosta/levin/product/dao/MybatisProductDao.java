@@ -92,7 +92,8 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();	
 		return list;
 	}
-
+	
+	//전체글 상품 문의글 작성
 	@Override
 	public boolean createQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -110,6 +111,26 @@ public class MybatisProductDao implements ProductDao {
 		}
 		sqlSession.close();
 		return createQnaResult;
+	}
+	
+	// 상품 문의 비밀글 작성
+	@Override
+	public boolean createQnaPrivate(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// insert문 실행 후 반환값 저장
+		int insertResult = sqlSession.insert(NAMESPACE + "createQnaPrivate", productQna);
+		boolean qnaPrivateResult = false;
+		// insert에 성공했으면
+		if (insertResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			qnaPrivateResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return qnaPrivateResult;
 	}
 	
 }

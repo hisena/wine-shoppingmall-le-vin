@@ -55,7 +55,7 @@ public class ListQnaController implements Controller {
 
 		try {
 			// 전달 받은 값 null 체크
-			if(productId != null) {
+			if(productId != null && productId.trim().length() != 0) {
 				param.put("currentPage", currentPage);
 				param.put("productId", productId);
 				listResult = productService.listQna(param);

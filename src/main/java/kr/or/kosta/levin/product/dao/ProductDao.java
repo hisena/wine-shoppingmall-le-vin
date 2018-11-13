@@ -27,6 +27,8 @@ public interface ProductDao {
 	public int countBySearchQna(String productId) throws Exception;
 	/** 상품댓글 목록 반환 */	
 	public List<ProductQnaComment> listQnaComment(Map<String, String> param) throws Exception;
-	/** 상품 문의글 등록 */
+	/** 상품 문의 전체글 등록 */
 	public boolean createQna(ProductQna productQna) throws Exception; 
+	/** 상품 문의 비밀글 등록*/
+	public boolean createQnaPrivate(ProductQna productQna) throws Exception;
 }

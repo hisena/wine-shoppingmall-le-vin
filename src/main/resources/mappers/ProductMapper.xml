@@ -41,6 +41,7 @@
 		</if>
 	</select>
 	
+	<!-- 상품 상세보기 -->
 	<select id="getProduct" parameterType="String" resultType="Product" >
 		SELECT pro.product_id       productId, 
        		   pro.product_name_kor productNameKor, 
@@ -124,6 +125,7 @@
 		AND    qnas.product_id = #{productId}
 	</select>
 	
+	<!-- 상품 문의 전체글 등록 -->
 	<insert id="createQna" parameterType="ProductQna">
 		INSERT INTO levin_product_qnas
 		(
@@ -132,9 +134,6 @@
        				writer,
         			title,
         			content,
-     			<if test="privateYn == 'Y'">
-        			private_yn,
-        		</if>
         			regdate    
 		)VALUES(
 					qna_id_seq.nextval,
@@ -142,10 +141,29 @@
 					#{writer},
 					#{title},
 					#{content},
-				<if test="privateYn == 'Y'">
+					SYSDATE
+		)
+	</insert>
+	
+	<!-- 상품 문의 비밀글 작성 -->
+	<insert id="createQnaPrivate" parameterType="ProductQna">
+		INSERT INTO levin_product_qnas
+		(
+					qna_id,
+        			product_id,
+       				writer,
+        			title,
+        			content,
         			private_yn,
-        		</if>
-					sysdate
+        			regdate
+		)VALUES(
+					qna_id_seq.nextval,
+          			#{productId},
+					#{writer},
+					#{title},
+					#{content},
+        			'Y',
+					SYSDATE
 		)
 	</insert>
 	 

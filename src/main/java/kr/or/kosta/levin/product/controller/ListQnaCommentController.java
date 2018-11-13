@@ -53,7 +53,7 @@ public class ListQnaCommentController implements Controller {
 		Map<String, Object> map = new HashMap<>();
 		try {
 			// 전달 받은 값 null 체크
-			if(productId != null && qnaId != null) {
+			if(productId != null && qnaId != null && productId.trim().length() != 0 && qnaId.trim().length() !=0) {
 				param.put("qnaId", qnaId);
 				param.put("productId", productId);
 				listResult = productService.listQnaComment(param);

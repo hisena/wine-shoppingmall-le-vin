@@ -17,7 +17,6 @@ import kr.or.kosta.levin.product.domain.ProductQnaComment;
 
 /**
  * Product와 관련된 비즈니스 로직 수행을 위한 Service 객체
- * 
  * @author 박소연
  *
  */
@@ -105,8 +104,14 @@ public class ProductServiceImpl implements ProductService {
 	// 상품 문의글 등록
 	@Override
 	public boolean addQna(ProductQna productQna) throws Exception {
-		
-		return productDao.createQna(productQna);
+		// service의 결과를 controller에게 전달하기 위한 변수
+		boolean addQna = false;
+		// 비밀글로 작성할 경우
+		if(productQna.getPrivateYn().equals("Y")){ 
+			addQna = productDao.createQnaPrivate(productQna);
+		}else {
+			addQna = productDao.createQna(productQna);
+		}
+		return addQna;
 	}
-
 }

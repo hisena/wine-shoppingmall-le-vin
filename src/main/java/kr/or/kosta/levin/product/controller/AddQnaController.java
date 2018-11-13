@@ -18,7 +18,7 @@ import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.service.ProductService;
 
 /**
- * 상품문의 작성하기 기능을 위한 세부 컨트롤러
+ * 상품문의글 작성하기 기능을 위한 세부 컨트롤러
  * 
  * @author 박소연
  */
@@ -50,18 +50,28 @@ public class AddQnaController implements Controller {
 //	    String writer = request.getParameter("writer");
 //	    String content = request.getParameter("content");
 		
-	    String privateYn = "Y";
-		String productId = "2";
-		String title = "상품2에 대한 문의글 제목입니다.";
-	    String writer = "sodus0131@naver.com";
-	    String content = "상품2에 대한 문의글 내용입니다.";
+		// 혹시 몰라서 남겨둠 테스트 완료하면 지우기
+//	    String privateYn = "N";
+//		String productId = "5";
+//		String title = "상품5에 대한 문의글 제목입니다.";
+//	    String writer = "test0001@naver.com";
+//	    String content = "상품5에 대한 문의글 내용입니다.";
 	    
+		String privateYn = "";
+		String productId = "";
+		String title = "";
+		String writer = "";
+		String content="";
+		    
 		boolean addResult;
 		ProductQna productQna = new ProductQna();
 		Map<String, String> map = new HashMap<>();
 		try {
 			// 전달 받은 값 null 체크
-			if(productId != null && privateYn != null && title != null && writer != null && content != null) {
+			if(productId != null && privateYn != null && title != null && writer != null && content != null
+					&& productId.trim().length() != 0 && privateYn.trim().length() != 0
+					&& title.trim().length() != 0 && writer.trim().length() != 0
+					&& content.trim().length() != 0) {
 				productQna.setProductId(productId);
 				productQna.setPrivateYn(privateYn);
 				productQna.setTitle(title);
