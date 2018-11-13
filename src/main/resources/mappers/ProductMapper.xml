@@ -327,5 +327,13 @@
 	  FROM   levin_product_qnas 
 	  WHERE  qna_id = #{qnaId} 
 	</select>
+	
+	<!-- 상품문의글 수정하기 -->
+	<update id="updateQna" parameterType="ProductQna">
+	  UPDATE levin_product_qnas 
+	  SET    title = #{title}, 
+       		 content = #{content} 
+	  WHERE  qna_id = #{qnaId}
+	</update>
 
 </mapper>

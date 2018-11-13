@@ -56,4 +56,6 @@ public interface ProductService {
 	/**상품문의글 상세보기*/
 	public ProductQna detailQna(String qnaId) throws Exception;
 
+	/**상품문의글 수정*/
+	public boolean editQna(ProductQna productQna) throws Exception;
 }

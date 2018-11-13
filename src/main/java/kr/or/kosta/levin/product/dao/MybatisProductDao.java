@@ -263,4 +263,24 @@ public class MybatisProductDao implements ProductDao {
 		return productQna;
 
 	}
+
+	// 상품문의글 수정하기
+	@Override
+	public boolean updateQna(ProductQna productQna) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		// update문 실행 후 반환값 저장
+		int updateResult = sqlSession.insert(NAMESPACE + "updateQna", productQna);
+		boolean updateQnaResult = false;
+		// update에 성공했으면
+		if (updateResult == 1) {
+			// 커밋해주기
+			sqlSession.commit();
+			updateQnaResult = true;
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return updateQnaResult;
+	}
 }

@@ -55,5 +55,8 @@ public interface ProductDao {
 
 	/** 상품문의글 상세보기 */
 	public ProductQna readQna(String qnaId) throws Exception;
+	
+	/** 상품문의글 수정하기 */
+	public boolean updateQna(ProductQna productQna) throws Exception;
 
 }

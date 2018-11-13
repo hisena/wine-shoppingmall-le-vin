@@ -168,7 +168,7 @@ public class ProductServiceImpl implements ProductService {
 
 		return productDao.createQnaComment(productQna);
 	}
-	
+
 	// 구매후기글 수정
 	@Override
 	public boolean editReview(Review review) throws Exception {
@@ -182,7 +182,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return flag;
 	}
-	
+
 	// 구매후기글 삭제
 	@Override
 	public boolean removeReview(int reviewId) throws Exception {
@@ -201,20 +201,28 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean addReviewComm(Map<String, String> parameter) throws Exception {
 		// Mybatis 실행 결과를 받기 위한 변수
-				boolean addResult = false;
-				boolean flag = false;
-				// 구매후기글의 댓글 등록
-				addResult = productDao.createReviewComm(parameter);
-				// 등록에 성공하면
-				if (addResult) {
-					flag = true;
-				}
-				return flag;
+		boolean addResult = false;
+		boolean flag = false;
+		// 구매후기글의 댓글 등록
+		addResult = productDao.createReviewComm(parameter);
+		// 등록에 성공하면
+		if (addResult) {
+			flag = true;
+		}
+		return flag;
 	}
+
 	// 상품 문의글 상세보기
 	@Override
 	public ProductQna detailQna(String qnaId) throws Exception {
 		return productDao.readQna(qnaId);
+
+	}
+
+	// 상품 문의글 수정
+	@Override
+	public boolean editQna(ProductQna productQna) throws Exception {
+		return productDao.updateQna(productQna);
 
 	}
 }
