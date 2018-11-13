@@ -18,6 +18,7 @@ function getReviewList(productId) {
 			           + '    <th>별점</th>'
 		               + '  </tr>';
 			// 구매후기 리스트 출력
+			$('.product_details').empty();
 			for (var i = 0; i < reviewList.length; i++) {
             	if (reviewList[i].deleteYN == 'Y') {
             		String += '<tr><td colspan="5" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
@@ -61,7 +62,7 @@ function readReview(id) {
 			var review = data.review;
 			// 게시글 상세보기 함수
 			$('.product_details').empty();
-			reviewDetails(review.grade, review.title, review.content, review.regdate, review.productId)
+			reviewDetails(review.grade, review.title, review.content, review.regdate, id,  review.productId)
 		},
 		error: function(data) {
 			alert('에러발생');

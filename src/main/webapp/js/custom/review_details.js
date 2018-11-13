@@ -1,8 +1,8 @@
-function reviewDetails(grade, title, content, regdate, productId) {
+function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 	var String = '<table class="table table-striped table-bordered">'
 	           + '  <thead>'
 	           + '    <tr>'
-	           + '      <input type="hidden" value="'+ productId +'">'
+	           + '      <input type="hidden" value="'+ reviewId +'">'
 	           + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
 	           + '      <td colspan="3"><input type="text" class="form-control" value="'+ title +'"></td>'
 	           + '    </tr>'
@@ -21,13 +21,36 @@ function reviewDetails(grade, title, content, regdate, productId) {
 	           + '    </tr>'
 	           + '  </tbody>'
 	           + '</table>'
-	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyListQna(' + productId + ')">'
-	           + '<input type="button" value="목록" id="back" onclick="getQnaList()">'
+	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyListQna(' + reviewId + ')">'
+	           + '<input type="button" value="목록" id="back" onclick="getReviewList('+ productId +')">'
 	           + '<input type="button" value="수정" id="update" style="margin: 0 10px 20px 0">'
-	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deletePrivateQna(' + productId + ')">'
+	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deletePrivateQna(' + reviewId + ')">'
 	           + '<div class="col-md-12" id="replySection">'
 	           + '</div>'
 	
 	$('.pagination-lg').empty();
 	$('.product_details').append(String);
+	
+	// 구매후기 수정
+	$(document).on('click', '#update', function(event) {
+		$.ajax(Utils.baseUrl + "product/review-edit.mall", {
+			method: "post",
+			data: {
+				"reviewId": reviewId,
+				"grade": $('input[type="text"]:eq(2)').val(),
+				"title": $('input[type="text"]:eq(1)').val(),
+				"content": $('textarea').val()
+			},
+			dataType: "json",
+			success: function(data) {
+				if (data.editReviewResult) {
+					$('.product_details').empty();
+					getReviewList(productId);
+				}
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
+	});
 }
