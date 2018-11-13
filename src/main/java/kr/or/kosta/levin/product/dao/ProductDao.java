@@ -3,11 +3,7 @@ package kr.or.kosta.levin.product.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
-
 import kr.or.kosta.levin.common.domain.SearchPagination;
-
-import kr.or.kosta.levin.privateqna.domain.PrivateQna;
 import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
