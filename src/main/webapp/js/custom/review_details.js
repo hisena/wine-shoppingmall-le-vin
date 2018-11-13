@@ -2,7 +2,7 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 	var String = '<table class="table table-striped table-bordered">'
 	           + '  <thead>'
 	           + '    <tr>'
-	           + '      <input type="hidden" value="'+ reviewId +'">'
+	           + '      <input type="hidden" value="'+ reviewId +'" id="reviewId">'
 	           + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
 	           + '      <td colspan="3"><input type="text" class="form-control" value="'+ title +'"></td>'
 	           + '    </tr>'
@@ -84,8 +84,9 @@ function replyListReview(id) {
 		dataType: "json",
 		success: function(data) {
 			var reviewCommResult = data.reviewCommResult;
+			console.log(reviewCommResult);
 			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
-				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna()" style="float: left; display: inline-block">'
+				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteReview()" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
 				       + '    <th style="width: 5%">댓글번호</th>'
@@ -105,8 +106,8 @@ function replyListReview(id) {
 					            + '<td><input type="text" value="'+ reviewCommResult[i].content +'" id="replyContent"></td>'
 					            + '<td>'+ reviewCommResult[i].regdate +'</td>'
 					            + '<td>'
-					            + '<input type="button" value="수정" onclick="replyUpdateQna()" id="replyUpdate">'
-					            + '<input type="button" value="삭제" onclick="replyDeleteQna()" id="replyDelete" style="margin-right: 10px">'
+					            + '<input type="button" value="수정" onclick="replyUpdateReview()" id="replyUpdate">'
+					            + '<input type="button" value="삭제" onclick="replyDeleteReview()" id="replyDelete" style="margin-right: 10px">'
 					            + '</td>';
 					}
 					String += '</tr>';
@@ -118,6 +119,65 @@ function replyListReview(id) {
 				String += '<tr><td colspan="5" style="text-align: center;">등록된 댓글이 없습니다.</td></tr></table>'
 				$('#productReplySection').append(String);
 				$('#productReplySection').toggle();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 구매후기 댓글 등록
+function replyWriteReview() {
+	var email = getCookie("email");
+	$.ajax(Utils.baseUrl + "product/review-comment-add.mall", {
+		method: "post",
+		data: {
+			"email": email,
+			"reviewId": $('#reviewId').val(),
+			"content": $('input[type=text]').eq(4).val(),
+			"productId": $('#productId').val()
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.addReviewCommentResult) {
+				replyListReview();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 구매하기 댓글 삭제
+function replyDeleteReview() {
+	$.ajax(Utils.baseUrl + "product/review-comment-remove.mall", {
+		method: "post",
+		data: {
+			"commentId": $('#commentId').text()
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.removeReviewCommentResult) {
+				replyListReview();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 구매하기 댓글 수정
+function replyUpdateReview() {
+	$.ajax(Utils.baseUrl + "product/review-comment-edit.mall", {
+		method: "post",
+		data: {
+			"commentId": $('#commentId').text(),
+			"content": $('#replyContent').val()
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.editReviewCommentResult) {
+				replyListReview();
 			}
 		},
 		error: function(data) {

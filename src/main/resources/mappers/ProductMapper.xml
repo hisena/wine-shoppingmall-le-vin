@@ -339,7 +339,7 @@
 
 
 	<!-- 구매후기 댓글리스트 -->
-	<select id="listReviewComm" parameterType="int" resultType="ReviewComment">
+	<select id="listReviewComm" parameterType="int" resultType="Review">
 	  SELECT reviews.review_id     reviewId, 
        		 reviews.email, 
        		 reviews.content, 
