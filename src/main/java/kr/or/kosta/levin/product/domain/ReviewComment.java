@@ -86,7 +86,7 @@ public class ReviewComment {
 				+ content + ", regdate=" + regdate + ", deleteYN=" + deleteYN + "]";
 	}
 
-	// privateQna 속성값 null 체크
+	// reviewComment 속성값 null 체크
 	public boolean checkNull(ReviewComment reviewComment) {
 
 		// 속성값 중 하나라도 null이거나 공백값이라면 - false

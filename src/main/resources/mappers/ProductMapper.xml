@@ -198,6 +198,7 @@
 	<!-- 구매후기 상세보기 -->
 	<select id="readReview" parameterType="int" resultType="Review">
 	  SELECT review_id, 
+	  		 product_id,
         	 email, 
        	     title, 
        	     content, 
@@ -279,4 +280,38 @@
 	  set 	 DELETE_YN = 'Y'
 	  where  review_id = #{reviewId}
 	</update>
+	
+	  <!-- 구매후기 댓글 등록  -->
+	<insert id="createReviewComm" parameterType="map">
+	  INSERT INTO levin_reviews 
+      ( 
+                        review_id, 
+                        product_id, 
+                        email, 
+                        content, 
+                        regdate, 
+                        delete_yn 
+      ) VALUES ( 
+                        review_id_seq.NEXTVAL, 
+                        #{productId}, 
+                        #{email}, 
+                        #{content}, 
+                        SYSDATE, 
+                        'N' 
+      )
+	</insert>
+	
+	<!-- 구매후기 댓글 등록  -->
+	<insert id="createReviewCommId" parameterType="int">
+	  INSERT INTO levin_reviews_comments 
+      (
+      		 	parent_id, 
+             	child_id
+      ) VALUES ( 
+      			(SELECT review_id 
+                 FROM   levin_reviews 
+                 WHERE  review_id = #{parentId}), 
+            	 review_id_seq.CURRVAL 
+      ) 
+      </insert>
 </mapper>

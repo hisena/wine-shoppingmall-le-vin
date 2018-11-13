@@ -95,7 +95,6 @@ public class MybatisProductDao implements ProductDao {
 		return list;
 	}
 
-
 	// 구매후기글 리스트
 	@Override
 	public List<Review> reviewListByPage(Map<String, String> parameter) throws Exception {
@@ -146,7 +145,7 @@ public class MybatisProductDao implements ProductDao {
 		return flag;
 	}
 
-	//상품 문의글 작성
+	// 상품 문의글 작성
 	@Override
 	public boolean createQna(ProductQna productQna) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -176,11 +175,11 @@ public class MybatisProductDao implements ProductDao {
 		// 댓글 등록에 성공했으면
 		if (insertResult == 1) {
 			// 상품문의 원글과 댓글의 관계 설정해주기
-			if(sqlSession.insert(NAMESPACE + "createQnaCommentId", Integer.parseInt(productQna.getQnaId())) == 1) {
+			if (sqlSession.insert(NAMESPACE + "createQnaCommentId", Integer.parseInt(productQna.getQnaId())) == 1) {
 				// 커밋해주기
 				sqlSession.commit();
 				createQnaCommentResult = true;
-			}else {
+			} else {
 				sqlSession.rollback();
 			}
 		} else {
@@ -190,9 +189,8 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return createQnaCommentResult;
 	}
-	
-	
-	//구매후기글 수정
+
+	// 구매후기글 수정
 	@Override
 	public boolean updateReview(Review review) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -210,8 +208,8 @@ public class MybatisProductDao implements ProductDao {
 		sqlSession.close();
 		return flag;
 	}
-	
-	//구매후기글 삭제
+
+	// 구매후기글 삭제
 	@Override
 	public boolean deleteReview(int reviewId) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -228,5 +226,31 @@ public class MybatisProductDao implements ProductDao {
 		}
 		sqlSession.close();
 		return flag;
+	}
+
+	// 구매후기글의 댓글 내용 등록
+	@Override
+	public boolean createReviewComm(Map<String, String> parameter) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		String parentId = parameter.get("parentId");
+		// insert문 실행 후 반환값 저장
+		int insertResult = sqlSession.insert(NAMESPACE + "createReviewComm", parameter);
+		boolean createReviewCommResult = false;
+		// 댓글 등록에 성공했으면
+		if (insertResult == 1) {
+			// 구매후기 원글과 댓글의 관계 설정해주기
+			if ((sqlSession.insert(NAMESPACE + "createReviewCommId", Integer.parseInt(parentId))) == 1) {
+				// 커밋해주기
+				sqlSession.commit();
+				createReviewCommResult = true;
+			} else {
+				sqlSession.rollback();
+			}
+		} else {
+			// 실패했으면 rollback해주기
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return createReviewCommResult;
 	}
 }

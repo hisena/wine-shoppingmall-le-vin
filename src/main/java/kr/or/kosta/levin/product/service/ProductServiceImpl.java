@@ -196,4 +196,19 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return flag;
 	}
+	
+	// 구매후기글의 댓글 등록
+	@Override
+	public boolean addReviewComm(Map<String, String> parameter) throws Exception {
+		// Mybatis 실행 결과를 받기 위한 변수
+				boolean addResult = false;
+				boolean flag = false;
+				// 구매후기글의 댓글 등록
+				addResult = productDao.createReviewComm(parameter);
+				// 등록에 성공하면
+				if (addResult) {
+					flag = true;
+				}
+				return flag;
+	}
 }
