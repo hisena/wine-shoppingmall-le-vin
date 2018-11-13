@@ -66,7 +66,7 @@ public class EditQnaController implements Controller {
 				boolean editQna = productService.editQna(productQna);
 				
 				map.put("currentPage", currentPage);
-				// 검색해온 상품문의글 상세정보가 이 null이 아니면
+				// 업데이트가 잘 되었을 경우
 				if (editQna) {
 					map.put("qnaEditResult", "true");
 				} else {

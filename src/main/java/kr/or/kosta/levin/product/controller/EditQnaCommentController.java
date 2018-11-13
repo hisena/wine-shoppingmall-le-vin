@@ -15,9 +15,7 @@ import io.github.leeseungeun.webframework.enums.BeanType;
 import io.github.leeseungeun.webframework.exception.RequestBadRequestException;
 import io.github.leeseungeun.webframework.exception.RequestException;
 import kr.or.kosta.levin.product.domain.ProductQna;
-import kr.or.kosta.levin.product.domain.Review;
 import kr.or.kosta.levin.product.service.ProductService;
-import oracle.net.aso.e;
 
 /**
  * 상품문의 댓글 수정을 위한 세부 컨트롤러
@@ -50,6 +48,7 @@ public class EditQnaCommentController implements Controller {
 		String qnaId = request.getParameter("qnaId");
 		String content = request.getParameter("content");
 		String currentPage = request.getParameter("currentPage");
+
 		// 현재 페이지 값 처리
 		if(currentPage == null || currentPage.trim().length() == 0) {
 			currentPage ="1";
@@ -63,7 +62,7 @@ public class EditQnaCommentController implements Controller {
 				boolean editQnaComment = productService.editQnaComment(productQna);
 				
 				map.put("currentPage", currentPage);
-				// 검색해온 상품문의글 상세정보가 이 null이 아니면
+				// 업데이트가 제대로 됐으면
 				if (editQnaComment) {
 					map.put("qnaCommentEditResult", "true");
 				} else {
