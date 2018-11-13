@@ -1,45 +1,68 @@
 <meta charset="UTF-8">
 <table class="table table-hover productReview">
-  <tr class="danger">
-    <th>번호</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성일</th>
-	<th>별점</th>
-  </tr>
-  <tr class="title">
-    <td>1</td>
-    <td>샘플데이터입니다.</td>
-    <td>김샘플</td>
-    <td>2018.11.08</td>
-    <td>5점</td>
-  </tr>
-  <tr class="hide">
-    <td>안녕하세요.</td>
-  </tr>
-  <tr>
-  	<td>2</td>
-  	<td>샘플데이터입니다!</td>
-  	<td>이샘플</td>
-  	<td>2018.11.08</td>
-  	<td>4점</td>
-  </tr>
+  <!-- 테이블 내용 동적 삽입 -->
 </table>
+<!-- 페이지 네이션 -->
+<div class="row mt--60">
+  <div class="col-md-12">
+    <ul class="pagination pagination-lg">
+    </ul>
+  </div>
+</div>
 
-<!-- 구매후기 -->
-<script type="text/javascript">  
-	$(function(){
-	    $(".productReview .title").click(function() {  
-	        var content = $(this).next("tr");
-	        if($(content).hasClass('hide')) {
-	            $(content).addClass('show').removeClass('hide');
-	            $(content).attr('style', 'display: table-row !important');
-	            $(content).children('td:first').attr("colspan", 5);
-	        }
-	        else {
-	            $(content).addClass('hide').removeClass('show');  
-	            $(content).attr('style','');
-	        }
-	    });
+<!-- 페이지네이션 -->
+<script src="js/common/pagination.js"></script>
+<!-- Review Ajax 통신 -->
+<script src="js/custom/review.js"></script>
+<!-- Ajax통신 -->
+<script>
+$(function() {
+	// 구매후기 리스트 출력
+	getReviewList($('#productId').val());
+	// 페이지네이션 Ajax
+	$(document).on ('click', '.pagination-lg a', function(event) {
+		event.preventDefault();
+		$.ajax(Utils.baseUrl + "product/review-list.mall", {
+			method: "get",
+			data: {
+				"productId": $('#productId').val(),
+				"currentPage": $(this).attr("href")
+			},
+			dataType: "json",
+			success: function(data) {
+				var reviewList = data.reviewList;
+				var pageInfo = data.pageInfo;
+				var String = '<tr class="danger">'
+			               + '  <th>번호</th>'
+				           + '  <th>제목</th>'
+				           + '  <th>작성자</th>'
+				           + '  <th>작성일</th>'
+				           + '  <th>별점</th>'
+			               + '</tr>';
+				// 구매후기 리스트 풀력
+				$('.productReview').empty();
+				for (var i = 0; i < reviewList.length; i++) {
+	            	if (reviewList[i].deleteYN == 'Y') {
+	            		String += '<tr><td colspan="5" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
+	            	} else {
+	            		String += '<tr>'
+			                    + '  <td>'+ reviewList[i].reviewId +'</td>'
+	    	                    + '  <td>'+ reviewList[i].title +'</td>'
+	    	                    + '  <td>'+ reviewList[i].email +'</td>'
+	    	                    + '  <td>'+ reviewList[i].regdate  +'</td>'
+	    	                    + '  <td>'+ reviewList[i].grade  +'</td>'
+	                            + '</tr>';
+	            	}
+				}
+				$('.productReview').append(String);
+				// 페이지네이션
+				$('.pagination-lg').empty();
+				page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount);
+			},
+			error: function(data) {
+				alert('에러발생');
+			}
+		});
 	});
+});
 </script>
