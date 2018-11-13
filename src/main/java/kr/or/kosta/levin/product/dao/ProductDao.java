@@ -7,6 +7,7 @@ import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -51,4 +52,7 @@ public interface ProductDao {
 	public Map<String, String> readSugarContentMinMaxValues() throws Exception;
 	public Map<String, String> readBodyMinMaxValues() throws Exception;
 	public Map<String, String> readPriceMinMaxValues() throws Exception;
+	
+	/** 필터에 따른 상품 목록 (페이지네이션 적용) */	
+	public List<Product> filteredList(FilterPagination filterPagination) throws Exception;
 }

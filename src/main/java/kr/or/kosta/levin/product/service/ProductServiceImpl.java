@@ -11,6 +11,7 @@ import kr.or.kosta.levin.common.domain.Pagination;
 import kr.or.kosta.levin.common.domain.PaginationManager;
 import kr.or.kosta.levin.common.domain.SearchPagination;
 import kr.or.kosta.levin.product.dao.ProductDao;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -186,5 +187,11 @@ public class ProductServiceImpl implements ProductService {
 		result.put("price", productDao.readPriceMinMaxValues());
 		
 		return result;
+	}
+	
+	// 필터와 페이지네이션 적용된 리스트를 불러옴
+	@Override
+	public List<Product> listFilteredProduct(FilterPagination filterPagination) throws Exception {
+		return productDao.filteredList(filterPagination);
 	}
 }

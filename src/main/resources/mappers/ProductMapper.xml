@@ -267,4 +267,39 @@
 		FROM   levin_prices  
 	</select>
 	
+	<!-- 필터 적용된 목록 조회 -->
+	<select id="readFilteredList" parameterType="FilterPagination" resultType="Product">
+		SELECT productid, 
+		       productnamekor, 
+		       price, 
+		       kind, 
+		       totalquantity "totalQuantity" 
+		FROM   (SELECT Ceil(ROWNUM / #{perPageNum}) request_page, 
+		               productid, 
+		               productnamekor, 
+		               price, 
+		               kind, 
+		               totalquantity 
+		        FROM   (SELECT pro.product_id       productId, 
+		                       pro.product_name_kor productNameKor, 
+		                       pri.price            price, 
+		                       pro.kind             kind, 
+		                       pro.region_id        region_id, 
+		                       pro.total_quantity   totalQuantity 
+		                FROM   levin_products pro 
+		                       inner join levin_prices pri 
+		                               ON pro.product_id = pri.product_id 
+		                WHERE  alcohol BETWEEN #{alcohol.min} AND #{alcohol.max}
+		                       AND sugar_content BETWEEN #{sugarContent.min} AND #{sugarContent.max}
+		                       AND body BETWEEN #{body.min} AND #{body.max}  
+		                       AND price BETWEEN #{price.min} AND #{price.max} 
+		               	<if test="kind != null">
+		                	   AND kind = #{kind}
+		                </if>
+		                <if test="regionId != null">
+		                       AND region_id = #{regionId} 
+		                </if>
+		                ORDER  BY pro.product_id)) 
+		WHERE  request_page = #{currentPage}
+	</select>
 </mapper>

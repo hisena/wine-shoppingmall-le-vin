@@ -35,7 +35,7 @@
               <button value="Sweet">Sweet</button>
             </div>
             <div class="filter__box">
-              <a class="filter__menu" href="#">상세 검색</a>
+              <a class="filter__menu" href="#" onclick="toggleIsFilterUsed()">상세 검색</a>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="filter__cart">
           <div class="filter__cart__inner">
             <div class="filter__menu__close__btn">
-              <a href="#"><i class="zmdi zmdi-close"></i></a>
+              <a href="#" onclick="toggleIsFilterUsed()"><i class="zmdi zmdi-close"></i></a>
             </div>
             <div class="filter__content">
               <div class="fiter__content__inner">
@@ -88,6 +88,7 @@
       
       <!-- 와인 상품 -->
       <div class="row">
+        <input type="hidden" id="isFilterUsed" value="false">
         <div class="product__list another-product-style" id="product">
         	<!-- 와인 상품 동적추가 -->
         </div>

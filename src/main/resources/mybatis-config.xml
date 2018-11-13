@@ -25,6 +25,7 @@
 		<typeAlias type="kr.or.kosta.levin.product.domain.ProductQna"         alias="ProductQna"/>
 		<typeAlias type="kr.or.kosta.levin.product.domain.Review"         alias="Review"/>
 		<typeAlias type="kr.or.kosta.levin.product.domain.ReviewComment"         alias="ReviewComment"/>
+		<typeAlias type="kr.or.kosta.levin.product.domain.FilterPagination"         alias="FilterPagination"/>
 	</typeAliases>
 	
 	<!-- 다수의 Database에 접근하거나 개발, 테스트, 운영 환경에 맞는 다중 환경 설정 지원 -->

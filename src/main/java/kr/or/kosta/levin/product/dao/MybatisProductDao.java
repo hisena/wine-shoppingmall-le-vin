@@ -10,7 +10,7 @@ import io.github.leeseungeun.webframework.annotations.Bean;
 import io.github.leeseungeun.webframework.annotations.Inject;
 import io.github.leeseungeun.webframework.enums.BeanType;
 import kr.or.kosta.levin.common.domain.SearchPagination;
-import kr.or.kosta.levin.privateqna.domain.PrivateQna;
+import kr.or.kosta.levin.product.domain.FilterPagination;
 import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
@@ -218,6 +218,16 @@ public class MybatisProductDao implements ProductDao {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		Map<String, String> result = null;
 		result = sqlSession.selectOne(NAMESPACE + "readPriceMinMaxValues");
+		sqlSession.close();
+		return result;
+	}
+	
+	// 필터와 페이지네이션 적용된 리스트 
+	@Override
+	public List<Product> filteredList(FilterPagination filterPagination) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Product> result = null;
+		result = sqlSession.selectList(NAMESPACE + "readFilteredList");
 		sqlSession.close();
 		return result;
 	}
