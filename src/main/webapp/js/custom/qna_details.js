@@ -82,13 +82,17 @@ function replyQna(id) {
 		},
 		dataType: "json",
 		success: function(data) {
+			$('#replySection').empty();
 			var listResult = data.listResult;
-			var String = '<table class="table table-striped table-bordered" style="">'
+			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
+				       + '<input type="button" class="btn btn-default" value="댓글쓰기" style="float: left; display: inline-block">'
+					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
 				       + '    <th>댓글번호</th>'
 				       + '    <th>이메일</th>'
 				       + '    <th>내용</th>'
 				       + '    <th>등록일</th>'
+				       + '    <th style="width: 17%"></th>'
 				       + '  </tr>';
 			if (data.listResult != 'false') {
 				for (var i = 0; i < listResult.length; i++) {
@@ -97,10 +101,15 @@ function replyQna(id) {
 						    + '  <td>'+ listResult[i].email +'</td>'
 						    + '  <td>'+ listResult[i].content +'</td>'
 						    + '  <td>'+ listResult[i].regdate +'</td>'
+						    + '  <td>'
+						    + '    <input type="button" value="수정" id="replyUpdate">'
+						    + '    <input type="button" value="삭제" id="replyDelete" style="margin-right: 10px">'
+						    + '  </td>'
 						    + '</tr>'
 				}
 				String += '</table>';
 				$('#replySection').append(String);
+				$('#replySection').toggle();
 			}
 		},
 		error: function(data) {
