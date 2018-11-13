@@ -22,7 +22,7 @@ function qnaDetails(category, title, content, regdate, articleId) {
 	           + '    </tr>'
 	           + '  </tbody>'
 	           + '</table>'
-	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyQna(' + articleId + ')">'
+	           + '<input type="button" value="댓글" id="reply" style="float: left" onclick="replyListQna(' + articleId + ')">'
 	           + '<input type="button" value="목록" id="back" onclick="getQnaList()">'
 	           + '<input type="button" value="수정" id="update" style="margin: 0 10px 20px 0">'
 	           + '<input type="button" value="삭제" id="delete" style="margin: 0 10px 20px 0" onclick="deletePrivateQna(' + articleId + ')">'
@@ -72,9 +72,9 @@ function deletePrivateQna(id) {
 		}
 	});
 }
-
 // 댓글 리스트 출력
-function replyQna(id) {
+function replyListQna(id) {
+	$('#replySection').empty();
 	$.ajax(Utils.baseUrl + "privateqna/comment-list.mall", {
 		method: "get",
 		data: {
@@ -82,10 +82,9 @@ function replyQna(id) {
 		},
 		dataType: "json",
 		success: function(data) {
-			$('#replySection').empty();
 			var listResult = data.listResult;
 			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
-				       + '<input type="button" class="btn btn-default" value="댓글쓰기" style="float: left; display: inline-block">'
+				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna()" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
 				       + '    <th>댓글번호</th>'
@@ -110,6 +109,33 @@ function replyQna(id) {
 				String += '</table>';
 				$('#replySection').append(String);
 				$('#replySection').toggle();
+			} else {
+				String += '<tr><td colspan="5" style="text-align: center;">등록된 댓글이 없습니다.</td></tr></table>'
+				$('#replySection').append(String);
+				$('#replySection').toggle();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 댓글 등록
+function replyWriteQna() {
+	var email = getCookie("email");
+	$.ajax(Utils.baseUrl + "privateqna/comment-add.mall", {
+		method: "post",
+		data: {
+			"email": email,
+			"category": $('input[type=text]').eq(2).val(),
+			"content": $('input[type=text]').eq(4).val(),
+			"articleId": $('input[type=hidden]').val()
+		},
+		dataType: "json",
+		success: function(data) {
+			alert('성공');
+			if (addCommentResult) {
+				replyListQna();
 			}
 		},
 		error: function(data) {

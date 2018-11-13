@@ -56,14 +56,17 @@ public class AddCommentController implements Controller {
 		String email = request.getParameter("email");
 		String category = request.getParameter("category");
 		String content = request.getParameter("content");
-
+		
 		// parentId null이나 공백 체크
 		if (parentId == null || parentId.trim().length() == 0) {
 			throw new RequestBadRequestException();
 		}
 		// 카테고리 체크
-		boolean categoryCheck = (category != "주문/결제" && category != "배송" && category != "취소/반품" && category != "회원정보"
-				&& category != "기타");
+		boolean categoryCheck = (!category.equals("주문/결제") 
+				&& !category.equals("배송") 
+				&& !category.equals("취소/반품") 
+				&& !category.equals("회원정보")
+				&& !category.equals("기타"));
 		if (categoryCheck) {
 			throw new RequestBadRequestException();
 		}
