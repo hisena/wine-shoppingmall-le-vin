@@ -328,6 +328,7 @@
 	  WHERE  qna_id = #{qnaId} 
 	</select>
 	
+
 	<!-- 상품문의글 수정하기 -->
 	<update id="updateQna" parameterType="ProductQna">
 	  UPDATE levin_product_qnas 
@@ -335,5 +336,19 @@
        		 content = #{content} 
 	  WHERE  qna_id = #{qnaId}
 	</update>
+
+
+	<!-- 구매후기 댓글리스트 -->
+	<select id="listReviewComm" parameterType="int" resultType="ReviewComment">
+	  SELECT reviews.review_id     reviewId, 
+       		 reviews.email, 
+       		 reviews.content, 
+       		 To_char(reviews.regdate, 'yyyy-mm-dd') regdate, 
+       		 reviews.delete_yn     deleteYN 
+	  FROM   levin_reviews 	reviews 
+      full join levin_reviews_comments comms 
+             ON reviews.review_id = comms.child_id 
+	  WHERE  comms.parent_id = #{parentId} 
+	</select>
 
 </mapper>

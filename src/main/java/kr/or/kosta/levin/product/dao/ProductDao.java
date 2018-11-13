@@ -8,10 +8,11 @@ import kr.or.kosta.levin.product.domain.Product;
 import kr.or.kosta.levin.product.domain.ProductQna;
 import kr.or.kosta.levin.product.domain.ProductQnaComment;
 import kr.or.kosta.levin.product.domain.Review;
+import kr.or.kosta.levin.product.domain.ReviewComment;
 
 /**
  * Product관련 기능을 수행하기 위해 DB와 연동하는 Dao 인터페이스 
- * @author 박소연
+ * @author 박소연, 류세은
  *
  */
 public interface ProductDao {
@@ -56,7 +57,12 @@ public interface ProductDao {
 	/** 상품문의글 상세보기 */
 	public ProductQna readQna(String qnaId) throws Exception;
 	
+
 	/** 상품문의글 수정하기 */
 	public boolean updateQna(ProductQna productQna) throws Exception;
+
+	/** 구매후기글의 댓글리스트 */
+	public List<ReviewComment> listReviewComm(int parentId) throws Exception;
+
 
 }

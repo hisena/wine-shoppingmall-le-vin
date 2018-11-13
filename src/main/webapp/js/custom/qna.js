@@ -21,14 +21,14 @@ function getQnaList() {
  	                   + '      </tr>'
  	                   + '    </thead>'
  	                   + '    <tbody>';
-            // 상품 리스트 출력
+            // 게시글 리스트 출력
    			$('#qnaSection').empty();
             for (var i = 0; i < qnaList.length; i++) {
             	if (qnaList[i].deleteYN == '1') {
             		String += '<tr><td colspan="4" style="text-align: center;">삭제된 게시글입니다.</td></tr>';
             	} else {
             		String += '<tr class="qnaList" onclick="readPrivateQna(' + qnaList[i].articleId + ')">'
-		                    + '  <td style="text-align: center">'+ (qnaList.length-i) +'</td>'
+		                    + '  <td style="text-align: center">'+ qnaList[i].articleId +'</td>'
     	                    + '  <td style="text-align: center">'+ qnaList[i].category +'</td>'
     	                    + '  <td>'+ qnaList[i].title +'</td>'
     	                    + '  <td style="text-align: center">'+ qnaList[i].regdate  +'</td>'

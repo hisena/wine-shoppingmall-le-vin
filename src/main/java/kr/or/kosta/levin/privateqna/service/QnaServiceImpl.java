@@ -124,17 +124,9 @@ public class QnaServiceImpl implements QnaService {
 
 	// 1:1문의글의 댓글 리스트 조회
 	@Override
-	public Map<String, Object> listComment(int parentId) throws Exception {
+	public List<PrivateQnaComment> listComment(int parentId) throws Exception {
 
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		// 댓글 리스트
-		List<PrivateQnaComment> list = qnaDao.list(parentId);
-
-		// controller로 넘겨 주기 위해 map에 담아주기
-		map.put("commentList", list);
-
-		return map;
+		return qnaDao.list(parentId);
 	}
 
 	// 1:1문의글 댓글 수정
