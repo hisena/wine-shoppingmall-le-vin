@@ -177,7 +177,7 @@ public class MybatisProductDao implements ProductDao {
 		// 댓글 등록에 성공했으면
 		if (insertResult == 1) {
 			// 상품문의 원글과 댓글의 관계 설정해주기
-			if(sqlSession.insert(NAMESPACE + "createQnaCommentId", productQna.getQnaId()) == 1) {
+			if(sqlSession.insert(NAMESPACE + "createQnaCommentId", Integer.parseInt(productQna.getQnaId())) == 1) {
 				// 커밋해주기
 				sqlSession.commit();
 				createQnaCommentResult = true;

@@ -44,18 +44,12 @@ public class AddQnaCommentController implements Controller {
 			throws ServletException, RequestException {
 
 		// 클라이언트로부터 받은 값
-//		String qnaId = request.getParameter("qnaId");
-//		String privateYn = request.getParameter("privateYn");
-//		String productId = request.getParameter("productId");
-//	    String writer = request.getParameter("writer");
-//	    String content = request.getParameter("content");
+		String qnaId = request.getParameter("qnaId");
+		String privateYn = request.getParameter("privateYn");
+		String productId = request.getParameter("productId");
+	    String writer = request.getParameter("writer");
+	    String content = request.getParameter("content");
 	    
-	    String qnaId = "52";
-		String privateYn = "Y";
-		String productId = "7";
-	    String writer = "sodus0131@naver.com";
-	    String content = "상품7의 52번째 글에 달린 댓글입니다.";
-		    
 		boolean addCommentResult;
 		ProductQna productQna = new ProductQna();
 		Map<String, String> map = new HashMap<>();
@@ -68,7 +62,7 @@ public class AddQnaCommentController implements Controller {
 				// 도메인에 담아주기
 				productQna.setProductId(productId);
 				productQna.setPrivateYn(privateYn);
-				productQna.setTitle(qnaId);
+				productQna.setQnaId(qnaId);
 				productQna.setContent(content);
 				productQna.setWriter(writer);
 				
@@ -86,7 +80,7 @@ public class AddQnaCommentController implements Controller {
 				throw new RequestBadRequestException();
 			}
 		} catch (Exception e) {
-			throw new ServletException("product/addQnaCommentController 예외 ", e);
+			throw new ServletException("product/addQnaCommentCommentController 예외 ", e);
 		}
 	}
 }
