@@ -55,4 +55,5 @@ public interface ProductDao {
 	
 	/** 필터에 따른 상품 목록 (페이지네이션 적용) */	
 	public List<Product> filteredList(FilterPagination filterPagination) throws Exception;
+	public int filteredListCount(FilterPagination filterPagination) throws Exception;
 }

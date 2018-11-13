@@ -227,9 +227,17 @@ public class MybatisProductDao implements ProductDao {
 	public List<Product> filteredList(FilterPagination filterPagination) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<Product> result = null;
-		result = sqlSession.selectList(NAMESPACE + "readFilteredList");
+		result = sqlSession.selectList(NAMESPACE + "readFilteredList", filterPagination);
 		sqlSession.close();
 		return result;
 	}
-
+	
+	@Override
+	public int filteredListCount(FilterPagination filterPagination) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		result = sqlSession.selectOne(NAMESPACE + "readFilteredListCount", filterPagination);
+		sqlSession.close();
+		return result;
+	}
 }

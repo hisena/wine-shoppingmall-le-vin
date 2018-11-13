@@ -191,7 +191,20 @@ public class ProductServiceImpl implements ProductService {
 	
 	// 필터와 페이지네이션 적용된 리스트를 불러옴
 	@Override
-	public List<Product> listFilteredProduct(FilterPagination filterPagination) throws Exception {
-		return productDao.filteredList(filterPagination);
+	public Map<String, Object> listFilteredProduct(FilterPagination filterPagination) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int count = productDao.filteredListCount(filterPagination);
+		
+		// 페이징 관련정보(시작, 끝 페이지 등) 처리
+		PaginationManager pm = new PaginationManager();
+		pm.setPagination(filterPagination);
+		pm.setTotalCount(count);
+		
+		map.put("productList", productDao.filteredList(filterPagination));
+		map.put("pageInfo", pm.pageInfo());
+		
+		return map;
 	}
 }

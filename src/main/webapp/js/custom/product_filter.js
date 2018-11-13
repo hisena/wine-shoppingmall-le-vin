@@ -8,10 +8,10 @@
 var Filter = {};
 // 사용자가 선택한 필터 정보를 저장하는 객체
 var selectedFilters = {
-	alcohol:{},
-	sugarContent:{},
-	body:{},
-	price:{},
+	"alcohol":{},
+	"sugarContent":{},
+	"body":{},
+	"price":{},
 };
 
 function calculateQuantiles(minValue, maxValue) {
@@ -51,7 +51,7 @@ function initiateFilters() {
 	$('.kind .filter__list').empty();
 	for (var i = 0; i < kind.length; i++) {
 		var li = '<li>' + 
-					'<a href="'+ kind[i] +'" onclick="event.preventDefault(); toggleFilterValue(this, \'kind\')">' +
+					'<a href="'+ kind[i] +'" onclick="event.preventDefault(); toggleFilterValue(this, \'kind\'); getFilteredListData(1);">' +
 					kind[i] +
 					'</a>' +
 				'</li>';
@@ -63,7 +63,7 @@ function initiateFilters() {
 	$('.region .filter__list').empty();
 	for (var i = 0; i < region.length; i++) {
 		var li = '<li>' + 
-		'<a href="'+ region[i]['regionId'] +'" onclick="event.preventDefault(); toggleFilterValue(this, \'regionId\')">' +
+		'<a href="'+ region[i]['regionId'] +'" onclick="event.preventDefault(); toggleFilterValue(this, \'regionId\'); getFilteredListData(1);">' +
 		region[i]['regionName'] +
 		'</a>' +
 		'</li>';
@@ -83,7 +83,12 @@ function initiateFilters() {
       max: alcohol['max'],
       values: [selectedFilters.alcohol.min, selectedFilters.alcohol.max],
       slide: function( event, ui ) {
-        $( "#alcohol-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+    	  setTimeout(function() {
+	          $( "#alcohol-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+	          selectedFilters.alcohol.min = ui.values[0];
+	          selectedFilters.alcohol.max = ui.values[1];
+	          getFilteredListData(1);
+	      }, 500);
       }
     });
 	$( "#alcohol-amount" ).val( $( "#alcohol-range" ).slider( "values", 0 ) +
@@ -102,7 +107,12 @@ function initiateFilters() {
 		max: sugarContent['max'],
 		values: [selectedFilters.sugarContent.min, selectedFilters.sugarContent.max],
 		slide: function( event, ui ) {
-			$( "#sugar-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			setTimeout(function() {
+		          $( "#sugar-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+		          selectedFilters.sugarContent.min = ui.values[0];
+		          selectedFilters.sugarContent.max = ui.values[1];
+		          getFilteredListData(1);
+		      }, 500);
 		}
 	});
 	$( "#sugar-amount" ).val( $( "#sugar-range" ).slider( "values", 0 ) +
@@ -121,7 +131,12 @@ function initiateFilters() {
 		max: body['max'],
 		values: [selectedFilters.body.min, selectedFilters.body.max],
 		slide: function( event, ui ) {
-			$( "#body-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			setTimeout(function() {
+		          $( "#body-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+		          selectedFilters.body.min = ui.values[0];
+		          selectedFilters.body.max = ui.values[1];
+		          getFilteredListData(1);
+		      }, 500);
 		}
 	});
 	$( "#body-amount" ).val( $( "#body-range" ).slider( "values", 0 ) +
@@ -140,7 +155,12 @@ function initiateFilters() {
 		max: price['max'],
 		values: [selectedFilters.price.min, selectedFilters.price.max],
 		slide: function( event, ui ) {
-			$( "#price-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			setTimeout(function() {
+		          $( "#price-amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+		          selectedFilters.price.min = ui.values[0];
+		          selectedFilters.price.max = ui.values[1];
+		          getFilteredListData(1);
+		      }, 500);
 		}
 	});
 	$( "#price-amount" ).val( $( "#price-range" ).slider( "values", 0 ) +
@@ -158,28 +178,40 @@ function toggleFilterValue(target, key) {
 }
 
 function toggleIsFilterUsed() {
-	console.log('hello');
 	var value = $('#isFilterUsed').val() === 'true';
-	console.log(!value);
 	$('#isFilterUsed').val(!value);
 }
 
-function getFilteredListData() {
+function getFilteredListData(currentPage) {
 	$.ajax(Utils.baseUrl + "product/filter/list.mall", {
 		method: "get",
-		data: {
-			"email": email,
-			"articleId": $('input[type="hidden"]').val(),
-			"category": $('input[type="text"]:eq(2)').val(),
-			"title": $('input[type="text"]:eq(1)').val(),
-			"content": $('textarea').val()
-		},
-		dataType: "json",
+		contentType:'application/json;charset-utf-8;',
+		data: "kind=" + selectedFilters.kind +
+			"&regionId=" + selectedFilters.regionId +
+			"&minAlcohol=" + selectedFilters.alcohol.min +
+			"&maxAlcohol=" + selectedFilters.alcohol.max +
+			"&minSugarContent=" + selectedFilters.sugarContent.min +
+			"&maxSugarContent=" + selectedFilters.sugarContent.max +
+			"&minBody=" + selectedFilters.body.min +
+			"&maxBody=" + selectedFilters.body.max +
+			"&minPrice=" + selectedFilters.price.min +
+			"&maxPrice=" + selectedFilters.price.max +
+			"&currentPage=" + currentPage,
 		success: function(data) {
-			
+			var productList = data.productList;
+			var pageInfo = data.pageInfo;
+			// 상품 리스트 출력
+			$('#product').empty();
+			$.each(productList, function(index, item) {
+				printItems(item.productId, item.productNameKor, item.price, item.totalQuantity);
+			});
+			// 페이지네이션
+			$('.pagination-lg').empty();
+			page(pageInfo.currentPage, pageInfo.endPage, pageInfo.next, pageInfo.prev, pageInfo.startPage, pageInfo.totalCount);
 		},
 		error: function(data) {
 			snackbar('필터가 적용된 상품을 가져오는 데 실패했습니다. 잠시 후 시도해주세요.');
 		}
 	});
 }
+

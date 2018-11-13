@@ -13,63 +13,116 @@ import kr.or.kosta.levin.common.domain.Pagination;
 public class FilterPagination extends Pagination{
 	
 	// 인스턴스 변수
-	String kind;
-	Integer regionId;
-	Map<String, String> alcohol;
-	Map<String, Integer> sugarContent;
-	Map<String, Integer> body;
-	Map<String, Integer> price;
+	private String kind;
+	private Integer regionId;
+	private Integer maxAlcohol;
+	private Integer minAlcohol;
+	private Integer maxSugarContent;
+	private Integer minSugarContent;
+	private Integer maxBody;
+	private Integer minBody;
+	private Integer maxPrice;
+	private Integer minPrice;
 	
 	// getter / setter
 	public String getKind() {
 		return kind;
 	}
+	
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
+	
 	public Integer getRegionId() {
 		return regionId;
 	}
+	
 	public void setRegionId(Integer regionId) {
 		this.regionId = regionId;
 	}
-	public Map<String, String> getAlcohol() {
-		return alcohol;
+	
+	public Integer getMaxAlcohol() {
+		return maxAlcohol;
 	}
-	public void setAlcohol(Map<String, String> alcohol) {
-		this.alcohol = alcohol;
+	
+	public void setMaxAlcohol(Integer maxAlcohol) {
+		this.maxAlcohol = maxAlcohol;
 	}
-	public Map<String, Integer> getSugarContent() {
-		return sugarContent;
+	
+	public Integer getMinAlcohol() {
+		return minAlcohol;
 	}
-	public void setSugarContent(Map<String, Integer> sugarContent) {
-		this.sugarContent = sugarContent;
+	
+	public void setMinAlcohol(Integer minAlcohol) {
+		this.minAlcohol = minAlcohol;
 	}
-	public Map<String, Integer> getBody() {
-		return body;
+	
+	public Integer getMaxSugarContent() {
+		return maxSugarContent;
 	}
-	public void setBody(Map<String, Integer> body) {
-		this.body = body;
+	
+	public void setMaxSugarContent(Integer maxSugarContent) {
+		this.maxSugarContent = maxSugarContent;
 	}
-	public Map<String, Integer> getPrice() {
-		return price;
+	
+	public Integer getMinSugarContent() {
+		return minSugarContent;
 	}
-	public void setPrice(Map<String, Integer> price) {
-		this.price = price;
+	
+	public void setMinSugarContent(Integer minSugarContent) {
+		this.minSugarContent = minSugarContent;
+	}
+	
+	public Integer getMaxBody() {
+		return maxBody;
+	}
+	
+	public void setMaxBody(Integer maxBody) {
+		this.maxBody = maxBody;
+	}
+	
+	public Integer getMinBody() {
+		return minBody;
+	}
+	
+	public void setMinBody(Integer minBody) {
+		this.minBody = minBody;
+	}
+	
+	public Integer getMaxPrice() {
+		return maxPrice;
+	}
+	
+	public void setMaxPrice(Integer maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+	
+	public Integer getMinPrice() {
+		return minPrice;
+	}
+	
+	public void setMinPrice(Integer minPrice) {
+		this.minPrice = minPrice;
 	}
 	
 	// 유효성을 검사하는 메소드
 	public boolean hasAllNeccessaryVariables() {
-		return this.alcohol != null
-				&& this.sugarContent != null
-				&& this.body != null
-				&& this.price != null;
+		return this.maxAlcohol != null
+				&& this.minAlcohol != null
+				&& this.maxSugarContent != null
+				&& this.minSugarContent != null
+				&& this.maxBody != null
+				&& this.minBody != null
+				&& this.minPrice != null
+				&& this.maxPrice != null;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "FilterPagination [kind=" + kind + ", regionId=" + regionId + ", alcohol=" + alcohol + ", sugarContent="
-				+ sugarContent + ", body=" + body + ", price=" + price + "]";
+		return "FilterPagination [kind=" + kind + ", regionId=" + regionId + ", maxAlcohol=" + maxAlcohol
+				+ ", minAlcohol=" + minAlcohol + ", maxSugarContent=" + maxSugarContent + ", minSugarContent="
+				+ minSugarContent + ", maxBody=" + maxBody + ", minBody=" + minBody + ", maxPrice=" + maxPrice
+				+ ", minPrice=" + minPrice + "]";
 	}
 	
 }

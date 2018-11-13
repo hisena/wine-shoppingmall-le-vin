@@ -46,5 +46,5 @@ public interface ProductService {
 	/** 필터 초기화를 위해 각 값의 범위를 불러옴 */
 	public Map<String, Object> initiateFilterValues() throws Exception;
 	/** 필터와 페이지네이션이 적용된 목록을 불러옴 */
-	public List<Product> listFilteredProduct(FilterPagination filterPagination) throws Exception;
+	public Map<String, Object> listFilteredProduct(FilterPagination filterPagination) throws Exception;
 }
