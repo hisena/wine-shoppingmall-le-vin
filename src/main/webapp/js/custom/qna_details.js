@@ -87,24 +87,28 @@ function replyListQna(id) {
 				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna()" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
-				       + '    <th>댓글번호</th>'
-				       + '    <th>이메일</th>'
-				       + '    <th>내용</th>'
-				       + '    <th>등록일</th>'
+				       + '    <th style="width: 5%">댓글번호</th>'
+				       + '    <th style="width: 20%">이메일</th>'
+				       + '    <th style="width: 50%">내용</th>'
+				       + '    <th style="width: 8%">등록일</th>'
 				       + '    <th style="width: 17%"></th>'
 				       + '  </tr>';
 			if (data.listResult != 'false') {
 				for (var i = 0; i < listResult.length; i++) {
 					String += '<tr>'
-						    + '  <td>'+ listResult[i].commentId +'</td>'
-						    + '  <td>'+ listResult[i].email +'</td>'
-						    + '  <td>'+ listResult[i].content +'</td>'
-						    + '  <td>'+ listResult[i].regdate +'</td>'
-						    + '  <td>'
-						    + '    <input type="button" value="수정" id="replyUpdate">'
-						    + '    <input type="button" value="삭제" id="replyDelete" style="margin-right: 10px">'
-						    + '  </td>'
-						    + '</tr>'
+					if (listResult[i].deleteYN == 'Y') {
+						String += '<td colspan="5" style="text-align: center;">삭제된 댓글입니다.</td>';
+					} else {
+						String += '<td id="commentId">'+ listResult[i].commentId +'</td>'
+					            + '<td>'+ listResult[i].email +'</td>'
+					            + '<td><input type="text" value="'+ listResult[i].content +'" id="replyContent"></td>'
+					            + '<td>'+ listResult[i].regdate +'</td>'
+					            + '<td>'
+					            + '<input type="button" value="수정" onclick="replyUpdateQna()" id="replyUpdate">'
+					            + '<input type="button" value="삭제" onclick="replyDeleteQna()" id="replyDelete" style="margin-right: 10px">'
+					            + '</td>';
+					}
+					String += '</tr>';
 				}
 				String += '</table>';
 				$('#replySection').append(String);
@@ -133,8 +137,44 @@ function replyWriteQna() {
 		},
 		dataType: "json",
 		success: function(data) {
-			alert('성공');
-			if (addCommentResult) {
+			if (data.addCommentResult) {
+				replyListQna();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 댓글 삭제
+function replyDeleteQna() {
+	$.ajax(Utils.baseUrl + "privateqna/comment-remove.mall", {
+		method: "post",
+		data: {
+			"commentId": $('#commentId').text()
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.removeCommentResult) {
+				replyListQna();
+			}
+		},
+		error: function(data) {
+			alert('에러발생');
+		}
+	});
+}
+// 댓글 수정
+function replyUpdateQna() {
+	$.ajax(Utils.baseUrl + "privateqna/comment-edit.mall", {
+		method: "post",
+		data: {
+			"commentId": $('#commentId').text(),
+			"content": $('#replyContent').val()
+		},
+		dataType: "json",
+		success: function(data) {
+			if (data.editCommentResult) {
 				replyListQna();
 			}
 		},
