@@ -85,7 +85,7 @@ function replyListReview(id) {
 		success: function(data) {
 			var reviewCommentResult = data.reviewCommentResult;
 			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
-				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteReview()" style="float: left; display: inline-block">'
+				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteReview('+ id +')" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
 				       + '    <th style="width: 5%">댓글번호</th>'
@@ -105,8 +105,8 @@ function replyListReview(id) {
 					            + '<td><input type="text" value="'+ reviewCommentResult[i].content +'" id="replyContent"></td>'
 					            + '<td>'+ reviewCommentResult[i].regdate +'</td>'
 					            + '<td>'
-					            + '<input type="button" value="수정" onclick="replyUpdateReview()" id="replyUpdate">'
-					            + '<input type="button" value="삭제" onclick="replyDeleteReview()" id="replyDelete" style="margin-right: 10px">'
+					            + '<input type="button" value="수정" onclick="replyUpdateReview('+ id +')" id="replyUpdate">'
+					            + '<input type="button" value="삭제" onclick="replyDeleteReview('+ id +')" id="replyDelete" style="margin-right: 10px">'
 					            + '</td>';
 					}
 					String += '</tr>';
@@ -126,7 +126,7 @@ function replyListReview(id) {
 	});
 }
 // 구매후기 댓글 등록
-function replyWriteReview() {
+function replyWriteReview(id) {
 	var email = getCookie("email");
 	$.ajax(Utils.baseUrl + "product/review-comment-add.mall", {
 		method: "post",
@@ -139,7 +139,7 @@ function replyWriteReview() {
 		dataType: "json",
 		success: function(data) {
 			if (data.addReviewCommentResult) {
-				replyListReview();
+				replyListReview(id);
 			}
 		},
 		error: function(data) {
@@ -148,7 +148,7 @@ function replyWriteReview() {
 	});
 }
 // 구매하기 댓글 삭제
-function replyDeleteReview() {
+function replyDeleteReview(id) {
 	$.ajax(Utils.baseUrl + "product/review-comment-remove.mall", {
 		method: "post",
 		data: {
@@ -157,7 +157,7 @@ function replyDeleteReview() {
 		dataType: "json",
 		success: function(data) {
 			if (data.removeReviewCommentResult) {
-				replyListReview();
+				replyListReview(id);
 			}
 		},
 		error: function(data) {
@@ -166,7 +166,7 @@ function replyDeleteReview() {
 	});
 }
 // 구매하기 댓글 수정
-function replyUpdateReview() {
+function replyUpdateReview(id) {
 	$.ajax(Utils.baseUrl + "product/review-comment-edit.mall", {
 		method: "post",
 		data: {
@@ -176,7 +176,7 @@ function replyUpdateReview() {
 		dataType: "json",
 		success: function(data) {
 			if (data.editReviewCommentResult) {
-				replyListReview();
+				replyListReview(id);
 			}
 		},
 		error: function(data) {

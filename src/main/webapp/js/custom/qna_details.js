@@ -84,7 +84,7 @@ function replyListQna(id) {
 		success: function(data) {
 			var listResult = data.listResult;
 			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
-				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna()" style="float: left; display: inline-block">'
+				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna('+ id +')" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
 				       + '    <th style="width: 5%">댓글번호</th>'
@@ -104,8 +104,8 @@ function replyListQna(id) {
 					            + '<td><input type="text" value="'+ listResult[i].content +'" id="replyContent"></td>'
 					            + '<td>'+ listResult[i].regdate +'</td>'
 					            + '<td>'
-					            + '<input type="button" value="수정" onclick="replyUpdateQna()" id="replyUpdate">'
-					            + '<input type="button" value="삭제" onclick="replyDeleteQna()" id="replyDelete" style="margin-right: 10px">'
+					            + '<input type="button" value="수정" onclick="replyUpdateQna('+ id +')" id="replyUpdate">'
+					            + '<input type="button" value="삭제" onclick="replyDeleteQna('+ id +')" id="replyDelete" style="margin-right: 10px">'
 					            + '</td>';
 					}
 					String += '</tr>';
@@ -125,7 +125,7 @@ function replyListQna(id) {
 	});
 }
 // 댓글 등록
-function replyWriteQna() {
+function replyWriteQna(id) {
 	var email = getCookie("email");
 	$.ajax(Utils.baseUrl + "privateqna/comment-add.mall", {
 		method: "post",
@@ -138,7 +138,7 @@ function replyWriteQna() {
 		dataType: "json",
 		success: function(data) {
 			if (data.addCommentResult) {
-				replyListQna();
+				replyListQna(id)
 			}
 		},
 		error: function(data) {
@@ -147,7 +147,7 @@ function replyWriteQna() {
 	});
 }
 // 댓글 삭제
-function replyDeleteQna() {
+function replyDeleteQna(id) {
 	$.ajax(Utils.baseUrl + "privateqna/comment-remove.mall", {
 		method: "post",
 		data: {
@@ -156,7 +156,7 @@ function replyDeleteQna() {
 		dataType: "json",
 		success: function(data) {
 			if (data.removeCommentResult) {
-				replyListQna();
+				replyListQna(id)
 			}
 		},
 		error: function(data) {
@@ -165,7 +165,7 @@ function replyDeleteQna() {
 	});
 }
 // 댓글 수정
-function replyUpdateQna() {
+function replyUpdateQna(id) {
 	$.ajax(Utils.baseUrl + "privateqna/comment-edit.mall", {
 		method: "post",
 		data: {
@@ -175,7 +175,7 @@ function replyUpdateQna() {
 		dataType: "json",
 		success: function(data) {
 			if (data.editCommentResult) {
-				replyListQna();
+				replyListQna(id)
 			}
 		},
 		error: function(data) {
