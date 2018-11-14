@@ -15,7 +15,7 @@
              		order_date, 
             		is_paid
         ) VALUES ( 
-        			order_id_seq.nextval, 
+        			(select nvl(max(order_id), 1) + 1 from levin_orders) , 
             		#{email}, 
             		#{orderMoney}, 
             		SYSDATE, 
