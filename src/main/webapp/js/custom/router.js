@@ -59,9 +59,9 @@ function route(event, id, selector, callback) {
 
 // 스크립트파일(main.js) 동적 추가
 function getScript(callback){
-	$.getScript('js/owl.carousel.min.js', function(){
+	//$.getScript('js/owl.carousel.min.js', function(){
 
 		$.getScript('js/main.js', callback);
 
-	});
+	//});
 }
