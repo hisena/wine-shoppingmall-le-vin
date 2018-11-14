@@ -3,13 +3,13 @@ function qnaDetails(category, title, content, regdate, articleId) {
 	var String = '<table class="table table-striped table-bordered">'
 	           + '  <thead>'
 	           + '    <tr>'
-	           + '      <input type="hidden" value="'+ articleId +'">'
+	           + '      <input type="hidden" id="articleId" value="'+ articleId +'">'
 	           + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
-	           + '      <td colspan="3"><input type="text" class="form-control" value="'+ title +'"></td>'
+	           + '      <td colspan="3"><input type="text" id="qnaTitle" class="form-control" value="'+ title +'"></td>'
 	           + '    </tr>'
 	           + '    <tr>'
 	           + '      <th style="vertical-align:middle; text-align: center;">카테고리</th>'
-	           + '      <td><input type="text" class="form-control" value="'+ category +'"></td>'
+	           + '      <td><input id="qnaCategory" type="text" class="form-control" value="'+ category +'"></td>'
 	           + '      <th style="vertical-align:middle; text-align: center;">등록일</th>'
 	           + '      <td><input type="text" class="form-control" value="'+ regdate +'" readonly></td>'
 	           + '    </tr>'
@@ -37,9 +37,9 @@ function qnaDetails(category, title, content, regdate, articleId) {
 			method: "post",
 			data: {
 				"email": email,
-				"articleId": $('input[type="hidden"]').val(),
-				"category": $('input[type="text"]:eq(2)').val(),
-				"title": $('input[type="text"]:eq(1)').val(),
+				"articleId": $('#articleId').val(),
+				"category": $('#qnaCategory').val(),
+				"title": $('#qnaTitle').val(),
 				"content": $('textarea').val()
 			},
 			dataType: "json",
@@ -83,7 +83,7 @@ function replyListQna(id) {
 		dataType: "json",
 		success: function(data) {
 			var listResult = data.listResult;
-			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
+			var String = '<input type="text" id="qnaReviewContent" class="form-control" style="width: 80%; float: left; display: inline-block">'
 				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteQna('+ id +')" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
@@ -131,9 +131,9 @@ function replyWriteQna(id) {
 		method: "post",
 		data: {
 			"email": email,
-			"category": $('input[type=text]').eq(2).val(),
-			"content": $('input[type=text]').eq(4).val(),
-			"articleId": $('input[type=hidden]').val()
+			"category": $('#qnaCategory').val(),
+			"content": $('#qnaReviewContent').val(),
+			"articleId": $('#articleId').val()
 		},
 		dataType: "json",
 		success: function(data) {

@@ -4,11 +4,11 @@ function reviewCreate(productId) {
                + '  <thead>'
                + '    <tr>'
                + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
-               + '      <td colspan="3"><input type="text" class="form-control"></td>'
+               + '      <td colspan="3"><input type="text" id="reviewTitle" class="form-control"></td>'
                + '    </tr>'
                + '    <tr>'
                + '      <th style="vertical-align:middle; text-align: center;">평점</th>'
-               + '      <td><input type="text" class="form-control"></td>'
+               + '      <td><input type="text" id="reviewGrade" class="form-control"></td>'
                + '      <th style="vertical-align:middle; text-align: center;">등록일</th>'
                + '      <td><input type="text" class="form-control" readonly></td>'
                + '    </tr>'
@@ -33,8 +33,8 @@ function reviewCreate(productId) {
 			data: {
 				"productId": productId,
 				"email": email,
-				"grade": $('input[type="text"]:eq(2)').val(),
-				"title": $('input[type="text"]:eq(1)').val(),
+				"grade": $('#reviewGrade').val(),
+				"title": $('#reviewTitle').val(),
 				"content": $('textarea').val()
 			},
 			dataType: "json",

@@ -4,11 +4,11 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 	           + '    <tr>'
 	           + '      <input type="hidden" value="'+ reviewId +'" id="reviewId">'
 	           + '      <th style="vertical-align:middle; text-align: center;">글 제목</th>'
-	           + '      <td colspan="3"><input type="text" class="form-control" value="'+ title +'"></td>'
+	           + '      <td colspan="3"><input type="text" id="reviewTitle2" class="form-control" value="'+ title +'"></td>'
 	           + '    </tr>'
 	           + '    <tr>'
 	           + '      <th style="vertical-align:middle; text-align: center;">별점</th>'
-	           + '      <td><input type="text" class="form-control" value="'+ grade +'"></td>'
+	           + '      <td><input type="text" id="reviewGrade2" class="form-control" value="'+ grade +'"></td>'
 	           + '      <th style="vertical-align:middle; text-align: center;">등록일</th>'
 	           + '      <td><input type="text" class="form-control" value="'+ regdate +'" readonly></td>'
 	           + '    </tr>'
@@ -37,8 +37,8 @@ function reviewDetails(grade, title, content, regdate, reviewId, productId) {
 			method: "post",
 			data: {
 				"reviewId": reviewId,
-				"grade": $('input[type="text"]:eq(2)').val(),
-				"title": $('input[type="text"]:eq(1)').val(),
+				"grade": $('#reviewGrade2').val(),
+				"title": $('#reviewTitle2').val(),
 				"content": $('textarea').val()
 			},
 			dataType: "json",
@@ -84,7 +84,8 @@ function replyListReview(id) {
 		dataType: "json",
 		success: function(data) {
 			var reviewCommentResult = data.reviewCommentResult;
-			var String = '<input type="text" class="form-control" style="width: 80%; float: left; display: inline-block">'
+			console.log(data);
+			var String = '<input type="text" id="reviewContent" class="form-control" style="width: 80%; float: left; display: inline-block">'
 				       + '<input type="button" class="btn btn-default" value="댓글쓰기" onclick="replyWriteReview('+ id +')" style="float: left; display: inline-block">'
 					   + '<table class="table table-striped table-bordered" style="">'
 				       + '  <tr>'
@@ -133,11 +134,12 @@ function replyWriteReview(id) {
 		data: {
 			"email": email,
 			"reviewId": $('#reviewId').val(),
-			"content": $('input[type=text]').eq(4).val(),
+			"content": $('#reviewContent').val(),
 			"productId": $('#productId').val()
 		},
 		dataType: "json",
 		success: function(data) {
+			console.log(data);
 			if (data.addReviewCommentResult) {
 				replyListReview(id);
 			}
