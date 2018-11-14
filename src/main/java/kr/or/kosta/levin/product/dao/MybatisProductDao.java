@@ -304,7 +304,7 @@ public class MybatisProductDao implements ProductDao {
 	public boolean updateReviewComment(Map<String, Object> parameter) throws Exception {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		int result = sqlSession.update(NAMESPACE + "updateComment", parameter);
+		int result = sqlSession.update(NAMESPACE + "updateReviewComment", parameter);
 		boolean flag = false;
 		// update에 성공한 경우
 		if (result == 1) {
